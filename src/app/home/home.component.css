@@ -25,7 +25,7 @@
   margin: 0 5px;
 }
 .otp_cls .alert_msg {
-  color: #ff2e00;
+  color: #cc2200;
   font-size: 12px;
   font-weight: 400;
 }
@@ -125,6 +125,29 @@
   font-size: 14px;
 }
 
+/* Visible field labels + required-field indicators (WCAG 3.3.2) */
+.mobile_form .required-note {
+  font-size: 12px;
+  color: #595959;
+  margin: 8px 0 0 0;
+  font-weight: 500;
+}
+.mobile_form .field-label {
+  display: block;
+  margin-top: 12px;
+  margin-bottom: 2px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #333333;
+}
+.mobile_form .field-label + .otp_field {
+  margin-top: 4px;
+}
+.mobile_form .req-star,
+.required-note span[aria-hidden="true"] {
+  color: #c60000;
+}
+
 .mobile_form[type="text"].form-control {
   font-weight: 600;
 }
@@ -139,7 +162,7 @@
   box-shadow: unset;
 }
 .mobile_form .form-control[type="text"]::placeholder {
-  color: #7d7d7d;
+  color: #737373;
   font-size: 12px;
   font-weight: 500;
 }
@@ -363,7 +386,7 @@
   font-weight: 600;
 }
 
-.trust_section h6 {
+/* .trust_section h6 {
   color: #231f2099;
   font-size: 14px;
   font-weight: 600;
@@ -372,6 +395,31 @@
 }
 
 .trust_section h6 span {
+  color: #280071;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+} */
+
+
+.trust_section h3 {
+  /* color: #231f2099; */
+  color: #575757; /* AAA 7.2:1 on #fff */
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.trust_section .trust-subtitle{
+  color: #575757; /* AAA 7.2:1 on #fff */
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.trust_section h3 span {
   color: #280071;
   font-size: 16px;
   font-style: normal;
@@ -428,7 +476,8 @@
 .trust_section .card_css span {
   font-size: 12px;
   margin-top: 10px;
-  color: #6d7d8b;
+  /* color: #6d7d8b; */
+  color: #475869; /* AAA 7.3:1 on #fff (was #4D5E6D = 6.7:1, AA only) */
   position: relative;
 }
 
@@ -934,7 +983,7 @@
 .modal-body .timeline .timeline-content .green-text {
   font-size: 16px;
   font-weight: 600;
-  color: #00ae79;
+  color: #007a55;
 }
 
 .modal-body .timeline .timeline-content .purple-text {
@@ -946,7 +995,7 @@
 .modal-body .timeline .timeline-content .red-text {
   font-size: 16px;
   font-weight: 600;
-  color: #ff2e00;
+  color: #cc2200;
 }
 
 .modal-body .timeline .timeline-content p {
@@ -1168,4 +1217,63 @@
   .trust_section ::ng-deep.p-carousel-container {
     margin: 10px 0;
   }
+}
+
+/* WCAG 1.4.10 Reflow: keep the 'Easy Demat Account Opening Process'
+   section usable at 400% zoom / 320px viewport. Stack the steps
+   vertically and hide the decorative connector arrows so nothing
+   overlaps, truncates or misaligns. */
+@media screen and (max-width: 480px) {
+  .ezdemat .align .card_align {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+  }
+  .ezdemat .align .card_cls {
+    width: 100%;
+    max-width: 100%;
+    gap: 12px;
+    padding: 8px;
+  }
+  .ezdemat .align .card_cls_arrow {
+    display: none;
+  }
+}
+
+/* 1.2.3 - transcript link + panel for the educational videos. */
+.benefits_section .transcript_link {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #280071;
+  text-decoration: underline;
+}
+
+.benefits_section .transcript_link:focus-visible {
+  outline: 3px solid #005fcc;
+  outline-offset: 2px;
+}
+
+.benefits_section .video_transcripts {
+  margin-top: 24px;
+}
+
+.benefits_section .transcript_block:focus-visible {
+  outline: 3px solid #005fcc;
+  outline-offset: 4px;
+}
+
+.benefits_section .transcript_block h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.benefits_section .transcript_body {
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-line;
 }

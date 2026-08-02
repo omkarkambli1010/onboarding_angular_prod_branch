@@ -353,7 +353,7 @@
   .modal-body .timeline .timeline-content .green-text {
     font-size: 16px;
     font-weight: 600;
-    color: #00ae79;
+    color: #007a55;
   }
 
   .modal-body .timeline .timeline-content .purple-text {
@@ -396,4 +396,8 @@
     height: unset;
     overflow: unset;
   }
+}
+/* Promote primary headings h5 -> h2/h3 for correct heading order; preserve original default-h5 size */
+.page-heading-sm {
+  font-size: 1.25rem;
 }

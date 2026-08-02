@@ -125,7 +125,6 @@ export class AggregatorCallbackComponent {
     this.startInterval();
     // this.getAggWebhookStatus()
 
-    this.title.setTitle('Thank You - Onboarding-DIY-PWA');
     
     this.personalFormNumber = window.sessionStorage.getItem('FormNumber');
 

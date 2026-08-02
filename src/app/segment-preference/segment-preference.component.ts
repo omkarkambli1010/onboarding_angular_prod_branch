@@ -137,7 +137,6 @@ export class SegmentPreferenceComponent implements OnInit {
       name: 'description',
       content: 'Capturing Plan Preference of the customer.',
     });
-    this.title.setTitle('Plan Preference - Onboarding-DIY-PWA');
 
     this.route.params.subscribe((params) => {
       const gotoValue = params['goto'];

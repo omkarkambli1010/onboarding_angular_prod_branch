@@ -155,7 +155,6 @@ export class SelfieComponent implements OnDestroy, OnInit {
 
     this.getLocation();
 
-    this.title.setTitle('Upload Selfie - Onboarding-DIY-PWA');
 
     this.meta.updateTag({
       name: 'description',

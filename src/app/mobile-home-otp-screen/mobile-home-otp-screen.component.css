@@ -184,7 +184,15 @@
   width: 100%;
 }
 
-.pan_details_form .help_faq_css h5 {
+/* .pan_details_form .help_faq_css h5 {
+  color: #222;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: normal;
+} */
+
+.pan_details_form .help_faq_css h1,
+.pan_details_form .help_faq_css h2 {
   color: #222;
   font-size: 18px;
   font-weight: 600;
@@ -211,7 +219,7 @@
 ::ng-deep .ng-otp-input-wrapper .otp-input {
   width: 50px !important;
   height: 45px !important;
-  border: 1px solid #ccc !important;
+  border: 1px solid #949494 !important;
   border-radius: 4px !important;
   text-align: center !important;
   margin: 0 5px !important;
@@ -237,7 +245,7 @@
 }
 
 .otp_cls .alert_msg {
-  color: #ff2e00;
+  color: #cc2200;
   font-size: 12px;
   font-weight: 400;
 }
@@ -367,7 +375,7 @@
 .modal-body .timeline .timeline-content .green-text {
   font-size: 16px;
   font-weight: 600;
-  color: #00ae79;
+  color: #007a55;
 }
 
 .modal-body .timeline .timeline-content .purple-text {
@@ -379,7 +387,7 @@
 .modal-body .timeline .timeline-content .red-text {
   font-size: 16px;
   font-weight: 600;
-  color: #ff2e00;
+  color: #cc2200;
 }
 
 .modal-body .timeline .timeline-content p {
@@ -429,7 +437,15 @@
     padding: 0 16px;
   }
 
-  .pan_details_form .back_cls h5 {
+  /* .pan_details_form .back_cls h5 {
+    color: #2b2b2b;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: normal;
+  } */
+
+  .pan_details_form .help_faq_css h1,
+  .pan_details_form .help_faq_css h2 {
     color: #2b2b2b;
     font-size: 16px;
     font-weight: 600;

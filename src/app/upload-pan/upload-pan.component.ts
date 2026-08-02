@@ -90,7 +90,6 @@ export class UploadPanComponent {
   ) { }
 
   ngOnInit(): void {
-    this.title.setTitle('Upload Pan - Onboarding-DIY-PWA');
 
     this.meta.updateTag({
       name: 'description',

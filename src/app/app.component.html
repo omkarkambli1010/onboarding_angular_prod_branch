@@ -1,10 +1,9 @@
+<a href="javascript:void(0)" class="skip-link" (click)="skipToMain($event)" (keydown.enter)="skipToMain($event)">Skip to main content</a>
 <app-header *ngIf="isheadervisible"></app-header>
 <!-- bdColor="transparent" -->
-<ngx-spinner
-  size="medium"
-  color="#280071"
-  type="ball-pulse-sync"
-  [fullScreen]="true"
-  ><p style="color: #280071">Please Wait</p></ngx-spinner
->
-<router-outlet></router-outlet>
+<ngx-spinner size="medium" color="#280071" type="ball-pulse-sync" [fullScreen]="true">
+  <p style="color: #280071" role="alert" aria-live="assertive">Please Wait</p>
+</ngx-spinner>
+<main id="main-content" tabindex="-1">
+  <router-outlet></router-outlet>
+</main>

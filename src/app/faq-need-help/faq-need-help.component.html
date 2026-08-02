@@ -150,8 +150,8 @@
     <div class="container">
       <div class="row">
         <div class="back_cls">
-          <div (click)="redirectBack($event)">
-            <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
+          <div (click)="redirectBack($event)" (keydown.enter)="redirectBack($event)" (keydown.space)="redirectBack($event)" role="button" tabindex="0">
+            <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
           </div>
 
           <div class="d-flex flex-column align-items-start gap-2">

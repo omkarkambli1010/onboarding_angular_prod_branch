@@ -12,7 +12,7 @@
                 <h5>Customer Verification</h5>
               </div>
               <div>
-                <div class="help_btn" (click)="faqHelpBtn('Pan')">Need Help?</div>
+                <div class="help_btn" (click)="faqHelpBtn('Pan')" (keydown.enter)="faqHelpBtn('Pan')" (keydown.space)="faqHelpBtn('Pan')" role="button" tabindex="0">Need Help?</div>
               </div>
             </div>
             <p class="sub_title">
@@ -21,7 +21,7 @@
           </div>
         </div>
 
-        <form method="post" class="">
+        <form aria-label="Customer Verification" method="post" class="">
           <div class="div">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="header_padding">
@@ -30,7 +30,7 @@
                     <h5>Customer Verification</h5>
                   </div>
                   <div>
-                    <div class="help_btn" (click)="faqHelpBtn('Pan')">Need Help?</div>
+                    <div class="help_btn" (click)="faqHelpBtn('Pan')" (keydown.enter)="faqHelpBtn('Pan')" (keydown.space)="faqHelpBtn('Pan')" role="button" tabindex="0">Need Help?</div>
                   </div>
                 </div>
                 <p class="sub_title">
@@ -138,7 +138,7 @@
         aria-label="Close"
         (click)="removeModal()"
       >
-        <h1 class="modal-title fs-5" id="completePanLabel"></h1>
+        <h2 class="modal-title fs-5" id="completePanLabel"></h2>
         <button
           type="button"
           class="btn-horizontal-line"
@@ -185,7 +185,7 @@
         ></button>
       </div>
       <div class="modal-body">
-        <p class="title_cls">OTP Verification</p>
+        <p class="title_cls" id="otpLabel">OTP Verification</p>
         <p>
           You will receive OTP on
           <span class="fw-bold">{{ this.sendOtp.mobile }}</span>
@@ -222,8 +222,7 @@
             <span
               class="otp_confirmation"
               *ngIf="!timeroff"
-              (click)="getMobileOtp(true)"
-            >
+              (click)="getMobileOtp(true)" (keydown.enter)="getMobileOtp(true)" (keydown.space)="getMobileOtp(true)" role="button" tabindex="0">
               Resend OTP
             </span>
           </div>
@@ -256,7 +255,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block">
-        <h1 class="modal-title fs-5" id="completePanManualLabel"></h1>
+        <h2 class="modal-title fs-5" id="completePanManualLabel"></h2>
         <!-- data-bs-dismiss="modal"
         aria-label="Close" -->
         <button
@@ -293,7 +292,7 @@
         <!-- (click)="removeModal()"
       data-bs-dismiss="modal"
       aria-label="Close" -->
-        <h1 class="modal-title fs-5" id="completePanVerifyDoneLabel"></h1>
+        <h2 class="modal-title fs-5" id="completePanVerifyDoneLabel"></h2>
         <button
           type="button"
           class="btn-horizontal-line"
@@ -359,7 +358,7 @@
         data-bs-dismiss="modal"
         aria-label="Close"
       >
-        <h1 class="modal-title fs-5" id="completePanVerifyErrorLabel"></h1>
+        <h2 class="modal-title fs-5" id="completePanVerifyErrorLabel"></h2>
         <button
           type="button"
           class="btn-horizontal-line"

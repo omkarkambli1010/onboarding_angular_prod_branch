@@ -1,11 +1,12 @@
-<section *ngIf="PersonalFormTwo && !PersonalFormThree" class="pan_details_form">
+<h1 class="visually-hidden">Take a selfie</h1>
+<section aria-label="Take a Selfie — Preparation" *ngIf="PersonalFormTwo && !PersonalFormThree" class="pan_details_form">
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-12 m-auto">
         <div class="mobile_css">
           <div class="back_cls">
-            <div *ngIf="this.RejectStatus != 'R'" (click)="redirectPlanProcess()">
-              <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
+            <div *ngIf="this.RejectStatus != 'R'" (click)="redirectPlanProcess()" (keydown.enter)="redirectPlanProcess()" (keydown.space)="redirectPlanProcess()" role="button" tabindex="0" aria-label="Go back">
+              <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
             </div>
 
             <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div>
@@ -18,11 +19,11 @@
               <div class="help_faq_css">
                 <div class="d-flex gap-2">
                   <div class="d-flex flex-column gap-2">
-                    <h5>Let's take a selfie</h5>
+                    <h5 role="heading" aria-level="2">Let's take a selfie</h5>
                   </div>
                 </div>
                 <div>
-                  <div class="help_btn" (click)="faqHelpBtn('Selfie')">
+                  <div class="help_btn" (click)="faqHelpBtn('Selfie')" (keydown.enter)="faqHelpBtn('Selfie')" (keydown.space)="faqHelpBtn('Selfie')" role="button" tabindex="0">
                     Need Help?
                   </div>
                 </div>
@@ -32,7 +33,7 @@
           </div>
         </div>
 
-        <form method="post">
+        <form role="presentation" method="post">
           <div class="">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <!-- <div class="d-flex align-items-start gap-2">
@@ -55,7 +56,7 @@
               <div class="mobile_header_padding">
                 <div class="help_faq_css">
                   <div class="d-flex gap-2">
-                    <div *ngIf="this.RejectStatus != 'R'" (click)="redirectPlanProcess()">
+                    <div *ngIf="this.RejectStatus != 'R'" (click)="redirectPlanProcess()" (keydown.enter)="redirectPlanProcess()" (keydown.space)="redirectPlanProcess()" role="button" tabindex="0" aria-label="Go back">
                       <span>
                         <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <g clip-path="url(#clip0_0_10804)">
@@ -75,7 +76,7 @@
                       </span>
                     </div>
                     <div class="heading">
-                      <h5>Get set for a quick selfie</h5>
+                      <h5 role="heading" aria-level="2">Get set for a quick selfie</h5>
                       <p class="sub_title">
                         Take a clear picture and upload it. Please ensure your
                         selfie matches the photo on your Aadhar or Pan card
@@ -83,7 +84,7 @@
                     </div>
                   </div>
                   <div>
-                    <div class="help_btn" (click)="faqHelpBtn('Selfie')">
+                    <div class="help_btn" (click)="faqHelpBtn('Selfie')" (keydown.enter)="faqHelpBtn('Selfie')" (keydown.space)="faqHelpBtn('Selfie')" role="button" tabindex="0">
                       Need Help?
                     </div>
                   </div>
@@ -181,7 +182,7 @@
             <div class="mobile_box">
               <p>
                 No webcam? No problem,
-                <a (click)="continueWithMobile()">&nbsp;Continue with mobile</a>&nbsp;&nbsp;<svg width="24" height="24"
+                <a role="button" tabindex="0" (click)="continueWithMobile()" (keydown.enter)="continueWithMobile()" (keydown.space)="continueWithMobile()">&nbsp;Continue with mobile</a>&nbsp;&nbsp;<svg width="24" height="24"
                   viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M19 12H5M19 12L13 18M19 12L13 6" stroke="#280071" stroke-width="1.5" stroke-linecap="round"
                     stroke-linejoin="round" />
@@ -211,12 +212,12 @@
     <div class="row">
       <div class="col-lg-10 col-12 m-auto">
         <div class="mobile_css">
-          <div class="back_cls" (click)="BackToOne()">
+          <div class="back_cls" (click)="BackToOne()" (keydown.enter)="BackToOne()" (keydown.space)="BackToOne()" role="button" tabindex="0" aria-label="Go back">
             <div>
               <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
             </div>
             <div class="d-flex flex-column align-items-start gap-2">
-              <h5>Get set for a quick selfie</h5>
+              <h5 role="heading" aria-level="2">Get set for a quick selfie</h5>
               <p class="sub_title">
                 Take a clear picture and upload it. Please ensure your selfie
                 matches the photo on your Aadhar or Pan card
@@ -225,11 +226,11 @@
           </div>
         </div>
 
-        <form method="post">
+        <form role="presentation" method="post">
           <div class="">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="d-flex align-items-start gap-2">
-                <div (click)="BackToOne()">
+                <div (click)="BackToOne()" (keydown.enter)="BackToOne()" (keydown.space)="BackToOne()" role="button" tabindex="0" aria-label="Go back">
                   <span> <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g clip-path="url(#clip0_0_10804)">
                         <path d="M5 12.5H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
@@ -247,7 +248,7 @@
                     </svg></span>
                 </div>
                 <div class="d-flex flex-column align-items-start gap-2">
-                  <h5>Get set for a quick selfie</h5>
+                  <h5 role="heading" aria-level="2">Get set for a quick selfie</h5>
                   <p class="sub_title">
                     Take a clear picture and upload it. Please ensure your
                     selfie matches the photo on your Aadhar or Pan card
@@ -271,7 +272,8 @@
             </div>
           </div>
           <div class="img_btn mobile_css">
-            <button [disabled]="isPreviewing" (click)="triggerSnapshot()">
+            <button [disabled]="isPreviewing" [attr.aria-disabled]="isPreviewing" (click)="triggerSnapshot()"
+              aria-label="Capture photo">
               <i class="fa fa-camera" aria-hidden="true"></i>
             </button>
           </div>
@@ -311,15 +313,18 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header d-block">
-          <h1 class="modal-title fs-5" id="uploadBankStateUploadLabel"></h1>
+          <h2 class="modal-title fs-5" id="uploadBankStateUploadLabel"></h2>
           <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <h5>{{ "Selfie " }}</h5>
-          <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
+          <h5 role="heading" aria-level="3">{{ "Selfie " }}</h5>
+          <image-cropper cropperFrameAriaLabel="Crop area. Use the arrow keys to move and resize it. Press a number key from 1 to 9 to change how far each key press moves it."
+          imageAltText="Image you uploaded, shown with an adjustable crop area"
+          [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
             [canvasRotation]="canvasRotation" [(transform)]="transform" [aspectRatio]="4 / 3" format="png"
             (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
             (loadImageFailed)="loadImageFailed()"></image-cropper>
+        <p class="cropper_hint">Keyboard users: tab to the crop area, then use the arrow keys to move and resize it.</p>
           <br />
           <!-- <div *ngIf="croppedImage" class="text-center">
         <label class="reupload_css" (click)="rotateRight()">Rotate</label>
@@ -330,7 +335,7 @@
           <div class="btn_align">
             <label class="btn btn_cls_outline">
               Re-Upload Image
-              <input type="file" accept="image/*" (change)="fileChangeEvent($event)" style="display: none" />
+              <input type="file" accept="image/*" (change)="fileChangeEvent($event)" style="display: none" aria-label="Upload a document file" />
             </label>
             <button type="button" class="btn btn_cls" data-bs-target="#uploadBankStateBg" data-bs-toggle="modal">
               Continue
@@ -389,50 +394,51 @@
 >
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header d-block" (click)="closeModalLocation();">
-        <h1 class="modal-title fs-5" id="refreshPageLabel"></h1>
+      <div class="modal-header d-block" style="border: none;" (click)="closeModalLocation();">
+        <h2 class="modal-title fs-5" id="refreshPageLabel"></h2>
 
-        <button
-          type="button"
-          class="btn-horizontal-line"
-          id="refreshPageClose"
-          (click)="closeModalLocation();"
-        ></button>
+        <button type="button" class="btn-horizontal-line" id="refreshPageClose" aria-label="Close"
+          (click)="closeModalLocation();"></button>
       </div>
 
       <div class="modal-body" style="text-align: center">
-        
-        <img
-          src="assets/images/diy/location_1.png"
-          alt="Enable Camera Permission"
-          class="centered-img"/>
-        <h5 style="padding-top: 10px;"><b>Enable Location Permission</b></h5>
+
+        <img src="assets/images/diy/location_1.png" alt="" aria-hidden="true" class="centered-img" />
+        <h5 role="heading" aria-level="2" style="padding-top: 10px;"><b>Enable Location Permission</b></h5>
         <br />
 
         <!-- Web -->
         <div *ngIf="web" class="steps">
           <p class="intro">Location access is required to proceed with selfie capture.</p>
-          <p style="padding-top: 10px;"><span>Tap the <b>lock icon/site info icon</b> on the left of the address bar.</span></p>
-          <p><span>Go to <b>Site Settings/Permissions</b>.</span></p>
-          <p><span>Set Location permission to <b>Allow</b>.</span></p>
-          <p><span>Once enabled, tap <b>Refresh Now</b> to continue.</span></p>
+          <ol class="steps_list">
+            <li><span>Tap the <b>lock icon/site info icon</b> on the left of the address
+              bar.</span></li>
+            <li><span>Go to <b>Site Settings/Permissions</b>.</span></li>
+            <li><span>Set Location permission to <b>Allow</b>.</span></li>
+            <li><span>Once enabled, tap <b>Refresh Now</b> to continue.</span></li>
+          </ol>
         </div>
 
         <!-- Android -->
         <div *ngIf="android" class="steps">
           <p class="intro">Location access is required to proceed with selfie capture.</p>
-          <p style="padding-top: 10px;"><span>Tap the <b>top-right menu (:)</b> or open <b>browser settings</b>.</span></p>
-          <p><span>Select the ⓘ <b>(information)</b> option.</span></p>
-          <p><span>Set Location permission to <b>Allow</b>.</span></p>
-          <p><span>Once enabled, tap <b>Refresh Now</b> to continue.</span></p>
+          <ol class="steps_list">
+            <li><span>Tap the <b>top-right menu (:)</b> or open <b>browser settings</b>.</span></li>
+            <li><span>Select the ⓘ <b>(information)</b> option.</span></li>
+            <li><span>Set Location permission to <b>Allow</b>.</span></li>
+            <li><span>Once enabled, tap <b>Refresh Now</b> to continue.</span></li>
+          </ol>
         </div>
 
         <!-- iOS -->
         <div *ngIf="ios" class="steps">
           <p class="intro">Location access is required to proceed with selfie capture.</p>
-          <p style="padding-top: 10px;"><span>Open <b>Page Settings</b> in your browser or the SBI Securities App.</span></p>
-          <p><span>Set Location permissions to <b>Allow</b>.</span></p>
-          <p><span>Once enabled, tap <b>Refresh Now</b> to continue.</span></p>
+          <ol class="steps_list">
+            <li><span>Open <b>Page Settings</b> in your browser or the SBI Securities
+              App.</span></li>
+            <li><span>Set Location permissions to <b>Allow</b>.</span></li>
+            <li><span>Once enabled, tap <b>Refresh Now</b> to continue.</span></li>
+          </ol>
         </div>
       </div>
 
@@ -464,48 +470,49 @@
   <div class="modal-dialog">
     <div class="modal-content">
 
-      <div class="modal-header d-block" (click)="closeModalCamera();">
-        <h1 class="modal-title fs-5" id="refreshPageCameraLabel"></h1>
+      <div class="modal-header d-block" style="border: none;" (click)="closeModalCamera();">
+        <h2 class="modal-title fs-5" id="refreshPageCameraLabel"></h2>
 
-        <button
-          type="button"
-          class="btn-horizontal-line"
-          id="refreshPageCameraClose"
-          (click)="closeModalCamera();"
-        ></button>
+        <button type="button" class="btn-horizontal-line" id="refreshPageCameraClose" aria-label="Close"
+          (click)="closeModalCamera();"></button>
       </div>
 
       <div class="modal-body" style="text-align: center">
 
-        <img
-          src="assets/images/diy/camera_1.png"
-          alt="Enable Camera Permission"
-          class="centered-img"/>
-          <h5 style="padding-top: 10px;"><b>Enable Camera Permission</b></h5>
-          <br>
-  <div *ngIf="web" class="steps">
+        <img src="assets/images/diy/camera_1.png" alt="" aria-hidden="true" class="centered-img" />
+        <h5 role="heading" aria-level="2" style="padding-top: 10px;"><b>Enable Camera Permission</b></h5>
+        <br>
+        <div *ngIf="web" class="steps">
           <p class="intro">Camera access is required to proceed with selfie capture.</p>
-          <p style="padding-top: 10px;"><span>Tap the <b>lock icon/site info icon</b> on the left of the address bar.</span></p>
-          <p><span>Go to <b>Site Settings/Permissions.</b></span></p>
-          <p><span>Set Camera permission to <b>Allow</b>.</span></p>
-          <p><span>Once enabled, tap <b>Refresh Now</b> to continue.</span></p>
+          <ol class="steps_list">
+            <li><span>Tap the <b>lock icon/site info icon</b> on the left of the address
+              bar.</span></li>
+            <li><span>Go to <b>Site Settings/Permissions.</b></span></li>
+            <li><span>Set Camera permission to <b>Allow</b>.</span></li>
+            <li><span>Once enabled, tap <b>Refresh Now</b> to continue.</span></li>
+          </ol>
         </div>
 
         <!-- Android -->
         <div *ngIf="android" class="steps">
           <p class="intro"><span>Camera access is required to proceed with selfie capture.</span></p>
-          <p style="padding-top: 10px;"><span>Tap the <b>top-right menu (:)</b> or open <b>browser settings</b>.</span></p>
-          <p><span>Select the ⓘ <b>(information)</b> option.</span></p>
-          <p><span>Set Camera permission to <b>Allow</b>.</span></p>
-          <p><span>Once enabled, tap <b>Refresh Now</b> to continue.</span></p>
+          <ol class="steps_list">
+            <li><span>Tap the <b>top-right menu (:)</b> or open <b>browser settings</b>.</span></li>
+            <li><span>Select the ⓘ <b>(information)</b> option.</span></li>
+            <li><span>Set Camera permission to <b>Allow</b>.</span></li>
+            <li><span>Once enabled, tap <b>Refresh Now</b> to continue.</span></li>
+          </ol>
         </div>
 
         <!-- iOS -->
         <div *ngIf="ios" class="steps">
           <p class="intro"><span>Camera access is required to proceed with selfie capture.</span></p>
-          <p style="padding-top: 10px;"><span>Open <b>Page Settings</b> in your browser or the SBI Securities App.</span></p>
-          <p><span>Set Camera permission to <b>Allow</b>.</span></p>
-          <p><span>Once enabled, tap <b>Refresh Now</b> to continue.</span></p>
+          <ol class="steps_list">
+            <li><span>Open <b>Page Settings</b> in your browser or the SBI Securities
+              App.</span></li>
+            <li><span>Set Camera permission to <b>Allow</b>.</span></li>
+            <li><span>Once enabled, tap <b>Refresh Now</b> to continue.</span></li>
+          </ol>
         </div>
 
       </div>

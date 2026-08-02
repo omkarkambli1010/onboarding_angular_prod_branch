@@ -4,8 +4,8 @@
       <div class="col-lg-10 col-12 m-auto">
         <div class="mobile_css">
           <div class="back_cls">
-            <div *ngIf="this.RejectStatus != 'R'" (click)="redirectSignature()">
-              <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
+            <div *ngIf="this.RejectStatus != 'R'" (click)="redirectSignature()" (keydown.enter)="redirectSignature()" (keydown.space)="redirectSignature()" role="button" tabindex="0">
+              <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
             </div>
             <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div>
 
@@ -18,19 +18,13 @@
           </div>
         </div>
 
-        <form method="post">
+        <form aria-label="Upload PAN Card" method="post">
           <div class="">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="d-flex align-items-start gap-2">
-                <div *ngIf="this.RejectStatus != 'R'" (click)="redirectSignature()">
-                  <span
-                    > <svg
-                      width="24"
-                      height="25"
-                      viewBox="0 0 24 25"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                <div *ngIf="this.RejectStatus != 'R'" (click)="redirectSignature()" (keydown.enter)="redirectSignature()" (keydown.space)="redirectSignature()" role="button" tabindex="0">
+                  <span> 
+                    <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g clip-path="url(#clip0_0_10804)">
                         <path
                           d="M5 12.5H19"
@@ -143,7 +137,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-        <h1 class="modal-title fs-5" id="uploadPanLabel"></h1>
+        <h2 class="modal-title fs-5" id="uploadPanLabel"></h2>
         <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
           (click)="removeModal()"></button>
       </div>
@@ -162,7 +156,7 @@
                 cursor: pointer;
               " type="file" capture="environment" accept="image/*" (change)="fileChangeEvent($event)"
               (click)="setCaptureEvent('environment')" (click)="resetExistingImage()" data-bs-target="#uploadPanUpload"
-              data-bs-toggle="modal" />
+              data-bs-toggle="modal" aria-label="Take a photo of your document" />
           </div>
           <div style="position: relative; display: inline-block">
             <img src="assets/images/diy/upload_img.png" alt="Upload Image" style="cursor: pointer" />
@@ -175,7 +169,7 @@
                 height: 100%;
                 cursor: pointer;
               " type="file" accept="image/*" (click)="resetExistingImage()" (click)="setCaptureEvent('upload')"
-              (change)="fileChangeEvent($event)" data-bs-target="#uploadPanUpload" data-bs-toggle="modal" />
+              (change)="fileChangeEvent($event)" data-bs-target="#uploadPanUpload" data-bs-toggle="modal" aria-label="Upload a document file" />
           </div>
         </div>
         <div class="file_type_css">
@@ -198,7 +192,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-        <h1 class="modal-title fs-5" id="uploadPanUploadLabel"></h1>
+        <h2 class="modal-title fs-5" id="uploadPanUploadLabel"></h2>
         <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
           (click)="removeModal()"></button>
       </div>
@@ -221,18 +215,18 @@
           <div class="btn_align">
             <label *ngIf="!imageChangedEvent" class="btn btn_cls_outline">
               Upload Image
-              <input type="file" accept="image/*" (change)="fileChangeEvent($event)" style="display: none" />
+              <input type="file" accept="image/*" (change)="fileChangeEvent($event)" style="display: none" aria-label="Upload a document file" />
               <!--  -->
             </label>
             <label *ngIf="imageChangedEvent && capture_event !== 'user'" (change)="fileChangeEvent($event)"
               class="btn btn_cls_outline p-0">
               Re-Upload Image
-              <input type="file" accept="image/*" (change)="fileChangeEvent($event)" style="display: none" />
+              <input type="file" accept="image/*" (change)="fileChangeEvent($event)" style="display: none" aria-label="Upload a document file" />
             </label>
             <label *ngIf="imageChangedEvent && capture_event == 'user'" class="btn btn_cls_outline p-0">
               Re-Upload Image
               <input type="file" capture="environment" accept="image/*" (change)="fileChangeEvent($event)"
-                style="display: none" />
+                style="display: none" aria-label="Take a photo of your document" />
               <!--  -->
             </label>
             <button [disabled]="!imageChangedEvent" type="button" class="btn btn_cls" data-bs-target="#uploadPanBg"
@@ -251,7 +245,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-        <h1 class="modal-title fs-5" id="uploadPanBgLabel"></h1>
+        <h2 class="modal-title fs-5" id="uploadPanBgLabel"></h2>
         <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
           (click)="removeModal()"></button>
       </div>

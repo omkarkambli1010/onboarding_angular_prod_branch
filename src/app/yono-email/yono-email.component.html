@@ -6,8 +6,8 @@
         <!-- <div class="mobile_css"> -->
         <div class="back_cls">
 
-          <div *ngIf="this.RejectStatus != 'R'" (click)="BackToYonoMobile();  clearEmailOTPFields(); clearTimer()">
-            <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
+          <div *ngIf="this.RejectStatus != 'R'" (click)="BackToYonoMobile();  clearEmailOTPFields(); clearTimer()" (keydown.enter)="BackToYonoMobile();  clearEmailOTPFields(); clearTimer()" (keydown.space)="BackToYonoMobile();  clearEmailOTPFields(); clearTimer()" role="button" tabindex="0">
+            <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
           </div>
 
           <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div>
@@ -80,8 +80,8 @@
         <!-- <div class="mobile_css"> -->
         <div class="back_cls">
 
-          <div (click)="BackToYonoEmail();  clearEmailOTPFields(); clearTimer()" class="d-none">
-            <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
+          <div (click)="BackToYonoEmail();  clearEmailOTPFields(); clearTimer()" class="d-none" (keydown.enter)="BackToYonoEmail();  clearEmailOTPFields(); clearTimer()" (keydown.space)="BackToYonoEmail();  clearEmailOTPFields(); clearTimer()" role="button" tabindex="0">
+            <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
           </div>
 
           <div class="d-flex flex-column align-items-start gap-2">
@@ -96,10 +96,9 @@
 
           <div class="form-floating mb-3">
             <div class="mobile__input__wrapper position-relative">
-            <label for="mobileInp" class="mobile_number_label position-absolute">Enter email ID</label>
-            <input type="email"  class="form-control mobile__input" id="floatingInput" placeholder="Email ID" id="exampleInputEmail1"
-              aria-describedby="emailHelp" [(ngModel)]="sendOtp.email" (input)="validateEmail()"
-              (focusout)="focusOutFunction()">
+              <label for="yonoEmailInp" class="mobile_number_label position-absolute">Enter email ID</label>
+              <input aria-label="Email Id" autocomplete="email" type="email" class="form-control mobile__input"
+                id="yonoEmailInp" placeholder="Email ID" [(ngModel)]="sendOtp.email" (input)="validateEmail()" (focusout)="focusOutFunction()" aria-required="true">
             </div>
             <!-- <label for="floatingInput">Enter Email ID</label> -->
           </div>
@@ -140,7 +139,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-12 m-auto d-none d-md-block">
-        <form method="post" class="">
+        <form aria-label="Email Verification" method="post" class="">
           <div class="div">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="d-flex flex-column align-items-start gap-2">
@@ -153,14 +152,16 @@
               <div class="mb-3 desktop_align">
                 <div><label for="EnterFullNameCard" class="form-label" >Enter Your Email ID</label></div>
                 <div>
-                  <input type="email" name="emailHelp"  class="form-control desk__email__inp" placeholder="Email ID"
-                    aria-describedby="emailHelp" [(ngModel)]="sendOtp.email" (input)="validateEmail()"
-                    (focusout)="focusOutFunction()"
-                  >
-                  <span *ngIf="emailFormatVal" class="red_warning">*Please enter a valid Email ID (e.g. john&#64;outlook.com)</span>
-                  <span *ngIf="sbiemailFormatVal" class="red_warning">*Email addresses containing &#64;sbi cannot be used</span>
-                  <span *ngIf="emailmultiplesymb" class="red_warning">*Please enter a valid Email ID containing only one &#64; sign (E.g. john&#64;outlook.com)</span>
-                  <span *ngIf="emailspecialchars" class="red_warning">*Only (_) , (&#64;) & (.) is allowed in Email ID</span>
+                  <input aria-label="Email Id" autocomplete="email" type="email" name="emailHelp" id="yonoEmailInpDesk"
+                    class="form-control desk__email__inp" placeholder="Email ID"                    [(ngModel)]="sendOtp.email" (input)="validateEmail()" (focusout)="focusOutFunction()" aria-required="true">
+                  <span *ngIf="emailFormatVal" class="red_warning">*Please enter a valid Email ID (e.g.
+                    john&#64;outlook.com)</span>
+                  <span *ngIf="sbiemailFormatVal" class="red_warning">*Email addresses containing &#64;sbi cannot be
+                    used</span>
+                  <span *ngIf="emailmultiplesymb" class="red_warning">*Please enter a valid Email ID containing only one
+                    &#64; sign (E.g. john&#64;outlook.com)</span>
+                  <span *ngIf="emailspecialchars" class="red_warning">*Only (_) , (&#64;) & (.) is allowed in Email
+                    ID</span>
                 </div>
               </div>
             </div>
@@ -183,7 +184,7 @@
   class="modal fade otpBox"
   id="emailotp"
   tabindex="-1"
-  aria-labelledby="otpLabel"
+  aria-labelledby="emailOtpLabel"
   aria-hidden="true"
   data-bs-backdrop="static"
   data-bs-keyboard="false"
@@ -201,7 +202,7 @@
         ></button>
       </div>
       <div class="modal-body">
-        <p class="title_cls">OTP Verification</p>
+        <p class="title_cls" id="emailOtpLabel">OTP Verification</p>
         <p class="d-flex flex-wrap align-items-center">
           You will receive OTP on
           <span class="fw-bold ms-2">{{ this.sendOtp.email }}</span>
@@ -236,11 +237,7 @@
             <span style="font-weight: 400; font-size: 14px" *ngIf="timeroff1"
               >Resend OTP : {{ displayEmail + " sec" }}
             </span>
-            <span
-              class="otp_confirmation"
-              *ngIf="!timeroff1"
-              (click)="getEmailOtp(true)"
-              >Resend OTP
+            <span class="otp_confirmation" *ngIf="!timeroff1" (click)="getEmailOtp(true)" (keydown.enter)="getEmailOtp(true)" (keydown.space)="getEmailOtp(true)" role="button" tabindex="0">Resend OTP
             </span>
           </div>
         </div>

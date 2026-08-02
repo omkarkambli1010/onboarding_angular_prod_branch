@@ -1,10 +1,11 @@
-<section class="pan_details_form">
+<section aria-label="DigiLocker Aadhaar and PAN Verification" class="pan_details_form">
+  <h1 class="visually-hidden">DigiLocker Verification</h1>
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-12 col-12 p-0 p-sm-0 m-auto">
         <div class="mobile_css">
           <div class="header_padding">
-            <!-- <div (click)="gotoPan()" class="back_cls">
+            <!-- <div (click)="gotoPan()" class="back_cls" (keydown.enter)="gotoPan()" (keydown.space)="gotoPan()" role="button" tabindex="0">
               <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
             </div> -->
             <div class="help_faq_css">
@@ -22,11 +23,11 @@
                 </div>
               </div>
             </div>
-            <p class="sub_title">Verify your Aadhaar & PAN via Digilocker</p>
+            <p class="sub_title" role="heading" aria-level="2">Verify your Aadhaar & PAN via Digilocker</p>
           </div>
         </div>
 
-        <form method="post" class="">
+        <form aria-label="DigiLocker Verification" method="post" class="">
           <div class="div">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="header_padding">
@@ -39,11 +40,12 @@
                     />
                   </div>
                   <div>
-                    <div class="help_btn" (click)="faqHelpBtn('Digilocker')">
+                    <div class="help_btn" (click)="faqHelpBtn('Digilocker')" (keydown.enter)="faqHelpBtn('Digilocker')" (keydown.space)="faqHelpBtn('Digilocker')" role="button" tabindex="0">
                       Need Help?
                     </div>
                   </div>
                 </div>
+                <h2 class="visually-hidden">DigiLocker Verification</h2>
                 <p class="sub_title">
                   Verify your Aadhaar & PAN via Digilocker
                 </p> -->
@@ -101,7 +103,7 @@
                           srcset=""
                         />
                       </div>
-                      <p class="sub_title">
+                      <p class="sub_title" role="heading" aria-level="2">
                         Verify your Aadhaar & PAN via Digilocker
                       </p>
                     </div>
@@ -120,9 +122,9 @@
             <div class="col-lg-12 col-md-12 col-12">
               <div class="mobile_section">
                 <div class="desktop_align">
-                  <div class="main_heading">
+                  <h2 class="main_heading" aria-level="3">
                     Enter Aadhaar number for <span style="text-transform: capitalize;">‘{{this.nameSubmitted}}’</span>
-                  </div>
+                  </h2>
 
                   <div>
                     <img
@@ -141,12 +143,30 @@
                     <p class="header">
                       Select <span>Aadhaar and PAN</span> on the next screen
                     </p>
-                    <div>
+                    <div class="gif_wrapper">
                       <img
+                        #digilockerGif
+                        [hidden]="gifPaused"
                         src="assets/images/diy/digilocker_toogle_video.gif"
-                        alt=""
+                        alt="Animation showing the Aadhaar and PAN documents being selected on the DigiLocker consent screen"
                         draggable="false"
+                        crossorigin="anonymous"
                       />
+                      <canvas
+                        #digilockerGifFrame
+                        [hidden]="!gifPaused"
+                        role="img"
+                        aria-label="Paused animation showing the Aadhaar and PAN documents being selected on the DigiLocker consent screen"
+                      ></canvas>
+                      <button
+                        type="button"
+                        class="gif_toggle_btn"
+                        (click)="toggleGif()"
+                        [attr.aria-pressed]="gifPaused"
+                      >
+                        {{ gifPaused ? 'Play animation' : 'Pause animation' }}
+                      </button>
+                      <span class="visually-hidden" role="status" aria-live="polite">{{ gifStatusMsg }}</span>
                     </div>
                     <p class="bottom_text">
                       Create a 6-digit M-PIN (for new DigiLocker users)

@@ -4,11 +4,8 @@
       <div class="col-lg-10 col-12 m-auto">
         <div class="mobile_css">
           <div class="back_cls">
-            <div
-              
-              (click)="redirectPlanProcess()"
-            >
-              <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
+            <div (click)="redirectPlanProcess()" (keydown.enter)="redirectPlanProcess()" (keydown.space)="redirectPlanProcess()" role="button" tabindex="0">
+              <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
             </div>
 
             <div  class="back_cls2"></div>
@@ -31,7 +28,7 @@
           </div>
         </div>
 
-        <form method="post">
+        <form aria-label="Nominee Opt Out" method="post">
           <div class="">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <!-- <div class="d-flex align-items-start gap-2">
@@ -54,10 +51,7 @@
               <div class="mobile_header_padding">
                 <div class="help_faq_css">
                   <div class="d-flex gap-2">
-                    <div
-                      *ngIf="this.RejectStatus != 'R'"
-                      (click)="redirectPlanProcess()"
-                    >
+                    <div *ngIf="this.RejectStatus != 'R'" (click)="redirectPlanProcess()" (keydown.enter)="redirectPlanProcess()" (keydown.space)="redirectPlanProcess()" role="button" tabindex="0">
                       <span>
                         <svg
                           width="24"
@@ -265,7 +259,7 @@
     <div class="row">
       <div class="col-lg-10 col-12 m-auto">
         <div class="mobile_css">
-          <div class="back_cls" (click)="BackToOne()">
+          <div class="back_cls" (click)="BackToOne()" (keydown.enter)="BackToOne()" (keydown.space)="BackToOne()" role="button" tabindex="0">
             <div>
               <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
             </div>
@@ -279,14 +273,12 @@
           </div>
         </div>
 
-        <form method="post">
+        <form aria-label="Selfie Capture" method="post">
           <div class="">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="d-flex align-items-start gap-2">
-                <div (click)="BackToOne()">
-                  <span
-                    ><i class="fa fa-long-arrow-left" aria-hidden="true"></i
-                  ></span>
+                <div (click)="BackToOne()" (keydown.enter)="BackToOne()" (keydown.space)="BackToOne()" role="button" tabindex="0">
+                  <span><i class="fa fa-long-arrow-left" aria-hidden="true"></i></span>
                 </div>
                 <div class="d-flex flex-column align-items-start gap-2">
                   <h5>Get set for a quick selfie</h5>
@@ -384,13 +376,8 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header d-block">
-          <h1 class="modal-title fs-5" id="uploadBankStateUploadLabel"></h1>
-          <button
-            type="button"
-            class="btn-horizontal-line"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <h2 class="modal-title fs-5" id="uploadBankStateUploadLabel"></h2>
+          <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <h5>{{ "Selfie " }}</h5>
@@ -415,12 +402,7 @@
           <div class="btn_align">
             <label class="btn btn_cls_outline">
               Re-Upload Image
-              <input
-                type="file"
-                accept="image/*"
-                (change)="fileChangeEvent($event)"
-                style="display: none"
-              />
+              <input type="file" accept="image/*" (change)="fileChangeEvent($event)" style="display: none" aria-label="Upload a document file" />
             </label>
             <button
               type="button"
@@ -453,7 +435,7 @@
         aria-label="Close"
         (click)="removeModal()"
       >
-        <h1 class="modal-title fs-5" id="continueLinkLabel"></h1>
+        <h2 class="modal-title fs-5" id="continueLinkLabel"></h2>
         <button
           #mobilecloseModal
           type="button"

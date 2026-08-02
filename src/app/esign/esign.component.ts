@@ -61,7 +61,6 @@ export class EsignComponent {
   }
 
   ngOnInit(): void {
-    this.title.setTitle('Esign Verification - Onboarding-DIY-PWA');
 
     this.meta.updateTag({
       name: 'description',

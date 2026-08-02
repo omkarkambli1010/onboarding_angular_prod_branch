@@ -66,7 +66,6 @@ export class RpdComponent {
 
     this.IsIos = window.sessionStorage.getItem('isIos');
 
-    this.title.setTitle('Personal Details - Onboarding-DIY-PWA');
     this.meta.updateTag({
       name: 'description',
       content: 'Capturing Personal Details of the customer.',

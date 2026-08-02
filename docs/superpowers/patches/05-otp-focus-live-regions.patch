@@ -1,0 +1,392 @@
+diff --git a/src/app/app.component.ts b/src/app/app.component.ts
+index 7a3e707..355a81d 100644
+--- a/src/app/app.component.ts
++++ b/src/app/app.component.ts
+@@ -34,6 +34,51 @@ export class AppComponent implements OnInit {
+     }
+ 
+     requestAnimationFrame(raf);
++
++    this.restoreFocusAfterModalClose();
++  }
++
++  /**
++   * WCAG 2.4.3 - the modals here are opened programmatically rather than via a
++   * data-bs-toggle trigger, so Bootstrap has no element to hand focus back to
++   * and it lands at the top of the page. Remember what was focused when the
++   * dialog opened and return focus there once it closes.
++   */
++  private restoreFocusAfterModalClose() {
++    const remember = () => {
++      const active = document.activeElement;
++      this.modalTrigger = active instanceof HTMLElement ? active : null;
++    };
++
++    const restore = () => {
++      const trigger = this.modalTrigger;
++      this.modalTrigger = null;
++      if (trigger && document.body.contains(trigger)) {
++        setTimeout(() => trigger.focus(), 0);
++      }
++    };
++
++    document.addEventListener('show.bs.modal', remember);
++    document.addEventListener('hidden.bs.modal', restore);
++
++    // Some dialogs are still driven through the jQuery plugin, whose events do
++    // not surface as native DOM events.
++    const jq = (window as any).$;
++    if (jq) {
++      jq(document).on('show.bs.modal', remember);
++      jq(document).on('hidden.bs.modal', restore);
++    }
++  }
++
++  skipToMain(event: Event) {
++    event.preventDefault();
++    const main = document.getElementById('main-content');
++    if (main) {
++      main.setAttribute('tabindex', '-1');
++      main.focus();
++      // Scroll main content into view for sighted keyboard users
++      main.scrollIntoView({ behavior: 'auto', block: 'start' });
++    }
+   }
+ 
+ 
+@@ -50,6 +95,8 @@ export class AppComponent implements OnInit {
+     return true;
+   }
+ 
++  private modalTrigger: HTMLElement | null = null;
++
+   isheadervisible: boolean = false
+   excludedRoutes: string[] = ['yono-mobile', 'yono-sso', 'yono-email']; // Add your routes here
+   isExcludedRoute: boolean = false;
+diff --git a/src/app/app.module.ts b/src/app/app.module.ts
+index a95410b..179dd58 100644
+--- a/src/app/app.module.ts
++++ b/src/app/app.module.ts
+@@ -40,6 +40,7 @@ import { NavigationService } from './navigation.service';
+ import { APIService } from './api.service';
+ import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
+ import { EmojiBlockerDirective } from './emoji-blocker.directive';
++import { OtpAriaLabelDirective } from './otp-aria-label.directive';
+ import { PdfViewerModule } from 'ng2-pdf-viewer';
+ import { QRCodeModule } from 'angularx-qrcode';
+ import { RpdComponent } from './rpd/rpd.component';
+@@ -102,6 +103,7 @@ import { YonotabSsoComponent } from './yonotab-sso/yonotab-sso.component';
+     SegmentPreferenceComponent,
+     SelfieComponent,
+     EmojiBlockerDirective,
++    OtpAriaLabelDirective,
+     RpdComponent,
+     HomeComponent,
+     NameChangeComponent,
+diff --git a/src/app/digilocker-screen/digilocker-screen.component.ts b/src/app/digilocker-screen/digilocker-screen.component.ts
+index 34d9cef..0d7bf0e 100644
+--- a/src/app/digilocker-screen/digilocker-screen.component.ts
++++ b/src/app/digilocker-screen/digilocker-screen.component.ts
+@@ -1,4 +1,4 @@
+-import { Component } from '@angular/core';
++import { Component, ElementRef, ViewChild } from '@angular/core';
+ import { Meta, Title } from '@angular/platform-browser';
+ import { NgxSpinnerService } from 'ngx-spinner';
+ import { APIService } from '../api.service';
+@@ -14,12 +14,20 @@ import * as bootstrap from 'bootstrap';
+   styleUrls: ['./digilocker-screen.component.css'],
+ })
+ export class DigilockerScreenComponent {
++  @ViewChild('digilockerGif') digilockerGif!: ElementRef<HTMLImageElement>;
++  @ViewChild('digilockerGifFrame')
++  digilockerGifFrame!: ElementRef<HTMLCanvasElement>;
++
+   clientid: any;
+   nameSubmitted: any;
+   utm_source: string = '';
+   utm_medium: string = '';
+   utm_campaign: string = '';
+ 
++  gifPaused = false;
++  gifStatusMsg = '';
++  private gifSrc = 'assets/images/diy/digilocker_toogle_video.gif';
++
+   videos: any = [
+     {
+       sources: [
+@@ -49,7 +57,6 @@ export class DigilockerScreenComponent {
+   ) {}
+ 
+   ngOnInit(): void {
+-    this.title.setTitle('Digilocker Screen - Onboarding-DIY-PWA');
+     this.meta.updateTag({
+       name: 'description',
+       content: 'Digilocker Screen of the customer.',
+@@ -64,6 +71,32 @@ export class DigilockerScreenComponent {
+     this.getDigilockerName();
+   }
+ 
++  /**
++   * WCAG 2.2.2 - a GIF loops forever with no native controls, so freeze it by
++   * painting the current frame onto a canvas and swapping the two elements.
++   */
++  toggleGif() {
++    if (!this.gifPaused) {
++      const img = this.digilockerGif?.nativeElement;
++      const canvas = this.digilockerGifFrame?.nativeElement;
++      if (img && canvas) {
++        canvas.width = img.naturalWidth || img.clientWidth;
++        canvas.height = img.naturalHeight || img.clientHeight;
++        canvas.getContext('2d')?.drawImage(img, 0, 0, canvas.width, canvas.height);
++      }
++      this.gifPaused = true;
++      this.gifStatusMsg = 'Animation paused.';
++    } else {
++      this.gifPaused = false;
++      this.gifStatusMsg = 'Animation playing.';
++      // Re-assigning the source restarts the loop from the first frame.
++      const img = this.digilockerGif?.nativeElement;
++      if (img) {
++        img.src = `${this.gifSrc}?t=${Date.now()}`;
++      }
++    }
++  }
++
+   faqHelpBtn(stageName: string) {
+     const encodedStageName = btoa(stageName);
+     window.location.href = `faq?stageName=${encodeURIComponent(
+diff --git a/src/app/email-home-otp-screen/email-home-otp-screen.component.ts b/src/app/email-home-otp-screen/email-home-otp-screen.component.ts
+index e74005a..f8356cd 100644
+--- a/src/app/email-home-otp-screen/email-home-otp-screen.component.ts
++++ b/src/app/email-home-otp-screen/email-home-otp-screen.component.ts
+@@ -36,6 +36,7 @@ export class EmailHomeOtpScreenComponent {
+   timerStart: any;
+   displayEmail: any;
+   timeroff1: any = true;
++  resendStatusMsg: string = '';
+   utm_source: string = '';
+   utm_medium: string = '';
+   utm_campaign: string = '';
+@@ -90,9 +91,6 @@ export class EmailHomeOtpScreenComponent {
+   ) { }
+ 
+   ngOnInit(): void {
+-    this.title.setTitle(
+-      'Open Demat Account - Free Demat & Trading Account Opening Online | SBI Securities'
+-    );
+ 
+     this.meta.updateTag({
+       name: 'description',
+@@ -120,6 +118,13 @@ export class EmailHomeOtpScreenComponent {
+ 
+   startTimerEmail() {
+     this.clearTimer();
++    // WCAG 4.1.3 - the countdown is only shown visually, so announce that the
++    // code went out and when another one can be requested.
++    this.resendStatusMsg = '';
++    setTimeout(() => {
++      this.resendStatusMsg =
++        'Verification code sent to your email. You can request another code in 30 seconds.';
++    }, 100);
+     let minute = 1;
+     let seconds: number = minute * 30;
+     let textSec: any = '0';
+diff --git a/src/app/home/home.component.ts b/src/app/home/home.component.ts
+index 3b86d36..1c1e831 100644
+--- a/src/app/home/home.component.ts
++++ b/src/app/home/home.component.ts
+@@ -32,7 +32,7 @@ declare const google: any;
+   templateUrl: './home.component.html',
+   styleUrls: ['./home.component.css'],
+ })
+-export class HomeComponent implements OnInit {
++export class HomeComponent implements OnInit, AfterViewInit {
+   @ViewChild('mobilecloseModal') mobilecloseModal: any;
+   @ViewChild('emailclosebutton') emailclosebutton: any;
+   @ViewChild('otpMobileInput') otpMobileInput: any | NgModel;
+@@ -142,15 +142,22 @@ export class HomeComponent implements OnInit {
+     },
+   ];
+ 
++  // cc_load_policy=1 turns the YouTube caption track on by default (WCAG 1.2.2).
++  // `transcript` backs the text alternative required by 1.2.3; the panel and its
++  // link only render once the transcript copy has been supplied.
+   videos: any[] = [
+     {
+-      url: 'https://www.youtube.com/embed/0cfFB8d_n60?si=Mwd2ApOaaT1SXOhM',
++      url: 'https://www.youtube.com/embed/0cfFB8d_n60?si=Mwd2ApOaaT1SXOhM&cc_load_policy=1',
+       caption: 'Invest to your FULL POTENTIAL with the SBI Securities App!',
++      transcriptId: 'transcript-invest-full-potential',
++      transcript: '',
+     },
+     {
+-      url: 'https://www.youtube.com/embed/Rb7IE_P3UcA',
++      url: 'https://www.youtube.com/embed/Rb7IE_P3UcA?cc_load_policy=1',
+       caption:
+         'E‑Margin (Margin Trading Facility) - Up to 4x Buying Power at 0% Interest for 23 trading days',
++      transcriptId: 'transcript-emargin',
++      transcript: '',
+     },
+   ];
+ 
+@@ -191,15 +198,50 @@ export class HomeComponent implements OnInit {
+     @Inject(DOCUMENT) private document: Document
+   ) {}
+ 
++  ngAfterViewInit(): void {
++    // WCAG 1.3.1 (Issue: carousel content skipped by screen reader).
++    // PrimeNG p-carousel sets aria-hidden="true" on the visible item
++    // wrappers, causing NVDA to skip the testimonial / video content.
++    // Remove aria-hidden from any carousel item that is actually visible,
++    // and keep doing so as PrimeNG re-renders on interaction/resize.
++    const unhideVisibleCarouselItems = () => {
++      const items = this.document.querySelectorAll(
++        '.p-carousel-items-container [aria-hidden="true"]'
++      );
++      items.forEach((el: Element) => {
++        const htmlEl = el as HTMLElement;
++        // offsetParent is null when the element is not rendered/visible.
++        if (htmlEl.offsetParent !== null) {
++          htmlEl.removeAttribute('aria-hidden');
++        }
++      });
++    };
++    setTimeout(unhideVisibleCarouselItems, 500);
++    setTimeout(unhideVisibleCarouselItems, 1500);
++    window.addEventListener('resize', () =>
++      setTimeout(unhideVisibleCarouselItems, 300)
++    );
++  }
++
++  /**
++   * WCAG 1.2.3 - when the user follows the transcript link, move focus to the
++   * transcript itself rather than just scrolling the page.
++   */
++  focusTranscript(event: Event, transcriptId: string) {
++    event.preventDefault();
++    const target = this.document.getElementById(transcriptId);
++    if (target) {
++      target.scrollIntoView({ behavior: 'auto', block: 'start' });
++      target.focus();
++    }
++  }
++
+   ngOnInit(): void {
+     this.getJunkValue();
+     this.addFaqStructuredData();
+     this.sendOtp.mobile = sessionStorage.getItem('mobile');
+     this.sendOtp.fullname = sessionStorage.getItem('NameSubmitted');
+ 
+-    this.title.setTitle(
+-      'Open Demat Account - Free Demat & Trading Account Opening Online | SBI Securities'
+-    );
+ 
+     this.meta.updateTag({
+       name: 'description',
+diff --git a/src/app/mobile-home-otp-screen/mobile-home-otp-screen.component.ts b/src/app/mobile-home-otp-screen/mobile-home-otp-screen.component.ts
+index 58043ce..8a849dc 100644
+--- a/src/app/mobile-home-otp-screen/mobile-home-otp-screen.component.ts
++++ b/src/app/mobile-home-otp-screen/mobile-home-otp-screen.component.ts
+@@ -36,6 +36,7 @@ export class MobileHomeOtpScreenComponent {
+   timerStart: any;
+   displayMobile: any;
+   timeroff: any = true;
++  resendStatusMsg: string = '';
+   utm_source: string = '';
+   utm_medium: string = '';
+   utm_campaign: string = '';
+@@ -89,9 +90,6 @@ export class MobileHomeOtpScreenComponent {
+   ) {}
+ 
+   ngOnInit(): void {
+-    this.title.setTitle(
+-      'Open Demat Account - Free Demat & Trading Account Opening Online | SBI Securities',
+-    );
+ 
+     this.meta.updateTag({
+       name: 'description',
+@@ -178,6 +176,13 @@ export class MobileHomeOtpScreenComponent {
+ 
+   startTimerMobile() {
+     // this.clearTimer();
++    // Announce to screen readers that the code was sent and when a new
++    // one can be requested (WCAG 4.1.3 - status message for resend timer).
++    this.resendStatusMsg = '';
++    setTimeout(() => {
++      this.resendStatusMsg =
++        'Verification code sent to your mobile number. You can request another code in 30 seconds.';
++    }, 100);
+     let minute = 1;
+     let seconds: number = minute * 30;
+     let textSec: any = '0';
+diff --git a/src/app/otp-aria-label.directive.ts b/src/app/otp-aria-label.directive.ts
+new file mode 100644
+index 0000000..21c37af
+--- /dev/null
++++ b/src/app/otp-aria-label.directive.ts
+@@ -0,0 +1,38 @@
++import { AfterViewInit, Directive, ElementRef, Renderer2 } from '@angular/core';
++
++/**
++ * The `ng-otp-input` library renders bare <input> elements with no accessible
++ * name, which fails WCAG 1.3.1 / 3.3.2 / 4.1.2 ("Form elements must have labels").
++ *
++ * This directive matches every <ng-otp-input> element in the app and, after the
++ * inputs are rendered, gives each one an aria-label ("OTP digit N of M") plus a
++ * numeric inputmode. Applying it via the element selector means it is enforced
++ * automatically across all OTP screens (mobile, email, yono, bp-sso, nominee...).
++ */
++@Directive({
++  selector: 'ng-otp-input',
++  standalone: false,
++})
++export class OtpAriaLabelDirective implements AfterViewInit {
++  constructor(private el: ElementRef, private renderer: Renderer2) {}
++
++  ngAfterViewInit(): void {
++    // Defer so the library has rendered its inputs into the DOM.
++    setTimeout(() => this.applyLabels(), 0);
++  }
++
++  private applyLabels(): void {
++    const inputs: NodeListOf<HTMLInputElement> =
++      this.el.nativeElement.querySelectorAll('input.otp-input');
++    inputs.forEach((input, index) => {
++      if (!input.getAttribute('aria-label')) {
++        this.renderer.setAttribute(
++          input,
++          'aria-label',
++          `OTP digit ${index + 1} of ${inputs.length}`,
++        );
++      }
++      this.renderer.setAttribute(input, 'inputmode', 'numeric');
++    });
++  }
++}
+diff --git a/src/app/thankyou/thankyou.component.ts b/src/app/thankyou/thankyou.component.ts
+index c412301..131f293 100644
+--- a/src/app/thankyou/thankyou.component.ts
++++ b/src/app/thankyou/thankyou.component.ts
+@@ -43,6 +43,7 @@ export class ThankyouComponent implements OnInit {
+ 
+   personalFormNumber: any;
+   PersonalFormOne: boolean = false;
++  submissionStatusMsg: string = '';
+   PersonalFormTwo: boolean = false;
+   errorValue: any;
+   IsFno: any;
+@@ -128,7 +129,13 @@ export class ThankyouComponent implements OnInit {
+   ngOnInit(): void {
+     this.spinner.show();
+ 
+-    this.title.setTitle('Thank You - Onboarding-DIY-PWA');
++    // WCAG 4.1.3 - the live region has to exist before its content changes,
++    // otherwise the announcement is swallowed.
++    setTimeout(() => {
++      this.submissionStatusMsg =
++        'Your application is successfully submitted for verification.';
++    }, 800);
++
+     this.personalFormNumber = window.sessionStorage.getItem('FormNumber');
+ 
+     this.meta.updateTag({

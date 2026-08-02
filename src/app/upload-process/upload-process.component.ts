@@ -93,7 +93,6 @@ export class UploadProcessComponent {
   ) {}
 
   ngOnInit(): void {
-    this.title.setTitle('Upload Process - Onboarding-DIY-PWA');
     this.meta.updateTag({
       name: 'description',
       content: 'Uploading the details of the customer.',

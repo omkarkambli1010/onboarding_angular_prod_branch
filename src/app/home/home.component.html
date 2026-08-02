@@ -1,4 +1,4 @@
-<section class="banner">
+<section aria-label="Open Demat and Trading Account" class="banner">
   <div class="container">
     <div class="row banner-img">
       <div
@@ -9,7 +9,7 @@
             <img
               draggable="false"
               src="assets/images/diy/Website-Banner-DIY2-Foreground.webp"
-              alt="Open Demat Account"
+              alt="Trade fast, invest smarter with 0 brokerage on intraday, rupees 20 per order for carry forward trades, and free 1st year AMC"
               srcset=""
               loading="lazy"
             />
@@ -18,7 +18,7 @@
             <img
               draggable="false"
               src="assets/images/diy/Website-Banner-DIY2-Mobile-Foreground.webp"
-              alt="Open Demat Account"
+              alt="Trade fast, invest smarter with 0 brokerage on intraday, rupees 20 per order for carry forward trades, and free 1st year AMC"
               srcset=""
               loading="lazy"
             />
@@ -27,13 +27,16 @@
       </div>
       <div class="col-md-6 col-lg-6 col-12">
         <div class="mobile_form">
-          <form action="" method="post">
-            <h1 class="">Open Your Demat & Trading Account Now</h1>
+          <form action="" method="post" aria-label="Open Demat Account Registration">
+            <h1 class="">Open Your Demat &amp; Trading Account Now</h1>
+            <p class="required-note">Fields marked with an asterisk (<span aria-hidden="true">*</span>) are required.</p>
             <div>
+              <label class="field-label" for="EnterFullNameCard">Full Name as per PAN <span class="req-star" aria-hidden="true">*</span></label>
               <input
                 type="text"
                 class="form-control otp_field"
                 id="EnterFullNameCard"
+                aria-required="true"
                 name="fullname_as_pancard"
                 placeholder="Full Name as per PAN"
                 [(ngModel)]="sendOtp.fullname"
@@ -44,31 +47,36 @@
                 onpaste="return false;"
                 onselectstart="return false;"
                 onkeypress="return !/^\s$/.test(event.key) || event.target.value.length > 0 "
-                autocomplete="off"
+                autocomplete="name"
                 maxlength="100"
                 appEmojiBlocker
                 #mobileInput
+                aria-describedby="fullnameError"
               />
 
-              <span *ngIf="moreThanTwoValues" class="red_warning"
-                >More than 2 characters are allowed</span
-              >
-              <span *ngIf="panFullNameReqSpecial" class="red_warning"
-                >Special characters are not allowed</span
-              >
-              <span *ngIf="panFullNameReqDigit" class="red_warning"
-                >Digits are not allowed</span
-              >
-              <span *ngIf="panFullNameReqSpace" class="red_warning">
-                *Please enter your name as per your PAN</span
-              >
+              <div id="fullnameError" role="alert" aria-live="assertive">
+                <span *ngIf="moreThanTwoValues" class="red_warning"
+                  >More than 2 characters are allowed</span
+                >
+                <span *ngIf="panFullNameReqSpecial" class="red_warning"
+                  >Special characters are not allowed</span
+                >
+                <span *ngIf="panFullNameReqDigit" class="red_warning"
+                  >Digits are not allowed</span
+                >
+                <span *ngIf="panFullNameReqSpace" class="red_warning">
+                  *Please enter your name as per your PAN</span
+                >
+              </div>
             </div>
             <div>
+              <label class="field-label" for="mobile-number">Mobile Number <span class="req-star" aria-hidden="true">*</span></label>
               <input
                 type="text"
                 class="form-control otp_field"
-                aria-describedby="inputMobile"
                 name="MobileNo"
+                id="mobile-number"
+                aria-required="true"
                 pattern="[0-9]*"
                 inputmode="numeric"
                 placeholder="Mobile Number"
@@ -76,17 +84,23 @@
                 [(ngModel)]="sendOtp.mobile"
                 (input)="mobileNoValidation($event, false)"
                 (focusout)="mobileNoValidation2($event)"
+                aria-describedby="mobileError"
               />
-              <span *ngIf="mobileDigitReq" class="red_warning"
-                >*Please enter your valid 10 digit mobile number.</span
-              >
+              <div id="mobileError" role="alert" aria-live="assertive">
+                <span *ngIf="mobileDigitReq" class="red_warning"
+                  >*Please enter your valid 10 digit mobile number.</span
+                >
+              </div>
             </div>
             <div class="btn_align">
+              <span id="getStartedHint" class="visually-hidden">Enter your full name and a 10 digit mobile number to enable Get Started.</span>
               <button
                 type="button"
                 class="btn btn_cls"
                 [disabled]="isDisabledLoginBtn"
+                [attr.aria-disabled]="isDisabledLoginBtn"
                 (click)="getMobileOtp(false)"
+                aria-describedby="getStartedHint"
               >
                 <!-- onclick="messageHandler.postMessage('working');" -->
                 Get Started
@@ -347,27 +361,52 @@
                 width="560"
                 height="245"
                 [src]="video.url | safeUrl"
-                title="YouTube video player"
+                [title]="'YouTube video: ' + video.caption"
+                [attr.aria-label]="'YouTube video: ' + video.caption"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowfullscreen
               >
               </iframe>
-              <h6>{{ video.caption }}</h6>
+              <h3>{{ video.caption }}</h3>
+              <!-- 1.2.3 - text alternative for the video. -->
+              <a
+                *ngIf="video.transcript"
+                class="transcript_link"
+                [href]="'#' + video.transcriptId"
+                (click)="focusTranscript($event, video.transcriptId)"
+                >Read the transcript of “{{ video.caption }}”</a
+              >
             </div>
           </div>
         </ng-template>
       </p-carousel>
+
+      <!-- 1.2.3 - the transcripts live in their own section so the links above
+           have somewhere to send focus. -->
+      <div class="video_transcripts">
+        <div
+          *ngFor="let video of videos"
+          class="transcript_block"
+          [id]="video.transcriptId"
+          tabindex="-1"
+        >
+          <ng-container *ngIf="video.transcript">
+            <h3>Transcript: {{ video.caption }}</h3>
+            <p class="transcript_body">{{ video.transcript }}</p>
+          </ng-container>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="trust_section">
+<section aria-label="Customer Testimonials" class="trust_section">
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
         <h2 class="page-heading">Trust Aur Growth, Dono</h2>
-        <h6><span></span>India’s trusted investment partner of choice</h6>
+        <p class="trust-subtitle"><span></span>India’s trusted investment partner of choice</p>
       </div>
       <div class="col-lg-12">
         <p-carousel
@@ -1457,7 +1496,7 @@
   </div>
 </section>
 
-<section class="sixth">
+<section aria-label="Regulatory Information and Footer" class="sixth" role="contentinfo">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
@@ -1655,7 +1694,7 @@
   class="modal fade otpBox"
   id="email2faotp"
   tabindex="-1"
-  aria-labelledby="otpLabel"
+  aria-labelledby="email2faOtpLabel"
   aria-hidden="true"
   data-bs-backdrop="static"
   data-bs-keyboard="false"
@@ -1670,7 +1709,7 @@
         ></button>
       </div>
       <div class="modal-body">
-        <p class="title_cls">Email ID Verification</p>
+        <p class="title_cls" id="email2faOtpLabel">Email ID Verification</p>
         <p *ngIf="googleHideBtn">
           <!-- Verification to keep your account safe, Google wants to make sure it's
           really you trying to sign in -->
@@ -1699,7 +1738,7 @@
             type="text"
             class="form-control"
             id="exampleInputEmail1"
-            aria-describedby="emailHelp"
+            aria-label="Email ID"
             name="Email"
             placeholder="example@gmail.com"
             [(ngModel)]="sendOtp.email"
@@ -1743,7 +1782,7 @@
   class="modal fade otpBox"
   id="emailotp"
   tabindex="-1"
-  aria-labelledby="otpLabel"
+  aria-labelledby="emailOtpLabel"
   aria-hidden="true"
   data-bs-backdrop="static"
   data-bs-keyboard="false"
@@ -1761,7 +1800,7 @@
         ></button>
       </div>
       <div class="modal-body">
-        <p class="title_cls">OTP Verification</p>
+        <p class="title_cls" id="emailOtpLabel">OTP Verification</p>
         <p class="d-flex flex-wrap align-items-center">
           You will receive OTP on
           <span class="fw-bold ms-2">{{ this.sendOtp.email }}</span>
@@ -1826,7 +1865,7 @@
   class="modal fade uploadPan"
   id="tracktimeline2"
   tabindex="-1"
-  aria-labelledby="tracktimelineLabel"
+  aria-label="Application status timeline"
   aria-hidden="true"
 >
   <div class="modal-dialog">

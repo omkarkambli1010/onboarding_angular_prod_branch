@@ -270,7 +270,8 @@ button:disabled,
   gap: 15px;
 }
 
-.pan_details_form .help_faq_css h5 {
+.pan_details_form .help_faq_css h5,
+.pan_details_form .help_faq_css h2 {
   color: #222;
   font-size: 18px;
   font-weight: 600;

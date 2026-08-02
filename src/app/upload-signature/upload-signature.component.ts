@@ -156,7 +156,6 @@ export class UploadSignatureComponent implements AfterViewChecked, OnDestroy {
       }
     );
 
-    this.title.setTitle('Upload Signature - Onboarding-DIY-PWA');
 
     this.meta.updateTag({
       name: 'description',

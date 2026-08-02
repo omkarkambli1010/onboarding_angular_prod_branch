@@ -37,7 +37,6 @@ export class FaqNeedHelpComponent {
       name: 'description',
       content: 'FAQ of the customer',
     });
-    this.title.setTitle('FAQ - Onboarding-DIY-PWA');
     this.getFAQ();
     this.route.queryParamMap.subscribe((params) => {
       const encodedStageName = params.get('stageName');

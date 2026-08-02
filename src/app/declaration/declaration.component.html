@@ -22,7 +22,7 @@
             </div>
           </div>
         </div>
-        <form method="post">
+        <form aria-label="Declaration and Terms" method="post">
           <div class="">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="d-flex align-items-start gap-2">
@@ -109,7 +109,7 @@
                       [(ngModel)]="isIndianCitizen" (change)="storeSelectedValues('indianCitizen')" />
                   </label>
                   <div class="upload_css">
-                    <h5>I have tax residency of India only</h5>
+                    <h5 id="lbl-indianCitizen">I have tax residency of India only</h5>
                   </div>
                 </div>
                 <div data-bs-target="#taxpayer" data-bs-toggle="modal">
@@ -169,9 +169,10 @@
                   </div>
                 </div>
                 <div class="dropdown dropdown_cls" data-bs-target="#fundcycle" data-bs-toggle="modal"
-                  (click)="stopPropagation($event)">
+                  (click)="stopPropagation($event)" (keydown.enter)="stopPropagation($event)" (keydown.space)="stopPropagation($event)" role="button" tabindex="0">
                   <button class="btn dropdown-toggle nowrap" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
+                    aria-expanded="false"
+                    [attr.aria-label]="'Change fund settlement cycle, currently ' + selectedOption.Days">
                     {{ selectedOption.Days }}
                   </button>
                 </div>
@@ -251,7 +252,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-        <h1 class="modal-title fs-5" id="tradingprefLabel"></h1>
+        <h2 class="modal-title fs-5 visually-hidden" id="tradingprefLabel">Trading preference acceptance</h2>
         <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
           (click)="removeModal()"></button>
       </div>
@@ -309,7 +310,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-        <h1 class="modal-title fs-5" id="helpscreenLabel"></h1>
+        <h2 class="modal-title fs-5 visually-hidden" id="helpscreenLabel">Help information</h2>
         <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
           (click)="removeModal()"></button>
       </div>
@@ -331,7 +332,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block p-3 p-sm-0" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-        <h1 class="modal-title fs-5" id="fundcycleLabel"></h1>
+        <h2 class="modal-title fs-5 visually-hidden" id="fundcycleLabel">Fund settlement cycle</h2>
         <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
           (click)="removeModal()"></button>
       </div>
@@ -373,7 +374,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-        <h1 class="modal-title fs-5" id="termsLabel"></h1>
+        <h2 class="modal-title fs-5 visually-hidden" id="termsLabel">Terms and Conditions</h2>
         <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
           (click)="removeModal()"></button>
       </div>
@@ -398,7 +399,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-        <h1 class="modal-title fs-5" id="politicalexposeLabel"></h1>
+        <h2 class="modal-title fs-5 visually-hidden" id="politicalexposeLabel">Politically exposed person information</h2>
         <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
           (click)="removeModal()"></button>
       </div>
@@ -427,7 +428,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-        <h1 class="modal-title fs-5" id="taxpayerLabel"></h1>
+         <h2 class="modal-title fs-5 visually-hidden" id="taxpayerLabel">Tax payer declaration</h2>
         <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
           (click)="removeModal()"></button>
       </div>
@@ -446,11 +447,11 @@
   </div>
 </div>
 
-<div class="modal fade uploadPan" id="helpscreen" tabindex="-1" aria-labelledby="helpscreenLabel" aria-hidden="true">
+<div class="modal fade uploadPan" id="helpscreen" tabindex="-1" aria-labelledby="helpscreenAltLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-        <h1 class="modal-title fs-5" id="helpscreenLabel"></h1>
+       <h2 class="modal-title fs-5 visually-hidden" id="helpscreenAltLabel">Help information</h2>
         <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
           (click)="removeModal()"></button>
       </div>
@@ -472,7 +473,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
-        <h5 class="text-start" style="padding: 20px; padding-left: 2px">
+        <h5 id="confirmPrefLabel" class="text-start" style="padding: 20px; padding-left: 2px">
           Trading Preference Acceptance
         </h5>
 
@@ -509,7 +510,7 @@
             </div>
           </div>
         </div>
-        <form method="post">
+        <form aria-label="Physical Application" method="post">
           <div class="">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="d-flex align-items-start gap-2">
@@ -551,18 +552,18 @@
   </div>
 
   <!-- Trading Preference Acceptance Modal -->
-  <div class="modal fade uploadPan" id="tradingpref" tabindex="-1" aria-labelledby="tradingprefLabel"
+  <div class="modal fade uploadPan" id="tradingpref" tabindex="-1" aria-labelledby="tradingprefAltLabel"
     aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-          <h1 class="modal-title fs-5" id="tradingprefLabel"></h1>
+          <h2 class="modal-title fs-5 visually-hidden" id="tradingprefAltLabel">Trading preference acceptance</h2>
           <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
             (click)="removeModal()"></button>
         </div>
         <div class="modal-body">
           <h5>Trading preference acceptance</h5>
-          <form method="post">
+          <form aria-label="Trading Preference" method="post">
             <div *ngFor="let data of questionnaireResponse" class="trading_qna">
               <h4>{{ data?.Title }}</h4>
               <p *ngIf="data.Description">{{ data.Description }}</p>

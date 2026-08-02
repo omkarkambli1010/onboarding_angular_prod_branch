@@ -34,6 +34,51 @@ export class AppComponent implements OnInit {
     }
 
     requestAnimationFrame(raf);
+
+    this.restoreFocusAfterModalClose();
+  }
+
+  /**
+   * WCAG 2.4.3 - the modals here are opened programmatically rather than via a
+   * data-bs-toggle trigger, so Bootstrap has no element to hand focus back to
+   * and it lands at the top of the page. Remember what was focused when the
+   * dialog opened and return focus there once it closes.
+   */
+  private restoreFocusAfterModalClose() {
+    const remember = () => {
+      const active = document.activeElement;
+      this.modalTrigger = active instanceof HTMLElement ? active : null;
+    };
+
+    const restore = () => {
+      const trigger = this.modalTrigger;
+      this.modalTrigger = null;
+      if (trigger && document.body.contains(trigger)) {
+        setTimeout(() => trigger.focus(), 0);
+      }
+    };
+
+    document.addEventListener('show.bs.modal', remember);
+    document.addEventListener('hidden.bs.modal', restore);
+
+    // Some dialogs are still driven through the jQuery plugin, whose events do
+    // not surface as native DOM events.
+    const jq = (window as any).$;
+    if (jq) {
+      jq(document).on('show.bs.modal', remember);
+      jq(document).on('hidden.bs.modal', restore);
+    }
+  }
+
+  skipToMain(event: Event) {
+    event.preventDefault();
+    const main = document.getElementById('main-content');
+    if (main) {
+      main.setAttribute('tabindex', '-1');
+      main.focus();
+      // Scroll main content into view for sighted keyboard users
+      main.scrollIntoView({ behavior: 'auto', block: 'start' });
+    }
   }
 
 
@@ -49,6 +94,8 @@ export class AppComponent implements OnInit {
     }
     return true;
   }
+
+  private modalTrigger: HTMLElement | null = null;
 
   isheadervisible: boolean = false
   excludedRoutes: string[] = ['yono-mobile', 'yono-sso', 'yono-email']; // Add your routes here

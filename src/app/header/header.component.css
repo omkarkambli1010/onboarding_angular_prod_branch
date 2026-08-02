@@ -2,3 +2,12 @@
     /* max-width: 70%; */
     max-width: 200px;
   }
+
+.navbar .navbar-brand {
+    cursor: pointer;
+  }
+
+.navbar .navbar-brand:focus-visible {
+    outline: 3px solid #005fcc;
+    outline-offset: 4px;
+  }

@@ -1,8 +1,11 @@
 <!-- bg-body-tertiary -->
-<nav class="navbar navbar-expand-lg bg-white">
+<nav class="navbar navbar-expand-lg bg-white" role="banner">
     <div class="container">
-      <a class="navbar-brand" (click)="redirectHome()">
-        <img src="assets/images/sbi-securities-logo.png" alt="">
+      <a class="navbar-brand" role="link" tabindex="0"
+         (click)="redirectHome()"
+         (keydown.enter)="redirectHome()"
+         (keydown.space)="$event.preventDefault(); redirectHome()">
+        <img src="assets/images/sbi-securities-logo.png" alt="SBI Securities Investment aur Trust, Dono">
       </a>
       <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

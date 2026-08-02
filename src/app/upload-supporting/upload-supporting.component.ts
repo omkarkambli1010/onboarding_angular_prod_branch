@@ -155,7 +155,6 @@ export class UploadSupportingComponent {
   ) { }
 
   ngOnInit(): void {
-    this.title.setTitle('Support Documents - Onboarding-DIY-PWA');
     this.meta.updateTag({
       name: 'description',
       content: 'Capturing Support Documents of the customer.',

@@ -65,9 +65,6 @@ export class EmailHomePageComponent {
   ) {}
 
   ngOnInit(): void {
-    this.title.setTitle(
-      'Open Demat Account - Free Demat & Trading Account Opening Online | SBI Securities'
-    );
 
     this.meta.updateTag({
       name: 'description',

@@ -36,6 +36,7 @@ export class MobileHomeOtpScreenComponent {
   timerStart: any;
   displayMobile: any;
   timeroff: any = true;
+  resendStatusMsg: string = '';
   utm_source: string = '';
   utm_medium: string = '';
   utm_campaign: string = '';
@@ -89,9 +90,6 @@ export class MobileHomeOtpScreenComponent {
   ) {}
 
   ngOnInit(): void {
-    this.title.setTitle(
-      'Open Demat Account - Free Demat & Trading Account Opening Online | SBI Securities',
-    );
 
     this.meta.updateTag({
       name: 'description',
@@ -178,6 +176,13 @@ export class MobileHomeOtpScreenComponent {
 
   startTimerMobile() {
     // this.clearTimer();
+    // Announce to screen readers that the code was sent and when a new
+    // one can be requested (WCAG 4.1.3 - status message for resend timer).
+    this.resendStatusMsg = '';
+    setTimeout(() => {
+      this.resendStatusMsg =
+        'Verification code sent to your mobile number. You can request another code in 30 seconds.';
+    }, 100);
     let minute = 1;
     let seconds: number = minute * 30;
     let textSec: any = '0';

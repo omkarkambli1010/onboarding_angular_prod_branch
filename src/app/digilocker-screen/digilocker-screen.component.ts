@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { APIService } from '../api.service';
@@ -14,11 +14,19 @@ import * as bootstrap from 'bootstrap';
   styleUrls: ['./digilocker-screen.component.css'],
 })
 export class DigilockerScreenComponent {
+  @ViewChild('digilockerGif') digilockerGif!: ElementRef<HTMLImageElement>;
+  @ViewChild('digilockerGifFrame')
+  digilockerGifFrame!: ElementRef<HTMLCanvasElement>;
+
   clientid: any;
   nameSubmitted: any;
   utm_source: string = '';
   utm_medium: string = '';
   utm_campaign: string = '';
+
+  gifPaused = false;
+  gifStatusMsg = '';
+  private gifSrc = 'assets/images/diy/digilocker_toogle_video.gif';
 
   videos: any = [
     {
@@ -49,7 +57,6 @@ export class DigilockerScreenComponent {
   ) {}
 
   ngOnInit(): void {
-    this.title.setTitle('Digilocker Screen - Onboarding-DIY-PWA');
     this.meta.updateTag({
       name: 'description',
       content: 'Digilocker Screen of the customer.',
@@ -62,6 +69,32 @@ export class DigilockerScreenComponent {
     this.utm_campaign =
       this.route.snapshot.queryParams['utm_campaign'] || 'Onboarding-DIY';
     this.getDigilockerName();
+  }
+
+  /**
+   * WCAG 2.2.2 - a GIF loops forever with no native controls, so freeze it by
+   * painting the current frame onto a canvas and swapping the two elements.
+   */
+  toggleGif() {
+    if (!this.gifPaused) {
+      const img = this.digilockerGif?.nativeElement;
+      const canvas = this.digilockerGifFrame?.nativeElement;
+      if (img && canvas) {
+        canvas.width = img.naturalWidth || img.clientWidth;
+        canvas.height = img.naturalHeight || img.clientHeight;
+        canvas.getContext('2d')?.drawImage(img, 0, 0, canvas.width, canvas.height);
+      }
+      this.gifPaused = true;
+      this.gifStatusMsg = 'Animation paused.';
+    } else {
+      this.gifPaused = false;
+      this.gifStatusMsg = 'Animation playing.';
+      // Re-assigning the source restarts the loop from the first frame.
+      const img = this.digilockerGif?.nativeElement;
+      if (img) {
+        img.src = `${this.gifSrc}?t=${Date.now()}`;
+      }
+    }
   }
 
   faqHelpBtn(stageName: string) {

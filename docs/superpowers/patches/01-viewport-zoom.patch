@@ -1,0 +1,32 @@
+diff --git a/src/assets/js/script.js b/src/assets/js/script.js
+index fed1f24..5571532 100644
+--- a/src/assets/js/script.js
++++ b/src/assets/js/script.js
+@@ -1,12 +1,6 @@
+ // // Owlcarousel
+-if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+-  document
+-    .querySelector('meta[name="viewport"]')
+-    .setAttribute(
+-      "content",
+-      "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+-    );
+-}
++// NOTE: The viewport override that disabled pinch-zoom on iOS was removed to
++// meet WCAG "zoom and scaling must not be disabled" accessibility requirements.
+ 
+ // document.addEventListener("DOMContentLoaded", function () {
+ //   var accordionItems = document.querySelectorAll(".accordion-item");
+diff --git a/src/index.html b/src/index.html
+index 44e4975..ea7a161 100644
+--- a/src/index.html
++++ b/src/index.html
+@@ -52,7 +52,7 @@
+     <meta name="google-site-verification" content="0ulmvTk30ONNM7uNwQ--ZB0CxI6HgC-DMpxpSXMETFg" />
+ 
+     <base href="/" />
+-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
++    <meta name="viewport" content="width=device-width, initial-scale=1" />
+ 
+     <link
+       rel="canonical"

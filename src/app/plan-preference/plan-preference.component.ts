@@ -187,7 +187,6 @@ export class PlanPreferenceComponent implements OnInit {
       name: 'description',
       content: 'Capturing Plan Preference of the customer.',
     });
-    this.title.setTitle('Plan Preference - Onboarding-DIY-PWA');
 
     this.getPersonalDataTwo();
 

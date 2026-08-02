@@ -192,7 +192,7 @@
 ::ng-deep .ng-otp-input-wrapper .otp-input {
     width: 50px !important;
     height: 45px !important;
-    border: 1px solid #ccc !important;
+    border: 1px solid #949494 !important;
     border-radius: 4px !important;
     text-align: center !important;
     margin: 0 5px !important;
@@ -218,7 +218,7 @@
 }
 
 .otp_cls .alert_msg {
-    color: #ff2e00;
+    color: #cc2200;
     font-size: 12px;
     font-weight: 400
 }

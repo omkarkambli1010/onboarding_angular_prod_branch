@@ -1,36 +1,29 @@
-<section class="pan_details_form">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-10 col-12 m-auto">
-          <div class="mobile_css">
-            <div class="back_cls">
-              <div  *ngIf="this.RejectStatus != 'R'" (click)="redirectSignature()">
-                <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
-              </div>
-              <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div>
-  
-              <div class="d-flex flex-column align-items-start gap-2">
-                <h5>Upload your Aadhaar Card (Front Image)</h5>
-                <p class="sub_title">
-                  Upload a clear front image of your Aadhaar Card.
-                </p>
-              </div>
+<section aria-label="Upload Aadhaar Front Image" class="pan_details_form">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-12 m-auto">
+        <div class="mobile_css">
+          <div class="back_cls">
+            <div *ngIf="this.RejectStatus != 'R'" (click)="redirectSignature()" (keydown.enter)="redirectSignature()" (keydown.space)="redirectSignature()" role="button" tabindex="0">
+              <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
+            </div>
+            <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div>
+
+            <div class="d-flex flex-column align-items-start gap-2">
+              <h5>Upload your Aadhaar Card (Front Image)</h5>
+              <p class="sub_title">
+                Upload a clear front image of your Aadhaar Card.
+              </p>
             </div>
           </div>
-  
-          <form method="post">
-            <div class="">
-              <div class="col-lg-12 col-md-12 col-12 desktop_css">
-                <div class="d-flex align-items-start gap-2">
-                  <div *ngIf="this.RejectStatus != 'R'" (click)="redirectSignature()">
-                    <span
-                      > <svg
-                      width="24"
-                      height="25"
-                      viewBox="0 0 24 25"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+        </div>
+
+        <form aria-label="Upload Aadhaar Front" method="post">
+          <div class="">
+            <div class="col-lg-12 col-md-12 col-12 desktop_css">
+              <div class="d-flex align-items-start gap-2">
+                <div *ngIf="this.RejectStatus != 'R'" (click)="redirectSignature()" (keydown.enter)="redirectSignature()" (keydown.space)="redirectSignature()" role="button" tabindex="0">
+                  <span> <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g clip-path="url(#clip0_0_10804)">
                         <path
                           d="M5 12.5H19"
@@ -167,47 +160,23 @@
         </div>
       </div>
     </div>
-  </section>
-  
-  <!-- Upload Aadhaar Modal -->
-  <div
-    class="modal fade uploadPan"
-    id="uploadPan"
-    tabindex="-1"
-    aria-labelledby="uploadPanLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div
-          class="modal-header d-block"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="removeModal()"
-        >
-          <h1 class="modal-title fs-5" id="uploadPanLabel"></h1>
-          <button
-            type="button"
-            class="btn-horizontal-line"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-            (click)="removeModal()"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <h5>Upload Aadhaar Card</h5>
-          <div class="img_upload">
-            <div
-              class="camera_icon"
-              style="position: relative; display: inline-block"
-            >
-              <img
-                src="assets/images/diy/camera_img.png"
-                alt="Upload Image"
-                style="cursor: pointer"
-              />
-              <input
-                style="
+</section>
+
+<!-- Upload Aadhaar Modal -->
+<div class="modal fade uploadPan" id="uploadPan" tabindex="-1" aria-labelledby="uploadPanLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+        <h2 class="modal-title fs-5" id="uploadPanLabel"></h2>
+        <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <h5>Upload Aadhaar Card</h5>
+        <div class="img_upload">
+          <div class="camera_icon" style="position: relative; display: inline-block">
+            <img src="assets/images/diy/camera_img.png" alt="Upload Image" style="cursor: pointer" />
+            <input style="
                   position: absolute;
                   top: 0;
                   left: 0;
@@ -215,25 +184,13 @@
                   width: 100%;
                   height: 100%;
                   cursor: pointer;
-                "
-                type="file"
-                capture="environment"
-                accept="image/*"
-                (change)="fileChangeEvent($event)"
-                (click)="setCaptureEvent('environment')"
-                (click)="resetExistingImage()"
-                data-bs-target="#uploadPanUpload"
-                data-bs-toggle="modal"
-              />
-            </div>
-            <div style="position: relative; display: inline-block">
-              <img
-                src="assets/images/diy/upload_img.png"
-                alt="Upload Image"
-                style="cursor: pointer"
-              />
-              <input
-                style="
+                " type="file" capture="environment" accept="image/*" (change)="fileChangeEvent($event)"
+              (click)="setCaptureEvent('environment')" (click)="resetExistingImage()" data-bs-target="#uploadPanUpload"
+              data-bs-toggle="modal" aria-label="Take a photo of your document" />
+          </div>
+          <div style="position: relative; display: inline-block">
+            <img src="assets/images/diy/upload_img.png" alt="Upload Image" style="cursor: pointer" />
+            <input style="
                   position: absolute;
                   top: 0;
                   left: 0;
@@ -241,163 +198,92 @@
                   width: 100%;
                   height: 100%;
                   cursor: pointer;
-                "
-                type="file"
-                accept="image/*"
-                (click)="resetExistingImage()"
-                (click)="setCaptureEvent('upload')"
-                (change)="fileChangeEvent($event)"
-                data-bs-target="#uploadPanUpload"
-                data-bs-toggle="modal"
-              />
-            </div>
-          </div>
-          <div class="file_type_css">
-            <span>Files supported: JPG, PNG</span>
-            <span>Maximum size less than 4MB</span>
+                " type="file" accept="image/*" (click)="resetExistingImage()" (click)="setCaptureEvent('upload')"
+              (change)="fileChangeEvent($event)" data-bs-target="#uploadPanUpload" data-bs-toggle="modal" aria-label="Upload a document file" />
           </div>
         </div>
-        <div class="modal-footer p-0 d-none">
-          <button
-            type="button"
-            data-bs-target="#uploadPanUpload"
-            data-bs-toggle="modal"
-            class="btn btn_cls"
-          >
-            Continue
-          </button>
+        <div class="file_type_css">
+          <span>Files supported: JPG, PNG</span>
+          <span>Maximum size less than 4MB</span>
         </div>
+      </div>
+      <div class="modal-footer p-0 d-none">
+        <button
+          type="button"
+          data-bs-target="#uploadPanUpload"
+          data-bs-toggle="modal"
+          class="btn btn_cls"
+        >
+          Continue
+        </button>
       </div>
     </div>
   </div>
-  
-  <!-- Upload Aadhaar Upload Modal -->
-  <div
-    class="modal fade uploadPan"
-    id="uploadPanUpload"
-    tabindex="-1"
-    aria-labelledby="uploadPanUploadLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div
-          class="modal-header d-block"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="removeModal()"
-        >
-          <h1 class="modal-title fs-5" id="uploadPanUploadLabel"></h1>
-          <button
-            type="button"
-            class="btn-horizontal-line"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-            (click)="removeModal()"
-          ></button>
+</div>
+
+<!-- Upload Aadhaar Upload Modal -->
+<div class="modal fade uploadPan" id="uploadPanUpload" tabindex="-1" aria-labelledby="uploadPanUploadLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+        <h2 class="modal-title fs-5" id="uploadPanUploadLabel"></h2>
+        <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <h5>Upload Aadhaar Card</h5>
+
+        <div *ngIf="imageChangedEvent" class="file_upload_css">
+          <image-cropper class="image_css" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
+            [(transform)]="transform" [aspectRatio]="4 / 3" format="png" (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded()"></image-cropper>
         </div>
-        <div class="modal-body">
-          <h5>Upload Aadhaar Card</h5>
-  
-          <div *ngIf="imageChangedEvent" class="file_upload_css">
-            <image-cropper
-              class="image_css"
-              [imageChangedEvent]="imageChangedEvent"
-              [maintainAspectRatio]="false"
-              [(transform)]="transform"
-              [aspectRatio]="4 / 3"
-              format="png"
-              (imageCropped)="imageCropped($event)"
-              (imageLoaded)="imageLoaded()"
-            ></image-cropper>
-          </div>
-          <div *ngIf="imageChangedEvent" class="text-center">
-            <label class="reupload_css" (click)="rotateRight()">Rotate</label>
-          </div>
-          <div class="file_type_css my-2">
-            <span class="red_warning">{{ errorMsg }}</span>
-          </div>
-  
-          <div class="modal-footer p-0">
-            <div class="btn_align">
-              <label *ngIf="!imageChangedEvent" class="btn btn_cls_outline">
-                Upload Image
-                <input
-                  type="file"
-                  accept="image/*"
-                  (change)="fileChangeEvent($event)"
-                  style="display: none"
-                />
-                <!--  -->
-              </label>
-              <label
-                *ngIf="imageChangedEvent && capture_event !== 'user'"
-                (change)="fileChangeEvent($event)"
-                class="btn btn_cls_outline p-0"
-              >
-                Re-Upload Image
-                <input
-                  type="file"
-                  accept="image/*"
-                  (change)="fileChangeEvent($event)"
-                  style="display: none"
-                />
-              </label>
-              <label
-                *ngIf="imageChangedEvent && capture_event == 'user'"
-                class="btn btn_cls_outline p-0"
-              >
-                Re-Upload Image
-                <input
-                  type="file"
-                  capture="environment"
-                  accept="image/*"
-                  (change)="fileChangeEvent($event)"
-                  style="display: none"
-                />
-                <!--  -->
-              </label>
-              <button
-                [disabled]="!imageChangedEvent"
-                type="button"
-                class="btn btn_cls"
-                data-bs-target="#uploadPanBg"
-                data-bs-toggle="modal"
-              >
-                Continue
-              </button>
-            </div>
+        <div *ngIf="imageChangedEvent" class="text-center">
+          <label class="reupload_css" (click)="rotateRight()">Rotate</label>
+        </div>
+        <div class="file_type_css my-2">
+          <span class="red_warning">{{ errorMsg }}</span>
+        </div>
+
+        <div class="modal-footer p-0">
+          <div class="btn_align">
+            <label *ngIf="!imageChangedEvent" class="btn btn_cls_outline">
+              Upload Image
+              <input type="file" accept="image/*" (change)="fileChangeEvent($event)" style="display: none" aria-label="Upload a document file" />
+              <!--  -->
+            </label>
+            <label *ngIf="imageChangedEvent && capture_event !== 'user'" (change)="fileChangeEvent($event)"
+              class="btn btn_cls_outline p-0">
+              Re-Upload Image
+              <input type="file" accept="image/*" (change)="fileChangeEvent($event)" style="display: none" aria-label="Upload a document file" />
+            </label>
+            <label *ngIf="imageChangedEvent && capture_event == 'user'" class="btn btn_cls_outline p-0">
+              Re-Upload Image
+              <input type="file" capture="environment" accept="image/*" (change)="fileChangeEvent($event)"
+                style="display: none" aria-label="Take a photo of your document" />
+              <!--  -->
+            </label>
+            <button [attr.aria-disabled]="!imageChangedEvent" [disabled]="!imageChangedEvent" type="button" class="btn btn_cls" data-bs-target="#uploadPanBg"
+              data-bs-toggle="modal">
+              Continue
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
-  <!-- Upload Signature File Modal -->
-  <div
-    class="modal fade uploadPan"
-    id="uploadPanBg"
-    tabindex="-1"
-    aria-labelledby="uploadPanBgLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div
-          class="modal-header d-block"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="removeModal()"
-        >
-          <h1 class="modal-title fs-5" id="uploadPanBgLabel"></h1>
-          <button
-            type="button"
-            class="btn-horizontal-line"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-            (click)="removeModal()"
-          ></button>
-        </div>
+</div>
+
+<!-- Upload Signature File Modal -->
+<div class="modal fade uploadPan" id="uploadPanBg" tabindex="-1" aria-labelledby="uploadPanBgLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+        <h2 class="modal-title fs-5" id="uploadPanBgLabel"></h2>
+        <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
+      </div>
         <div class="modal-body">
           <h5>Upload Aadhaar Card</h5>
           <div class="file_upload_css">

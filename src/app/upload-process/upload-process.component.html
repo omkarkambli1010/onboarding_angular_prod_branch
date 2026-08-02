@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-12 m-auto">
-        <!-- <div (click)="redirect()" class="back_cls">
+        <!-- <div (click)="redirect()" class="back_cls" (keydown.enter)="redirect()" (keydown.space)="redirect()" role="button" tabindex="0">
           <img src="assets/images/diy/ChevronLeft.png" alt="" />
         </div> -->
         <div class="mobile_css">
@@ -21,7 +21,7 @@
           </div>
         </div>
 
-        <form method="post" class="">
+        <form aria-label="PAN Card Details" method="post" class="">
           <div class="div">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="header_padding">
@@ -399,7 +399,7 @@
         aria-label="Close"
         (click)="removeModal()"
       >
-        <h1 class="modal-title fs-5" id="completePanLabel"></h1>
+        <h2 class="modal-title fs-5 visually-hidden" id="completePanLabel">Verifying PAN details</h2>
         <button
           type="button"
           class="btn-horizontal-line"
@@ -432,9 +432,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block">
-        <h1 class="modal-title fs-5" id="completePanManualLabel"></h1>
-        <!-- data-bs-dismiss="modal"
-        aria-label="Close" -->
+        <h2 class="modal-title fs-5 visually-hidden" id="completePanManualLabel">Verifying PAN details</h2>
         <button
           type="button"
           class="btn-horizontal-line"
@@ -469,7 +467,7 @@
         <!-- (click)="removeModal()"
       data-bs-dismiss="modal"
       aria-label="Close" -->
-        <h1 class="modal-title fs-5" id="completePanVerifyDoneLabel"></h1>
+        <h2 class="modal-title fs-5 visually-hidden" id="completePanVerifyDoneLabel">PAN verified successfully</h2>
         <button
           type="button"
           class="btn-horizontal-line"
@@ -542,7 +540,7 @@
         data-bs-dismiss="modal"
         aria-label="Close"
       >
-        <h1 class="modal-title fs-5" id="completePanVerifyErrorLabel"></h1>
+        <h2 class="modal-title fs-5 visually-hidden" id="completePanVerifyErrorLabel">PAN verification failed</h2>
         <button
           type="button"
           class="btn-horizontal-line"

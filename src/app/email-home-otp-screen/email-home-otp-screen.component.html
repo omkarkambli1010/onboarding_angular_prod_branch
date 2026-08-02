@@ -1,4 +1,5 @@
-<section class="pan_details_form">
+<section aria-label="Email OTP Verification" class="pan_details_form">
+  <h1 class="visually-hidden">Email OTP Verification</h1>
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-12 col-12 p-0 p-sm-0 m-auto">
@@ -8,13 +9,13 @@
               <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
             </div> -->
             <div class="d-flex flex-column align-items-start gap-2">
-              <h5 class="">OTP Verification</h5>
+              <h2 class="">OTP Verification</h2>
               <p class="sub_title">You will receive OTP on your Email ID</p>
             </div>
           </div>
         </div>
 
-        <form method="post" class="">
+        <form aria-label="Email OTP Verification" method="post" class="">
           <div class="div">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="header_padding">
@@ -37,7 +38,7 @@
                     </svg>
                   </span> -->
                   <div class="d-flex flex-column gap-2">
-                    <h5>OTP Verification</h5>
+                    <h2>OTP Verification</h2>
                     <p class="sub_title">
                       You will receive OTP on your Email ID
                     </p>
@@ -54,8 +55,10 @@
                   <div class="mobile_otp_screen">
                     <div class="otp_section">
                       <div class="mobile_input">
-                        <h6>{{ this.sendEmailOtp.email }}</h6>
-                        <p style="display: flex; align-items: center; gap: 8px; cursor: pointer;"
+                        <h3>{{ this.sendEmailOtp.email }}</h3>
+                        <p role="button" tabindex="0" (keydown.enter)="editEmailID()" (keydown.space)="editEmailID()"
+                          aria-label="Edit email ID"
+                          style="display: flex; align-items: center; gap: 8px; cursor: pointer;"
                           (click)="editEmailID()">
                           <span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
@@ -85,6 +88,7 @@
                           <span class="alert_msg">Invalid OTP. Enter the valid 6-digit OTP sent on your Email</span>
                         </div>
                       </div>
+                      <span class="visually-hidden" role="status" aria-live="polite">{{ resendStatusMsg }}</span>
                       <div class="otp_align">
                         <div>
                           <span class="">Didn't receive the OTP?</span>
@@ -93,7 +97,7 @@
                           <span *ngIf="timeroff1">
                             Resend OTP : {{ displayEmail + " sec" }}
                           </span>
-                          <span *ngIf="!timeroff1" (click)="getEmailOtp(true)" class="otp_confirmation">
+                          <span *ngIf="!timeroff1" (click)="getEmailOtp(true)" class="otp_confirmation" class="otp_confirmation" (keydown.enter)="getEmailOtp(true)" (keydown.space)="getEmailOtp(true)" role="button" tabindex="0">
                             Resend OTP
                           </span>
                         </div>
@@ -147,7 +151,7 @@
             </span>
           </div>
           <div>
-            <h5>Email Verification</h5>
+            <h5 id="emailModalSuccess">Email Verification</h5>
           </div>
           <div>
             <p>Your Email ID been verified successfully</p>

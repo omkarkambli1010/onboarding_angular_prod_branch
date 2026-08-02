@@ -11,13 +11,13 @@
             <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div>
 
             <div class="d-flex flex-column align-items-start gap-2">
-              <h5>Details required to finish KYC</h5>
+              <h2 class="page-heading-sm" role="heading" aria-level="1">Details required to finish KYC</h2>
               <p class="sub_title">It's a mandatory requirement</p>
             </div>
           </div>
         </div>
 
-        <form method="post">
+        <form aria-label="Father or Spouse Name" method="post">
           <div class="div">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="d-flex align-items-start gap-2">
@@ -67,7 +67,7 @@
                   </span>
                 </div>
                 <div class="d-flex flex-column align-items-start gap-2">
-                  <h5>Details required to finish KYC</h5>
+                  <h2 class="page-heading-sm" role="heading" aria-level="1">Details required to finish KYC</h2>
                   <p class="sub_title">It's a mandatory requirement</p>
                 </div>
               </div>
@@ -82,15 +82,9 @@
                     >
                   </div>
                   <div>
-                    <input
-                      type="text"
-                      class="form-control upper"
-                      id="Father"
-                      name="Father"
-                      placeholder="Enter Father/Spouse Name"
-                      [(ngModel)]="kycParents.fatherName"
-                      (input)="checkInput($event)"
-                      (ngModelChange)="
+                    <input type="text" class="form-control upper" id="Father" aria-label="Enter Father or Spouse Name"
+                      aria-required="true" autocomplete="off" name="Father" placeholder="Enter Father/Spouse Name"
+                      [(ngModel)]="kycParents.fatherName" (input)="checkInput($event)" (ngModelChange)="
                         updateFatherName(kycParents.fatherName, 'change')
                       "
                       (focusout)="

@@ -466,7 +466,6 @@ export class AddNomineeComponent {
   // }
 
   ngOnInit(): void {
-    this.title.setTitle('Add Nominee - Onboarding-DIY-PWA');
 
     this.meta.updateTag({
       name: 'description',

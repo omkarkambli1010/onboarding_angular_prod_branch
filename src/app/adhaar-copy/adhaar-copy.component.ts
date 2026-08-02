@@ -62,7 +62,6 @@ export class AdhaarCopyComponent {
   }
 
   ngOnInit(): void {
-    this.title.setTitle('Aadhar Page - Onboarding-DIY-PWA');
 
     this.meta.updateTag({
       name: 'description',

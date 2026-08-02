@@ -57,7 +57,7 @@
       <div class="col-lg-10 col-12 m-auto">
         <div class="mobile_css">
           <div class="back_cls">
-            <div *ngIf="this.RejectStatus != 'R'" (click)="redirectSignature()">
+            <div *ngIf="this.RejectStatus != 'R'" (click)="redirectSignature()" (keydown.enter)="redirectSignature()" (keydown.space)="redirectSignature()" role="button" tabindex="0">
               <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
             </div>
 
@@ -71,7 +71,7 @@
                   </div>
                 </div>
                 <div>
-                  <div class="help_btn" (click)="faqHelpBtn('Nominee')">Need Help?</div>
+                  <div class="help_btn" (click)="faqHelpBtn('Nominee')" (keydown.enter)="faqHelpBtn('Nominee')" (keydown.space)="faqHelpBtn('Nominee')" role="button" tabindex="0">Need Help?</div>
                 </div>
               </div>
               <p class="sub_title">
@@ -84,46 +84,21 @@
           <div class="div">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="d-flex align-items-start gap-2">
-                <div *ngIf="this.RejectStatus != 'R'" (click)="redirectSignature()">
+                <div *ngIf="this.RejectStatus != 'R'" (click)="redirectSignature()" (keydown.enter)="redirectSignature()" (keydown.space)="redirectSignature()" role="button" tabindex="0">
                   <span>
-                     <svg
-                      width="24"
-                      height="25"
-                      viewBox="0 0 24 25"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                    <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true" focusable="false">
                       <g clip-path="url(#clip0_0_10804)">
-                        <path
-                          d="M5 12.5H19"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M5 12.5L11 18.5"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M5 12.5L11 6.5"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
+                        <path d="M5 12.5H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                        <path d="M5 12.5L11 18.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                        <path d="M5 12.5L11 6.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
                       </g>
                       <defs>
                         <clipPath id="clip0_0_10804">
-                          <rect
-                            width="24"
-                            height="24"
-                            fill="white"
-                            transform="translate(0 0.5)"
-                          />
+                          <rect width="24" height="24" fill="white" transform="translate(0 0.5)" />
                         </clipPath>
                       </defs>
                     </svg>
@@ -137,7 +112,7 @@
                       </div>
                     </div>
                     <div>
-                      <div class="help_btn" (click)="faqHelpBtn('Nominee')">
+                      <div class="help_btn" (click)="faqHelpBtn('Nominee')" (keydown.enter)="faqHelpBtn('Nominee')" (keydown.space)="faqHelpBtn('Nominee')" role="button" tabindex="0">
                         Need Help?
                       </div>
                     </div>
@@ -189,7 +164,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
-          <h5 class="text-start" style="padding: 20px; padding-left: 2px">
+          <h5 id="confirmPrefLabel" class="text-start" style="padding: 20px; padding-left: 2px">
             Proceed to opt out from nominee
           </h5>
 
@@ -222,7 +197,7 @@
       <div class="col-lg-10 col-12 m-auto">
         <div class="mobile_css">
           <div class="back_cls">
-            <div (click)="BackToOne()">
+            <div (click)="BackToOne()" (keydown.enter)="BackToOne()" (keydown.space)="BackToOne()" role="button" tabindex="0">
               <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
             </div>
 
@@ -235,7 +210,7 @@
                   </div>
                 </div>
                 <div>
-                  <div class="help_btn" (click)="faqHelpBtn('Nominee')">Need Help?</div>
+                  <div class="help_btn" (click)="faqHelpBtn('Nominee')" (keydown.enter)="faqHelpBtn('Nominee')" (keydown.space)="faqHelpBtn('Nominee')" role="button" tabindex="0">Need Help?</div>
                 </div>
               </div>
               <p class="sub_title">
@@ -249,46 +224,21 @@
           <div class="row">
             <div class="col-lg-12 col-md-12 col-12 pb-3 desktop_css">
               <div class="d-flex align-items-start gap-2">
-                <div (click)="BackToOne()">
+                <div (click)="BackToOne()" (keydown.enter)="BackToOne()" (keydown.space)="BackToOne()" role="button" tabindex="0">
                   <span>
-                     <svg
-                      width="24"
-                      height="25"
-                      viewBox="0 0 24 25"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                    <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true" focusable="false">
                       <g clip-path="url(#clip0_0_10804)">
-                        <path
-                          d="M5 12.5H19"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M5 12.5L11 18.5"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M5 12.5L11 6.5"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
+                        <path d="M5 12.5H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                        <path d="M5 12.5L11 18.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                        <path d="M5 12.5L11 6.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
                       </g>
                       <defs>
                         <clipPath id="clip0_0_10804">
-                          <rect
-                            width="24"
-                            height="24"
-                            fill="white"
-                            transform="translate(0 0.5)"
-                          />
+                          <rect width="24" height="24" fill="white" transform="translate(0 0.5)" />
                         </clipPath>
                       </defs>
                     </svg>
@@ -308,7 +258,7 @@
                       </div>
                     </div>
                     <div>
-                      <div class="help_btn" (click)="faqHelpBtn('Nominee')">Need Help?</div>
+                      <div class="help_btn" (click)="faqHelpBtn('Nominee')" (keydown.enter)="faqHelpBtn('Nominee')" (keydown.space)="faqHelpBtn('Nominee')" role="button" tabindex="0">Need Help?</div>
                     </div>
                   </div>
                   <p class="sub_title">
@@ -394,7 +344,7 @@
                             <div class="col-lg-6 col-md-6 col-12">
                               <div class="">
                                 <label for="NomEmail" class="form-label">Nominee Email-ID</label>
-                                <input type="text" class="form-control" id="NomEmail" aria-describedby="emailHelp"
+                                <input type="text" class="form-control" id="NomEmail"
                                   name="NomEmail" placeholder="Email-ID" [(ngModel)]="nomineeDetails.NomEmailID"
                                   required (input)="validateEmail1()" (focusout)="focusOutFunction1()"
                                   appEmojiBlocker />
@@ -703,7 +653,7 @@
                             <div class="col-lg-6 col-md-6 col-12">
                               <div class="">
                                 <label for="GuarEmail" class="form-label">Guardian Email-ID</label>
-                                <input type="text" class="form-control" id="GuarEmail" aria-describedby="emailHelp"
+                                <input type="text" class="form-control" id="GuarEmail"
                                   name="GuarEmail" placeholder="Email-ID" [(ngModel)]="
                                     nomineeDetails.nomineeGuardianEmail
                                   " required (input)="validateGuarEmail1()" (focusout)="focusOutFunctionGuar1()"
@@ -1025,7 +975,7 @@
                             <div class="col-lg-6 col-md-6 col-12">
                               <div class="">
                                 <label for="NomEmail2" class="form-label">Nominee Email-ID</label>
-                                <input type="text" class="form-control" id="NomEmail2" aria-describedby="emailHelp"
+                                <input type="text" class="form-control" id="NomEmail2"
                                   name="NomEmail2" placeholder="Email-ID" [(ngModel)]="nomineeDetails2.NomEmailID"
                                   required (input)="validateEmail2()" (focusout)="focusOutFunction2()"
                                   appEmojiBlocker />
@@ -1317,7 +1267,7 @@
                             <div class="col-lg-6 col-md-6 col-12">
                               <div class="">
                                 <label for="GuarEmail2" class="form-label">Guardian Email-ID</label>
-                                <input type="text" class="form-control" id="GuarEmail2" aria-describedby="emailHelp"
+                                <input type="text" class="form-control" id="GuarEmail2"
                                   name="GuarEmail2" placeholder="Email-ID" [(ngModel)]="
                                     nomineeDetails2.nomineeGuardianEmail
                                   " required (input)="validateGuarEmail2()" (focusout)="focusOutFunctionGuar2()"
@@ -1629,7 +1579,7 @@
                             <div class="col-lg-6 col-md-6 col-12">
                               <div class="">
                                 <label for="NomEmail3" class="form-label">Nominee Email-ID</label>
-                                <input type="text" class="form-control" id="NomEmail3" aria-describedby="emailHelp"
+                                <input type="text" class="form-control" id="NomEmail3"
                                   name="NomEmail3" placeholder="Email-ID" [(ngModel)]="nomineeDetails3.NomEmailID"
                                   required (input)="validateEmail3()" (focusout)="focusOutFunction3()"
                                   appEmojiBlocker />
@@ -1919,7 +1869,7 @@
                             <div class="col-lg-6 col-md-6 col-12">
                               <div class="">
                                 <label for="GuarEmail3" class="form-label">Guardian Email-ID</label>
-                                <input type="text" class="form-control" id="GuarEmail3" aria-describedby="emailHelp"
+                                <input type="text" class="form-control" id="GuarEmail3"
                                   name="GuarEmail3" placeholder="Email-ID" [(ngModel)]="
                                     nomineeDetails3.nomineeGuardianEmail
                                   " required (input)="validateGuarEmail3()" (focusout)="focusOutFunctionGuar3()"
@@ -2168,7 +2118,7 @@
           </div>
           <div class="text-center my-2">
             <div class="btn_action_align">
-              <div *ngIf="visibleAccordions < 3" class="nominee_footer" (click)="addNominee()">
+              <div *ngIf="visibleAccordions < 3" class="nominee_footer" (click)="addNominee()" (keydown.enter)="addNominee()" (keydown.space)="addNominee()" role="button" tabindex="0">
                 <span>
                   <img src="assets/images/diy/more.png" alt="" />
                 </span>

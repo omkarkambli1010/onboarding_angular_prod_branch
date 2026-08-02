@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-10 col-12 m-auto">
-          <form method="post">
+          <form role="presentation" method="post">
             <div class="">
               <div class="col-lg-12 col-md-12 col-12 desktop_css">
                 <div class="d-flex align-items-start gap-2">
@@ -26,7 +26,7 @@
                       </svg></span>
                   </div>
                   <div class="d-flex flex-column align-items-start gap-2">
-                    <h5>Segment Preference</h5>
+                    <h5 role="heading" aria-level="1" id="seg-pref-heading-desk">Segment Preference</h5>
                     <p class="sub_title">
                       At the time of account opening by default we are providing
                       Equity and Mutual Fund segment, if you wish to active F&O
@@ -59,9 +59,8 @@
                   <div class="pan_details_align">
                     <input id="uploadPanMan{{ i }}" name="uploadPanMan{{ i }}" class="form-check-input" type="checkbox"
                       [(ngModel)]="segmentPreferenceResponse[i].selected"
-                      [disabled]="plans.trdSegment === 'Equity & Mutual Fund'" />
-                    <!-- data-bs-toggle="collapse" -->
-                    <!-- data-bs-target="#collapseDerivate" -->
+                      [attr.aria-label]="plans.trdSegment"
+                      [disabled]="plans.trdSegment === 'Equity & Mutual Fund'" [attr.aria-disabled]="plans.trdSegment === 'Equity & Mutual Fund'" />
                     <div class="upload_css">
                       <h5>{{ plans.trdSegment }}</h5>
                     </div>
@@ -123,7 +122,7 @@
           <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div>
 
           <div class="d-flex flex-column align-items-start gap-2">
-            <h5>Segment Preference</h5>
+            <h5 role="heading" aria-level="1" id="seg-pref-heading-mob">Segment Preference</h5>
             <p class="sub_title">
               At the time of account opening by default we are providing Equity
               and Mutual Fund segment, if you wish to active F&O segment few
@@ -132,7 +131,7 @@
           </div>
         </div>
 
-        <form method="post">
+        <form role="presentation" method="post">
           <div class="plan_selection_section">
             <div class="plan_segment">
               <div class="title">Plan Selected</div>
@@ -149,16 +148,17 @@
             </div>
           </div>
           <div *ngFor="let plans of segmentPreferenceResponse; let i = index" class="col-lg-12">
-            <div for="uploadPanMan{{ i }}" class="square-box p-3">
+            <label for="uploadPanMan{{ i }}" class="square-box p-3">
               <div class="pan_details_align">
                 <input id="uploadPanMan{{ i }}" name="uploadPanMan{{ i }}" class="form-check-input" type="checkbox"
                   data-bs-toggle="modal" [(ngModel)]="segmentPreferenceResponse[i].selected"
-                  [disabled]="plans.trdSegment === 'Equity & Mutual Fund'" />
+                  [attr.aria-label]="plans.trdSegment"
+                  [disabled]="plans.trdSegment === 'Equity & Mutual Fund'" [attr.aria-disabled]="plans.trdSegment === 'Equity & Mutual Fund'" />
                 <div class="upload_css">
                   <h5>{{ plans.trdSegment }}</h5>
                 </div>
               </div>
-            </div>
+            </label>
           </div>
           <div class="col-12">
             <p style="font-size: 14px">
@@ -184,12 +184,12 @@
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close"
         (click)="dismissModal(); removeModal()">
-        <h1 class="modal-title fs-5" id="riskdisclosureLabel"></h1>
+        <h2 class="modal-title fs-5 visually-hidden" id="riskdisclosureLabel">Risk disclosure</h2>
         <button type="button" class="btn-horizontal-line" id="riskDisclosureClose" data-bs-dismiss="modal"
           aria-label="Close" (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
-        <h5>Risk disclosure</h5>
+        <h5 role="heading" aria-level="3">Risk disclosure</h5>
         <div>
           <div [innerHTML]="riskDisclosureData"></div>
         </div>
@@ -213,12 +213,12 @@
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close"
         (click)="dismissModal(); removeModal()">
-        <h1 class="modal-title fs-5" id="documentSelectLabel"></h1>
+        <h2 class="modal-title fs-5 visually-hidden" id="documentSelectLabel">Document selection</h2>
         <button type="button" class="btn-horizontal-line" id="documentSelectClose" data-bs-dismiss="modal"
           aria-label="Close" (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
-        <h5>Select the documents required to upload</h5>
+        <h5 role="heading" aria-level="3">Select the documents required to upload</h5>
         <p class="mb-3">
           As per latest guidelines by SEBI & Exchange, you need to upload your
           income proof to trade in Future & Options.
@@ -254,12 +254,12 @@
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close"
         (click)="dismissModal(); removeModal()">
-        <h1 class="modal-title fs-5" id="uploadBankStatementLabel"></h1>
+        <h2 class="modal-title fs-5 visually-hidden" id="uploadBankStatementLabel">Upload bank statement</h2>
         <button type="button" class="btn-horizontal-line" id="bankUploadClose" data-bs-dismiss="modal"
           aria-label="Close" (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
-        <h5>{{ "Upload " + selectedDocumentLabel }}</h5>
+        <h5 role="heading" aria-level="3">{{ "Upload " + selectedDocumentLabel }}</h5>
         <div class="img_upload">
           <div class="camera_icon" style="position: relative; display: inline-block">
             <img src="assets/images/diy/camera_img.png" alt="Upload Image" style="cursor: pointer" />
@@ -273,7 +273,7 @@
                 cursor: pointer;
               " type="file" capture="environment" accept="image/*" (change)="fileChangeEvent($event)"
               (click)="setCaptureEvent('environment')" (click)="resetExistingImage()"
-              data-bs-target="#uploadBankStateUpload" data-bs-toggle="modal" />
+              data-bs-target="#uploadBankStateUpload" data-bs-toggle="modal" aria-label="Take a photo of your document" />
           </div>
           <div style="position: relative; display: inline-block">
             <img src="assets/images/diy/upload_img.png" alt="Upload Image" style="cursor: pointer" />
@@ -287,7 +287,7 @@
                 cursor: pointer;
               " type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)"
               (click)="setCaptureEvent('upload')" (click)="resetExistingImage()" data-bs-target="#uploadBankStateUpload"
-              data-bs-toggle="modal" />
+              data-bs-toggle="modal" aria-label="Upload a document file" />
           </div>
         </div>
         <div class="file_type_css">
@@ -310,12 +310,12 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-        <h1 class="modal-title fs-5" id="uploadBankStateUploadLabel"></h1>
+        <h2 class="modal-title fs-5 visually-hidden" id="uploadBankStateUploadLabel">Upload bank statement preview</h2>
         <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
           (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
-        <h5>{{ "Upload " + selectedDocumentLabel }}</h5>
+        <h5 role="heading" aria-level="3">{{ "Upload " + selectedDocumentLabel }}</h5>
         <!-- <div *ngIf="!FFF" class="my-3"></div>
         <div *ngIf="!imageChangedEvent" class="my-3"></div> -->
         <div *ngIf="FFF" class="file_upload_css">
@@ -348,16 +348,16 @@
         <div class="btn_align">
           <label *ngIf="!imageChangedEvent" class="btn btn_cls_outline">
             Upload Image
-            <input type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)" style="display: none" />
+            <input type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)" style="display: none" aria-label="Upload a document file" />
           </label>
           <label *ngIf="imageChangedEvent && capture_event !== 'user'" class="btn btn_cls_outline">
             Re-Upload Image
-            <input type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)" style="display: none" />
+            <input type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)" style="display: none" aria-label="Upload a document file" />
           </label>
           <label *ngIf="imageChangedEvent && capture_event == 'user'" class="btn btn_cls_outline">
             Re-Upload Image
             <input type="file" capture="user" accept="image/*,.pdf" (change)="fileChangeEvent($event)"
-              style="display: none" />
+              style="display: none" aria-label="Take a photo" />
           </label>
           <button [disabled]="!imageChangedEvent && !FFF" type="button" class="btn btn_cls"
             data-bs-target="#uploadBankStateBg" data-bs-toggle="modal" (click)="openId()">
@@ -375,12 +375,12 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-        <h1 class="modal-title fs-5" id="uploadBankStateBgLabel"></h1>
+        <h2 class="modal-title fs-5 visually-hidden" id="uploadBankStateBgLabel">Confirm bank statement</h2>
         <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
           (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
-        <h5>{{ "Upload " + selectedDocumentLabel }}</h5>
+        <h5 role="heading" aria-level="3">{{ "Upload " + selectedDocumentLabel }}</h5>
         <!-- <div *ngIf="!FFF" class="my-3"></div>
         <div *ngIf="!croppedImage" class="my-3"></div> -->
         <div *ngIf="FFF">

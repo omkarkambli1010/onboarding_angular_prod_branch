@@ -631,3 +631,13 @@
     font-size: 14px;
   }
 }
+/* The choice text is a <label> now (WCAG 2.4.3), so it stays clickable and the
+   radio's focus ring is drawn around the whole option. */
+.pan_details_form .pan_details_align .upload_css {
+  cursor: pointer;
+}
+
+.pan_details_form .pan_details_align .radio-button:focus-visible + .upload_css {
+  outline: 3px solid #005fcc;
+  outline-offset: 4px;
+}

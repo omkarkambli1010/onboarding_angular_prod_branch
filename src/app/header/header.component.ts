@@ -26,7 +26,6 @@ export class HeaderComponent {
   ) {}
 
   ngOnInit(): void {
-    this.title.setTitle('Header - Onboarding-DIY-PWA');
 
     this.meta.updateTag({
       name: 'description',

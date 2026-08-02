@@ -18,33 +18,14 @@
         </div>
 
         <div class="mobile_form">
-          <form aria-label="Mobile Number Entry Form" action="" method="post">
+          <form aria-label="Mobile Number Entry" action="" method="post">
             <div class="mobile__input__wrapper position-relative">
-              <label
-                for="mobileInp"
-                class="mobile_number_label position-absolute"
-                >Mobile Number</label
-              >
-              <input
-                aria-label="Mobile Number"
-                type="text"
-                id="mobileInp"
-                class="form-control otp_field mobile__input"
-                aria-describedby="inputMobile"
-                name="MobileNo"
-                pattern="[0-9]*"
-                inputmode="numeric"
-                autocomplete="tel"
-                placeholder="Mobile Number"
-                maxlength="10"
-                [(ngModel)]="sendOtp.mobile"
-                (input)="mobileNoValidation($event, false)"
-                (focusout)="mobileNoValidation2($event)"
-                aria-required="true"
-              />
-              <span *ngIf="mobileDigitReq" class="red_warning"
-                >*Please enter your valid 10 digit mobile number.</span
-              >
+              <label for="mobileInp" class="mobile_number_label position-absolute">Mobile Number</label>
+              <input aria-label="Mobile Number" type="text" id="mobileInp" class="form-control otp_field mobile__input"
+                name="MobileNo" pattern="[0-9]*" inputmode="numeric"
+                autocomplete="tel" placeholder="Mobile Number" maxlength="10" [(ngModel)]="sendOtp.mobile"
+                (input)="mobileNoValidation($event, false)" (focusout)="mobileNoValidation2($event)" aria-required="true" />
+              <span *ngIf="mobileDigitReq" class="red_warning">*Please enter your valid 10 digit mobile number.</span>
             </div>
           </form>
 
@@ -97,32 +78,14 @@
             <hr class="desktop_css" />
             <div class="col-lg-12 col-md-12 col-12">
               <div class="mb-3 desktop_align">
+                <div><label for="mobileInpDesk" class="form-label">Enter Mobile Number</label></div>
                 <div>
-                  <label for="mobileInpDesk" class="form-label"
-                    >Enter Mobile Number</label
-                  >
-                </div>
-                <div>
-                  <input
-                    aria-label="Mobile Number"
-                    type="text"
-                    id="mobileInpDesk"
-                    class="form-control otp_field desk__mobile__inp"
-                    aria-describedby="inputMobile"
-                    name="mobileInp"
-                    pattern="[0-9]*"
-                    inputmode="numeric"
-                    autocomplete="tel"
-                    placeholder="Mobile Number"
-                    maxlength="10"
-                    [(ngModel)]="sendOtp.mobile"
-                    (input)="mobileNoValidation($event, false)"
-                    (focusout)="mobileNoValidation2($event)"
-                    aria-required="true"
-                  />
-                  <span *ngIf="mobileDigitReq" class="red_warning"
-                    >*Please enter your valid 10 digit mobile number.</span
-                  >
+                  <input aria-label="Mobile Number" type="text" id="mobileInpDesk" class="form-control otp_field desk__mobile__inp"
+                    name="mobileInp" pattern="[0-9]*" inputmode="numeric"
+                    autocomplete="tel" placeholder="Mobile Number" maxlength="10" [(ngModel)]="sendOtp.mobile"
+                    (input)="mobileNoValidation($event, false)" (focusout)="mobileNoValidation2($event)" aria-required="true"/>
+                  <span *ngIf="mobileDigitReq" class="red_warning">*Please enter your valid 10 digit mobile
+                    number.</span>
                 </div>
               </div>
             </div>

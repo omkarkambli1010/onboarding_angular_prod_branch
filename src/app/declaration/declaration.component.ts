@@ -139,7 +139,6 @@ export class DeclarationComponent implements OnInit {
       name: 'description',
       content: 'Capturing Plan Preference of the customer.',
     });
-    this.title.setTitle('Plan Preference - Onboarding-DIY-PWA');
     // this.getpaymentStatus();
 
     this.route.params.subscribe((params) => {

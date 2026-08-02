@@ -1,0 +1,576 @@
+diff --git a/src/app/add-nominee/add-nominee.component.ts b/src/app/add-nominee/add-nominee.component.ts
+index 939d9a7..c4e3d50 100644
+--- a/src/app/add-nominee/add-nominee.component.ts
++++ b/src/app/add-nominee/add-nominee.component.ts
+@@ -466,7 +466,6 @@ export class AddNomineeComponent {
+   // }
+ 
+   ngOnInit(): void {
+-    this.title.setTitle('Add Nominee - Onboarding-DIY-PWA');
+ 
+     this.meta.updateTag({
+       name: 'description',
+diff --git a/src/app/adhaar-copy/adhaar-copy.component.ts b/src/app/adhaar-copy/adhaar-copy.component.ts
+index 54115f3..8783ad7 100644
+--- a/src/app/adhaar-copy/adhaar-copy.component.ts
++++ b/src/app/adhaar-copy/adhaar-copy.component.ts
+@@ -62,7 +62,6 @@ export class AdhaarCopyComponent {
+   }
+ 
+   ngOnInit(): void {
+-    this.title.setTitle('Aadhar Page - Onboarding-DIY-PWA');
+ 
+     this.meta.updateTag({
+       name: 'description',
+diff --git a/src/app/aggregator-callback/aggregator-callback.component.ts b/src/app/aggregator-callback/aggregator-callback.component.ts
+index 6118764..d4a5d9d 100644
+--- a/src/app/aggregator-callback/aggregator-callback.component.ts
++++ b/src/app/aggregator-callback/aggregator-callback.component.ts
+@@ -125,7 +125,6 @@ export class AggregatorCallbackComponent {
+     this.startInterval();
+     // this.getAggWebhookStatus()
+ 
+-    this.title.setTitle('Thank You - Onboarding-DIY-PWA');
+     
+     this.personalFormNumber = window.sessionStorage.getItem('FormNumber');
+ 
+diff --git a/src/app/annual-income/annual-income.component.ts b/src/app/annual-income/annual-income.component.ts
+index e35dacf..5e1bc4b 100644
+--- a/src/app/annual-income/annual-income.component.ts
++++ b/src/app/annual-income/annual-income.component.ts
+@@ -52,7 +52,6 @@ export class AnnualIncomeComponent implements OnInit {
+   ) {}
+ 
+   ngOnInit(): void {
+-    this.title.setTitle('Personal Details - Onboarding-DIY-PWA');
+     this.meta.updateTag({
+       name: 'description',
+       content: 'Capturing Personal Details of the customer.',
+diff --git a/src/app/app-routing.module.ts b/src/app/app-routing.module.ts
+index 9af31ff..f86584e 100644
+--- a/src/app/app-routing.module.ts
++++ b/src/app/app-routing.module.ts
+@@ -1,5 +1,6 @@
+ import { NgModule } from '@angular/core';
+-import { RouterModule, Routes } from '@angular/router';
++import { RouterModule, Routes, TitleStrategy } from '@angular/router';
++import { PageTitleStrategy } from './page-title.strategy';
+ import { UploadProcessComponent } from './upload-process/upload-process.component';
+ // import { DiymainpwaComponent } from './diymainpwa/diymainpwa.component';
+ import { PersonalDetailsFormComponent } from './personal-details-form/personal-details-form.component';
+@@ -51,68 +52,70 @@ import { YonotabSsoComponent } from './yonotab-sso/yonotab-sso.component';
+ const routes: Routes = [
+   { path: '', pathMatch: 'full', redirectTo: '' },
+   // { path: '', component: DiymainpwaComponent },
+-  { path: '', component: HomeComponent },
+-  { path: 'home', component: HomeComponent },
+-  { path: 'mobile-home-otp', component: MobileHomeOtpScreenComponent },
+-  { path: 'email', component: EmailHomeScreenComponent },
+-  { path: 'email-home-textpage', component: EmailHomePageComponent },
+-  { path: 'email-home-otp', component: EmailHomeOtpScreenComponent },
+-  { path: 'digilocker-screen', component: DigilockerScreenComponent },
++  { path: '', component: HomeComponent, title: '' },
++  { path: 'home', component: HomeComponent, title: '' },
++  { path: 'mobile-home-otp', component: MobileHomeOtpScreenComponent, title: 'OTP Verification for Demat Account Opening' },
++  { path: 'email', component: EmailHomeScreenComponent, title: 'Email Verification' },
++  { path: 'email-home-textpage', component: EmailHomePageComponent, title: 'Email ID' },
++  { path: 'email-home-otp', component: EmailHomeOtpScreenComponent, title: 'Email OTP Verification' },
++  { path: 'digilocker-screen', component: DigilockerScreenComponent, title: 'DigiLocker Verification' },
+   { path: 'msf-sso/:refno', component: MsfSsoComponent },
+   { path: 'yono-sso/:refno', component: YonoSsoComponent },
+-  { path: 'yonotab-sso/:refno', component: YonotabSsoComponent },
+-  { path: 'yono-mobile', component: YonoMobileComponent },
+-  { path: 'yono-email', component: YonoEmailComponent },
+-  { path: 'uploadProcess/:formNumber', component: UploadProcessComponent },
+-  { path: 'aadhar', component: AdhaarCopyComponent },
+-  { path: 'personalDetailsForm/1', component: PersonalDetailsFormComponent },
+-  { path: 'personalDetailsForm/2', component: TradingExpComponent },
+-  { path: 'personalDetailsForm/3', component: AnnualIncomeComponent },
+-  { path: 'personalDetailsForm/4', component: OccupDetailsComponent },
+-  { path: 'personalDetailsForm/5', component: FatherSpouseNameComponent },
+-  { path: 'personalDetailsForm/6', component: LinkBankAccountComponent },
+-  { path: 'PennyDrop/:formNumber', component: PennyDropComponent },
++  { path: 'yonotab-sso/:refno', component: YonotabSsoComponent, title: 'Signing In' },
++  { path: 'yono-mobile', component: YonoMobileComponent, title: 'Mobile Verification' },
++  { path: 'yono-email', component: YonoEmailComponent, title: 'Email Verification' },
++  { path: 'uploadProcess/:formNumber', component: UploadProcessComponent, title: 'Upload Documents' },
++  { path: 'aadhar', component: AdhaarCopyComponent, title: 'Aadhaar Verification' },
++  { path: 'personalDetailsForm/1', component: PersonalDetailsFormComponent, title: 'Marital Status' },
++  { path: 'personalDetailsForm/2', component: TradingExpComponent, title: 'Trading Experience' },
++  { path: 'personalDetailsForm/3', component: AnnualIncomeComponent, title: 'Annual Income' },
++  { path: 'personalDetailsForm/4', component: OccupDetailsComponent, title: 'Occupation Details' },
++  { path: 'personalDetailsForm/5', component: FatherSpouseNameComponent, title: 'Personal Details' },
++  { path: 'personalDetailsForm/6', component: LinkBankAccountComponent, title: 'Link Bank Account' },
++  { path: 'PennyDrop/:formNumber', component: PennyDropComponent, title: 'Verify your Bank Account' },
+   {
+     path: 'reversePennyDrop/:formNumber',
+     component: ReversePennyDropComponent,
++    title: 'Verify your Bank Account',
+   },
+-  { path: 'reversePennyDropRpd/:formNumber', component: RpdComponent },
+-  { path: 'planprocess/1', component: DeclarationComponent },
+-  { path: 'planprocess/2', component: PlanPreferenceComponent },
+-  { path: 'planprocess/3', component: SegmentPreferenceComponent },
+-  { path: 'CaptureSelfie/:formNumber', component: SelfieComponent },
++  { path: 'reversePennyDropRpd/:formNumber', component: RpdComponent, title: 'Verify your Bank Account' },
++  { path: 'planprocess/1', component: DeclarationComponent, title: 'Declaration' },
++  { path: 'planprocess/2', component: PlanPreferenceComponent, title: 'Plan Preference' },
++  { path: 'planprocess/3', component: SegmentPreferenceComponent, title: 'Segment Preference' },
++  { path: 'CaptureSelfie/:formNumber', component: SelfieComponent, title: 'Upload Selfie' },
+   // { path: 'nominee-optout/:formNumber', component: NomineeOptoutComponent },
+-  { path: 'uploadSignature', component: UploadSignatureComponent },
+-  { path: 'uploadPan', component: UploadPanComponent },
++  { path: 'uploadSignature', component: UploadSignatureComponent, title: 'Upload Signature' },
++  { path: 'uploadPan', component: UploadPanComponent, title: 'Upload PAN' },
+ 
+-  { path: 'nameChange', component: NameChangeComponent },
+-  { path: 'support-document', component: UploadSupportingComponent },
++  { path: 'nameChange', component: NameChangeComponent, title: 'Name Change' },
++  { path: 'support-document', component: UploadSupportingComponent, title: 'Upload Supporting Document' },
+ 
+-  { path: 'additional-document', component: UploadAdditionalComponent },
+-  { path: 'aadhaar-front', component: UploadAadhaarFrontComponent },
+-  { path: 'aadhaar-back', component: UploadAadhaarBackComponent },
++  { path: 'additional-document', component: UploadAdditionalComponent, title: 'Upload Additional Document' },
++  { path: 'aadhaar-front', component: UploadAadhaarFrontComponent, title: 'Upload Aadhaar Front' },
++  { path: 'aadhaar-back', component: UploadAadhaarBackComponent, title: 'Upload Aadhaar Back' },
+ 
+-  { path: 'addNominee/:formNumber', component: AddNomineeComponent },
++  { path: 'addNominee/:formNumber', component: AddNomineeComponent, title: 'Add Nominee' },
+   // { path: 'nominee/:formNumber', component: NomineeComponent },
+   //{ path: 'addNominee/:formNumber', component: NomineeComponent },
+ 
+-  { path: 'esign', component: EsignComponent },
+-  { path: 'fnoesign', component: FnoesignComponent },
++  { path: 'esign', component: EsignComponent, title: 'Esign Verification' },
++  { path: 'fnoesign', component: FnoesignComponent, title: 'Derivatives Esign Verification' },
+   { path: 'aacallback', component: AggregatorCallbackComponent },
+   // { path: 'nominee-callback', component: NomineeCallbackComponent },
+ 
+   { path: 'bp-sso/:formNumber', component: BpSsoComponent },
+ 
+-  { path: 'thankyou', component: ThankyouComponent },
+-  { path: 'fno-thankyou', component: FnothankyouComponent },
++  { path: 'thankyou', component: ThankyouComponent, title: 'Thank You' },
++  { path: 'fno-thankyou', component: FnothankyouComponent, title: 'Thank You' },
+ 
+-  { path: 'faq', component: FaqNeedHelpComponent },
+-  { path: 'page-not-found', component: PageNotFoundComponent },
++  { path: 'faq', component: FaqNeedHelpComponent, title: 'Frequently Asked Questions' },
++  { path: 'page-not-found', component: PageNotFoundComponent, title: 'Page Not Found' },
+   { path: '**', redirectTo: 'page-not-found' },
+ ];
+ 
+ @NgModule({
+   imports: [RouterModule.forRoot(routes)],
+   exports: [RouterModule],
++  providers: [{ provide: TitleStrategy, useClass: PageTitleStrategy }],
+ })
+ export class AppRoutingModule {}
+diff --git a/src/app/bp-sso/bp-sso.component.ts b/src/app/bp-sso/bp-sso.component.ts
+index f247c09..249eb11 100644
+--- a/src/app/bp-sso/bp-sso.component.ts
++++ b/src/app/bp-sso/bp-sso.component.ts
+@@ -105,7 +105,6 @@ export class BpSsoComponent implements OnInit{
+   ) {}
+ 
+   ngOnInit(): void {
+-    this.title.setTitle('Upload Process - Onboarding-DIY-PWA');
+     this.meta.updateTag({
+       name: 'description',
+       content: 'Uploading the details of the customer.',
+diff --git a/src/app/declaration/declaration.component.ts b/src/app/declaration/declaration.component.ts
+index 231a370..1f6f5fd 100644
+--- a/src/app/declaration/declaration.component.ts
++++ b/src/app/declaration/declaration.component.ts
+@@ -139,7 +139,6 @@ export class DeclarationComponent implements OnInit {
+       name: 'description',
+       content: 'Capturing Plan Preference of the customer.',
+     });
+-    this.title.setTitle('Plan Preference - Onboarding-DIY-PWA');
+     // this.getpaymentStatus();
+ 
+     this.route.params.subscribe((params) => {
+diff --git a/src/app/email-home-page/email-home-page.component.ts b/src/app/email-home-page/email-home-page.component.ts
+index e6fbc89..6cd0d54 100644
+--- a/src/app/email-home-page/email-home-page.component.ts
++++ b/src/app/email-home-page/email-home-page.component.ts
+@@ -65,9 +65,6 @@ export class EmailHomePageComponent {
+   ) {}
+ 
+   ngOnInit(): void {
+-    this.title.setTitle(
+-      'Open Demat Account - Free Demat & Trading Account Opening Online | SBI Securities'
+-    );
+ 
+     this.meta.updateTag({
+       name: 'description',
+diff --git a/src/app/email-home-screen/email-home-screen.component.ts b/src/app/email-home-screen/email-home-screen.component.ts
+index 315b2b4..107f5eb 100644
+--- a/src/app/email-home-screen/email-home-screen.component.ts
++++ b/src/app/email-home-screen/email-home-screen.component.ts
+@@ -66,9 +66,6 @@ export class EmailHomeScreenComponent {
+   ) {}
+ 
+   ngOnInit(): void {
+-    this.title.setTitle(
+-      'Open Demat Account - Free Demat & Trading Account Opening Online | SBI Securities'
+-    );
+ 
+     this.meta.updateTag({
+       name: 'description',
+diff --git a/src/app/esign/esign.component.ts b/src/app/esign/esign.component.ts
+index 28f413a..6c9fec3 100644
+--- a/src/app/esign/esign.component.ts
++++ b/src/app/esign/esign.component.ts
+@@ -61,7 +61,6 @@ export class EsignComponent {
+   }
+ 
+   ngOnInit(): void {
+-    this.title.setTitle('Esign Verification - Onboarding-DIY-PWA');
+ 
+     this.meta.updateTag({
+       name: 'description',
+diff --git a/src/app/faq-need-help/faq-need-help.component.ts b/src/app/faq-need-help/faq-need-help.component.ts
+index 2c3932e..fff41eb 100644
+--- a/src/app/faq-need-help/faq-need-help.component.ts
++++ b/src/app/faq-need-help/faq-need-help.component.ts
+@@ -37,7 +37,6 @@ export class FaqNeedHelpComponent {
+       name: 'description',
+       content: 'FAQ of the customer',
+     });
+-    this.title.setTitle('FAQ - Onboarding-DIY-PWA');
+     this.getFAQ();
+     this.route.queryParamMap.subscribe((params) => {
+       const encodedStageName = params.get('stageName');
+diff --git a/src/app/father-spouse-name/father-spouse-name.component.ts b/src/app/father-spouse-name/father-spouse-name.component.ts
+index 0e4f1a2..aab97f3 100644
+--- a/src/app/father-spouse-name/father-spouse-name.component.ts
++++ b/src/app/father-spouse-name/father-spouse-name.component.ts
+@@ -69,7 +69,6 @@ export class FatherSpouseNameComponent implements OnInit {
+   ) {}
+ 
+   ngOnInit(): void {
+-    this.title.setTitle('Personal Details - Onboarding-DIY-PWA');
+     this.meta.updateTag({
+       name: 'description',
+       content: 'Capturing Personal Details of the customer.',
+diff --git a/src/app/fnoesign/fnoesign.component.ts b/src/app/fnoesign/fnoesign.component.ts
+index 55d65cb..58cd3af 100644
+--- a/src/app/fnoesign/fnoesign.component.ts
++++ b/src/app/fnoesign/fnoesign.component.ts
+@@ -40,7 +40,6 @@ export class FnoesignComponent {
+   ) { }
+ 
+   ngOnInit(): void {
+-    this.title.setTitle('Esign Verification - Onboarding-DIY-PWA');
+ 
+     this.meta.updateTag({
+       name: 'description',
+diff --git a/src/app/fnothankyou/fnothankyou.component.ts b/src/app/fnothankyou/fnothankyou.component.ts
+index 29bf931..db5e3b9 100644
+--- a/src/app/fnothankyou/fnothankyou.component.ts
++++ b/src/app/fnothankyou/fnothankyou.component.ts
+@@ -46,7 +46,6 @@ export class FnothankyouComponent {
+   ) { }
+ 
+   ngOnInit(): void {
+-    this.title.setTitle('Thank You - Onboarding-DIY-PWA');
+     this.personalFormNumber = window.sessionStorage.getItem('FormNumber');
+ 
+     this.meta.updateTag({
+diff --git a/src/app/header/header.component.ts b/src/app/header/header.component.ts
+index be36d14..74e8b35 100644
+--- a/src/app/header/header.component.ts
++++ b/src/app/header/header.component.ts
+@@ -26,7 +26,6 @@ export class HeaderComponent {
+   ) {}
+ 
+   ngOnInit(): void {
+-    this.title.setTitle('Header - Onboarding-DIY-PWA');
+ 
+     this.meta.updateTag({
+       name: 'description',
+diff --git a/src/app/link-bank-account/link-bank-account.component.ts b/src/app/link-bank-account/link-bank-account.component.ts
+index a64224a..ddaad8c 100644
+--- a/src/app/link-bank-account/link-bank-account.component.ts
++++ b/src/app/link-bank-account/link-bank-account.component.ts
+@@ -46,7 +46,6 @@ export class LinkBankAccountComponent implements OnInit {
+   ) {}
+ 
+   ngOnInit(): void {
+-    this.title.setTitle('Personal Details - Onboarding-DIY-PWA');
+     this.meta.updateTag({
+       name: 'description',
+       content: 'Capturing Personal Details of the customer.',
+diff --git a/src/app/name-change/name-change.component.ts b/src/app/name-change/name-change.component.ts
+index c96c8ca..b33a1e8 100644
+--- a/src/app/name-change/name-change.component.ts
++++ b/src/app/name-change/name-change.component.ts
+@@ -147,7 +147,6 @@ export class NameChangeComponent {
+   ) { }
+ 
+   ngOnInit(): void {
+-    this.title.setTitle('Personal Details - Onboarding-DIY-PWA');
+     this.meta.updateTag({
+       name: 'description',
+       content: 'Capturing Personal Details of the customer.',
+diff --git a/src/app/nominee-callback/nominee-callback.component.ts b/src/app/nominee-callback/nominee-callback.component.ts
+index 0542b6c..74ee596 100644
+--- a/src/app/nominee-callback/nominee-callback.component.ts
++++ b/src/app/nominee-callback/nominee-callback.component.ts
+@@ -125,7 +125,6 @@ export class NomineeCallbackComponent {
+     this.startInterval();
+     // this.getAggWebhookStatus()
+ 
+-    this.title.setTitle('Nominee Opt-out - Onboarding-DIY-PWA');
+     
+     this.personalFormNumber = window.sessionStorage.getItem('FormNumber');
+ 
+diff --git a/src/app/nominee-optout/nominee-optout.component.ts b/src/app/nominee-optout/nominee-optout.component.ts
+index 08bba1c..9c5099b 100644
+--- a/src/app/nominee-optout/nominee-optout.component.ts
++++ b/src/app/nominee-optout/nominee-optout.component.ts
+@@ -150,7 +150,6 @@ export class NomineeOptoutComponent  implements OnDestroy, OnInit {
+ 
+     this.getLocation();
+ 
+-    this.title.setTitle('Upload Selfie - Onboarding-DIY-PWA');
+ 
+     this.meta.updateTag({
+       name: 'description',
+diff --git a/src/app/nominee/nominee.component.ts b/src/app/nominee/nominee.component.ts
+index 3e8e50f..501a225 100644
+--- a/src/app/nominee/nominee.component.ts
++++ b/src/app/nominee/nominee.component.ts
+@@ -485,7 +485,6 @@ export class NomineeComponent {
+   // }
+ 
+   ngOnInit(): void {
+-    this.title.setTitle('Add Nominee - Onboarding-DIY-PWA');
+ 
+     this.meta.updateTag({
+       name: 'description',
+diff --git a/src/app/occup-details/occup-details.component.ts b/src/app/occup-details/occup-details.component.ts
+index 0b852e3..5ba2bfa 100644
+--- a/src/app/occup-details/occup-details.component.ts
++++ b/src/app/occup-details/occup-details.component.ts
+@@ -52,7 +52,6 @@ export class OccupDetailsComponent implements OnInit {
+   ) {}
+ 
+   ngOnInit(): void {
+-    this.title.setTitle('Personal Details - Onboarding-DIY-PWA');
+     this.meta.updateTag({
+       name: 'description',
+       content: 'Capturing Personal Details of the customer.',
+diff --git a/src/app/page-title.strategy.ts b/src/app/page-title.strategy.ts
+new file mode 100644
+index 0000000..239fcc6
+--- /dev/null
++++ b/src/app/page-title.strategy.ts
+@@ -0,0 +1,25 @@
++import { Injectable } from '@angular/core';
++import { Title } from '@angular/platform-browser';
++import { RouterStateSnapshot, TitleStrategy } from '@angular/router';
++
++const SITE_SUFFIX = 'Onboarding - SBI Securities';
++const DEFAULT_TITLE =
++  'Open Demat Account - Demat & Trading Account Online for Free | SBI Securities';
++
++/**
++ * WCAG 2.4.2 - every step of the journey needs a title that identifies the
++ * current step, not the landing page title inherited from index.html.
++ */
++@Injectable()
++export class PageTitleStrategy extends TitleStrategy {
++  constructor(private readonly title: Title) {
++    super();
++  }
++
++  override updateTitle(snapshot: RouterStateSnapshot): void {
++    const pageTitle = this.buildTitle(snapshot);
++    this.title.setTitle(
++      pageTitle ? `${pageTitle} - ${SITE_SUFFIX}` : DEFAULT_TITLE
++    );
++  }
++}
+diff --git a/src/app/penny-drop/penny-drop.component.ts b/src/app/penny-drop/penny-drop.component.ts
+index ee80751..a075763 100644
+--- a/src/app/penny-drop/penny-drop.component.ts
++++ b/src/app/penny-drop/penny-drop.component.ts
+@@ -149,7 +149,6 @@ export class PennyDropComponent implements OnInit {
+   ) {}
+ 
+   ngOnInit(): void {
+-    this.title.setTitle('Personal Details - Onboarding-DIY-PWA');
+     this.meta.updateTag({
+       name: 'description',
+       content: 'Capturing Personal Details of the customer.',
+diff --git a/src/app/personal-details-form/personal-details-form.component.ts b/src/app/personal-details-form/personal-details-form.component.ts
+index de0c5bc..96c062b 100644
+--- a/src/app/personal-details-form/personal-details-form.component.ts
++++ b/src/app/personal-details-form/personal-details-form.component.ts
+@@ -59,7 +59,6 @@ export class PersonalDetailsFormComponent {
+   ) {}
+ 
+   ngOnInit(): void {
+-    this.title.setTitle('Personal Details - Onboarding-DIY-PWA');
+     this.meta.updateTag({
+       name: 'description',
+       content: 'Capturing Personal Details of the customer.',
+diff --git a/src/app/plan-preference/plan-preference.component.ts b/src/app/plan-preference/plan-preference.component.ts
+index 2e0325d..30888df 100644
+--- a/src/app/plan-preference/plan-preference.component.ts
++++ b/src/app/plan-preference/plan-preference.component.ts
+@@ -187,7 +187,6 @@ export class PlanPreferenceComponent implements OnInit {
+       name: 'description',
+       content: 'Capturing Plan Preference of the customer.',
+     });
+-    this.title.setTitle('Plan Preference - Onboarding-DIY-PWA');
+ 
+     this.getPersonalDataTwo();
+ 
+diff --git a/src/app/reverse-penny-drop/reverse-penny-drop.component.ts b/src/app/reverse-penny-drop/reverse-penny-drop.component.ts
+index f8354bd..4f92261 100644
+--- a/src/app/reverse-penny-drop/reverse-penny-drop.component.ts
++++ b/src/app/reverse-penny-drop/reverse-penny-drop.component.ts
+@@ -151,7 +151,6 @@ export class ReversePennyDropComponent implements OnInit {
+   ngOnInit(): void {
+     this.IsIos = window.sessionStorage.getItem('isIos');
+ 
+-    this.title.setTitle('Personal Details - Onboarding-DIY-PWA');
+     this.meta.updateTag({
+       name: 'description',
+       content: 'Capturing Personal Details of the customer.',
+diff --git a/src/app/rpd/rpd.component.ts b/src/app/rpd/rpd.component.ts
+index c0ba5ef..9332190 100644
+--- a/src/app/rpd/rpd.component.ts
++++ b/src/app/rpd/rpd.component.ts
+@@ -66,7 +66,6 @@ export class RpdComponent {
+ 
+     this.IsIos = window.sessionStorage.getItem('isIos');
+ 
+-    this.title.setTitle('Personal Details - Onboarding-DIY-PWA');
+     this.meta.updateTag({
+       name: 'description',
+       content: 'Capturing Personal Details of the customer.',
+diff --git a/src/app/segment-preference/segment-preference.component.ts b/src/app/segment-preference/segment-preference.component.ts
+index e3e670e..ba92077 100644
+--- a/src/app/segment-preference/segment-preference.component.ts
++++ b/src/app/segment-preference/segment-preference.component.ts
+@@ -137,7 +137,6 @@ export class SegmentPreferenceComponent implements OnInit {
+       name: 'description',
+       content: 'Capturing Plan Preference of the customer.',
+     });
+-    this.title.setTitle('Plan Preference - Onboarding-DIY-PWA');
+ 
+     this.route.params.subscribe((params) => {
+       const gotoValue = params['goto'];
+diff --git a/src/app/selfie/selfie.component.ts b/src/app/selfie/selfie.component.ts
+index 16a7e50..95cfb2f 100644
+--- a/src/app/selfie/selfie.component.ts
++++ b/src/app/selfie/selfie.component.ts
+@@ -155,7 +155,6 @@ export class SelfieComponent implements OnDestroy, OnInit {
+ 
+     this.getLocation();
+ 
+-    this.title.setTitle('Upload Selfie - Onboarding-DIY-PWA');
+ 
+     this.meta.updateTag({
+       name: 'description',
+diff --git a/src/app/trading-exp/trading-exp.component.ts b/src/app/trading-exp/trading-exp.component.ts
+index 52ca610..9c922c4 100644
+--- a/src/app/trading-exp/trading-exp.component.ts
++++ b/src/app/trading-exp/trading-exp.component.ts
+@@ -52,7 +52,6 @@ export class TradingExpComponent implements OnInit {
+   ) {}
+ 
+   ngOnInit(): void {
+-    this.title.setTitle('Personal Details - Onboarding-DIY-PWA');
+     this.meta.updateTag({
+       name: 'description',
+       content: 'Capturing Personal Details of the customer.',
+diff --git a/src/app/upload-aadhaar-back/upload-aadhaar-back.component.ts b/src/app/upload-aadhaar-back/upload-aadhaar-back.component.ts
+index 8e3d1c8..338dc3c 100644
+--- a/src/app/upload-aadhaar-back/upload-aadhaar-back.component.ts
++++ b/src/app/upload-aadhaar-back/upload-aadhaar-back.component.ts
+@@ -90,7 +90,6 @@ export class UploadAadhaarBackComponent {
+   ) {}
+ 
+   ngOnInit(): void {
+-    this.title.setTitle('Upload Aadhaar - Onboarding-DIY-PWA');
+ 
+     this.meta.updateTag({
+       name: 'description',
+diff --git a/src/app/upload-aadhaar-front/upload-aadhaar-front.component.ts b/src/app/upload-aadhaar-front/upload-aadhaar-front.component.ts
+index 173e3f4..5e964c4 100644
+--- a/src/app/upload-aadhaar-front/upload-aadhaar-front.component.ts
++++ b/src/app/upload-aadhaar-front/upload-aadhaar-front.component.ts
+@@ -90,7 +90,6 @@ export class UploadAadhaarFrontComponent {
+   ) {}
+ 
+   ngOnInit(): void {
+-    this.title.setTitle('Upload Aadhaar - Onboarding-DIY-PWA');
+ 
+     this.meta.updateTag({
+       name: 'description',
+diff --git a/src/app/upload-additional/upload-additional.component.ts b/src/app/upload-additional/upload-additional.component.ts
+index 44c5fc5..4437beb 100644
+--- a/src/app/upload-additional/upload-additional.component.ts
++++ b/src/app/upload-additional/upload-additional.component.ts
+@@ -147,7 +147,6 @@ export class UploadAdditionalComponent {
+   ) { }
+ 
+   ngOnInit(): void {
+-    this.title.setTitle('Personal Details - Onboarding-DIY-PWA');
+     this.meta.updateTag({
+       name: 'description',
+       content: 'Capturing Personal Details of the customer.',
+diff --git a/src/app/upload-pan/upload-pan.component.ts b/src/app/upload-pan/upload-pan.component.ts
+index 979c95f..8316241 100644
+--- a/src/app/upload-pan/upload-pan.component.ts
++++ b/src/app/upload-pan/upload-pan.component.ts
+@@ -90,7 +90,6 @@ export class UploadPanComponent {
+   ) { }
+ 
+   ngOnInit(): void {
+-    this.title.setTitle('Upload Pan - Onboarding-DIY-PWA');
+ 
+     this.meta.updateTag({
+       name: 'description',
+diff --git a/src/app/upload-process/upload-process.component.ts b/src/app/upload-process/upload-process.component.ts
+index c634849..ed260f2 100644
+--- a/src/app/upload-process/upload-process.component.ts
++++ b/src/app/upload-process/upload-process.component.ts
+@@ -93,7 +93,6 @@ export class UploadProcessComponent {
+   ) {}
+ 
+   ngOnInit(): void {
+-    this.title.setTitle('Upload Process - Onboarding-DIY-PWA');
+     this.meta.updateTag({
+       name: 'description',
+       content: 'Uploading the details of the customer.',
+diff --git a/src/app/upload-signature/upload-signature.component.ts b/src/app/upload-signature/upload-signature.component.ts
+index 246f28a..98ef4fe 100644
+--- a/src/app/upload-signature/upload-signature.component.ts
++++ b/src/app/upload-signature/upload-signature.component.ts
+@@ -156,7 +156,6 @@ export class UploadSignatureComponent implements AfterViewChecked, OnDestroy {
+       }
+     );
+ 
+-    this.title.setTitle('Upload Signature - Onboarding-DIY-PWA');
+ 
+     this.meta.updateTag({
+       name: 'description',
+diff --git a/src/app/upload-supporting/upload-supporting.component.ts b/src/app/upload-supporting/upload-supporting.component.ts
+index fa3a0ef..2ffbbaf 100644
+--- a/src/app/upload-supporting/upload-supporting.component.ts
++++ b/src/app/upload-supporting/upload-supporting.component.ts
+@@ -155,7 +155,6 @@ export class UploadSupportingComponent {
+   ) { }
+ 
+   ngOnInit(): void {
+-    this.title.setTitle('Support Documents - Onboarding-DIY-PWA');
+     this.meta.updateTag({
+       name: 'description',
+       content: 'Capturing Support Documents of the customer.',

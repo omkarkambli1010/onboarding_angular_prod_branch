@@ -3,7 +3,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-md-10 col-12 m-auto">
-        <form method="post" aria-label="Verify Bank Account via QR Code">
+        <form method="post" aria-label="Verify Bank Account via QR Code" tabindex="0">
           <div>
             <div class="mobile_header_padding">
               <div class="help_faq_css">
@@ -31,7 +31,7 @@
                     </span>
                   </div>
                   <div class="heading">
-                    <h5 id="rpd-qr-heading">Verify your bank account</h5>
+                    <h5 role="heading" aria-level="1" id="rpd-qr-heading">Verify your bank account</h5>
                     <p class="sub_title">
                       Scan the below QR code using any UPI app to verify your
                       bank account with us
@@ -111,7 +111,7 @@
               <div class="help_faq_css">
                 <div class="d-flex gap-2">
                   <div class="d-flex flex-column gap-2">
-                    <h5 id="rpd-upi-heading">Choose Payment method</h5>
+                    <h5 role="heading" aria-level="2" id="rpd-upi-heading">Choose Payment method</h5>
                   </div>
                 </div>
                 <div>
@@ -125,7 +125,7 @@
           </div>
         </div>
 
-        <form method="post" aria-label="Choose UPI Payment Method">
+        <form method="post" aria-label="Choose UPI Payment Method" tabindex="0">
           <div class="">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="d-flex align-items-start gap-2">
@@ -152,7 +152,7 @@
                   </span>
                 </div>
                 <div class="d-flex flex-column align-items-start gap-2">
-                  <h5 class="">Choose Payment method</h5>
+                  <h5 role="heading" aria-level="2" class="">Choose Payment method</h5>
                   <p class="sub_title">Select your preferred UPI app</p>
                 </div>
               </div>
@@ -226,13 +226,13 @@
               <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
             </div>
             <div class="d-flex flex-column align-items-start gap-2">
-              <h5 id="rpd-confirm-heading" class="">Choose Payment method</h5>
+              <h5 role="heading" aria-level="2" id="rpd-confirm-heading" class="">Choose Payment method</h5>
               <p class="sub_title">Select your preferred UPI app</p>
             </div>
           </div>
         </div>
 
-        <form method="post" aria-label="Bank Account Confirmation">
+        <form method="post" aria-label="Bank Account Confirmation" tabindex="0">
           <div class="div">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="d-flex align-items-start gap-2">
@@ -259,7 +259,7 @@
                   </span>
                 </div>
                 <div class="d-flex flex-column align-items-start gap-2">
-                  <h5 class="">Choose Payment method</h5>
+                  <h5 role="heading" aria-level="2" class="">Choose Payment method</h5>
                   <p class="sub_title">Select your preferred UPI app</p>
                 </div>
               </div>
@@ -307,11 +307,10 @@
   </div>
 </section>
 
-<section aria-label="Verification Failed" *ngIf="RevPennyDropFormThree" class="pan_details_form"
-  aria-labelledby="rpd-fail-heading">
+<section aria-label="Verification Failed" *ngIf="RevPennyDropFormThree" class="pan_details_form">
   <div class="container">
     <div class="row">
-      <form method="post" aria-label="Bank Verification Failed">
+      <form method="post" aria-label="Bank Verification Failed" tabindex="0">
         <div class="text-center">
           <img class="m-auto" src="assets/images/diy/unsuccessful-tick.png" alt="" />
         </div>
@@ -334,7 +333,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-        <h1 class="modal-title fs-5 visually-hidden" id="myModalLabel">Bank verification status</h1>
+        <h2 class="modal-title fs-5 visually-hidden" id="myModalLabel">Bank verification status</h2>
         <button type="button" class="btn-horizontal-line" id="successClose" data-bs-dismiss="modal" aria-label="Close"
           (click)="removeModal()"></button>
       </div>

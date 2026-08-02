@@ -40,6 +40,7 @@ import { NavigationService } from './navigation.service';
 import { APIService } from './api.service';
 import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 import { EmojiBlockerDirective } from './emoji-blocker.directive';
+import { OtpAriaLabelDirective } from './otp-aria-label.directive';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { QRCodeModule } from 'angularx-qrcode';
 import { RpdComponent } from './rpd/rpd.component';
@@ -102,6 +103,7 @@ import { YonotabSsoComponent } from './yonotab-sso/yonotab-sso.component';
     SegmentPreferenceComponent,
     SelfieComponent,
     EmojiBlockerDirective,
+    OtpAriaLabelDirective,
     RpdComponent,
     HomeComponent,
     NameChangeComponent,

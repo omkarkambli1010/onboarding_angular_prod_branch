@@ -52,7 +52,6 @@ export class OccupDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.title.setTitle('Personal Details - Onboarding-DIY-PWA');
     this.meta.updateTag({
       name: 'description',
       content: 'Capturing Personal Details of the customer.',

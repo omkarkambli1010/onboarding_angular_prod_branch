@@ -193,3 +193,7 @@
     max-width: 100%;
   }
 }
+/* Promote primary heading h5 -> h2 for correct heading order; preserve original default-h5 size */
+.page-heading-sm {
+  font-size: 1.25rem;
+}

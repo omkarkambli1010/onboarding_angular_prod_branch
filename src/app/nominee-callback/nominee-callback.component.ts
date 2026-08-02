@@ -125,7 +125,6 @@ export class NomineeCallbackComponent {
     this.startInterval();
     // this.getAggWebhookStatus()
 
-    this.title.setTitle('Nominee Opt-out - Onboarding-DIY-PWA');
     
     this.personalFormNumber = window.sessionStorage.getItem('FormNumber');
 

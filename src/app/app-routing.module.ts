@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, TitleStrategy } from '@angular/router';
+import { PageTitleStrategy } from './page-title.strategy';
 import { UploadProcessComponent } from './upload-process/upload-process.component';
 // import { DiymainpwaComponent } from './diymainpwa/diymainpwa.component';
 import { PersonalDetailsFormComponent } from './personal-details-form/personal-details-form.component';
@@ -51,68 +52,70 @@ import { YonotabSsoComponent } from './yonotab-sso/yonotab-sso.component';
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '' },
   // { path: '', component: DiymainpwaComponent },
-  { path: '', component: HomeComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'mobile-home-otp', component: MobileHomeOtpScreenComponent },
-  { path: 'email', component: EmailHomeScreenComponent },
-  { path: 'email-home-textpage', component: EmailHomePageComponent },
-  { path: 'email-home-otp', component: EmailHomeOtpScreenComponent },
-  { path: 'digilocker-screen', component: DigilockerScreenComponent },
+  { path: '', component: HomeComponent, title: '' },
+  { path: 'home', component: HomeComponent, title: '' },
+  { path: 'mobile-home-otp', component: MobileHomeOtpScreenComponent, title: 'OTP Verification for Demat Account Opening' },
+  { path: 'email', component: EmailHomeScreenComponent, title: 'Email Verification' },
+  { path: 'email-home-textpage', component: EmailHomePageComponent, title: 'Email ID' },
+  { path: 'email-home-otp', component: EmailHomeOtpScreenComponent, title: 'Email OTP Verification' },
+  { path: 'digilocker-screen', component: DigilockerScreenComponent, title: 'DigiLocker Verification' },
   { path: 'msf-sso/:refno', component: MsfSsoComponent },
   { path: 'yono-sso/:refno', component: YonoSsoComponent },
-  { path: 'yonotab-sso/:refno', component: YonotabSsoComponent },
-  { path: 'yono-mobile', component: YonoMobileComponent },
-  { path: 'yono-email', component: YonoEmailComponent },
-  { path: 'uploadProcess/:formNumber', component: UploadProcessComponent },
-  { path: 'aadhar', component: AdhaarCopyComponent },
-  { path: 'personalDetailsForm/1', component: PersonalDetailsFormComponent },
-  { path: 'personalDetailsForm/2', component: TradingExpComponent },
-  { path: 'personalDetailsForm/3', component: AnnualIncomeComponent },
-  { path: 'personalDetailsForm/4', component: OccupDetailsComponent },
-  { path: 'personalDetailsForm/5', component: FatherSpouseNameComponent },
-  { path: 'personalDetailsForm/6', component: LinkBankAccountComponent },
-  { path: 'PennyDrop/:formNumber', component: PennyDropComponent },
+  { path: 'yonotab-sso/:refno', component: YonotabSsoComponent, title: 'Signing In' },
+  { path: 'yono-mobile', component: YonoMobileComponent, title: 'Mobile Verification' },
+  { path: 'yono-email', component: YonoEmailComponent, title: 'Email Verification' },
+  { path: 'uploadProcess/:formNumber', component: UploadProcessComponent, title: 'Upload Documents' },
+  { path: 'aadhar', component: AdhaarCopyComponent, title: 'Aadhaar Verification' },
+  { path: 'personalDetailsForm/1', component: PersonalDetailsFormComponent, title: 'Marital Status' },
+  { path: 'personalDetailsForm/2', component: TradingExpComponent, title: 'Trading Experience' },
+  { path: 'personalDetailsForm/3', component: AnnualIncomeComponent, title: 'Annual Income' },
+  { path: 'personalDetailsForm/4', component: OccupDetailsComponent, title: 'Occupation Details' },
+  { path: 'personalDetailsForm/5', component: FatherSpouseNameComponent, title: 'Personal Details' },
+  { path: 'personalDetailsForm/6', component: LinkBankAccountComponent, title: 'Link Bank Account' },
+  { path: 'PennyDrop/:formNumber', component: PennyDropComponent, title: 'Verify your Bank Account' },
   {
     path: 'reversePennyDrop/:formNumber',
     component: ReversePennyDropComponent,
+    title: 'Verify your Bank Account',
   },
-  { path: 'reversePennyDropRpd/:formNumber', component: RpdComponent },
-  { path: 'planprocess/1', component: DeclarationComponent },
-  { path: 'planprocess/2', component: PlanPreferenceComponent },
-  { path: 'planprocess/3', component: SegmentPreferenceComponent },
-  { path: 'CaptureSelfie/:formNumber', component: SelfieComponent },
+  { path: 'reversePennyDropRpd/:formNumber', component: RpdComponent, title: 'Verify your Bank Account' },
+  { path: 'planprocess/1', component: DeclarationComponent, title: 'Declaration' },
+  { path: 'planprocess/2', component: PlanPreferenceComponent, title: 'Plan Preference' },
+  { path: 'planprocess/3', component: SegmentPreferenceComponent, title: 'Segment Preference' },
+  { path: 'CaptureSelfie/:formNumber', component: SelfieComponent, title: 'Upload Selfie' },
   // { path: 'nominee-optout/:formNumber', component: NomineeOptoutComponent },
-  { path: 'uploadSignature', component: UploadSignatureComponent },
-  { path: 'uploadPan', component: UploadPanComponent },
+  { path: 'uploadSignature', component: UploadSignatureComponent, title: 'Upload Signature' },
+  { path: 'uploadPan', component: UploadPanComponent, title: 'Upload PAN' },
 
-  { path: 'nameChange', component: NameChangeComponent },
-  { path: 'support-document', component: UploadSupportingComponent },
+  { path: 'nameChange', component: NameChangeComponent, title: 'Name Change' },
+  { path: 'support-document', component: UploadSupportingComponent, title: 'Upload Supporting Document' },
 
-  { path: 'additional-document', component: UploadAdditionalComponent },
-  { path: 'aadhaar-front', component: UploadAadhaarFrontComponent },
-  { path: 'aadhaar-back', component: UploadAadhaarBackComponent },
+  { path: 'additional-document', component: UploadAdditionalComponent, title: 'Upload Additional Document' },
+  { path: 'aadhaar-front', component: UploadAadhaarFrontComponent, title: 'Upload Aadhaar Front' },
+  { path: 'aadhaar-back', component: UploadAadhaarBackComponent, title: 'Upload Aadhaar Back' },
 
-  { path: 'addNominee/:formNumber', component: AddNomineeComponent },
+  { path: 'addNominee/:formNumber', component: AddNomineeComponent, title: 'Add Nominee' },
   // { path: 'nominee/:formNumber', component: NomineeComponent },
   //{ path: 'addNominee/:formNumber', component: NomineeComponent },
 
-  { path: 'esign', component: EsignComponent },
-  { path: 'fnoesign', component: FnoesignComponent },
+  { path: 'esign', component: EsignComponent, title: 'Esign Verification' },
+  { path: 'fnoesign', component: FnoesignComponent, title: 'Derivatives Esign Verification' },
   { path: 'aacallback', component: AggregatorCallbackComponent },
   // { path: 'nominee-callback', component: NomineeCallbackComponent },
 
   { path: 'bp-sso/:formNumber', component: BpSsoComponent },
 
-  { path: 'thankyou', component: ThankyouComponent },
-  { path: 'fno-thankyou', component: FnothankyouComponent },
+  { path: 'thankyou', component: ThankyouComponent, title: 'Thank You' },
+  { path: 'fno-thankyou', component: FnothankyouComponent, title: 'Thank You' },
 
-  { path: 'faq', component: FaqNeedHelpComponent },
-  { path: 'page-not-found', component: PageNotFoundComponent },
+  { path: 'faq', component: FaqNeedHelpComponent, title: 'Frequently Asked Questions' },
+  { path: 'page-not-found', component: PageNotFoundComponent, title: 'Page Not Found' },
   { path: '**', redirectTo: 'page-not-found' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
+  providers: [{ provide: TitleStrategy, useClass: PageTitleStrategy }],
 })
 export class AppRoutingModule {}

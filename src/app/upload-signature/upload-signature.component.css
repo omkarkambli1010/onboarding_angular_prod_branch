@@ -249,10 +249,23 @@ body.modal-open {
   margin: auto;
 }
 
-.signature_box .reset_icon {
+/* The clear-signature affordance is a real <button> now (WCAG 2.1.1), so the
+   positioning moves from the image to the button that wraps it. */
+.signature_box .reset_btn {
   position: absolute;
   top: -18px;
   right: -18px;
+  padding: 0;
+  border: none;
+  background: none;
+  line-height: 0;
+  cursor: pointer;
+}
+
+.signature_box .reset_btn:focus-visible {
+  outline: 3px solid #005fcc;
+  outline-offset: 3px;
+  border-radius: 50%;
 }
 
 .signature_box::before {

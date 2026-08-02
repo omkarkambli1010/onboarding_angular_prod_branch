@@ -32,7 +32,7 @@ declare const google: any;
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('mobilecloseModal') mobilecloseModal: any;
   @ViewChild('emailclosebutton') emailclosebutton: any;
   @ViewChild('otpMobileInput') otpMobileInput: any | NgModel;
@@ -142,15 +142,22 @@ export class HomeComponent implements OnInit {
     },
   ];
 
+  // cc_load_policy=1 turns the YouTube caption track on by default (WCAG 1.2.2).
+  // `transcript` backs the text alternative required by 1.2.3; the panel and its
+  // link only render once the transcript copy has been supplied.
   videos: any[] = [
     {
-      url: 'https://www.youtube.com/embed/0cfFB8d_n60?si=Mwd2ApOaaT1SXOhM',
+      url: 'https://www.youtube.com/embed/0cfFB8d_n60?si=Mwd2ApOaaT1SXOhM&cc_load_policy=1',
       caption: 'Invest to your FULL POTENTIAL with the SBI Securities App!',
+      transcriptId: 'transcript-invest-full-potential',
+      transcript: '',
     },
     {
-      url: 'https://www.youtube.com/embed/Rb7IE_P3UcA',
+      url: 'https://www.youtube.com/embed/Rb7IE_P3UcA?cc_load_policy=1',
       caption:
         'E‑Margin (Margin Trading Facility) - Up to 4x Buying Power at 0% Interest for 23 trading days',
+      transcriptId: 'transcript-emargin',
+      transcript: '',
     },
   ];
 
@@ -191,15 +198,50 @@ export class HomeComponent implements OnInit {
     @Inject(DOCUMENT) private document: Document
   ) {}
 
+  ngAfterViewInit(): void {
+    // WCAG 1.3.1 (Issue: carousel content skipped by screen reader).
+    // PrimeNG p-carousel sets aria-hidden="true" on the visible item
+    // wrappers, causing NVDA to skip the testimonial / video content.
+    // Remove aria-hidden from any carousel item that is actually visible,
+    // and keep doing so as PrimeNG re-renders on interaction/resize.
+    const unhideVisibleCarouselItems = () => {
+      const items = this.document.querySelectorAll(
+        '.p-carousel-items-container [aria-hidden="true"]'
+      );
+      items.forEach((el: Element) => {
+        const htmlEl = el as HTMLElement;
+        // offsetParent is null when the element is not rendered/visible.
+        if (htmlEl.offsetParent !== null) {
+          htmlEl.removeAttribute('aria-hidden');
+        }
+      });
+    };
+    setTimeout(unhideVisibleCarouselItems, 500);
+    setTimeout(unhideVisibleCarouselItems, 1500);
+    window.addEventListener('resize', () =>
+      setTimeout(unhideVisibleCarouselItems, 300)
+    );
+  }
+
+  /**
+   * WCAG 1.2.3 - when the user follows the transcript link, move focus to the
+   * transcript itself rather than just scrolling the page.
+   */
+  focusTranscript(event: Event, transcriptId: string) {
+    event.preventDefault();
+    const target = this.document.getElementById(transcriptId);
+    if (target) {
+      target.scrollIntoView({ behavior: 'auto', block: 'start' });
+      target.focus();
+    }
+  }
+
   ngOnInit(): void {
     this.getJunkValue();
     this.addFaqStructuredData();
     this.sendOtp.mobile = sessionStorage.getItem('mobile');
     this.sendOtp.fullname = sessionStorage.getItem('NameSubmitted');
 
-    this.title.setTitle(
-      'Open Demat Account - Free Demat & Trading Account Opening Online | SBI Securities'
-    );
 
     this.meta.updateTag({
       name: 'description',

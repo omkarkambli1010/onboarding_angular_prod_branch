@@ -90,7 +90,6 @@ export class UploadAadhaarFrontComponent {
   ) {}
 
   ngOnInit(): void {
-    this.title.setTitle('Upload Aadhaar - Onboarding-DIY-PWA');
 
     this.meta.updateTag({
       name: 'description',
