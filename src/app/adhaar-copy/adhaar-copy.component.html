@@ -1,0 +1,103 @@
+<section class="pan_details_form">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-12 col-12 p-0 p-sm-0 m-auto">
+        <!-- <div class="back_cls">
+                  <img src="assets/images/diy/ChevronLeft.png" alt="" />
+              </div> -->
+        <div class="mobile_css">
+          <div class="d-flex flex-column align-items-start gap-2">
+            <h5 *ngIf="!isKraBenefit">Aadhaar Verification Successful!</h5>
+            <div *ngIf="!isKraBenefit">
+              <p class="sub_title">
+                Your KYC details have been successfully verified digitally. Please click on 'Proceed' to confirm.
+              </p>
+            </div>
+            <h5 *ngIf="isKraBenefit">You are KRA Compliant!</h5>
+            <div *ngIf="isKraBenefit">
+              <p class="sub_title">
+                Below details have been successfully fetched from the KRA. Please review and confirm to proceed ahead.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <form method="post">
+          <div>
+            <div class="col-lg-12 col-md-12 col-12 desktop_css">
+              <div class="d-flex flex-column align-items-start gap-2">
+                <h5 *ngIf="!isKraBenefit">Aadhaar Verification Successful!</h5>
+                <div *ngIf="!isKraBenefit">
+                  <p class="sub_title">
+                    Your KYC details have been successfully verified digitally. Please click on 'Proceed' to confirm.
+                  </p>
+                </div>
+                <h5 *ngIf="isKraBenefit">You are KRA Compliant!</h5>
+                <div *ngIf="isKraBenefit">
+                  <p class="sub_title">
+                    Below details have been successfully fetched from the KRA. Please review and confirm to proceed ahead.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <hr class="desktop_css" />
+            <div *ngIf="!isKraBenefit" class="card_cls">
+              <img
+                class="w-100"
+                src="assets/images/diy/aadharheaderimg.png"
+                alt=""
+              />
+              <div class="main_content">
+                <div class="profile_pic">
+                  <img
+                    *ngIf="aadharResponse?.photo"
+                    [src]="aadharPhotoSrc"
+                    alt="Aadhaar Photo"
+                  />
+                </div>
+                <div class="details">
+                  <p class="heading">{{ aadharResponse?.name }}</p>
+                  <p class="sub_heading">
+                    {{ aadharResponse?.uid || aadharResponse?.aadhaarNumber }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="pan_confirmation">
+              <p class="my-3">
+                Date of Birth: <span>{{ aadharResponse?.dob }}</span>
+              </p>
+              <p class="my-3">
+                Gender: <span>{{ aadharResponse?.gender }}</span>
+              </p>
+              <p class="my-3">
+                Address: <span>{{ aadharAddress }}</span>
+              </p>
+            </div>
+          </div>
+          <div class="stickybtn_desk desktop_css">
+            <button
+              class="btn btn_cls"
+              (click)="redirecPersonalDetails()"
+              [disabled]="isDigiLockerSuccess"
+            >
+              <!-- Proceed to Personal Details -->
+              Let's add your details quickly
+            </button>
+          </div>
+        </form>
+
+        <div class="stickybtn mobile_css">
+          <button
+            class="btn btn_cls"
+            (click)="redirecPersonalDetails()"
+            [disabled]="isDigiLockerSuccess"
+          >
+            <!-- Proceed to Personal Details -->
+            Let's add your details quickly
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

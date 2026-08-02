@@ -1,0 +1,84 @@
+<section *ngIf="PersonalFormOne" class="pan_details_form">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-12 m-auto">
+        <div class="mobile_css">
+          <div class="back_cls">
+            <div>
+              <h5>Thank You</h5>
+              <p class="sub_title">
+                You can download or track your application status.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <form method="post">
+          <div class="div">
+            <div class="col-lg-12 col-md-12 col-12 desktop_css">
+              <div class="d-flex flex-column align-items-start gap-2">
+                <h5>Thank You</h5>
+                <p class="sub_title">
+                  You can download or track your application status.
+                </p>
+              </div>
+            </div>
+            <hr class="desktop_css" />
+            <div class="text-center">
+              <img src="assets/images/Featured_tick.svg" alt="" />
+              <p class="main_text">
+                We are verifying your details.<br>
+                Your request for activating derivatives is submitted successfully.<br>
+                <!-- The paid plan will be debited from your account's ledger balance.  -->
+              </p>
+              <div class="paid_text">
+                <p>{{this.paidPlanTextCheck[0].Paidplantextshow}}</p>
+              </div>
+              <p class="my-2">Application No.- <span style="font-weight: bold;">{{ this.personalFormNumber }}</span></p>
+
+            </div>
+            <div class="button-row">
+              <button (click)="ReviewApplication()" class="review_section" [disabled]="btnReviewApplication">
+                <div class="btn_download">
+                  <img src="assets/images/diy/Download.png" alt="" />
+                </div>
+                <span>Download Account Opening Form</span>
+              </button>
+              <button (click)="ReviewFnoApplication()" class="review_section" [disabled]="btnReviewApplication">
+                <div class="btn_download">
+                  <img src="assets/images/diy/Download.png" alt="" />
+                </div>
+                <span>Download Derivatives Segment</span>
+              </button>
+            </div>
+          </div>
+          <p class="bottom_text">
+            Your account will be active within 24-48 hours after successful verification.
+            <!-- Your account will be activated within 24-48 hours after successful verification. -->
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section *ngIf="PersonalFormTwo" class="pan_details_form">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-12 m-auto">
+        <h5 class="text-center my-3">Thank you</h5>
+        <form method="post">
+          <div class="text-center">
+            <img src="assets/images/diy/invalid_icon.png" alt="" />
+            <p class="my-2">
+              {{ this.errorValue }}
+            </p>
+          </div>
+        </form>
+      </div>
+      <div class="btn_align">
+        <a class="btn_cls" (click)="redirectesign()">Back to E-Sign</a>
+      </div>
+    </div>
+  </div>
+</section>

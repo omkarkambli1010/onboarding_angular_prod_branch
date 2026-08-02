@@ -1,0 +1,362 @@
+<section aria-label="Verify Bank Account — Desktop QR" *ngIf="RevPennyDropFormOne && !this.isMobile"
+  class="pan_details_form" aria-labelledby="rpd-qr-heading">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 col-12 m-auto">
+        <form method="post" aria-label="Verify Bank Account via QR Code">
+          <div>
+            <div class="mobile_header_padding">
+              <div class="help_faq_css">
+                <div class="d-flex gap-2">
+                  <div role="button" tabindex="0" (keydown.enter)="BackToPersonalSix()"
+                    (keydown.space)="BackToPersonalSix()" aria-label="Go back" (click)="BackToPersonalSix()"
+                    class="back-btn">
+                    <span aria-hidden="true">
+                      <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true" focusable="false">
+                        <g clip-path="url(#clip0_0_10804)">
+                          <path d="M5 12.5H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                          <path d="M5 12.5L11 18.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                          <path d="M5 12.5L11 6.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_0_10804">
+                            <rect width="24" height="24" fill="white" transform="translate(0 0.5)" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </span>
+                  </div>
+                  <div class="heading">
+                    <h5 id="rpd-qr-heading">Verify your bank account</h5>
+                    <p class="sub_title">
+                      Scan the below QR code using any UPI app to verify your
+                      bank account with us
+                    </p>
+                  </div>
+                </div>
+                <div>
+                </div>
+              </div>
+            </div>
+            <hr class="desktop_css" />
+            <div class="qr_css">
+              <div *ngIf="this.upiPayLink != ''">
+                <div aria-label="UPI QR code to verify your bank account. Scan using any UPI app.">
+                  <qrcode [qrdata]="this.upiPayLink" [allowEmptyString]="true" [width]="300"
+                    [errorCorrectionLevel]="'M'">
+                  </qrcode>
+                </div>
+
+                <p *ngIf="!timeOutStatus" aria-live="polite" aria-atomic="true">
+                  {{ minutes }}:{{ seconds | number : "2.0" }}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="sbi_note">
+            <p *ngIf="showLimitmsg == false">
+              <strong>₹1 will be debited from your account to verify bank details. It
+                will be refunded within 3 working days.</strong>
+            </p>
+
+            <p *ngIf="showLimitmsg == true">
+              <strong>Oops, maximum limit of attempt to verify bank details using UPI
+                is exhausted. Please enter details manually.</strong>
+            </p>
+          </div>
+          <div class="qr_info">
+            <p>
+              Use your bank account details, which matches the name on your PAN
+              CARD
+            </p>
+          </div>
+          <div class="btn_align stickybtn_desk desktop_css">
+
+            <button *ngIf="hideCTAbtn == true" class="btn btn_cls" (click)="redirecttoPennyDrop()">
+              Proceed to enter details manually
+            </button>
+          </div>
+        </form>
+
+        <div class="btn_align stickybtn mobile_css">
+          <button *ngIf="hideCTAbtn == false" class="btn btn_cls" (click)="sendVerifyBank()">
+            Send ₹1 to verify bank
+          </button>
+
+          <button *ngIf="hideCTAbtn == true" class="btn btn_cls" (click)="redirecttoPennyDrop()">
+            Proceed to enter details manually
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section aria-label="Verify Bank Account — Mobile UPI" *ngIf="RevPennyDropFormOne && this.isMobile"
+  class="pan_details_form" aria-labelledby="rpd-upi-heading">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-12 m-auto">
+        <div class="mobile_css">
+          <div class="back_cls">
+            <div role="button" tabindex="0" (keydown.enter)="BackToPersonalSix()" (keydown.space)="BackToPersonalSix()"
+              (click)="BackToPersonalSix()" aria-label="Go back" class="back-btn">
+              <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
+            </div>
+            <div class="mobile_header_padding">
+              <div class="help_faq_css">
+                <div class="d-flex gap-2">
+                  <div class="d-flex flex-column gap-2">
+                    <h5 id="rpd-upi-heading">Choose Payment method</h5>
+                  </div>
+                </div>
+                <div>
+                  <!-- <button (click)="faqHelpBtn('Bankaccount')">
+                    Need Help?
+                  </button> -->
+                </div>
+              </div>
+              <p class="sub_title">Select your preferred UPI app</p>
+            </div>
+          </div>
+        </div>
+
+        <form method="post" aria-label="Choose UPI Payment Method">
+          <div class="">
+            <div class="col-lg-12 col-md-12 col-12 desktop_css">
+              <div class="d-flex align-items-start gap-2">
+                <div role="button" tabindex="0" (keydown.enter)="BackToPersonalSix()"
+                  (keydown.space)="BackToPersonalSix()" (click)="BackToPersonalSix()" aria-label="Go back"
+                  class="back-btn">
+                  <span aria-hidden="true" focusable="false">
+                    <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true" focusable="false">
+                      <g clip-path="url(#clip0_0_10804)">
+                        <path d="M5 12.5H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                        <path d="M5 12.5L11 18.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                        <path d="M5 12.5L11 6.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_0_10804">
+                          <rect width="24" height="24" fill="white" transform="translate(0 0.5)" />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </span>
+                </div>
+                <div class="d-flex flex-column align-items-start gap-2">
+                  <h5 class="">Choose Payment method</h5>
+                  <p class="sub_title">Select your preferred UPI app</p>
+                </div>
+              </div>
+            </div>
+            <hr class="desktop_css" />
+          </div>
+          <div *ngFor="let data of indianUPIBanksList" class="col-lg-12">
+            <button type="button" role="radio" for="{{ data.UpiName }}" class="square-box p-4"
+              (click)="selectUPIBank(data)" [attr.aria-checked]="selectedUPIBank === data ? 'true' : 'false'"
+              [attr.aria-pressed]="selectedUPIBank === data ? 'true' : 'false'"
+              [attr.aria-label]="'Select ' + data.UpiName + ' as your UPI app'"
+              style="background:none;border:none;width:100%;text-align:left;cursor:pointer;">
+              <div class="pan_details_align">
+                <input id="{{ data.UpiName }}" type="radio" name="radio-button" class="radio-button"
+                  [checked]="selectedUPIBank === data" aria-hidden="true" tabindex="-1" />
+                <div class="upload_css">
+                  <p class="d-flex align-items-center gap-2">
+                    <img class="logo_img" [src]="data.UpiLogo" [attr.alt]="data.UpiName + ' logo'" />
+                    {{ data.UpiName }}
+                  </p>
+                </div>
+              </div>
+            </button>
+          </div>
+
+          <div class="sbi_note">
+            <p *ngIf="showLimitmsg == false">
+              <strong>₹1 will be debited from your account to verify bank details. It
+                will be refunded within 3 working days.</strong>
+            </p>
+
+            <p *ngIf="showLimitmsg == true">
+              <strong>Oops, maximum limit of attempt to verify bank details using UPI
+                is exhausted. Please enter details manually.</strong>
+            </p>
+          </div>
+          <div class="btn_align stickybtn_desk desktop_css">
+            <button *ngIf="hideCTAbtn == false" class="btn btn_cls" (click)="sendVerifyBank()">
+              Send ₹1 to verify bank
+            </button>
+
+            <button *ngIf="hideCTAbtn == true" class="btn btn_cls" (click)="redirecttoPennyDrop()">
+              Proceed to enter details manually
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="btn_align stickybtn mobile_css">
+        <button *ngIf="hideCTAbtn == false" class="btn btn_cls" (click)="sendVerifyBank()">
+          Send ₹1 to verify bank
+        </button>
+
+        <button *ngIf="hideCTAbtn == true" class="btn btn_cls" (click)="redirecttoPennyDrop()">
+          Proceed to enter details manually
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- </div> -->
+</section>
+
+<section aria-label="Choose Payment Method" *ngIf="RevPennyDropFormTwo" class="pan_details_form"
+  aria-labelledby="rpd-confirm-heading">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-12 m-auto">
+        <div class="mobile_css">
+          <div class="back_cls">
+            <div *ngIf="this.RejectStatus != 'R'" role="button" tabindex="0" (keydown.enter)="BackToPersonalFive()"
+              (keydown.space)="BackToPersonalFive()" (click)="BackToPersonalFive()" aria-label="Go back">
+              <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
+            </div>
+            <div class="d-flex flex-column align-items-start gap-2">
+              <h5 id="rpd-confirm-heading" class="">Choose Payment method</h5>
+              <p class="sub_title">Select your preferred UPI app</p>
+            </div>
+          </div>
+        </div>
+
+        <form method="post" aria-label="Bank Account Confirmation">
+          <div class="div">
+            <div class="col-lg-12 col-md-12 col-12 desktop_css">
+              <div class="d-flex align-items-start gap-2">
+                <div role="button" tabindex="0" (keydown.enter)="BackToPersonalFive()"
+                  (keydown.space)="BackToPersonalFive()" *ngIf="this.RejectStatus != 'R'" (click)="BackToPersonalFive()"
+                  aria-label="Go back" class="back-btn">
+                  <span aria-hidden="true">
+                    <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true" focusable="false">
+                      <g clip-path="url(#clip0_0_10804)">
+                        <path d="M5 12.5H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                        <path d="M5 12.5L11 18.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                        <path d="M5 12.5L11 6.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_0_10804">
+                          <rect width="24" height="24" fill="white" transform="translate(0 0.5)" />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </span>
+                </div>
+                <div class="d-flex flex-column align-items-start gap-2">
+                  <h5 class="">Choose Payment method</h5>
+                  <p class="sub_title">Select your preferred UPI app</p>
+                </div>
+              </div>
+            </div>
+            <hr class="desktop_css" />
+            <div class="text-center">
+              <img class="m-auto" src="assets/images/diy/successful-tick.png" alt="" />
+            </div>
+            <div class="pan_confirmation">
+              <p>
+                Account No:
+                <span class="fw-semibold">{{ this.accountNumber }}</span>
+              </p>
+              <p>
+                IFSC Code:
+                <span class="fw-semibold">{{ this.enteredIFSCNumber }}</span>
+              </p>
+              <div class="mt-4">
+                <p>
+                  Bank Name & Address:
+                  <span class="fw-semibold">{{ this.rpdData }}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="btn_align stickybtn_desk desktop_css">
+            <button class="btn btn_cls_outline" (click)="BackToOne()">
+              Choose another account
+            </button>
+            <button class="btn btn_cls" (click)="redirectPlanSelection()">
+              Proceed
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="btn_align stickybtn mobile_css">
+        <button class="btn btn_cls_outline" (click)="BackToOne()">
+          Choose another account
+        </button>
+        <button class="btn btn_cls" (click)="redirectPlanSelection()">
+          Proceed
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section aria-label="Verification Failed" *ngIf="RevPennyDropFormThree" class="pan_details_form"
+  aria-labelledby="rpd-fail-heading">
+  <div class="container">
+    <div class="row">
+      <form method="post" aria-label="Bank Verification Failed">
+        <div class="text-center">
+          <img class="m-auto" src="assets/images/diy/unsuccessful-tick.png" alt="" />
+        </div>
+        <div class="pan_confirmation">
+          <p>
+            We are unable to proceed with the bank details that you have
+            selected.
+          </p>
+        </div>
+      </form>
+      <div class="stickybtn">
+        <button class="btn btn_cls">Proceed</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="modal fade uploadPan" id="myModal" tabindex="-1" aria-modal="true" aria-labelledby="myModalLabel"
+  aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+        <h1 class="modal-title fs-5 visually-hidden" id="myModalLabel">Bank verification status</h1>
+        <button type="button" class="btn-horizontal-line" id="successClose" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="img_preview text-center">
+          <img class="" src="assets/images/diy/invalid-details.png" alt="" />
+        </div>
+        <div class="text-center">
+          <span class="textfont_css">Oops!</span><br />
+
+          <span>This bank account seems to belonging to someone else as per bank
+            record. Do you still want to continue?</span>
+        </div>
+      </div>
+      <div class="modal-footer flex-nowrap">
+        <button type="button" class="btn btn_cls" data-bs-dismiss="modal" (click)="openSameNamePopupDismissModal()">
+          No
+        </button>
+        <button type="button" class="btn btn_cls" data-bs-dismiss="modal" (click)="redirectPlanSelection()">
+          Yes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

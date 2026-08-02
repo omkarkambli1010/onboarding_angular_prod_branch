@@ -1,0 +1,195 @@
+.pan_details_form {
+  display: flex;
+  flex-direction: column;
+  /* height: 100vh; */
+  /* height: calc(100vh - 80px); */
+  margin: 50px 0;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.pan_details h2 {
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+.pan_details .sub_title {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.pan_details_form .stickybtn_desk {
+  position: relative;
+}
+
+.pan_details_form .stickybtn_desk button {
+  padding: 15px 0;
+  max-width: 350px;
+  margin: auto;
+}
+
+.pan_details_form .stickybtn {
+  background: #fff;
+  position: fixed;
+  padding: 10px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.pan_details_form .stickybtn button {
+  padding: 15px 0;
+  max-width: 300px;
+  margin: auto;
+}
+
+.pan_details_form form {
+  /* height: 71vh; */
+  /* overflow: auto; */
+  height: unset;
+  overflow: unset;
+  background: #fff;
+  border-radius: 24px;
+  padding: 24px;
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pan_details_form .pan_confirmation {
+  background: #eceeff80;
+  border: 1px dashed #c3c7ed;
+  padding: 8px 16px;
+  /* margin: 20px 0 80px 0; */
+}
+
+.pan_details_form .pan_confirmation span {
+  font-weight: 600;
+  overflow-wrap: break-word;
+}
+
+.pan_details_form .card_cls {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 10px solid #ebebeb;
+}
+
+.pan_details_form .card_cls .main_content {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin: 20px 0;
+}
+
+.pan_details_form .card_cls .main_content .profile_pic {
+  width: 200px;
+  height: 100px;
+}
+
+.pan_details_form .card_cls .main_content .profile_pic>img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.pan_details_form .card_cls .main_content .details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+
+.pan_details_form .card_cls .main_content .details .heading {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.pan_details_form .card_cls .main_content .details .sub_heading {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.pan_details_form .desktop_css {
+  display: block;
+}
+
+.pan_details_form .mobile_css {
+  display: none;
+}
+
+.pan_details_form form::-webkit-scrollbar {
+  width: 7px;
+}
+
+.pan_details_form form::-webkit-scrollbar-track {
+  background: #c3c7ed;
+  border-radius: 10px;
+  box-shadow: #280071;
+}
+
+.pan_details_form form::-webkit-scrollbar-thumb {
+  background: #280071;
+  border-radius: 10px;
+}
+
+
+/* ::ng-deep.brz-root__container ::ng-deep.brz-root__container-popup{
+  display: none !important;
+} */
+
+@media screen and (max-width: 767px) {
+  .pan_details_form {
+    display: block;
+    height: auto;
+    margin: 20px 0;
+  }
+
+  .pan_details_form form {
+    /* overflow-y: unset; */
+    /* height: auto; */
+    /* margin: 0 0 80px 0; */
+    box-shadow: unset;
+    background: unset;
+    padding: 0;
+    display: block;
+    border-radius: 0px;
+    margin: 20px 0 80px 0;
+    height: unset;
+    overflow: unset;
+
+  }
+
+  .pan_details_form .desktop_css {
+    display: none;
+  }
+
+  .pan_details_form .mobile_css {
+    display: block;
+  }
+
+  .pan_details_form .card_cls {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .pan_details_form .stickybtn {
+    border: 1px solid #ffffff;
+    background: white;
+    position: fixed;
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .pan_details_form .stickybtn button {
+    max-width: 100%;
+  }
+}

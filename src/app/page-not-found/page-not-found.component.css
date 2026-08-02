@@ -1,0 +1,11 @@
+@media (max-width: 767px) {
+  .resp-img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.resp-img {
+  width: 100%;
+  height: auto;
+}

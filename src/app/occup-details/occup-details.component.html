@@ -1,0 +1,91 @@
+<section class="pan_details_form">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-12 m-auto">
+        <div class="mobile_css">
+          <div class="back_cls">
+            <div *ngIf="this.RejectStatus != 'R'" (click)="BackToThree()">
+              <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
+            </div>
+
+            <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div>
+
+            <div class="d-flex flex-column align-items-start gap-2">
+              <h5>Occupation Details</h5>
+              <p class="sub_title">Select any one from the below</p>
+            </div>
+          </div>
+        </div>
+
+        <form method="post">
+          <div class="div">
+            <div class="col-lg-12 col-md-12 col-12 desktop_css">
+              <div class="d-flex align-items-start gap-2">
+                <div *ngIf="this.RejectStatus != 'R'" (click)="BackToThree()">
+                  <span>
+                    <svg
+                      width="24"
+                      height="25"
+                      viewBox="0 0 24 25"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g clip-path="url(#clip0_0_10804)">
+                        <path
+                          d="M5 12.5H19"
+                          stroke="black"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M5 12.5L11 18.5"
+                          stroke="black"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M5 12.5L11 6.5"
+                          stroke="black"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_0_10804">
+                          <rect
+                            width="24"
+                            height="24"
+                            fill="white"
+                            transform="translate(0 0.5)"
+                          />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </span>
+                </div>
+                <div class="d-flex flex-column align-items-start gap-2">
+                  <h5>Occupation Details</h5>
+                  <p class="sub_title">Select any one from the below</p>
+                </div>
+              </div>
+            </div>
+            <hr class="desktop_css" />
+          </div>
+          <div class="group_btn">
+            <div *ngFor="let PersonalData of occupationResponse" class="form-check">
+              <input class="form-check-input" type="radio" name="occupation" id="{{ PersonalData.ocupationType }}"
+                [value]="PersonalData.ocupationType" [(ngModel)]="selectedOccupation" (click)="
+                  PersonalDetailsave('occupation', PersonalData.ocupationType)
+                " />
+              <label class="form-check-label" for="{{ PersonalData.ocupationType }}">{{ PersonalData.ocupationType
+                }}</label>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

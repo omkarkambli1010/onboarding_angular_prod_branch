@@ -1,0 +1,239 @@
+<div class="desktop_css">
+  <section class="pan_details_form">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-12 m-auto">
+          <form method="post">
+            <div class="">
+              <div class="col-lg-12 col-md-12 col-12 desktop_css">
+                <div class="header_padding">
+                  <div>
+                    <span (click)="redirectBack($event)">
+                       <svg
+                      width="24"
+                      height="25"
+                      viewBox="0 0 24 25"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g clip-path="url(#clip0_0_10804)">
+                        <path
+                          d="M5 12.5H19"
+                          stroke="black"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M5 12.5L11 18.5"
+                          stroke="black"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M5 12.5L11 6.5"
+                          stroke="black"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_0_10804">
+                          <rect
+                            width="24"
+                            height="24"
+                            fill="white"
+                            transform="translate(0 0.5)"
+                          />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                    </span>
+                  </div>
+                  <div class="d-flex flex-column align-items-start gap-2">
+                    <h5>Frequently Asked Questions</h5>
+                  </div>
+                </div>
+              </div>
+              <div class="desktop_css">
+                <div class="line_css"></div>
+              </div>
+              <div class="col-lg-12">
+                <div class="faq_section">
+                  <div>
+                    <h4>Step : {{ this.stageName }}</h4>
+                  </div>
+                  <!-- <div>
+                    <h6>More FAQs?</h6>
+                  </div> -->
+                  <div class="accordion_faq">
+                    <div class="accordion" id="accordionFaqExample">
+                      <div class="accordion-item" *ngFor="
+                            let item of filteredFaqResponse;
+                            let i = index
+                          ">
+                        <h2 class="accordion-header" [id]="'heading' + i">
+                          <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            [attr.data-bs-target]="'#collapse' + i" [attr.aria-controls]="'collapse' + i"
+                            [attr.aria-expanded]="i === 0 ? 'true' : 'false'" [class.collapsed]="i !== 0">
+                            {{ item.Questions }}
+                          </button>
+                        </h2>
+                        <div [id]="'collapse' + i" class="accordion-collapse collapse" [class.show]="i === 0"
+                          data-bs-parent="#accordionFaqExample">
+                          <div class="accordion-body">
+                            <div [innerHTML]="item.Answers"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="help_mail_tel">
+                    <h6>Still need help?</h6>
+                    <div class="call_align">
+                      <div class="call">
+                        <div>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25"
+                            fill="none">
+                            <path
+                              d="M18.1074 14.9837C17.1554 13.6519 15.5977 13.2678 14.3874 14.0961L13.2941 14.8477C12.6962 14.2154 12.1445 13.5433 11.6163 12.8053C11.0894 12.069 10.6334 11.3316 10.2308 10.5633L11.3253 9.81337C12.5434 8.97737 12.7162 7.44491 11.7455 6.0882L10.4842 4.32181C9.53106 2.99063 7.97151 2.60767 6.76607 3.43594L5.10768 4.57297C4.09628 5.26646 3.75611 6.89748 4.17571 9.04743C4.59288 11.1849 5.69221 13.5771 7.27056 15.7847C9.88759 19.4439 13.4317 22 15.8917 22C16.4423 22 16.9128 21.8682 17.2894 21.6099L18.9472 20.4729C19.5808 20.04 19.9525 19.4059 19.9956 18.6893C20.0344 18.0462 19.8179 17.3753 19.3692 16.7477L18.1074 14.9837ZM18.2923 19.5567L16.6345 20.6932C16.4532 20.8184 16.2034 20.8814 15.8917 20.8814C14.1557 20.8814 10.8705 18.8704 8.20617 15.1434C6.71817 13.0623 5.68493 10.8227 5.29747 8.83725C4.9761 7.1896 5.15437 5.90592 5.76255 5.48852L7.42093 4.3515C7.66166 4.18644 7.91208 4.10272 8.16372 4.10272C8.65244 4.10272 9.15754 4.41622 9.54864 4.96306L10.8105 6.72767C11.2913 7.39979 11.5066 8.32247 10.671 8.89543L8.77675 10.194L8.98715 10.6226C9.4686 11.6017 10.0228 12.5256 10.6813 13.4453C11.3325 14.3561 12.048 15.2058 12.8114 15.9711L13.1504 16.3113L15.0441 15.0122C15.7523 14.5271 16.5787 14.7949 17.1724 15.6244L18.4336 17.389C18.7283 17.8016 18.8787 18.2404 18.855 18.6234C18.8326 19.0028 18.6428 19.3163 18.2923 19.5567Z"
+                              fill="#222222" />
+                          </svg>
+                        </div>
+                        <div class="d-flex gap-1 flex-column align-items-start">
+                          <p>Call us on</p>
+                          <span>
+                            <a href="tel:02268567401">022-68567401</a>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="message">
+                        <div>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25"
+                            fill="none">
+                            <g clip-path="url(#clip0_0_4730)">
+                              <path
+                                d="M3 7.5C3 6.96957 3.21071 6.46086 3.58579 6.08579C3.96086 5.71071 4.46957 5.5 5 5.5H19C19.5304 5.5 20.0391 5.71071 20.4142 6.08579C20.7893 6.46086 21 6.96957 21 7.5V17.5C21 18.0304 20.7893 18.5391 20.4142 18.9142C20.0391 19.2893 19.5304 19.5 19 19.5H5C4.46957 19.5 3.96086 19.2893 3.58579 18.9142C3.21071 18.5391 3 18.0304 3 17.5V7.5Z"
+                                stroke="#222222" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+                              <path d="M3 7.5L12 13.5L21 7.5" stroke="#222222" stroke-width="1.25"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_0_4730">
+                                <rect width="24" height="24" fill="white" transform="translate(0 0.5)" />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </div>
+                        <div class="d-flex gap-1 flex-column align-items-start">
+                          <p>Write to Us</p>
+                          <span><a class="mail_text"
+                              href="mailto:helpdesk@sbicapsec.com">helpdesk&#64;sbicapsec.com</a></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="mobile_css">
+  <section class="pan_details_form">
+    <div class="container">
+      <div class="row">
+        <div class="back_cls">
+          <div (click)="redirectBack($event)">
+            <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
+          </div>
+
+          <div class="d-flex flex-column align-items-start gap-2">
+            <h5 class="faq_main_text">Frequently Asked Questions</h5>
+          </div>
+        </div>
+
+        <form method="post">
+          <div class="faq_section">
+            <div>
+              <h4>Step : {{ this.stageName }}</h4>
+            </div>
+            <!-- <div>
+              <h6>More FAQs?</h6>
+            </div> -->
+            <div class="accordion_faq">
+              <div class="accordion" id="accordionFaqExample">
+                <div class="accordion-item" *ngFor="let item of filteredFaqResponse; let i = index">
+                  <h2 class="accordion-header" [id]="'heading' + i">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                      [attr.data-bs-target]="'#collapse' + i" [attr.aria-controls]="'collapse' + i"
+                      [attr.aria-expanded]="i === 0 ? 'true' : 'false'" [class.collapsed]="i !== 0">
+                      {{ item.Questions }}
+                    </button>
+                  </h2>
+                  <div [id]="'collapse' + i" class="accordion-collapse collapse" [class.show]="i === 0"
+                    data-bs-parent="#accordionFaqExample">
+                    <div class="accordion-body">
+                      <div [innerHTML]="item.Answers"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="help_mail_tel">
+              <h6>Still need help?</h6>
+              <div class="call_align">
+                <div class="call">
+                  <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                      <path
+                        d="M18.1074 14.9837C17.1554 13.6519 15.5977 13.2678 14.3874 14.0961L13.2941 14.8477C12.6962 14.2154 12.1445 13.5433 11.6163 12.8053C11.0894 12.069 10.6334 11.3316 10.2308 10.5633L11.3253 9.81337C12.5434 8.97737 12.7162 7.44491 11.7455 6.0882L10.4842 4.32181C9.53106 2.99063 7.97151 2.60767 6.76607 3.43594L5.10768 4.57297C4.09628 5.26646 3.75611 6.89748 4.17571 9.04743C4.59288 11.1849 5.69221 13.5771 7.27056 15.7847C9.88759 19.4439 13.4317 22 15.8917 22C16.4423 22 16.9128 21.8682 17.2894 21.6099L18.9472 20.4729C19.5808 20.04 19.9525 19.4059 19.9956 18.6893C20.0344 18.0462 19.8179 17.3753 19.3692 16.7477L18.1074 14.9837ZM18.2923 19.5567L16.6345 20.6932C16.4532 20.8184 16.2034 20.8814 15.8917 20.8814C14.1557 20.8814 10.8705 18.8704 8.20617 15.1434C6.71817 13.0623 5.68493 10.8227 5.29747 8.83725C4.9761 7.1896 5.15437 5.90592 5.76255 5.48852L7.42093 4.3515C7.66166 4.18644 7.91208 4.10272 8.16372 4.10272C8.65244 4.10272 9.15754 4.41622 9.54864 4.96306L10.8105 6.72767C11.2913 7.39979 11.5066 8.32247 10.671 8.89543L8.77675 10.194L8.98715 10.6226C9.4686 11.6017 10.0228 12.5256 10.6813 13.4453C11.3325 14.3561 12.048 15.2058 12.8114 15.9711L13.1504 16.3113L15.0441 15.0122C15.7523 14.5271 16.5787 14.7949 17.1724 15.6244L18.4336 17.389C18.7283 17.8016 18.8787 18.2404 18.855 18.6234C18.8326 19.0028 18.6428 19.3163 18.2923 19.5567Z"
+                        fill="#222222" />
+                    </svg>
+                  </div>
+                  <div class="d-flex gap-1 flex-column align-items-start">
+                    <p><a class="call_text" href="tel:02268567401">Call us on</a></p>
+                    <span>
+                      <a class="call_number" href="tel:02268567401">022-68567401</a>
+                    </span>
+                  </div>
+                </div>
+                <div class="message">
+                  <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                      <g clip-path="url(#clip0_0_4730)">
+                        <path
+                          d="M3 7.5C3 6.96957 3.21071 6.46086 3.58579 6.08579C3.96086 5.71071 4.46957 5.5 5 5.5H19C19.5304 5.5 20.0391 5.71071 20.4142 6.08579C20.7893 6.46086 21 6.96957 21 7.5V17.5C21 18.0304 20.7893 18.5391 20.4142 18.9142C20.0391 19.2893 19.5304 19.5 19 19.5H5C4.46957 19.5 3.96086 19.2893 3.58579 18.9142C3.21071 18.5391 3 18.0304 3 17.5V7.5Z"
+                          stroke="#222222" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M3 7.5L12 13.5L21 7.5" stroke="#222222" stroke-width="1.25" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_0_4730">
+                          <rect width="24" height="24" fill="white" transform="translate(0 0.5)" />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </div>
+                  <div class="d-flex gap-1 flex-column align-items-start">
+                    <p>
+                      <a class="message_text" href="mailto:helpdesk@sbicapsec.com">Write to Us</a>
+                    </p>
+                    <span><a class="mail_text" href="mailto:helpdesk@sbicapsec.com">helpdesk&#64;sbicapsec.com</a>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,602 @@
+<section class="pan_details_form" *ngIf="this.PreferenceDeny == false">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-12 m-auto">
+        <div class="mobile_css">
+          <div class="back_cls">
+            <div *ngIf="this.RejectStatus != 'R'" (click)="redirectToBankDetails()">
+              <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
+            </div>
+
+            <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div>
+
+            <div class="d-flex flex-column align-items-start gap-2">
+              <h5>
+                Declaration and Terms & Conditions for Demat & Trading Account
+              </h5>
+              <p class="sub_title">
+                By clicking proceed, I acknowledge and confirm that I have read
+                the below and undertake that information provided by me is true
+                & correct
+              </p>
+            </div>
+          </div>
+        </div>
+        <form method="post">
+          <div class="">
+            <div class="col-lg-12 col-md-12 col-12 desktop_css">
+              <div class="d-flex align-items-start gap-2">
+                <div
+                  *ngIf="this.RejectStatus != 'R'"
+                  (click)="redirectToBankDetails()"
+                >
+                  <span
+                    >
+                     <svg
+                      width="24"
+                      height="25"
+                      viewBox="0 0 24 25"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g clip-path="url(#clip0_0_10804)">
+                        <path
+                          d="M5 12.5H19"
+                          stroke="black"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M5 12.5L11 18.5"
+                          stroke="black"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M5 12.5L11 6.5"
+                          stroke="black"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_0_10804">
+                          <rect
+                            width="24"
+                            height="24"
+                            fill="white"
+                            transform="translate(0 0.5)"
+                          />
+                        </clipPath>
+                      </defs>
+                    </svg></span>
+                </div>
+                <div class="d-flex flex-column align-items-start gap-2">
+                  <h5>
+                    Declaration and Terms & Conditions for Demat & Trading
+                    Account
+                  </h5>
+                  <p class="sub_title">
+                    By clicking proceed, I acknowledge and confirm that I have
+                    read the below and undertake that information provided by me
+                    is true & correct
+                  </p>
+                </div>
+              </div>
+            </div>
+            <hr class="desktop_css" />
+            <div class="col-lg-12">
+              <div class="declaration-box">
+                <div class="pan_details_align">
+                  <label (click)="selectAllCheckboxes()" for="selectAll" class="form-check-label">
+                    <input id="selectAll" type="checkbox" name="citizenSelectAll" class="form-check-input"
+                      [(ngModel)]="selectAll" (change)="selectAllCheckboxes()" />
+                  </label>
+                  <div class="upload_css">
+                    <h5>Select All</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="declaration-box">
+                <div class="pan_details_align">
+                  <label for="indianCitizen" class="form-check-label">
+                    <input id="indianCitizen" type="checkbox" name="indcitizen" class="form-check-input"
+                      [(ngModel)]="isIndianCitizen" (change)="storeSelectedValues('indianCitizen')" />
+                  </label>
+                  <div class="upload_css">
+                    <h5>I have tax residency of India only</h5>
+                  </div>
+                </div>
+                <div data-bs-target="#taxpayer" data-bs-toggle="modal">
+                  <img src="assets/images/diy/InfoCircle.png" alt="" />
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="declaration-box">
+                <div class="pan_details_align">
+                  <label for="pep" class="form-check-label">
+                    <input id="pep" type="checkbox" name="pepAccount" class="form-check-input" [(ngModel)]="ispep"
+                      (change)="storeSelectedValues('pep')" />
+                  </label>
+                  <div class="upload_css">
+                    <h5>
+                      I am not politically-exposed (PEP) or related to a PEP
+                    </h5>
+                  </div>
+                </div>
+                <div data-bs-target="#politicalexpose" data-bs-toggle="modal" (click)="stopPropagation($event)">
+                  <img src="assets/images/diy/InfoCircle.png" alt="" />
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="declaration-box">
+                <div class="pan_details_align">
+                  <label for="tradingPref" class="form-check-label">
+                    <input id="tradingPref" type="checkbox" name="tradingPreference" class="form-check-input"
+                      [(ngModel)]="istradingPref" (change)="storeSelectedValues('tradingPref')" />
+                  </label>
+                  <div class="upload_css">
+                    <h5>
+                      I accept the
+                      <span data-bs-target="#tradingpref" data-bs-toggle="modal">Preferences</span>
+                      set by SBI Securities
+                    </h5>
+                  </div>
+                </div>
+                <div data-bs-target="#tradingpref" data-bs-toggle="modal">
+                  <img src="assets/images/diy/InfoCircle.png" alt="" />
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="declaration-box">
+                <div class="pan_details_align">
+                  <label for="settledfunds" class="form-check-label">
+                    <input id="settledfunds" type="checkbox" name="settledFundss" class="form-check-input"
+                      [(ngModel)]="issettledfunds" (change)="storeSelectedValues('settledfunds')" />
+                  </label>
+                  <div class="upload_css">
+                    <h5>
+                      I provide my consent to settle my unused funds after every
+                    </h5>
+                  </div>
+                </div>
+                <div class="dropdown dropdown_cls" data-bs-target="#fundcycle" data-bs-toggle="modal"
+                  (click)="stopPropagation($event)">
+                  <button class="btn dropdown-toggle nowrap" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    {{ selectedOption.Days }}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="declaration-box">
+                <div class="pan_details_align">
+                  <label for="termsandcond" class="form-check-label">
+                    <input id="termsandcond" type="checkbox" name="terms_and_conditions" class="form-check-input"
+                      [(ngModel)]="istermsandcond" (change)="storeSelectedValues('termsandcond')" />
+                  </label>
+                  <div class="upload_css">
+                    <h5>
+                      I accept
+                      <span data-bs-target="#terms" data-bs-toggle="modal">Terms and Conditions</span>
+                      (MITC, R&O, RDD, P&P, Guidance Note)
+                    </h5>
+
+                    <p style="font-size: 12px">
+                      Please read and acknowledge the MITC document
+                    </p>
+                  </div>
+                </div>
+                <div data-bs-target="#terms" data-bs-toggle="modal">
+                  <img src="assets/images/diy/InfoCircle.png" alt="" />
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12" *ngIf="this.IsYonoForm">
+              <div class="declaration-box">
+                <div class="pan_details_align">
+                  <label for="yono" class="form-check-label">
+                    <input id="yono" type="checkbox" name="yonoAccount" class="form-check-input" [(ngModel)]="isyono"
+                      (change)="storeSelectedValues('yono'); checkAllCheckboxesSelected()" />
+                  </label>
+                  <div class="upload_css">
+                    <h5>
+                      I, hereby give my explicit consent to share my financial portfolio and account details with SBI
+                      for my
+                      personal access on digital platforms of SBI like Yono App, Internet Banking etc.. I understand
+                      that I have the
+                      right to withdraw this consent at any time by requesting SBICAP Securities Ltd.
+                    </h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="stickybtn_desk desktop_css">
+            <button [disabled]="isProceedButton" class="btn btn_cls" (click)="DeclartionAPICall()">
+              Proceed
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="stickybtn mobile_css">
+        <!-- <button
+          class="btn btn_cls"
+          *ngIf="!allCheckboxesSelected"
+          (click)="selectAllCheckboxes()"
+        >
+          Select All
+        </button> -->
+        <!-- *ngIf="allCheckboxesProceed" -->
+        <button class="btn btn_cls" [disabled]="isProceedButton" (click)="DeclartionAPICall()">
+          Proceed
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Trading Preference Acceptance Modal -->
+<div class="modal fade uploadPan" id="tradingpref" tabindex="-1" aria-labelledby="tradingprefLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+        <h1 class="modal-title fs-5" id="tradingprefLabel"></h1>
+        <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <h5>Trading preference acceptance</h5>
+        <form method="post">
+          <div *ngFor="let data of questionnaireResponse" class="trading_qna">
+            <h4>{{ data?.Title }}</h4>
+            <p *ngIf="data.Description">{{ data.Description }}</p>
+
+            <span *ngFor="let Qata of data?.Questions">
+              <p>{{ Qata.Question }}</p>
+              <div class="trading_qna_align">
+                <div class="pan_details_align" *ngFor="let ansData of Qata.Answer">
+                  <input type="radio" [name]="'radio-button-' + Qata.QuestionId" class="radio-button"
+                    value="{{ ansData.Key }}" [(ngModel)]="Qata.SelectedAns" [checked]="ansData.Key" />
+                  <!-- [attr.disabled] = "Qata.SelectedAns != ansData.Key" -->
+                  <label for="{{ ansData.Key }}-{{ Qata.QuestionId }}">{{
+                    ansData.Key
+                    }}</label>
+                </div>
+
+                <!-- <div class="pan_details_align">
+                  <input id="no-{{ data.TitleId }}" type="radio" [name]="'radio-button-' + data.TitleId"
+                    class="radio-button" value="NO" [(ngModel)]="data.SelectedAns"
+                    [checked]="data.SelectedAns === 'NO'" />
+                  <label for="no-{{ data.TitleId }}">No</label>
+                </div> -->
+              </div>
+            </span>
+          </div>
+        </form>
+        <div class="note_css">
+          <h4>easi / Ideas:</h4>
+          <h6>Note:</h6>
+          <ul class="">
+            <li>To register for easi, please visit: <a href="www.cdslindia.com">www.cdslindia.com</a></li>
+            <li>For IDEAS, please visit: <a href="https://eservices.nsdl.com/" target="_blank">https://eservices.nsdl.com/</a></li>
+            <li>IDEAS/easi enables a BO to view ISIN balances, transactions, and the value of the portfolio online.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn_cls" data-bs-toggle="modal" data-bs-dismiss="modal"
+          (click)="saveTradePreferenceQA()">
+          I Agree
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Help Screen -->
+<div class="modal fade uploadPan" id="helpscreen" tabindex="-1" aria-labelledby="helpscreenLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+        <h1 class="modal-title fs-5" id="helpscreenLabel"></h1>
+        <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="img_preview text-center">
+          <img src="assets/images/diy/help-img.png" alt="" />
+        </div>
+        <div class="text-center my-3">
+          <span>A a standard format for seeking the trading preference to ensure
+            that customer are permitted to access all the stock exchanges.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Fund Settlement Cycle Modal -->
+<div class="modal fade uploadPan" id="fundcycle" tabindex="-1" aria-labelledby="fundcycleLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header d-block p-3 p-sm-0" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+        <h1 class="modal-title fs-5" id="fundcycleLabel"></h1>
+        <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <h5 class="text-center">Fund settlement cycle</h5>
+        <div class="text-center">
+          <div class="pan_details">
+            <div class="col-lg-12 my-2" *ngFor="let option of lifecycleDays">
+              <label class="square-box p-2 border-0" for="uploadPanRadio">
+                <div class="pan_details_align">
+                  <input id="uploadPanRadio" type="radio" name="radio-button" class="radio-button"
+                    [(ngModel)]="selectedOption.Days" [value]="option.Days" (click)="selectOption(option)" />
+                  <div class="upload_css align-items-start text-start">
+                    <h5>{{ option.Days }}</h5>
+                    <span>{{ option.description }}</span>
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+          <div class="pan_confirmation">
+            <p>
+              <span>Note:</span> Fund settlement cycle, all unused funds from
+              your SBI Securities account gets transferred back to your bank
+              account.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer p-0">
+        <button class="btn btn_cls" data-bs-dismiss="modal">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Terms and Condition Modal -->
+<div class="modal fade uploadPan" id="terms" tabindex="-1" aria-labelledby="termsLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+        <h1 class="modal-title fs-5" id="termsLabel"></h1>
+        <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <h5 class="text-start">Terms and Conditions</h5>
+        <div>
+          <div [innerHTML]="termsConditionData"></div>
+        </div>
+      </div>
+      <div class="modal-footer p-0">
+        <button class="btn btn_cls" data-bs-toggle="modal" data-bs-dismiss="modal" (click)="acceptTerms()">
+          I accept
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Political Expose Modal -->
+<div class="modal fade uploadPan" id="politicalexpose" tabindex="-1" aria-labelledby="politicalexposeLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+        <h1 class="modal-title fs-5" id="politicalexposeLabel"></h1>
+        <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <h5 class="text-start">
+          Who is a politically exposed or related person
+        </h5>
+        <p>
+          Politically exposed or related person include, but are not limited to:
+        </p>
+        <div>
+          <div [innerHTML]="politicalExposedData"></div>
+        </div>
+      </div>
+      <div class="modal-footer p-0">
+        <button class="btn btn_cls" data-bs-toggle="modal" data-bs-dismiss="modal">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tax Payer Modal -->
+<div class="modal fade uploadPan" id="taxpayer" tabindex="-1" aria-labelledby="taxpayerLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+        <h1 class="modal-title fs-5" id="taxpayerLabel"></h1>
+        <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <h5 class="text-start">Tax payer declaration</h5>
+        <div>
+          <div [innerHTML]="taxPayerData"></div>
+        </div>
+      </div>
+      <div class="modal-footer p-0">
+        <button class="btn btn_cls" data-bs-toggle="modal" data-bs-dismiss="modal">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade uploadPan" id="helpscreen" tabindex="-1" aria-labelledby="helpscreenLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+        <h1 class="modal-title fs-5" id="helpscreenLabel"></h1>
+        <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="img_preview text-center">
+          <img src="assets/images/diy/help-img.png" alt="" />
+        </div>
+        <div class="text-center my-3">
+          <span>A a standard format for seeking the trading preference to ensure
+            that customer are permitted to access all the stock exchanges.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Preference Modal -->
+<div class="modal fade uploadPan" id="confirmPref" tabindex="-1" aria-labelledby="confirmPrefLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h5 class="text-start" style="padding: 20px; padding-left: 2px">
+          Trading Preference Acceptance
+        </h5>
+
+        <p>
+          If you want to select any other option in Preferences set by SBI
+          Securities,
+          <span style="font-weight: bold">account needs to be opened using a physical form.</span>
+        </p>
+
+        <div style="margin-top: 25px" class="modal-footer p-0">
+          <div class="btn_align">
+            <button class="btn btn_cls_outline" data-bs-toggle="modal" data-bs-dismiss="modal"
+              (click)="terminateModal()">
+              Continue
+            </button>
+            <button class="btn btn_cls" data-bs-toggle="modal" data-bs-dismiss="modal" (click)="DoNotChange()">
+              Do not change
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="pan_details_form" *ngIf="this.PreferenceDeny == true">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-12 m-auto">
+        <div class="mobile_css">
+          <div class="back_cls">
+            <div class="d-flex flex-column align-items-start gap-2">
+              <h5>Declaration for SBI Securities Account</h5>
+            </div>
+          </div>
+        </div>
+        <form method="post">
+          <div class="">
+            <div class="col-lg-12 col-md-12 col-12 desktop_css">
+              <div class="d-flex align-items-start gap-2">
+                <div class="d-flex flex-column align-items-start gap-2">
+                  <h5>Declaration for SBI Securities Account</h5>
+                </div>
+              </div>
+            </div>
+            <hr class="desktop_css" />
+            <div style="
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              ">
+              <div style="text-align: center; margin-top: 60px; max-width: 360px">
+                <img src="assets/images/diy/TradePreference.png" />
+                <h5>
+                  You have selected the option to open account with Physical
+                  Application.
+                </h5>
+                <p>
+                  Please contact us on
+                  <a href="mailto:helpdesk@sbicapsec.com">helpdesk&#64;sbicapsec.com</a>
+                  or
+                  <span style="
+                      color: rgba(
+                        var(--bs-link-color-rgb),
+                        var(--bs-link-opacity, 1)
+                      );
+                    ">022 - 6854 5502/55</span>
+                  or visit the nearest branch
+                </p>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trading Preference Acceptance Modal -->
+  <div class="modal fade uploadPan" id="tradingpref" tabindex="-1" aria-labelledby="tradingprefLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+          <h1 class="modal-title fs-5" id="tradingprefLabel"></h1>
+          <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+            (click)="removeModal()"></button>
+        </div>
+        <div class="modal-body">
+          <h5>Trading preference acceptance</h5>
+          <form method="post">
+            <div *ngFor="let data of questionnaireResponse" class="trading_qna">
+              <h4>{{ data?.Title }}</h4>
+              <p *ngIf="data.Description">{{ data.Description }}</p>
+
+              <span *ngFor="let Qata of data?.Questions">
+                <p>{{ Qata.Question }}</p>
+                <div class="trading_qna_align">
+                  <div class="pan_details_align" *ngFor="let ansData of Qata.Answer">
+                    <input type="radio" [name]="'radio-button-' + Qata.QuestionId" class="radio-button"
+                      value="{{ ansData.Key }}" [(ngModel)]="Qata.SelectedAns" [checked]="ansData.Key" />
+                    <!-- [attr.disabled] = "Qata.SelectedAns != ansData.Key" -->
+                    <label for="{{ ansData.Key }}-{{ Qata.QuestionId }}">{{
+                      ansData.Key
+                      }}</label>
+                  </div>
+
+                  <!-- <div class="pan_details_align">
+                  <input id="no-{{ data.TitleId }}" type="radio" [name]="'radio-button-' + data.TitleId"
+                    class="radio-button" value="NO" [(ngModel)]="data.SelectedAns"
+                    [checked]="data.SelectedAns === 'NO'" />
+                  <label for="no-{{ data.TitleId }}">No</label>
+                </div> -->
+                </div>
+              </span>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn_cls" data-bs-toggle="modal" data-bs-dismiss="modal"
+            (click)="saveTradePreferenceQA()">
+            I Agree
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

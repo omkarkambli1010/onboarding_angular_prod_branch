@@ -1,0 +1,52 @@
+<section class="pan_details_form">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 col-12 m-auto">
+        <form method="post">
+          <div class="d-flex align-items-start gap-2">
+            <div (click)="BackToSix()" *ngIf="this.RejectStatus != 'R'">
+              <span>
+                <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_0_10804)">
+                    <path d="M5 12.5H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                    <path d="M5 12.5L11 18.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                    <path d="M5 12.5L11 6.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_0_10804">
+                      <rect width="24" height="24" fill="white" transform="translate(0 0.5)" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </span>
+            </div>
+            <div>
+              <h5>Verify your bank account</h5>
+              <p class="sub_title">
+                Scan the below QR code using any UPI app to verify your bank
+                account with us
+              </p>
+            </div>
+          </div>
+          <hr class="desktop_css" />
+          <div class="qr_css">
+            <qrcode [qrdata]="this.upiPayLink" [width]="300" [errorCorrectionLevel]="'M'"></qrcode>
+            <p>{{ minutes }}:{{ seconds | number : "2.0" }}</p>
+          </div>
+          <!-- <div class="hidden" id="btn" style="text-align: center">
+            <a class="status" (click)="redirect()">Check Transaction Status</a>
+          </div> -->
+          <div *ngIf="this.utm_source !== 'PROPRIETOR'" class="qr_info">
+            <p>
+              Use your bank account details, which matches the name on your PAN
+              CARD
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,265 @@
+<section
+  aria-label="Mobile Number Entry"
+  class="pan_details_form d-block d-md-none"
+  *ngIf="MobilePageFlag"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-12 m-auto">
+        <div class="back_cls">
+          <div class="d-flex flex-column align-items-start gap-2">
+            <h5><strong>Enter Mobile Number</strong></h5>
+            <p class="sub_title">
+              Enter mobile linked with your PAN and Aadhaar Card. Phone No.
+              ending with **{{ this.displaymobile.slice(-3) }}
+              is linked with another demat account/ another application.
+            </p>
+          </div>
+        </div>
+
+        <div class="mobile_form">
+          <form aria-label="Mobile Number Entry Form" action="" method="post">
+            <div class="mobile__input__wrapper position-relative">
+              <label
+                for="mobileInp"
+                class="mobile_number_label position-absolute"
+                >Mobile Number</label
+              >
+              <input
+                aria-label="Mobile Number"
+                type="text"
+                id="mobileInp"
+                class="form-control otp_field mobile__input"
+                aria-describedby="inputMobile"
+                name="MobileNo"
+                pattern="[0-9]*"
+                inputmode="numeric"
+                autocomplete="tel"
+                placeholder="Mobile Number"
+                maxlength="10"
+                [(ngModel)]="sendOtp.mobile"
+                (input)="mobileNoValidation($event, false)"
+                (focusout)="mobileNoValidation2($event)"
+                aria-required="true"
+              />
+              <span *ngIf="mobileDigitReq" class="red_warning"
+                >*Please enter your valid 10 digit mobile number.</span
+              >
+            </div>
+          </form>
+
+          <div class="btn_align stickybtn mobile_css">
+            <div class="terms_css">
+              By Submitting, I agree to the
+              <a
+                href="https://www.sbisecurities.in/fileserver/regulation/terms-and-conditions.html"
+                target="_blank"
+                >Terms & Condition</a
+              >
+            </div>
+            <span id="mobileGetOtpHint" class="visually-hidden"
+              >Enter a valid 10 digit mobile number to enable Get OTP.</span
+            >
+            <button
+              [attr.aria-disabled]="isDisabledLoginBtn"
+              [disabled]="isDisabledLoginBtn"
+              (click)="getMobileOtp(false)"
+              id="mobilebutton"
+              type="button"
+              class="btn btn_cls"
+              aria-describedby="mobileGetOtpHint"
+            >
+              GET OTP
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section aria-label="Mobile Number Entry Desktop" class="pan_details_form">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-12 m-auto d-none d-md-block">
+        <form aria-label="Mobile Number Entry Form 2" method="post" class="">
+          <div class="div">
+            <div class="col-lg-12 col-md-12 col-12 desktop_css">
+              <div class="d-flex flex-column align-items-start gap-2">
+                <!-- <h5>Enter your PAN</h5> -->
+                <p class="sub_title">
+                  Enter mobile linked with your PAN and Aadhaar Card. Phone No.
+                  ending with **{{ this.displaymobile.slice(-3) }} is linked
+                  with another demat account/ another apllication.
+                </p>
+              </div>
+            </div>
+            <hr class="desktop_css" />
+            <div class="col-lg-12 col-md-12 col-12">
+              <div class="mb-3 desktop_align">
+                <div>
+                  <label for="mobileInpDesk" class="form-label"
+                    >Enter Mobile Number</label
+                  >
+                </div>
+                <div>
+                  <input
+                    aria-label="Mobile Number"
+                    type="text"
+                    id="mobileInpDesk"
+                    class="form-control otp_field desk__mobile__inp"
+                    aria-describedby="inputMobile"
+                    name="mobileInp"
+                    pattern="[0-9]*"
+                    inputmode="numeric"
+                    autocomplete="tel"
+                    placeholder="Mobile Number"
+                    maxlength="10"
+                    [(ngModel)]="sendOtp.mobile"
+                    (input)="mobileNoValidation($event, false)"
+                    (focusout)="mobileNoValidation2($event)"
+                    aria-required="true"
+                  />
+                  <span *ngIf="mobileDigitReq" class="red_warning"
+                    >*Please enter your valid 10 digit mobile number.</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="stickybtn_desk desktop_css">
+            <span id="mobileGetOtpHintDesk" class="visually-hidden"
+              >Enter a valid 10 digit mobile number to enable Get OTP.</span
+            >
+            <button
+              class="btn btn_cls email__btn"
+              [attr.aria-disabled]="isDisabledLoginBtn"
+              [disabled]="isDisabledLoginBtn"
+              id="completePanVerify"
+              (click)="getMobileOtp(false)"
+              aria-describedby="mobileGetOtpHintDesk"
+            >
+              GET OTP
+            </button>
+            <div class="terms_css">
+              By Continuing, I agree to the
+              <a
+                href="https://www.sbisecurities.in/fileserver/regulation/terms-and-conditions.html"
+                target="_blank"
+                >Terms & Condition</a
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div
+  id="mobileotp"
+  tabindex="-1"
+  aria-labelledby="otpLabel"
+  aria-hidden="true"
+  class="modal fade otpBox"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  role="dialog"
+  aria-modal="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-content">
+        <div
+          *ngIf="yono_medium !== 'TAB'"
+          class="modal-header d-block"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="clearMobileOTPFields(); clearTimer()"
+        >
+          <button
+            #mobilecloseModal
+            type="button"
+            class="btn-horizontal-line"
+            data-bs-dismiss="modal"
+            aria-label="Close OTP verification dialog"
+            (click)="clearMobileOTPFields(); clearTimer()"
+          ></button>
+        </div>
+
+        <div *ngIf="yono_medium === 'TAB'" class="modal-header d-block">
+          <button
+            type="button"
+            class="btn-horizontal-line hide-before"
+            aria-label="Close OTP verification dialog"
+          ></button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <p class="title_cls" id="otpLabel">OTP Verification</p>
+        <p>
+          You will receive OTP on
+          <span class="fw-bold">{{ this.sendOtp.mobile }}</span>
+        </p>
+        <div>
+          <ng-otp-input
+            aria-label="Enter 6-digit OTP sent to your mobile number"
+            #otpMobileInput
+            (onInputChange)="onOtpChangeMobile($event)"
+            (ngModelChange)="checkIfAllOTPMobileFilled()"
+            [(ngModel)]="otpFieldMobile"
+            [ngClass]="{ 'is-success': isRightOTP, 'is-error': isWrongOTP }"
+            [config]="config"
+            [autofocus]="true"
+            (keydown.enter)="getMobileOtpVerify(false)"
+          ></ng-otp-input>
+        </div>
+        <div *ngIf="isWrongOTP" class="mb-2 d-block">
+          <div class="otp_cls">
+            <img
+              src="assets/images/diy/invalid_otp.png"
+              alt=""
+              aria-hidden="true"
+            />
+            <span class="alert_msg" role="alert"
+              >Please enter the valid 6 digit OTP sent to your registered mobile
+              number.</span
+            >
+          </div>
+        </div>
+        <div class="otp_align">
+          <div>
+            <span style="font-size: 14px">Didn't receive the OTP?</span>
+          </div>
+          <div>
+            <span style="font-weight: 400; font-size: 14px" *ngIf="timeroff">
+              Resend OTP : {{ displayMobile + " sec" }}
+            </span>
+            <span
+              class="otp_confirmation"
+              *ngIf="!timeroff"
+              (click)="getMobileOtp(true)"
+              (keydown.enter)="getMobileOtp(true)"
+              (keydown.space)="getMobileOtp(true)"
+              role="button"
+              tabindex="0"
+            >
+              Resend OTP
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          [attr.aria-disabled]="isMobileVerifyBtn"
+          [disabled]="isMobileVerifyBtn"
+          (click)="getMobileOtpVerify(false)"
+          type="button"
+          class="btn btn_cls"
+        >
+          Verify
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

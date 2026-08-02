@@ -1,0 +1,267 @@
+.pan_details_form {
+    display: flex;
+    flex-direction: column;
+    margin: 50px 0;
+    width: 100%;
+    align-items: center;
+    justify-content: center
+}
+
+.pan_details_form .desktop_css {
+    display: block
+}
+
+.pan_details_form .mobile_css {
+    display: none
+}
+
+.pan_details_form form {
+    background: #fff;
+    border-radius: 24px;
+    height: unset;
+    overflow: unset;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between
+}
+
+.pan_details_form .line_css {
+    border-bottom: .5px solid #d9d9d9
+}
+
+.pan_details_form .header_padding {
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px
+}
+
+.pan_details_form .mobile_section {
+    display: flex;
+    padding: 24px;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    align-items: flex-start
+}
+
+.pan_details_form .mobile_section .email_screen {
+    width: 100%
+}
+
+.pan_details_form .mobile_section .email_screen .email_form {
+    display: flex;
+    align-items: center
+}
+
+.pan_details_form .mobile_section .email_screen .email_form>div:nth-child(1),
+.pan_details_form .mobile_section .email_screen .email_form>div:nth-child(2) {
+    flex: 1
+}
+
+.pan_details_form .mobile_section .email_screen .email_form input[type=text] {
+    border-radius: 8px;
+    border: 1px solid #d9d9d9;
+    background: #fff;
+    padding: 10px 16px;
+    max-width: 265px;
+    width: 100%;
+    max-height: 40px;
+    height: 100%;
+    color: #222;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px
+}
+
+.pan_details_form .mobile_section .email_screen .email_form input[type=text]:focus-visible {
+    outline: unset
+}
+
+.pan_details_form .stickybtn_desk {
+    position: relative;
+    width: 100%
+}
+
+.pan_details_form .stickybtn_desk button {
+    padding: 15px 0;
+    max-width: 350px;
+    margin: auto
+}
+
+.pan_details_form .stickybtn {
+    background: #fff;
+    position: fixed;
+    padding: 10px;
+    bottom: 0;
+    left: 0;
+    right: 0
+}
+
+.pan_details_form .stickybtn button {
+    padding: 15px 0;
+    max-width: 300px;
+    margin: auto
+}
+
+.pan_details_form .desktop_align {
+    display: flex;
+    width: 100%;
+    align-items: center
+}
+
+.pan_details_form .sub_title {
+    color: #666;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: normal
+}
+
+.pan_details_form .help_faq_css {
+    display: flex;
+    gap: 8px;
+    width: 100%
+}
+
+.pan_details_form .help_faq_css h5 {
+    color: #222;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: normal
+}
+
+.pan_details_form .line_css {
+    border-bottom: .5px solid #d9d9d9
+}
+
+.pan_details_form .header_padding {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    flex-direction: column
+}
+
+.pan_details_form .email_form_css {
+    box-shadow: unset;
+}
+
+@media screen and (max-width:991px) {
+
+    .pan_details_form .back_cls img {
+        width: 20px
+    }
+
+    .pan_details_form .back_cls {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: flex-start;
+        gap: 16px;
+        padding: 0 16px
+    }
+
+    .pan_details_form .back_cls h5 {
+        color: #2b2b2b;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: normal
+    }
+
+    .pan_details_form .back_cls>div:nth-child(1) {
+        font-size: 16px;
+        font-weight: 600;
+        color: #222;
+        display: flex;
+        align-items: center;
+        gap: 5px
+    }
+
+    .pan_details_form .back_cls img {
+        width: 15px
+    }
+}
+
+@media screen and (max-width:767px) {
+    .pan_details_form {
+        display: block;
+        height: auto;
+        margin: 20px 0
+    }
+
+    .pan_details_form form {
+        margin: 20px 0 80px 0;
+        height: unset;
+        overflow: unset
+    }
+
+    .pan_details_form .email_form_css {
+        margin: 0;
+    }
+
+    .pan_details_form .desktop_css {
+        display: none
+    }
+
+    .pan_details_form .mobile_css {
+        display: block
+    }
+
+    .pan_details_form .desktop_align {
+        flex-direction: column;
+        align-items: flex-start
+    }
+
+    .pan_details_form .desktop_align>div:nth-child(1) {
+        flex: unset
+    }
+
+    .pan_details_form .help_faq_css {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        gap: 10px
+    }
+
+    .pan_details_form .stickybtn {
+        border: 1px solid #fff;
+        background: #fff;
+        position: fixed;
+        width: 100%;
+        max-width: 100%;
+        padding: 10px;
+        bottom: 0;
+        left: 0;
+        right: 0
+    }
+
+    .pan_details_form .stickybtn button {
+        max-width: 100%
+    }
+
+    .pan_details_form .sub_title {
+        font-size: 12px
+    }
+
+    .pan_details_form .header_padding {
+        padding: 0
+    }
+
+    .pan_details_form .mobile_section .email_screen .email_form {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px
+    }
+
+    .pan_details_form .mobile_section .email_screen .email_form input[type=text] {
+        width: 100%;
+        max-width: 100%
+    }
+
+    .pan_details_form .mobile_section .email_screen .email_form>div:nth-child(1),
+    .pan_details_form .mobile_section .email_screen .email_form>div:nth-child(2) {
+        width: 100%
+    }
+}

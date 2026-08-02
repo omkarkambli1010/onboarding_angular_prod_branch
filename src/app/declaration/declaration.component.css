@@ -1,0 +1,921 @@
+/* For the label */
+body.modal-open {
+  height: 100% !important;
+  position: fixed !important;
+  width: 100% !important;
+}
+
+.pan_details_form {
+  display: flex;
+  flex-direction: column;
+  /* height: 100vh; */
+  /* height: calc(100vh - 80px); */
+  margin: 50px 0;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.pan_details_form form::-webkit-scrollbar {
+  width: 7px;
+}
+
+.pan_details_form form::-webkit-scrollbar-track {
+  background: #c3c7ed;
+  border-radius: 10px;
+  box-shadow: #280071;
+}
+
+.pan_details_form form::-webkit-scrollbar-thumb {
+  background: #280071;
+  border-radius: 10px;
+}
+
+.pan_details_form form {
+  background: #fff;
+  padding: 24px;
+  border-radius: 24px;
+  /* height: 71vh; */
+  /* overflow: auto; */
+  height: unset;
+  overflow: unset;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.pan_details_form .desktop_css {
+  display: block;
+}
+
+.pan_details_form .mobile_css {
+  display: none;
+}
+
+.pan_details_form .stickybtn_desk {
+  position: relative;
+}
+
+.pan_details_form .stickybtn_desk button {
+  padding: 15px 0;
+  max-width: 350px;
+  margin: 0px auto auto auto;
+}
+
+.pan_details_form .stickybtn {
+  background: #fff;
+  position: fixed;
+  padding: 10px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.pan_details_form .stickybtn button {
+  padding: 15px 0;
+  max-width: 300px;
+  margin: auto;
+}
+
+.declaration-box {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* For the info icon */
+.declaration-box img {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+}
+
+/* Style for checked checkbox */
+.pan_details_form input[type="checkbox"]:checked {
+  background-color: #6750a4;
+  border-color: unset;
+}
+
+.pan_details_form input[type="checkbox"]:checked:focus {
+  box-shadow: unset;
+}
+
+.uploadPan .group_btn {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.uploadPan .group_btn .form-check {
+  padding: 0;
+  width: 100%;
+}
+
+.uploadPan .group_btn input[type="radio"] {
+  display: none;
+}
+
+.uploadPan .group_btn .form-check-label {
+  display: inline-block;
+  background: unset;
+  color: #2b2b2b;
+  padding: 8px 15px;
+  border: 1px solid #694d9c;
+  border-radius: 30px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+}
+
+.uploadPan .group_btn input[type="radio"]:checked+.form-check-label {
+  background: #6750a4;
+  color: #fff;
+}
+
+.tick_pointers {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.tick_pointers span {
+  font-size: 14px;
+}
+
+.view_details {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
+.view_details>a {
+  text-decoration: underline;
+  color: #280071;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.pan_details_form input[type="text"].form-control {
+  font-weight: 600;
+}
+
+.pan_details_form input[type="text"].form-control:focus {
+  border-color: unset;
+  box-shadow: unset;
+}
+
+.pan_details_form .group_btn .form-check {
+  padding: 0;
+}
+
+.pan_details_form .group_btn input[type="radio"] {
+  display: none;
+}
+
+.pan_details_form .group_btn .form-check-label {
+  display: inline-block;
+  padding: 10px 20px;
+  background: unset;
+  color: #2b2b2b;
+  border: 1px solid #694d9c;
+  border-radius: 30px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.pan_details_form .group_btn input[type="radio"]:checked+.form-check-label {
+  background: #6750a4;
+  color: #fff;
+}
+
+.pan_details .sub_title {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.pan_details_form input[type="radio"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #694d9c;
+  border-radius: 50%;
+  outline: none;
+  box-shadow: 0 0 5px #999;
+  transition: box-shadow 0.3s ease;
+  position: relative;
+  top: 0;
+  flex: none;
+}
+
+.pan_details_form input[type="radio"]:before {
+  content: "";
+  display: block;
+  width: 60%;
+  height: 60%;
+  margin: 20% auto;
+  border-radius: 50%;
+}
+
+.pan_details_form input[type="radio"]:checked:before {
+  background: #694d9c;
+}
+
+.pan_details_form .pan_caption {
+  margin: 20px 0;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.pan_details_form .pan_caption span {
+  font-size: 12px;
+  color: #666666;
+  font-weight: 400;
+}
+
+.pan_details_form .pan_confirmation {
+  background: #eceeff80;
+  border: 1px solid #c3c7ed;
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.pan_details_form .pan_confirmation span {
+  font-weight: 600;
+}
+
+.pan_details_form .btn_cls {
+  background: #280071;
+  color: #fff;
+  width: 100%;
+  max-width: 100%;
+  padding: 16px;
+  display: block;
+  border-radius: 8px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.pan_confirmation p {
+  background: #f1f1f680;
+  padding: 8px;
+  font-size: 12px;
+}
+
+.pan_confirmation p span {
+  font-weight: 600;
+}
+
+.pan_details_form .stickybtn {
+  background: #fff;
+  position: fixed;
+  padding: 10px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.pan_details_form .stickybtn button {
+  padding: 15px 0;
+  max-width: 300px;
+  margin: auto;
+}
+
+/* Add this CSS to your stylesheet */
+
+/* .pan_details_form input[type="radio"] + label {
+      cursor: pointer;
+    }
+    
+    .pan_details_form input[type="radio"]:checked + label .square-box {
+      border-color: #694d9c;
+    }
+    
+    .pan_details_form input[type="radio"]:checked + label .square-box {
+      background-color: #694d9c;
+    } */
+.pan_details_form .declaration-box {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  padding: 16px 0;
+  gap: 20px;
+}
+
+.pan_details_form .square-box {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #d9d9d9;
+  position: relative;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 24px;
+}
+
+.pan_details_form .square-box.selected {
+  background: #eceeff80;
+}
+
+.pan_details_align .form-check-input:disabled {
+  opacity: 1;
+  background-color: #a398b3 !important;
+}
+
+.pan_details_form .square-box .status {
+  position: absolute;
+  background-color: #280071;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  right: 15px;
+  top: 10px;
+}
+
+.pan_details_form .pan_details_align {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 24px;
+}
+
+.pan_details_form .pan_details_align .upload_css {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.pan_details_form .pan_details_align .upload_css h5 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 0px;
+  color: #2b2b2b;
+}
+
+.pan_details_form .pan_details_align .upload_css h5 span {
+  color: #280071;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.pan_details_form .pan_details_align .upload_css span {
+  font-size: 12px;
+  font-weight: 400;
+  color: #666666;
+}
+
+.pan_details_form .or_css {
+  display: block;
+  margin: 20px 0;
+}
+
+.pan_details_form .or_css>img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.pan_details_form .checkbox_align {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.pan_details_form .checkbox_align>label {
+  font-weight: 600;
+}
+
+.pan_details_form .checkbox_align .form-check-input[type="checkbox"] {
+  font-size: 1.5rem;
+  color: #fff;
+  border: 1px solid black;
+}
+
+.pan_details_form .checkbox_align .form-check-input[type="checkbox"]:focus {
+  box-shadow: unset;
+}
+
+.pan_details_form .checkbox_align .form-check-input[type="checkbox"]:checked {
+  background-color: #694d9c;
+  /* set the custom check color */
+}
+
+/* .pan_details_align .form-check-input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+  }
+  .pan_details_align .form-check-input[type="checkbox"]:focus {
+    border-color: unset !important;
+    box-shadow: unset !important;
+  }
+  .pan_details_align .form-check-input[type="checkbox"]:checked {
+    background-color: #694d9c;
+  } */
+
+/* Checkbox custom css */
+.confirm_check_box .form-check-input[type="checkbox"]:focus {
+  border-color: unset !important;
+  box-shadow: unset !important;
+}
+
+.confirm_check_box .form-check-input:checked[type="checkbox"] {
+  background-color: #a9a8aa;
+  border-color: unset;
+}
+
+.uploadPan .modal-body h5 {
+  color: #2b2b2b;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: left;
+  /* margin-bottom: 20px; */
+}
+
+.uploadPan .modal-body p {
+  font-size: 14px;
+  margin-bottom: 0px;
+  font-weight: 400;
+}
+
+.uploadPan .modal-body .img_upload {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  margin: 20px 0;
+}
+
+.uploadPan .modal-body .file_type_css {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  font-size: 12px;
+}
+
+.uploadPan .modal-body .note_css h4{
+  font-size: 20px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.uploadPan .modal-body .note_css ul {
+  padding-left: 0;
+  font-size: 14px;
+}
+
+.uploadPan .modal-body .note_css ul li {
+  position: relative;
+  font-size: 14px;
+  margin: 10px 0;
+  padding-left: 30px;
+}
+
+.uploadPan .modal-body .note_css ul li::before {
+  content: "";
+  background-image: url("../../assets/images/diy/blue-dot.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 5px;
+  left: 0;
+  width: 10px;
+  height: 10px;
+}
+
+.uploadPan .modal-footer .continue-btn {
+  padding: 16px;
+  width: 100%;
+  border-radius: 8px;
+  background: #d4cce3;
+  color: #fff;
+}
+
+.uploadPan .modal-footer .btn_align {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 0;
+}
+
+.uploadPan .modal-footer .btn_align .changePan-btn {
+  background: #fff;
+  border: 1px solid #280071;
+  padding: 16px;
+  border-radius: 8px;
+  flex: 1;
+  font-weight: 600;
+}
+
+.uploadPan .modal-footer .btn_align .confirm-btn {
+  background: #280071;
+  color: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  flex: 1;
+  font-weight: 600;
+}
+
+.uploadPan .modal-body .file_upload_css>img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.uploadPan .modal-body .file_loading_css>img {
+  object-fit: scale-down;
+  width: 100%;
+  height: 100%;
+}
+
+.uploadPan .modal-body .img_preview {
+  margin: 20px 0;
+}
+
+.uploadPan .modal-body .img_preview>img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  /* max-width: 60%; */
+}
+
+.dropdown_cls .dropdown-toggle::after {
+  display: inline-block;
+  margin-left: 0.255em;
+  vertical-align: 0.255em;
+  content: "";
+  border-top: 0.3em solid;
+  border-right: 0.3em solid transparent;
+  border-bottom: 0;
+  border-left: 0.3em solid transparent;
+  color: #000;
+}
+
+.dropdown_cls button {
+  padding: 0 10px;
+  color: #280071;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.dropdown_cls button:first-child:active {
+  border-color: transparent;
+}
+
+.pan_details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* margin: 10px 0; */
+}
+
+.pan_details label {
+  display: block;
+}
+
+.pan_details .pan_details_align {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  gap: 24px;
+}
+
+.pan_details .pan_details_align .upload_css {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.pan_details .pan_details_align .upload_css h5 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 0px;
+  color: #2b2b2b;
+}
+
+.pan_details .pan_details_align .upload_css span {
+  font-size: 14px;
+  font-weight: 400;
+  color: #666666;
+}
+
+.reupload_css {
+  font-size: 12px;
+  color: #280071;
+  text-decoration: underline;
+}
+
+.pan_details_form .back_cls {
+  display: flex;
+  gap: 20px;
+  /* margin: 20px 0px; */
+}
+
+.pan_details_form .back_cls img {
+  width: 20px;
+}
+
+/* Apply styles to dynamically generated content */
+.uploadPan ::ng-deep.modal-body {
+  max-height: 400px;
+  overflow: auto;
+
+}
+
+.uploadPan::ng-deep.modal-body::-webkit-scrollbar {
+  width: 7px;
+  max-height: 400px;
+}
+
+.uploadPan::ng-deep.modal-body::-webkit-scrollbar-track {
+  background: #c3c7ed;
+  border-radius: 10px;
+  box-shadow: #280071;
+}
+
+.uploadPan::ng-deep.modal-body::-webkit-scrollbar-thumb {
+  background: #280071;
+  border-radius: 10px;
+}
+
+.uploadPan ::ng-deep.modal-body .plan_details_dot {
+  margin: 20px 0;
+}
+
+.uploadPan ::ng-deep.modal-body .plan_details_dot p {
+  font-size: 14px;
+}
+
+.uploadPan ::ng-deep.modal-body .plan_details_dot ul {
+  padding-left: 0;
+  font-size: 14px;
+}
+
+.uploadPan ::ng-deep .modal-body .plan_details_dot ul li {
+  position: relative;
+  font-size: 14px;
+  margin: 10px 0;
+  padding-left: 30px;
+}
+
+.uploadPan ::ng-deep .modal-body .plan_details_dot ul li::before {
+  content: "";
+  background-image: url("../../assets/images/diy/blue-dot.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 5px;
+  left: 0;
+  width: 10px;
+  height: 10px;
+}
+
+.uploadPan ::ng-deep.modal-body .other_plan_details p {
+  font-size: 14px;
+}
+
+.uploadPan .modal-body .trading_qna {
+  border: 1px solid #80808038;
+  margin-bottom: 20px;
+  border-radius: 15px;
+}
+
+.uploadPan .modal-body .trading_qna h4 {
+  background: #eceeff80;
+  color: #2b2b2b;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 15px;
+}
+
+.uploadPan .modal-body .trading_qna p {
+  color: #666666;
+  font-weight: 400;
+  font-size: 14px;
+  padding: 15px;
+}
+
+.uploadPan .modal-body .trading_qna .trading_qna_align {
+  display: flex;
+  gap: 40px;
+  padding: 15px;
+  flex-wrap: wrap;
+}
+
+.uploadPan .modal-body .trading_qna .trading_qna_align .pan_details_align {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.uploadPan .modal-body .trading_qna .trading_qna_align .pan_details_align .group_btn input[type="radio"] {
+  display: none;
+}
+
+.uploadPan .modal-body .trading_qna .trading_qna_align .pan_details_align .group_btn .form-check-label {
+  display: inline-block;
+  padding: 10px 20px;
+  background: unset;
+  color: #2b2b2b;
+  border: 1px solid #694d9c;
+  border-radius: 30px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.uploadPan .modal-body .trading_qna .trading_qna_align .pan_details_align .group_btn input[type="radio"]:checked+.form-check-label {
+  background: #6750a4;
+  color: #fff;
+}
+
+.uploadPan .modal-body .trading_qna .trading_qna_align .pan_details_align input[type="radio"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #694d9c;
+  border-radius: 50%;
+  outline: none;
+  box-shadow: 0 0 5px #999;
+  transition: box-shadow 0.3s ease;
+  position: relative;
+  top: 0;
+}
+
+.uploadPan .modal-body .trading_qna .trading_qna_align .pan_details_align input[type="radio"]:before {
+  content: "";
+  display: block;
+  width: 60%;
+  height: 60%;
+  margin: 20% auto;
+  border-radius: 50%;
+}
+
+.uploadPan .modal-body .trading_qna .trading_qna_align .pan_details_align input[type="radio"]:checked:before {
+  background: #694d9c;
+}
+
+.uploadPan .modal-body .plan_details {
+  margin: 20px 0;
+  font-size: 14px;
+}
+
+.uploadPan .modal-body .plan_details ul {
+  padding-left: 0;
+}
+
+.uploadPan .modal-body .plan_details ul li {
+  position: relative;
+  margin: 10px 0;
+  padding-left: 30px;
+}
+
+.uploadPan .modal-body .plan_details ul li::before {
+  content: "";
+  background-image: url("../../assets/images/diy/blue-tick.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 5px;
+  left: 0;
+  width: 10px;
+  height: 10px;
+}
+
+.uploadPan .modal-body .other_plan_details {
+  display: flex;
+  margin: 20px 0;
+  overflow-x: auto;
+  gap: 20px;
+}
+
+.uploadPan .modal-body .other_plan_details>span {
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 400;
+  white-space: nowrap;
+  border: 1px solid #d9d9d9;
+}
+
+.uploadPan .modal-body .other_plan_details>span.active {
+  background: #694d9c;
+  color: #fff;
+}
+
+.uploadPan .modal-body .plan_details_dot {
+  margin: 20px 0;
+}
+
+.pan_details_form .back_cls2 {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0px;
+}
+
+/* .pan_details_form form::-webkit-scrollbar {
+  width: 7px;
+}
+.pan_details_form form::-webkit-scrollbar-track {
+  background: #c3c7ed;
+  border-radius: 10px;
+  box-shadow: #280071;
+}
+.pan_details_form form::-webkit-scrollbar-thumb {
+  background: #280071;
+  border-radius: 10px;
+} */
+
+@media screen and (max-width: 767px) {
+  .pan_details_form {
+    display: block;
+    height: auto;
+    margin: 20px 0;
+  }
+
+  .pan_details_form form {
+    overflow-y: unset;
+    height: auto;
+  }
+
+  .pan_details_form .desktop_css {
+    display: none;
+  }
+
+  .pan_details_form .mobile_css {
+    display: block;
+  }
+
+  .pan_details_form .back_cls2 {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: flex-start;
+    margin: 10px 0;
+  }
+
+  .pan_details_form .sub_title {
+    font-size: 14px;
+  }
+
+  .pan_details_form .back_cls {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: flex-start;
+    /* margin: 20px 0; */
+  }
+
+  .pan_details_form .back_cls>div:nth-child(1) {
+    font-size: 16px;
+    font-weight: 600;
+    color: #222;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .pan_details_form .back_cls img {
+    width: 15px;
+  }
+
+  .pan_details_form form {
+    margin: 20px 0 80px 0;
+  }
+
+  .pan_details_form .stickybtn {
+    border: 1px solid #ffffff;
+    background: white;
+    position: fixed;
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .pan_details_form .stickybtn button {
+    max-width: 100%;
+  }
+
+  .pan_details_form .desktop_align {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

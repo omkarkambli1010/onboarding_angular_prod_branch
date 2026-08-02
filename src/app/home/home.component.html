@@ -1,0 +1,1909 @@
+<section class="banner">
+  <div class="container">
+    <div class="row banner-img">
+      <div
+        class="col-md-6 col-lg-6 col-12 px-0 px-xxl-2 px-lg-2 px-md-2 px-sm-0"
+      >
+        <div class="banner-txt">
+          <div class="desktop-banner">
+            <img
+              draggable="false"
+              src="assets/images/diy/Website-Banner-DIY2-Foreground.webp"
+              alt="Open Demat Account"
+              srcset=""
+              loading="lazy"
+            />
+          </div>
+          <div class="mobile-banner">
+            <img
+              draggable="false"
+              src="assets/images/diy/Website-Banner-DIY2-Mobile-Foreground.webp"
+              alt="Open Demat Account"
+              srcset=""
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-6 col-12">
+        <div class="mobile_form">
+          <form action="" method="post">
+            <h1 class="">Open Your Demat & Trading Account Now</h1>
+            <div>
+              <input
+                type="text"
+                class="form-control otp_field"
+                id="EnterFullNameCard"
+                name="fullname_as_pancard"
+                placeholder="Full Name as per PAN"
+                [(ngModel)]="sendOtp.fullname"
+                (ngModelChange)="updateDisplayedName(sendOtp.fullname)"
+                (input)="checkInput($event)"
+                (keypress)="onKeyPress($event)"
+                (focusout)="updateDisplayedName2($event)"
+                onpaste="return false;"
+                onselectstart="return false;"
+                onkeypress="return !/^\s$/.test(event.key) || event.target.value.length > 0 "
+                autocomplete="off"
+                maxlength="100"
+                appEmojiBlocker
+                #mobileInput
+              />
+
+              <span *ngIf="moreThanTwoValues" class="red_warning"
+                >More than 2 characters are allowed</span
+              >
+              <span *ngIf="panFullNameReqSpecial" class="red_warning"
+                >Special characters are not allowed</span
+              >
+              <span *ngIf="panFullNameReqDigit" class="red_warning"
+                >Digits are not allowed</span
+              >
+              <span *ngIf="panFullNameReqSpace" class="red_warning">
+                *Please enter your name as per your PAN</span
+              >
+            </div>
+            <div>
+              <input
+                type="text"
+                class="form-control otp_field"
+                aria-describedby="inputMobile"
+                name="MobileNo"
+                pattern="[0-9]*"
+                inputmode="numeric"
+                placeholder="Mobile Number"
+                maxlength="10"
+                [(ngModel)]="sendOtp.mobile"
+                (input)="mobileNoValidation($event, false)"
+                (focusout)="mobileNoValidation2($event)"
+              />
+              <span *ngIf="mobileDigitReq" class="red_warning"
+                >*Please enter your valid 10 digit mobile number.</span
+              >
+            </div>
+            <div class="btn_align">
+              <button
+                type="button"
+                class="btn btn_cls"
+                [disabled]="isDisabledLoginBtn"
+                (click)="getMobileOtp(false)"
+              >
+                <!-- onclick="messageHandler.postMessage('working');" -->
+                Get Started
+              </button>
+              <div class="terms_css">
+                By clicking on ‘Get Started’, I agree to the
+                <!-- <a data-bs-target="#termsandcond" data-bs-toggle="modal"
+                  >Terms & Condition</a
+                > -->
+
+                <a
+                  href="https://www.sbisecurities.in/fileserver/regulation/terms-and-conditions.html"
+                  target="_blank"
+                  >Terms & Condition</a
+                >
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="whyOpenDemat">
+  <div class="container">
+    <div class="row">
+      <div class="align">
+        <h2 class="page-heading">
+          Why Open Demat Account With SBI Securities?
+        </h2>
+        <div class="card_align">
+          <div class="card_cls">
+            <div>
+              <img
+                draggable="false"
+                src="assets/images/diy/trusticon-1.avif"
+                alt="SBI Legacy & Trust"
+              />
+            </div>
+            <div>
+              <p>SBI's Legacy and Trust</p>
+            </div>
+          </div>
+          <div class="card_cls">
+            <div>
+              <img
+                draggable="false"
+                src="assets/images/diy/communityicon-1.avif"
+                alt="SBI Investors Community"
+              />
+            </div>
+            <div>
+              <p>Community of 6+ million investors</p>
+            </div>
+          </div>
+          <div class="card_cls">
+            <div>
+              <img
+                draggable="false"
+                src="assets/images/diy/productsicon-1.avif"
+                alt="SBI Securities Trading App"
+              />
+            </div>
+            <div>
+              <p>Invest in multiple products with a single app</p>
+            </div>
+          </div>
+          <div class="card_cls">
+            <div>
+              <img
+                draggable="false"
+                src="assets/images/diy/networkicon-1.avif"
+                alt="Wide Network of SBI Securities Branches"
+              />
+            </div>
+            <div>
+              <p>Wide Network of 160+ Branches across India</p>
+            </div>
+          </div>
+          <div class="card_cls">
+            <div>
+              <img
+                draggable="false"
+                src="assets/images/diy/researchstocksicon-1.avif"
+                alt="Well Researched Investment Recommendations"
+              />
+            </div>
+            <div>
+              <p>Research recommended stocks</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ezdemat">
+  <div class="container">
+    <div class="row">
+      <div class="align">
+        <h2>Easy Demat Account Opening Process</h2>
+        <div class="card_align">
+          <div class="card_cls">
+            <img
+              draggable="false"
+              src="assets/images/diy/add-user.png"
+              alt="Sign Up For SBI Demat Account"
+            />
+            <p>Sign Up</p>
+          </div>
+          <div class="card_cls_arrow">
+            <img draggable="false" src="assets/images/diy/Line.png" alt="" />
+          </div>
+          <div class="card_cls">
+            <img
+              draggable="false"
+              src="assets/images/diy/verify-bank.png"
+              alt="Verify Your Bank Account"
+            />
+            <p>Verify Bank A/C</p>
+          </div>
+          <div class="card_cls_arrow">
+            <img draggable="false" src="assets/images/diy/Line.png" alt="" />
+          </div>
+          <div class="card_cls">
+            <img
+              draggable="false"
+              src="assets/images/diy/select-plan.png"
+              alt="Select Brokerage Plan"
+            />
+            <p>Select Plan</p>
+          </div>
+          <div class="card_cls_arrow">
+            <img draggable="false" src="assets/images/diy/Line.png" alt="" />
+          </div>
+          <div class="card_cls">
+            <img
+              draggable="false"
+              src="assets/images/diy/upload-doc.png"
+              alt="Upload Documents for Demat Account"
+            />
+            <p>Upload Documents</p>
+          </div>
+          <div class="card_cls_arrow">
+            <img draggable="false" src="assets/images/diy/Line.png" alt="" />
+          </div>
+          <div class="card_cls">
+            <img
+              draggable="false"
+              src="assets/images/diy/esign.png"
+              alt="E-sign for your Demat Account"
+            />
+            <p>E-Sign</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="whyOpenDemat">
+  <div class="container">
+    <div class="row">
+      <div class="align">
+        <h2 class="page-heading">
+          Documents Required for Opening Demat Account with SBI Securities
+        </h2>
+        <div class="card_align">
+          <div class="card_cls">
+            <div>
+              <img
+                draggable="false"
+                src="assets/images/diy/pancardicon.png"
+                alt="Identity Proof"
+              />
+            </div>
+            <div>
+              <h6>Identity Proof</h6>
+              <p>PAN Card</p>
+            </div>
+          </div>
+          <div class="card_cls">
+            <div>
+              <img
+                draggable="false"
+                src="assets/images/diy/addressprooficon-1.png"
+                alt="Address Proof"
+              />
+            </div>
+            <div>
+              <h6>Address Proof</h6>
+              <p>Aadhar Card</p>
+            </div>
+          </div>
+          <div class="card_cls">
+            <div>
+              <img
+                draggable="false"
+                src="assets/images/diy/nominee-icon.png"
+                alt="Add Nominee"
+              />
+            </div>
+            <div>
+              <h6>Nominee Addition</h6>
+              <p>Nominee's Proof of Identity</p>
+            </div>
+          </div>
+          <div class="card_cls">
+            <div>
+              <img
+                draggable="false"
+                src="assets/images/diy/signatureicon-1.png"
+                alt="Ass Your Signature"
+              />
+            </div>
+            <div>
+              <h6>Signature</h6>
+              <p>Sign on a White paper</p>
+            </div>
+          </div>
+          <div class="card_cls">
+            <div>
+              <img
+                draggable="false"
+                src="assets/images/diy/cancelled-cheque.png"
+                alt="Cancelled Cheque"
+              />
+            </div>
+            <div>
+              <h6>Cancelled cheque</h6>
+              <p>Only if bank verification fails</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="benefits_section">
+  <div class="container">
+    <div class="trust_css">
+      <h2 class="page-heading">Videos</h2>
+      <p-carousel
+        [value]="videos"
+        [numVisible]="2"
+        [numScroll]="1"
+        [circular]="false"
+        [autoplayInterval]="false"
+        [responsiveOptions]="responsiveVideoOptions"
+      >
+        <ng-template pTemplate="item" let-video>
+          <div class="carousel_cls">
+            <div class="item">
+              <iframe
+                width="560"
+                height="245"
+                [src]="video.url | safeUrl"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              >
+              </iframe>
+              <h6>{{ video.caption }}</h6>
+            </div>
+          </div>
+        </ng-template>
+      </p-carousel>
+    </div>
+  </div>
+</section>
+
+<section class="trust_section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <h2 class="page-heading">Trust Aur Growth, Dono</h2>
+        <h6><span></span>India’s trusted investment partner of choice</h6>
+      </div>
+      <div class="col-lg-12">
+        <p-carousel
+          [value]="testimonials"
+          [numVisible]="2"
+          [numScroll]="1"
+          [circular]="false"
+          [autoplayInterval]="false"
+          [responsiveOptions]="responsiveOptions"
+        >
+          <ng-template pTemplate="item" let-testimonial>
+            <div class="card_css">
+              <p>{{ testimonial.message }}</p>
+              <span>-{{ testimonial.author }}</span>
+            </div>
+          </ng-template>
+        </p-carousel>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="demat_section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <h2 class="page-heading">What is Demat Account?</h2>
+      </div>
+      <div>
+        <br />
+      </div>
+      <div>
+        <p>
+          A Demat account, short for "Dematerialized account," is like a digital
+          vault for your stocks and securities. It holds them in electronic form
+          instead of physical certificates. It makes buying, selling, and
+          transferring shares easier in the stock market, eliminating the need
+          for paperwork. It is where your investments are stored and managed
+          electronically.
+        </p>
+        <p>
+          Dematerialisation is the process by which physical certificates are
+          converted into electronic balances. That way, you do not have to hold
+          physical certificates of shares or bonds, but instead hold them just
+          as a credit entry in your demat account opened with NSDL or with CDSL.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq_section">
+  <div class="container">
+    <div class="col-md-12">
+      <h2 class="text-center pb-5 page-heading">FAQs</h2>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-11">
+          <div class="accordion" id="accordionExample">
+            <div
+              class="accordion-item accordian-border"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <h3 class="accordion-header" id="headingThree">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseThree"
+                  aria-expanded="false"
+                  aria-controls="collapseThree"
+                  itemprop="name"
+                >
+                  How does a Demat account work?
+                </button>
+              </h3>
+              <div
+                id="collapseThree"
+                class="accordion-collapse collapse"
+                aria-labelledby="headingThree"
+                data-bs-parent="#accordionExample"
+                itemscope
+                itemprop="acceptedAnswer"
+                itemtype="https://schema.org/Answer"
+              >
+                <p class="accordion-body" itemprop="text">
+                  Imagine your Demat account as a secure digital locker for your
+                  investments, like stocks and bonds. Instead of physical
+                  certificates, these investments are stored electronically.
+                  When you buy or sell stocks, it is like moving them in or out
+                  of this digital locker. Your Demat account keeps track of all
+                  these transactions, making it convenient and efficient to
+                  manage your investments in the stock market without dealing
+                  with paperwork or physical documents.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="accordion-item accordian-border"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <h3 class="accordion-header" id="headingFour">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseFour"
+                  aria-expanded="false"
+                  aria-controls="collapseFour"
+                  itemprop="name"
+                >
+                  Why do you need a Demat account?
+                </button>
+              </h3>
+              <div
+                id="collapseFour"
+                class="accordion-collapse collapse"
+                aria-labelledby="headingFour"
+                data-bs-parent="#accordionExample"
+                itemscope
+                itemprop="acceptedAnswer"
+                itemtype="https://schema.org/Answer"
+              >
+                <p class="accordion-body" itemprop="text">
+                  To hold electronic securities e.g., shares, bonds, mutual
+                  funds, IPOs, etc., in electronic format, you require a Demat
+                  account.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="accordion-item accordian-border"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <h3 class="accordion-header" id="heading5">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse5"
+                  aria-expanded="false"
+                  aria-controls="collapse5"
+                  itemprop="name"
+                >
+                  Can I Invest without Demat?
+                </button>
+              </h3>
+              <div
+                id="collapse5"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading5"
+                data-bs-parent="#accordionExample"
+                itemscope
+                itemprop="acceptedAnswer"
+                itemtype="https://schema.org/Answer"
+              >
+                <p class="accordion-body">
+                  SEBI regulations do not permit you to trade equities without
+                  demat account, be it intraday or delivery. Similarly, index
+                  ETFs and other ETFs also mandatorily need a demat account for
+                  holding them.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="accordion-item accordian-border"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <h3 class="accordion-header" id="heading6">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse6"
+                  aria-expanded="false"
+                  aria-controls="collapse6"
+                  itemprop="name"
+                >
+                  Do I Need Demat Account to Invest in IPO?
+                </button>
+              </h3>
+              <div
+                id="collapse6"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading6"
+                data-bs-parent="#accordionExample"
+                itemscope
+                itemprop="acceptedAnswer"
+                itemtype="https://schema.org/Answer"
+              >
+                <p class="accordion-body">
+                  If you want to invest in any IPO, then having a demat account
+                  is mandatory. IPO shares are only allotted in demat form. In
+                  fact, if you do not have an active demat account then your IPO
+                  application itself is not valid.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="accordion-item accordian-border"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <h3 class="accordion-header" id="heading7">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse7"
+                  aria-expanded="false"
+                  aria-controls="collapse7"
+                  itemprop="name"
+                >
+                  What Is the Difference Between a Demat and a Trading Account?
+                </button>
+              </h3>
+              <div
+                id="collapse7"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading7"
+                data-bs-parent="#accordionExample"
+                itemscope
+                itemprop="acceptedAnswer"
+                itemtype="https://schema.org/Answer"
+              >
+                <div class="accordion-body terms_body">
+                  <div class="table_cls">
+                    <table border="1">
+                      <tr>
+                        <th>Feature</th>
+                        <th>Trading Account</th>
+                        <th>Demat Account</th>
+                      </tr>
+                      <tr>
+                        <td>Purpose</td>
+                        <td>Executing buy/sell transactions</td>
+                        <td>Holding securities in electronic form</td>
+                      </tr>
+                      <tr>
+                        <td>Function</td>
+                        <td>Flow (transactions)</td>
+                        <td>Stock (holdings)</td>
+                      </tr>
+                      <tr>
+                        <td>Tradable Assets</td>
+                        <td>
+                          Includes ownable assets and contract like futures &
+                          options
+                        </td>
+                        <td>Ownable assets (equity, ETFs, etc.)</td>
+                      </tr>
+                      <tr>
+                        <td>Standalone Account</td>
+                        <td>Possible (only for futures & options)</td>
+                        <td>Possible (for non-equity investments & IPOs)</td>
+                      </tr>
+                      <tr>
+                        <td>Settlement</td>
+                        <td>Cash movement (T+1)</td>
+                        <td>Security movement (T+1)</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <p>
+                    To know more in detail, you can read our blog:
+                    <a
+                      href="https://www.sbisecurities.in/blog/difference-between-demat-account-and-trading-account"
+                      >Know the Difference between Demat and Trading Account.</a
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="accordion-item accordian-border"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <h3 class="accordion-header" id="heading8">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse8"
+                  aria-expanded="false"
+                  aria-controls="collapse8"
+                  itemprop="name"
+                >
+                  What Are the Types of Demat Accounts?
+                </button>
+              </h3>
+              <div
+                id="collapse8"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading8"
+                data-bs-parent="#accordionExample"
+                itemscope
+                itemprop="acceptedAnswer"
+                itemtype="https://schema.org/Answer"
+              >
+                <div class="accordion-body">
+                  <p>
+                    There are two types of demat accounts – Individual account
+                    and Non-Individual account. For individuals, the demat
+                    account can be classified based on residence of the account
+                    holder.
+                  </p>
+                  <ul>
+                    <li>Demat account for Resident Indians.</li>
+                    <li>Repatriable & Non-Repatriable Accounts for NRIs</li>
+                  </ul>
+                  <p>
+                    BSDA account for RI – The Basic Service Demat Account (BSDA)
+                    is for small investors whose portfolio size does not exceed
+                    value of total Rs. 4 lakhs. BSDA account holder can hold up
+                    to Rs. 2 lakh in debt securities and up to Rs. 2 lakh in
+                    other-than-debt securities. An investor can only have one
+                    BSDA demat account across all depositories. It is a free
+                    demat account opening; the demat account charges are very
+                    nominal on an annualized basis.
+                  </p>
+                  <p>
+                    Regular Demat account for RI – If BSDA accounts cross the
+                    limit, they are automatically classified as regular
+                    accounts. Here there is no upper limit on value of holdings.
+                  </p>
+                  <p>
+                    Repatriable account for NRI – Through this account, the
+                    demat gains can be repatriated (up to US$ 1 million in each
+                    fiscal year) to the foreign country where the NRI resides. A
+                    repatriable demat account has to be mandatorily linked to an
+                    NRE (Non-Resident External) account.
+                  </p>
+                  <p>
+                    Non-repatriable demat account for NRI – This account is for
+                    NRIs who do not want to repatriate the gains of demat abroad
+                    as this account does not permit free transfer of funds
+                    outside India. These non-repatriable demat accounts are
+                    linked to NRO (Non-Resident Ordinary) accounts.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="accordion-item accordian-border"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <h3 class="accordion-header" id="heading9">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse9"
+                  aria-expanded="false"
+                  aria-controls="collapse9"
+                  itemprop="name"
+                >
+                  What are Some Common Terms of Demat Account?
+                </button>
+              </h3>
+              <div
+                id="collapse9"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading9"
+                data-bs-parent="#accordionExample"
+                itemscope
+                itemprop="acceptedAnswer"
+                itemtype="https://schema.org/Answer"
+              >
+                <div class="accordion-body">
+                  <p>
+                    Dematerialization is the process by which physical share
+                    certificates are converted into electronic entries, where
+                    shares are held as digital credits in the demat account.
+                  </p>
+                  <p>
+                    Depository is the central nodal agency which is also a
+                    quasi-regulator. In India, there are 2 principal
+                    depositories, viz., NSDL and CDSL.
+                  </p>
+                  <p>
+                    Depository participants or DP are the brokers and banks
+                    authorized by NSDL and CDSL to open demat accounts and
+                    administer them on their behalf. They interface with
+                    clients.
+                  </p>
+                  <p>
+                    Lien on demat is when your demat shares are pledged with a
+                    bank or financer and the shares cannot be sold without their
+                    permission.
+                  </p>
+                  <p>
+                    Freeze on demat account can be either voluntary or by order
+                    of court. If you are travelling abroad for a long time, you
+                    can temporarily freeze your demat accounts to block any
+                    transactions. This is for your own safety. However, in case
+                    of any default or criminal charges against a person, the
+                    demat account can be frozen by court order too.
+                  </p>
+                  <p>
+                    Transmission of demat account is by the normal process of
+                    law. When a person dies, the shares in his/her demat account
+                    automatically passes on to the legal heir or nominee. That
+                    is why nomination for demat account is so important.
+                  </p>
+                  <p>
+                    Transposition in demat is done when the order of joint
+                    holders has to be changed. This is often required when the
+                    names on the certificates do not match with the names on the
+                    demat account.
+                  </p>
+                  <p>
+                    Closure of demat account is an application to the DP to
+                    close the demat account. It can only be done after all the
+                    shares are transferred out of the demat account or they are
+                    sold.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="accordion-item accordian-border"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <h3 class="accordion-header" id="heading10">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse10"
+                  aria-expanded="false"
+                  aria-controls="collapse10"
+                  itemprop="name"
+                >
+                  How to Open Demat Account Online?
+                </button>
+              </h3>
+              <div
+                id="collapse10"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading10"
+                data-bs-parent="#accordionExample"
+                itemscope
+                itemprop="acceptedAnswer"
+                itemtype="https://schema.org/Answer"
+              >
+                <p class="accordion-body">
+                  To open demat account online, you must complete the online
+                  application form and submit it with details pertaining to
+                  proof of identity, proof of address, bank account details, PAN
+                  card details etc.
+                  <br />
+                  <br />
+                  In the digilocker screen, enter your aadhaar number, OTP and
+                  6-digit digilocker pin to allow the system to fetch your
+                  aadhaar card from digilocker. Once your documents are
+                  submitted and accepted as valid, your E-KYC (electronic know
+                  your client) process is completed. E-KYC verifies your
+                  information electronically. The last step before esign, is to
+                  allow camera access to capture a live photograph for an
+                  in-person verification (IPV). The whole process takes less
+                  than 5 minutes.
+                  <br />
+                  <br />
+                  With SBI Securities, you can open a 2-in-1 demat & trading
+                  account.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="accordion-item accordian-border"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <h3 class="accordion-header" id="heading11">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse11"
+                  aria-expanded="false"
+                  aria-controls="collapse11"
+                  itemprop="name"
+                >
+                  How long does it take to open and fully activate the Demat &
+                  Trading account with SBI Securities?
+                </button>
+              </h3>
+              <div
+                id="collapse11"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading11"
+                data-bs-parent="#accordionExample"
+                itemscope
+                itemprop="acceptedAnswer"
+                itemtype="https://schema.org/Answer"
+              >
+                <div class="accordion-body">
+                  <p>
+                    The entire process for digitally opening your Demat account
+                    takes less than 5 minutes for processing, and to do
+                    transactions it will take min T+2 days. Subject to
+                    regulatory approvals.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="accordion-item accordian-border"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <h3 class="accordion-header" id="heading12">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse12"
+                  aria-expanded="false"
+                  aria-controls="collapse12"
+                  itemprop="name"
+                >
+                  What documents are required to open a Demat account online?
+                </button>
+              </h3>
+              <div
+                id="collapse12"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading12"
+                data-bs-parent="#accordionExample"
+                itemscope
+                itemprop="acceptedAnswer"
+                itemtype="https://schema.org/Answer"
+              >
+                <div class="accordion-body">
+                  <p>
+                    You need to keep the following documents handy for opening
+                    an account:
+                  </p>
+                  <ul>
+                    <li>PAN Card</li>
+                    <li>Photo, Cancelled Cheque</li>
+                    <li>
+                      Address Proof - Aadhar Card / Driving Licence / Voter Id /
+                      Passport /Central or State Govt Id/Image of your signature
+                    </li>
+                    <li>
+                      Address Proof - Aadhar Card / Driving Licence / Voter Id /
+                      Passport /Central or State Govt Id/Image of your signature
+                    </li>
+                    <li>
+                      To digitally sign the document. Mobile no/Email id to be
+                      updated in aadhar
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="accordion-item accordian-border"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <h3 class="accordion-header" id="heading13">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse13"
+                  aria-expanded="false"
+                  aria-controls="collapse13"
+                  itemprop="name"
+                >
+                  What is eSign?
+                </button>
+              </h3>
+              <div
+                id="collapse13"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading13"
+                data-bs-parent="#accordionExample"
+                itemscope
+                itemprop="acceptedAnswer"
+                itemtype="https://schema.org/Answer"
+              >
+                <p class="accordion-body">
+                  eSign is an online electronic signature or digital signature.
+                  In online account opening, if you have an aadhaar card linked
+                  to your mobile number, you can eSign the documents digitally
+                  through One Time Password (OTP) Authentication.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="accordion-item accordian-border"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <h3 class="accordion-header" id="heading14">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse14"
+                  aria-expanded="false"
+                  aria-controls="collapse14"
+                  itemprop="name"
+                >
+                  What are the Charges for Opening a Demat and Trading Account?
+                </button>
+              </h3>
+              <div
+                id="collapse14"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading14"
+                data-bs-parent="#accordionExample"
+                itemscope
+                itemprop="acceptedAnswer"
+                itemtype="https://schema.org/Answer"
+              >
+                <div class="accordion-body">
+                  <p>
+                    There are ZERO demat account opening charges when you open
+                    demat account (Suvidha Account) with SBI Securities. This is
+                    a 2-in-1 demat and trading account.
+                  </p>
+                  <p>
+                    While you benefit from free demat account opening, you incur
+                    DP AMC (Annual Maintenance Charge). Trading account incurs
+                    costs each time you transact in the form of brokerage,
+                    statutory charges, exchange charges, etc.
+                  </p>
+                  <p>
+                    Apart from the Suvidha account, which offers zero account
+                    opening charges, there are multiple plans available to cater
+                    to various individual needs. Each plan offers distinct
+                    features and benefits, allowing you to select the one that
+                    aligns best with your trading and investment goals.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="accordion-item accordian-border"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <h3 class="accordion-header" id="heading15">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse15"
+                  aria-expanded="false"
+                  aria-controls="collapse15"
+                  itemprop="name"
+                >
+                  Is it safe to open a Demat Account Online?
+                </button>
+              </h3>
+              <div
+                id="collapse15"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading15"
+                data-bs-parent="#accordionExample"
+                itemscope
+                itemprop="acceptedAnswer"
+                itemtype="https://schema.org/Answer"
+              >
+                <p class="accordion-body">
+                  Yes, opening a Demat account online is generally safe. Make
+                  sure to choose a well-known and trusted broker, follow good
+                  password practices, and keep your login details confidential
+                  to ensure the safety of your Demat account.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="accordion-item accordian-border"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <h3 class="accordion-header" id="heading16">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse16"
+                  aria-expanded="false"
+                  aria-controls="collapse16"
+                  itemprop="name"
+                >
+                  Who is eligible to open a Demat and Trading Account?
+                </button>
+              </h3>
+              <div
+                id="collapse16"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading16"
+                data-bs-parent="#accordionExample"
+                itemscope
+                itemprop="acceptedAnswer"
+                itemtype="https://schema.org/Answer"
+              >
+                <div class="accordion-body">
+                  <p>
+                    There is no minimum age to invest in the stock market, even
+                    a minor can open a Demat account.
+                  </p>
+                  <p>
+                    In case of minors, the demat account can be operated with
+                    the help of parents or appointed guardian and can only be
+                    opened offline. You can visit your nearest SBI Securities
+                    branch to open an account for minor.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="accordion-item accordian-border"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <h3 class="accordion-header" id="heading17">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse17"
+                  aria-expanded="false"
+                  aria-controls="collapse17"
+                  itemprop="name"
+                >
+                  Can I Open a Joint Demat Account?
+                </button>
+              </h3>
+              <div
+                id="collapse17"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading17"
+                data-bs-parent="#accordionExample"
+                itemscope
+                itemprop="acceptedAnswer"
+                itemtype="https://schema.org/Answer"
+              >
+                <div class="accordion-body">
+                  <p>
+                    Yes, you can open a joint demat account without any demat
+                    account opening charges. A joint demat account can have up
+                    to 3 account holders. One of the account holders must be
+                    designated as the primary holder and the other two will be
+                    joint holders.
+                  </p>
+                  <p>
+                    Only majors can be joint holders, minors cannot hold joint
+                    accounts. Joint account can only be opened offline, by
+                    visiting your nearest SBI Securities branch
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="accordion-item accordian-border"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <h3 class="accordion-header" id="heading18">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse18"
+                  aria-expanded="false"
+                  aria-controls="collapse18"
+                  itemprop="name"
+                >
+                  Can an NRI Open a Demat Account in India?
+                </button>
+              </h3>
+              <div
+                id="collapse18"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading18"
+                data-bs-parent="#accordionExample"
+                itemscope
+                itemprop="acceptedAnswer"
+                itemtype="https://schema.org/Answer"
+              >
+                <p class="accordion-body">
+                  Yes, a non-resident Indian (NRI) can open demat account in
+                  India. NRIs settled abroad can open a demat account online or
+                  offline. In India, NRIs are allowed to open repatriable demat
+                  accounts and non-repatriable demat accounts.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="accordion-item accordian-border"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <h3 class="accordion-header" id="heading19">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse19"
+                  aria-expanded="false"
+                  aria-controls="collapse19"
+                  itemprop="name"
+                >
+                  Can a Minor Open a Demat Account?
+                </button>
+              </h3>
+              <div
+                id="collapse19"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading19"
+                data-bs-parent="#accordionExample"
+                itemscope
+                itemprop="acceptedAnswer"
+                itemtype="https://schema.org/Answer"
+              >
+                <p class="accordion-body">
+                  A minor can open a demat account through their guardian (legal
+                  parent or court-appointed guardian). As minors are not
+                  eligible to enter into contracts, they cannot open a demat
+                  account on their own. Upon attaining majority, the minor
+                  account status is automatically deactivated and frozen, at
+                  which point the major (former minor) has to update the
+                  account, which will allow them to make all buy and sell
+                  decisions. Minors cannot be joint holders in a demat account.
+                  A demat account for minor can only be opened offline, by
+                  visiting your nearest SBI Securities branch.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="accordion-item accordian-border"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <h3 class="accordion-header" id="heading20">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse20"
+                  aria-expanded="false"
+                  aria-controls="collapse20"
+                  itemprop="name"
+                >
+                  Is it compulsory to assign a nominee?
+                </button>
+              </h3>
+              <div
+                id="collapse20"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading20"
+                data-bs-parent="#accordionExample"
+                itemscope
+                itemprop="acceptedAnswer"
+                itemtype="https://schema.org/Answer"
+              >
+                <p class="accordion-body">
+                  A nominee can be added to the Demat account even though it is
+                  not compulsory.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="accordion-item accordian-border"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <h3 class="accordion-header" id="heading21">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse21"
+                  aria-expanded="false"
+                  aria-controls="collapse21"
+                  itemprop="name"
+                >
+                  What are the Advantages of a Demat Account?
+                </button>
+              </h3>
+              <div
+                id="collapse21"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading21"
+                data-bs-parent="#accordionExample"
+                itemscope
+                itemprop="acceptedAnswer"
+                itemtype="https://schema.org/Answer"
+              >
+                <p class="accordion-body">
+                  - You do away with physical paper certificates and transfer
+                  deeds once and for all. This reduces the risks like loss of
+                  share certificates, storage risks, signature mismatch, bad
+                  delivery, duplicate certificates etc.<br />
+                  - The entire transaction process is digital and seamless.
+                  Share transfer is reflected in T+1 days.<br />
+                  - There is an automatic audit trail of all transactions and
+                  holdings. You can refer to & download the transaction
+                  statement and the holding statement in real-time.<br />
+                  - Dividends are directly credited to your bank account
+                  registered with your demat account. Stock splits and bonuses
+                  are also automatically credited to the demat account with the
+                  new ISIN number.<br />
+                  - Updating details like change in address or email or mobile
+                  number becomes quick and seamless as all you need to do is to
+                  give a single communication to the DP and it is reflected in
+                  all your holdings.<br />
+                  - You can have a nominee or even multiple nominees with
+                  specified interest shares. Upon the holder's death, the
+                  transmission is automatic and only the death certificate is
+                  required.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="accordion-item accordian-border"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <h3 class="accordion-header" id="heading22">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse22"
+                  aria-expanded="false"
+                  aria-controls="collapse22"
+                  itemprop="name"
+                >
+                  Can I transfer shares from my Demat account?
+                </button>
+              </h3>
+              <div
+                id="collapse22"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading22"
+                data-bs-parent="#accordionExample"
+                itemscope
+                itemprop="acceptedAnswer"
+                itemtype="https://schema.org/Answer"
+              >
+                <div class="accordion-body">
+                  <p>
+                    A. Yes, shares can be transferred from one Demat account to
+                    another. Here is the process of transfer in brief.
+                  </p>
+                  <p>
+                    Step 1 - The investor fills the Delivery Instruction Slip
+                    (DIS) and submits it to the current broker.<br />
+                    Step 2 - The broker forwards the DIS form or request to the
+                    depository.<br />
+                    Step 3 - The Depository will transfer your existing shares
+                    to the Demat account.<br />
+                    Step 4 - Once the transfer of all the shares is completed,
+                    the same will be reflected in the investor’s new Demat
+                    account.
+                  </p>
+                  <p>Alternatively,</p>
+                  <p>
+                    A. You can use EASIEST (Electronic Access To Securities
+                    Information and Execution of Secured Transaction) facility
+                    for CDSL or the SPEED-e facility for NSDL.
+                  </p>
+                  <p>B. You can also go for DDPI option</p>
+                  <ol>
+                    <li>
+                      Transfer of securities held in the beneficial owner
+                      accounts of the client towards Stock Exchange related
+                      deliveries / settlement obligations arising out of trades
+                      executed by clients on the Stock Exchange through the same
+                      stock broker.
+                    </li>
+                    <li>
+                      Pledging / re-pledging of securities in favour of trading
+                      member (TM) /clearing member (CM) for the purpose of
+                      meeting margin requirements of the clients in connection
+                      with the trades executed by the clients on the Stock
+                      Exchange.
+                    </li>
+                    <li>
+                      Mutual Fund transactions being executed on Stock Exchange
+                      order entry platforms.
+                    </li>
+                    <li>
+                      Tendering shares in open offers through Stock Exchange
+                      platforms.
+                    </li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="accordion-item accordian-border"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <h3 class="accordion-header" id="heading23">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse23"
+                  aria-expanded="false"
+                  aria-controls="collapse23"
+                  itemprop="name"
+                >
+                  Can I Transfer Shares from CDSL Demat Account to NSDL Demat
+                  Account?
+                </button>
+              </h3>
+              <div
+                id="collapse23"
+                class="accordion-collapse collapse"
+                aria-labelledby="heading23"
+                data-bs-parent="#accordionExample"
+                itemscope
+                itemprop="acceptedAnswer"
+                itemtype="https://schema.org/Answer"
+              >
+                <p class="accordion-body">
+                  Yes, you can transfer shares from your CDSL demat account to
+                  your NSDL demat account. The only condition here is that the
+                  particular stocks that you want to transfer, must be eligible
+                  for demat on both NSDL and CDSL.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sixth">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="pt-2 pb-1 col-md-12 text-center">
+          <h6>SBICAP Securities Limited</h6>
+          <p>AMFI Registered Mutual Fund Distributor</p>
+          <p>CIN: U65999MH2005PLC155485</p>
+        </div>
+        <div class="col-md-12 text-center">
+          <p>
+            Equities: Trading through SBICAP Securities Limited I Website:
+            www.sbisecurities.in SEBI Registration No.: Stock Broker:
+            INZ000200032 | DP Registration No.: IN-DP-314-2017 | Research
+            Analyst : INH000000602 | IRDAI Corporate Agency Reg. No. CA0103;
+            AMFI Reg. No. ARN-0011 (Date of initial registration: 19th August
+            2005 and valid upto 18th February 2027); PFRDA Reg. No. POP26092018.
+            In case of any grievances please write to
+            complaints&#64;sbicapsec.com DP related grievance can be sent to:
+            dp.grievance&#64;sbicapsec.com | NPS related grievance can be sent
+            to: Npsgrievance&#64;sbicapsec.com | Compliance officer - Mr.Srijith
+            Menon, email - compliance&#64;sbicapsec.com; Tel No.- 022 - 69316510
+          </p>
+          <p>
+            SBICAP Securities Limited is authorized by the Insurance Regulatory
+            and Development Authority of India to act as a Corporate Agent from
+            01- April- 2022 to 31-March 2025 for procuring or soliciting
+            insurance business of Life, General and Health under license number
+            CA0103, Category: Composite. SBICAP Securities Ltd. does not
+            underwrite the risk or act as an insurer. The advertisement contains
+            only an indication of the cover offered. For more details on risk
+            factors, terms, conditions and exclusions, please read the sales
+            brochure carefully before concluding a sale. SBI Logo displayed
+            belongs to State Bank of India and used by SBICAP Securities Limited
+            under license. Personal information as submitted by you will be
+            shared with SBICAP and insurer in order to complete your
+            application. By continuing, you provide your consent for the above
+            and authorize SBICAP Securities representatives to contact you
+            through call, SMS, WhatsApp or E-mail for providing assistance
+            towards the application process.
+          </p>
+          <p>
+            BEWARE OF SPURIOUS PHONE CALLS AND FICTITIOUS /FRAUDULENT
+            OFFERSIRDAI is not involved in activities like selling insurance
+            policies, announcing bonus or investment of premiums. Public
+            receiving such phone calls are requested to lodge a police
+            complaint. To read more, please click here -
+            <a
+              href="https://www.sbisecurities.in/fileserver/pdf/compliance/IRDAI%20Public%20notice.pdf"
+              target="_blank"
+              >IRDAI Public Notice</a
+            >
+          </p>
+          <p>
+            Copyright © 2024. All rights Reserved. SBICAP Securities
+            Limited.Site is best viewed in edge browser, Firefox 38+, Chrome 50+
+            at 1366x768 pixel resolution. Windows 10 and above
+          </p>
+        </div>
+      </div>
+      <div>
+        <hr />
+      </div>
+      <div class="col-md-12 text-center pb-3">
+        <small class="sub-footer">
+          <a
+            href="https://www.sbisecurities.in/investor-charter"
+            target="_blank"
+            class="footer-links"
+            >Investor Charter |</a
+          >
+
+          <a
+            href="https://www.sbisecurities.in/investor-awareness"
+            class="footer-links"
+          >
+            Investor Awareness |</a
+          >
+          <a
+            href="https://www.sbisecurities.in/security-tips"
+            class="footer-links"
+          >
+            Security tips |</a
+          >
+          <a
+            href="https://www.sbisecurities.in/disclaimer"
+            class="footer-links"
+          >
+            Disclaimer |</a
+          >
+          <a
+            href="https://www.sbisecurities.in/fileserver/pdf/Privacy-Policy.pdf"
+            class="footer-links"
+          >
+            Privacy Policy |</a
+          >
+          <!-- <a href="useful-links" class="footer-links"> Partner Links |</a> -->
+          <a
+            href="https://www.sbisecurities.in/fileserver/pdf/Cookies-Policy.pdf"
+            class="footer-links"
+          >
+            Cookies Policy |</a
+          >
+          <a href="https://www.sbisecurities.in/terms" class="footer-links">
+            Terms & Conditions |</a
+          >
+          <a
+            href="https://www.scores.gov.in/scores/Welcome.html"
+            target="_blank"
+            class="footer-links"
+          >
+            SCORES |</a
+          >
+          <a
+            href="https://smartodr.in/intermediary/login"
+            target="_blank"
+            class="footer-links"
+          >
+            Online Resolution of Disputes (ODR) |</a
+          >
+          <a
+            href="https://www.sbisecurities.in/fileserver/pdf/compliance/DND%20Policy.pdf"
+            class="footer-links"
+          >
+            DND Policy</a
+          >
+        </small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="version">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <p class="fw-bold">v.3.1.0</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Mobile OTP Box Modal -->
+<!-- <div id="mobileotp" tabindex="-1" aria-labelledby="otpLabel" aria-hidden="true" class="modal fade otpBox"
+  data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close"
+        (click)="clearMobileOTPFields(); clearTimer()">
+        <button #mobilecloseModal type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+          (click)="clearMobileOTPFields(); clearTimer()"></button>
+      </div>
+      <div class="modal-body">
+        <p class="title_cls">OTP Verification</p>
+        <p>
+          You will receive OTP on
+          <span class="fw-bold">{{ this.sendOtp.mobile }}</span>
+        </p>
+        <div>
+          <ng-otp-input #otpMobileInput (onInputChange)="onOtpChangeMobile($event)"
+            [ngClass]="{ 'is-success': isRightOTP, 'is-error': isWrongOTP }" [config]="config" [autofocus]="true"
+            (keydown.enter)="getMobileOtpVerify(false)"></ng-otp-input>
+        </div>
+        <div *ngIf="isWrongOTP" class="mb-2 d-block">
+          <div class="otp_cls">
+            <img src="assets/images/diy/invalid_otp.png" alt="" />
+            <span class="alert_msg">Please enter the valid 6 digit OTP sent to your registered mobile
+              number.</span>
+          </div>
+        </div>
+        <div class="otp_align">
+          <div>
+            <span style="font-size: 14px">Didn't receive the OTP?</span>
+          </div>
+          <div>
+            <span style="font-weight: 400; font-size: 14px" *ngIf="timeroff">
+              Resend OTP : {{ displayMobile + " sec" }}
+            </span>
+            <span class="otp_confirmation" *ngIf="!timeroff" (click)="getMobileOtp(true)">
+              Resend OTP
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="isMobileVerifyBtn" (click)="getMobileOtpVerify(false)" type="button" class="btn btn_cls">
+          Verify
+        </button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- Email 2 FA Modal -->
+<div
+  class="modal fade otpBox"
+  id="email2faotp"
+  tabindex="-1"
+  aria-labelledby="otpLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header d-block d-lg-none d-md-block d-sm-block">
+        <button
+          #emailclosebutton
+          type="button"
+          class="btn-horizontal-line"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p class="title_cls">Email ID Verification</p>
+        <p *ngIf="googleHideBtn">
+          <!-- Verification to keep your account safe, Google wants to make sure it's
+          really you trying to sign in -->
+          <!-- Your email helps us keep you informed. No spam - only important
+          updates will be shared. -->
+          All communication related to your account will be sent to this email
+        </p>
+        <div *ngIf="googleHideBtn" class="">
+          <button
+            class="google-btn"
+            (click)="signInWithGoogle()"
+            [disabled]="googlebtn"
+          >
+            <img src="assets/images/diy/google_icon_mini.png" alt="" />
+            <p class="m-0">Continue with Google</p>
+          </button>
+        </div>
+        <div *ngIf="googleHideBtn" class="">
+          <img class="or_cls" src="assets/images/diy/or_img.png" alt="" />
+        </div>
+        <p class="mobile_cls">
+          <strong>Enter your Email ID</strong>
+        </p>
+        <div class="col-md-12 position-rel">
+          <input
+            type="text"
+            class="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            name="Email"
+            placeholder="example@gmail.com"
+            [(ngModel)]="sendOtp.email"
+            (input)="validateEmail()"
+            (focusout)="focusOutFunction()"
+          />
+          <!-- <span *ngIf="emailReq" class="red_warning">*Email ID Required</span> -->
+          <span *ngIf="emailFormatVal" class="red_warning"
+            >*Please enter a valid Email ID (e.g. example&#64;gmail.com)</span
+          >
+          <span *ngIf="sbiemailFormatVal" class="red_warning"
+            >*Email addresses containing &#64;sbi cannot be used</span
+          >
+          <span *ngIf="emailmultiplesymb" class="red_warning"
+            >*Please enter a valid Email ID containing only one &#64; sign (E.g.
+            example&#64;gmail.com)
+          </span>
+
+          <span *ngIf="emailspecialchars" class="red_warning"
+            >*Only (_) , (&#64;) & (.) is allowed in Email ID
+          </span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          *ngIf="!isEmailDisableBtn"
+          (click)="getEmailOtp(false)"
+          id="emailclosebutton"
+          type="button"
+          class="btn btn_cls"
+        >
+          Verify your Email ID
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Email OTP Box Modal -->
+<div
+  class="modal fade otpBox"
+  id="emailotp"
+  tabindex="-1"
+  aria-labelledby="otpLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header d-block">
+        <button
+          #emailclosebutton
+          type="button"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          class="btn-horizontal-line"
+          (click)="clearEmailOtpModal()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p class="title_cls">OTP Verification</p>
+        <p class="d-flex flex-wrap align-items-center">
+          You will receive OTP on
+          <span class="fw-bold ms-2">{{ this.sendOtp.email }}</span>
+          <span class="ms-2" (click)="editEmail()"
+            ><img src="assets/images/diy/Edit.png" alt=""
+          /></span>
+        </p>
+        <div class="">
+          <!-- (ngModelChange)="checkIfAllOTPEmailFilled()" -->
+          <!-- [(ngModel)]="this.otpFieldEmail" -->
+          <ng-otp-input
+            #otpEmailInput
+            (onInputChange)="onOtpChangeEmail($event)"
+            [ngClass]="{ 'is-success': isRightOTP, 'is-error': isWrongOTP }"
+            [config]="config"
+            [autofocus]="true"
+            (keydown.enter)="getEmailOtpVerify(false)"
+          ></ng-otp-input>
+        </div>
+        <div *ngIf="isWrongOTP" class="mb-2 d-block">
+          <div class="otp_cls">
+            <img src="assets/images/diy/invalid_otp.png" alt="" />
+            <span class="alert_msg"
+              >Invalid OTP. Enter the valid 6-digit OTP sent on your Email</span
+            >
+          </div>
+        </div>
+        <div class="otp_align">
+          <div>
+            <span style="font-size: 14px">Didn’t receive the OTP?</span>
+          </div>
+          <div>
+            <span style="font-weight: 400; font-size: 14px" *ngIf="timeroff1"
+              >Resend OTP : {{ displayEmail + " sec" }}
+            </span>
+            <span
+              class="otp_confirmation"
+              *ngIf="!timeroff1"
+              (click)="getEmailOtp(true)"
+              >Resend OTP
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          [disabled]="isValidEmailBtn"
+          (click)="getEmailOtpVerify(false)"
+          id="emailclosebutton"
+          type="button"
+          class="btn btn_cls"
+        >
+          Verify your Email ID
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Resume /Timeline application status -->
+<div
+  class="modal fade uploadPan"
+  id="tracktimeline2"
+  tabindex="-1"
+  aria-labelledby="tracktimelineLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div
+        class="modal-header d-block"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+        (click)="removeModal(); dismissTimeLineModal()"
+      >
+        <button
+          type="button"
+          class="btn-horizontal-line"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="removeModal(); dismissTimeLineModal()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="timeline">
+          <div class="timeline-item2">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <p class="green-text">Initiated</p>
+              <p>Your Application is initiated</p>
+            </div>
+          </div>
+          <div class="timeline-item2">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <p class="green-text">Form Received</p>
+              <p>Your application form has been received Successfully</p>
+            </div>
+          </div>
+          <div class="timeline-item2">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <p class="purple-text">Account Status</p>
+              <p>
+                Your application get confirmed, once the verification is done
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          disabled
+          class="btn btn_cls"
+          data-bs-target="#tracktimeline2"
+          data-bs-toggle="modal"
+        >
+          LOGIN
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const button = document.getElementById("get_started");
+  button.addEventListener("click", (event) => {
+    if ("messageHandler" in window) {
+      messageHandler.postMessage(input.value);
+    }
+    window.parent.postMessage(input.value, "*");
+  });
+
+  if ("messageHandler" in window) {
+    messageHandler.addEventListener("message", (event) => {
+      alert(event.data);
+    });
+  }
+
+  window.parent.addEventListener("message", (event) => {
+    //console.log(event);
+    alert(event.data);
+  });
+</script>

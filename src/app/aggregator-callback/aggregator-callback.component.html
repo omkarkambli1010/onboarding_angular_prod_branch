@@ -1,0 +1,701 @@
+<section *ngIf="PersonalFormOne" class="pan_details_form">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-12 m-auto">
+        <div class="mobile_css">
+          <div class="back_cls">
+            <div>
+              <h5>Bank Statement</h5>
+              <!-- <p class="sub_title">
+                  You can download or track your application status.
+                </p> -->
+            </div>
+          </div>
+        </div>
+
+        <form method="post">
+          <div class="div">
+            <div class="col-lg-12 col-md-12 col-12 desktop_css">
+              <div
+                class="d-flex flex-column align-items-start gap-2"
+                *ngIf="!IsFno"
+              >
+                <h5>Bank Statement</h5>
+                <!-- <p class="sub_title">
+                    You can download or track your application status.
+                  </p> -->
+              </div>
+              <div
+                class="d-flex flex-column align-items-start gap-2"
+                *ngIf="IsFno"
+              >
+                <h5>Just one last step!</h5>
+                <p>Activate Derivatives</p>
+                <!-- <p class="sub_title">
+                    You can download or track your application status.
+                  </p> -->
+              </div>
+            </div>
+            <hr class="desktop_css" />
+            <div class="text-center" *ngIf="!IsFno">
+              <img src="assets/images/diy/Bank.png" alt="" />
+              <p class="my-2">
+                Please wait, while we fetch your Bank Statement
+                <!-- Your application is successfully submitted.<br>
+                  We are Verifying your PAN, KYC, and bank details. -->
+              </p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section *ngIf="PersonalFormTwo" class="pan_details_form">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-12 m-auto">
+        <h5 class="text-center my-3">Thank you</h5>
+        <form method="post">
+          <div class="text-center">
+            <img src="assets/images/diy/invalid_icon.png" alt="" />
+            <p class="my-2">
+              {{ this.errorValue }}
+            </p>
+          </div>
+        </form>
+      </div>
+      <!-- <div class="btn_align">
+          <a class="btn_cls" (click)="redirectesign()">Back to E-Sign</a>
+        </div> -->
+    </div>
+  </div>
+</section>
+
+<!-- Aggregator Modal -->
+<div
+  class="modal fade uploadPan"
+  id="AggregatorCall"
+  tabindex="-1"
+  aria-labelledby="AggregatorCallLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div
+        class="modal-header d-block"
+
+        aria-label="Close"
+      >
+        <h1 class="modal-title fs-5" id="AggregatorCallLabel"></h1>
+        <img src="assets/images/diy/Bank.png" alt="" style="align-self: left" />
+
+        <button
+          type="button"
+          class="btn-horizontal-line"
+          id="AggregatorCallClose"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <h5>Fetch Bank Statement</h5>
+        <br />
+        <p>
+          Complete this simple step to activate your Derivative segment account
+          seamlessly.<br /><br />
+          You will be redirected to a third party platform to securely fetch
+          your bank statement as part of the Derivative activation.
+        </p>
+        <div>
+          <!-- <div [innerHTML]="riskDisclosureData"></div> -->
+        </div>
+      </div>
+      <!-- (click)="declarationAcc()" -->
+      <!-- data-bs-target="#documentSelect" -->
+      <!-- (click)="AggregatorCall()" -->
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn_cls"
+          (click)="openAggregatorFailModal()"
+          data-bs-toggle="modal"
+        >
+          Proceed
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade uploadPan"
+  id="documentSelect"
+  tabindex="-1"
+  aria-labelledby="documentSelectLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div
+        class="modal-header d-block"
+
+        aria-label="Close"
+      >
+        <h1 class="modal-title fs-5" id="documentSelectLabel"></h1>
+        <button
+          type="button"
+          class="btn-horizontal-line"
+          id="documentSelectClose"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <h5>Select the documents required to upload</h5>
+        <p class="subtext mb-3">
+          As per latest guidelines by SEBI & Exchange, you need to upload your
+          income proof to trade in Future & Options.
+        </p>
+        <div>
+          <div class="group_btn">
+            <div *ngFor="let document of documents" class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="selectedDocument"
+                [(ngModel)]="selectedDocument"
+                (change)="
+                  updateSelectedDocumentLabel(document.label, document.id)
+                "
+                [value]="document.id"
+                id="{{ document.id }}"
+              />
+              <label class="form-check-label" for="{{ document.id }}">{{
+                document.label
+              }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer p-0">
+        <button
+          [disabled]="!planprocessButton"
+          type="button"
+          class="btn btn_cls"
+          data-bs-toggle="modal"
+          (click)="saveSelection()"
+        >
+          I understand and acknowledge
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Upload Bank Statement Modal -->
+<div
+  class="modal fade uploadPan"
+  id="uploadBankStatement"
+  tabindex="-1"
+  aria-labelledby="uploadBankStatementLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div
+        class="modal-header d-block"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+      >
+        <h1 class="modal-title fs-5" id="uploadBankStatementLabel"></h1>
+        <button
+          type="button"
+          class="btn-horizontal-line"
+          id="bankUploadClose"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <h5>{{ "Upload " + selectedDocumentLabel }}</h5>
+        <div class="img_upload">
+          <div
+            class="camera_icon"
+            style="position: relative; display: inline-block"
+          >
+            <img
+              src="assets/images/diy/camera_img.png"
+              alt="Upload Image"
+              style="cursor: pointer"
+            />
+            <input
+              style="
+                position: absolute;
+                top: 0;
+                left: 0;
+                opacity: 0;
+                width: 100%;
+                height: 100%;
+                cursor: pointer;
+              "
+              type="file"
+              capture="environment"
+              accept="image/*"
+              (change)="fileChangeEvent($event)"
+              (click)="setCaptureEvent('environment')"
+              (click)="resetExistingImage()"
+              data-bs-target="#uploadBankStateUpload"
+              data-bs-toggle="modal"
+            />
+          </div>
+          <div style="position: relative; display: inline-block">
+            <img
+              src="assets/images/diy/upload_img.png"
+              alt="Upload Image"
+              style="cursor: pointer"
+            />
+            <input
+              style="
+                position: absolute;
+                top: 0;
+                left: 0;
+                opacity: 0;
+                width: 100%;
+                height: 100%;
+                cursor: pointer;
+              "
+              type="file"
+              accept="image/*,.pdf"
+              (change)="fileChangeEvent($event)"
+              (click)="setCaptureEvent('upload')"
+              (click)="resetExistingImage()"
+              data-bs-target="#uploadBankStateUpload"
+              data-bs-toggle="modal"
+            />
+          </div>
+        </div>
+        <div class="file_type_css">
+          <span>Files supported: JPG, PNG & PDF</span>
+          <span>Maximum size less than 4 MB</span>
+        </div>
+      </div>
+      <div class="modal-footer d-none">
+        <button
+          type="button"
+          class="btn btn_cls"
+          data-bs-target="#uploadBankStateUpload"
+          data-bs-toggle="modal"
+        >
+          Continue
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Upload Bank Statement Upload Modal preview -->
+<div
+  class="modal fade uploadPan"
+  id="uploadBankStateUpload"
+  tabindex="-1"
+  aria-labelledby="uploadBankStateUploadLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div
+        class="modal-header d-block"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+      >
+        <h1 class="modal-title fs-5" id="uploadBankStateUploadLabel"></h1>
+        <button
+          type="button"
+          class="btn-horizontal-line"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <h5>{{ "Upload " + selectedDocumentLabel }}</h5>
+        <!-- <div *ngIf="!FFF" class="my-3"></div>
+          <div *ngIf="!imageChangedEvent" class="my-3"></div> -->
+        <div *ngIf="FFF" class="file_upload_css">
+          <div class="pdf-container">
+            `
+            <pdf-viewer
+              [src]="FFF"
+              [rotation]="0"
+              [original-size]="false"
+              [show-all]="true"
+              [fit-to-page]="false"
+              [zoom]="1"
+              [zoom-scale]="'page-width'"
+              [stick-to-page]="false"
+              [render-text]="true"
+              [external-link-target]="'blank'"
+              [autoresize]="true"
+              [show-borders]="false"
+              style="width: 100%; height: 250px"
+            ></pdf-viewer>
+          </div>
+        </div>
+        <div *ngIf="imageChangedEvent" class="file_upload_css">
+          <image-cropper
+            class="image_css"
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="false"
+            [canvasRotation]="canvasRotation"
+            [(transform)]="transform"
+            [aspectRatio]="4 / 3"
+            format="png"
+            (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded()"
+            (loadImageFailed)="loadImageFailed()"
+          ></image-cropper>
+        </div>
+        <div *ngIf="imageChangedEvent" class="text-center">
+          <label class="reupload_css" (click)="rotateRight()">Rotate</label>
+        </div>
+        <div class="file_type_css my-2">
+          <span class="red_warning">{{ errorMsg }}</span>
+        </div>
+        <div *ngIf="passwordProtectedMsg.length > 0" class="file_type_css my-2">
+          <span class="red_warning">{{ passwordProtectedMsg }}</span>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="btn_align">
+          <label *ngIf="!imageChangedEvent" class="btn btn_cls_outline">
+            Upload Image
+            <input
+              type="file"
+              accept="image/*,.pdf"
+              (change)="fileChangeEvent($event)"
+              style="display: none"
+            />
+          </label>
+          <label
+            *ngIf="imageChangedEvent && capture_event !== 'user'"
+            class="btn btn_cls_outline"
+          >
+            Re-Upload Image
+            <input
+              type="file"
+              accept="image/*,.pdf"
+              (change)="fileChangeEvent($event)"
+              style="display: none"
+            />
+          </label>
+          <label
+            *ngIf="imageChangedEvent && capture_event == 'user'"
+            class="btn btn_cls_outline"
+          >
+            Re-Upload Image
+            <input
+              type="file"
+              capture="user"
+              accept="image/*,.pdf"
+              (change)="fileChangeEvent($event)"
+              style="display: none"
+            />
+          </label>
+          <button
+            [disabled]="!imageChangedEvent && !FFF"
+            type="button"
+            class="btn btn_cls"
+            data-bs-target="#uploadBankStateBg"
+            data-bs-toggle="modal"
+            (click)="openId()"
+          >
+            Continue
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Upload Bank Statement Upload Modal preview -->
+<div
+  class="modal fade uploadPan"
+  id="uploadBankStateUpload"
+  tabindex="-1"
+  aria-labelledby="uploadBankStateUploadLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div
+        class="modal-header d-block"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+      >
+        <h1 class="modal-title fs-5" id="uploadBankStateUploadLabel"></h1>
+        <button
+          type="button"
+          class="btn-horizontal-line"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <h5>{{ "Upload " + selectedDocumentLabel }}</h5>
+        <!-- <div *ngIf="!FFF" class="my-3"></div>
+          <div *ngIf="!imageChangedEvent" class="my-3"></div> -->
+        <div *ngIf="FFF" class="file_upload_css">
+          <div class="pdf-container">
+            `
+            <pdf-viewer
+              [src]="FFF"
+              [rotation]="0"
+              [original-size]="false"
+              [show-all]="true"
+              [fit-to-page]="false"
+              [zoom]="1"
+              [zoom-scale]="'page-width'"
+              [stick-to-page]="false"
+              [render-text]="true"
+              [external-link-target]="'blank'"
+              [autoresize]="true"
+              [show-borders]="false"
+              style="width: 100%; height: 250px"
+            ></pdf-viewer>
+          </div>
+        </div>
+        <div *ngIf="imageChangedEvent" class="file_upload_css">
+          <image-cropper
+            class="image_css"
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="false"
+            [canvasRotation]="canvasRotation"
+            [(transform)]="transform"
+            [aspectRatio]="4 / 3"
+            format="png"
+            (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded()"
+            (loadImageFailed)="loadImageFailed()"
+          ></image-cropper>
+        </div>
+        <div *ngIf="imageChangedEvent" class="text-center">
+          <label class="reupload_css" (click)="rotateRight()">Rotate</label>
+        </div>
+        <div class="file_type_css my-2">
+          <span class="red_warning">{{ errorMsg }}</span>
+        </div>
+        <div *ngIf="passwordProtectedMsg.length > 0" class="file_type_css my-2">
+          <span class="red_warning">{{ passwordProtectedMsg }}</span>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="btn_align">
+          <label *ngIf="!imageChangedEvent" class="btn btn_cls_outline">
+            Upload Image
+            <input
+              type="file"
+              accept="image/*,.pdf"
+              (change)="fileChangeEvent($event)"
+              style="display: none"
+            />
+          </label>
+          <label
+            *ngIf="imageChangedEvent && capture_event !== 'user'"
+            class="btn btn_cls_outline"
+          >
+            Re-Upload Image
+            <input
+              type="file"
+              accept="image/*,.pdf"
+              (change)="fileChangeEvent($event)"
+              style="display: none"
+            />
+          </label>
+          <label
+            *ngIf="imageChangedEvent && capture_event == 'user'"
+            class="btn btn_cls_outline"
+          >
+            Re-Upload Image
+            <input
+              type="file"
+              capture="user"
+              accept="image/*,.pdf"
+              (change)="fileChangeEvent($event)"
+              style="display: none"
+            />
+          </label>
+          <button
+            [disabled]="!imageChangedEvent && !FFF"
+            type="button"
+            class="btn btn_cls"
+            data-bs-target="#uploadBankStateBg"
+            data-bs-toggle="modal"
+            (click)="openId()"
+          >
+            Continue
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Upload Bank Statement File Modal Final -->
+<div
+  class="modal fade uploadPan"
+  id="uploadBankStateBg"
+  tabindex="-1"
+  aria-labelledby="uploadBankStateBgLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div
+        class="modal-header d-block"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+      >
+        <h1 class="modal-title fs-5" id="uploadBankStateBgLabel"></h1>
+        <button
+          type="button"
+          class="btn-horizontal-line"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <h5>{{ "Upload " + selectedDocumentLabel }}</h5>
+        <!-- <div *ngIf="!FFF" class="my-3"></div>
+          <div *ngIf="!croppedImage" class="my-3"></div> -->
+        <div *ngIf="FFF">
+          <div class="file_upload_css">
+            <div id="pdfView" class="pdf-container">
+              <pdf-viewer
+                [src]="FFF"
+                [rotation]="0"
+                [original-size]="false"
+                [show-all]="true"
+                [fit-to-page]="false"
+                [zoom]="1"
+                [zoom-scale]="'page-width'"
+                [stick-to-page]="false"
+                [render-text]="true"
+                [external-link-target]="'blank'"
+                [autoresize]="true"
+                [show-borders]="false"
+                style="width: 100%; height: 250px"
+              ></pdf-viewer>
+            </div>
+          </div>
+          <div class="file_type_css">
+            <span>Files supported: JPG, PNG & PDF</span>
+            <span>Maximum size less than 4MB</span>
+          </div>
+        </div>
+        <div *ngIf="croppedImage">
+          <div class="img_preview my-3">
+            <img
+              *ngIf="croppedImage"
+              [src]="croppedImage"
+              [style.border]="croppedImage ? '1px solid black' : 'none'"
+              alt="Cropped Image Preview"
+              class="img-fluid"
+            />
+          </div>
+          <div class="file_type_css">
+            <span>Files supported: JPG, PNG & PDF</span>
+            <span>Maximum size less than 4MB</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="btn_align">
+          <button
+            (click)="changeBankSignatureImage()"
+            data-bs-target="#uploadBankStatement"
+            data-bs-toggle="modal"
+            class="btn btn_cls_outline p-0"
+          >
+            Change Statement
+          </button>
+          <button
+            (click)="uploadStatementImg()"
+            class="btn btn_cls"
+            id="confirmedPan"
+            data-bs-toggle="modal"
+            data-bs-dismiss="modal"
+          >
+            Yes, Confirm
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- (click)="dismissModal(); removeModal()" -->
+<!-- (click)="removeModal()" -->
+<!-- aria-label="Close" -->
+
+<!-- Failed Modal -->
+<div
+  class="modal fade uploadPan"
+  id="AggFail"
+  tabindex="-1"
+  aria-labelledby="AggFailLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header d-block">
+        <h1 class="modal-title fs-5" id="AggFailLabel"></h1>
+
+        <button
+          type="button"
+          class="btn-horizontal-line"
+          id="AggFailClose"
+        ></button>
+      </div>
+      <div class="modal-body" style="text-align: center">
+        <img src="assets/images/diy/unsuccessful-tick.png" alt="" />
+
+        <h5>Unable to fetch bank statement</h5>
+        <br />
+        <p>
+          We apologise for the inconvenience. We request you to upload any one
+          income proof to trade in Derivative which is as per SEBI & Exchange
+          guidelines.
+        </p>
+        <div>
+          <!-- <div [innerHTML]="riskDisclosureData"></div> -->
+        </div>
+      </div>
+      <!-- (click)="declarationAcc()" -->
+      <!-- data-bs-target="#documentSelect" -->
+      <!-- (click)="AggFail()" -->
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn_cls"
+          data-bs-target="#documentSelect"
+          data-bs-toggle="modal"
+        >
+          Proceed
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
