@@ -36,6 +36,7 @@ export class EmailHomeOtpScreenComponent {
   timerStart: any;
   displayEmail: any;
   timeroff1: any = true;
+  resendStatusMsg: string = '';
   utm_source: string = '';
   utm_medium: string = '';
   utm_campaign: string = '';
@@ -86,13 +87,10 @@ export class EmailHomeOtpScreenComponent {
     private navService: NavigationService,
     private chCookie: CookieService,
     private MoengageService: MoengagesdkService,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
   ) { }
 
   ngOnInit(): void {
-    this.title.setTitle(
-      'Open Demat Account - Free Demat & Trading Account Opening Online | SBI Securities'
-    );
 
     this.meta.updateTag({
       name: 'description',
@@ -120,6 +118,13 @@ export class EmailHomeOtpScreenComponent {
 
   startTimerEmail() {
     this.clearTimer();
+    // WCAG 4.1.3 - the countdown is only shown visually, so announce that the
+    // code went out and when another one can be requested.
+    this.resendStatusMsg = '';
+    setTimeout(() => {
+      this.resendStatusMsg =
+        'Verification code sent to your email. You can request another code in 30 seconds.';
+    }, 100);
     let minute = 1;
     let seconds: number = minute * 30;
     let textSec: any = '0';
@@ -302,7 +307,6 @@ export class EmailHomeOtpScreenComponent {
           this.isEmailVerifyBtn = true;
           return;
         }
-
         if (response.status == true) {
           response = JSON.parse(
             this.aesService.decrypt(response.data, this.clientid, this.clientid)

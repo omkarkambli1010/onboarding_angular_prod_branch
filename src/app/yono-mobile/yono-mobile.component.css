@@ -12,10 +12,6 @@
 
 } */
 
-.btn-horizontal-line.hide-before::before {
-  content: none;
-}
-
 .pan_details_form .otpBox h5 {
     color: #2b2b2b;
     font-size: 16px;
@@ -612,7 +608,7 @@ h5 {
 }
 
 .desk__mobile__inp::placeholder {
-    color: #999999;
+    color: #737373;
     font-weight: 500;
     font-size: 14px;
 }
@@ -622,7 +618,7 @@ h5 {
 }
 
 .otp_cls .alert_msg {
-  color: #ff2e00;
+  color: #cc2200;
   font-size: 12px;
   font-weight: 400;
 }

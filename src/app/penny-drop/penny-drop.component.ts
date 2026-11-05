@@ -82,6 +82,7 @@ export class PennyDropComponent implements OnInit {
 
   selectedBankName: any;
   selectedBankLogo: any;
+  bankAutoSelected: boolean = false;
   selectedBankPrefix: any;
 
   ifscBankValidationSpecial: boolean = false;
@@ -132,6 +133,17 @@ export class PennyDropComponent implements OnInit {
   bankverified: string = '';
   isIfscDisabled: boolean = false;
 
+  // MICR
+  selectedMICR: string = '';
+  micrList: string[] = [];
+  micrValidation: boolean = false;
+
+  // Account Type
+  selectedAccountType: string = '';
+  accountTypes: string[] = ['SAVING', 'CURRENT'];
+  accountTypeValidation: boolean = false;
+  showMicrAndAccountType: boolean = false;
+
   constructor(
     private _http: APIService,
     private aesService: AesService,
@@ -149,7 +161,6 @@ export class PennyDropComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.title.setTitle('Personal Details - Onboarding-DIY-PWA');
     this.meta.updateTag({
       name: 'description',
       content: 'Capturing Personal Details of the customer.',
@@ -165,7 +176,16 @@ export class PennyDropComponent implements OnInit {
     this.utm_campaign =
       this.route.snapshot.queryParams['utm_campaign'] || 'Onboarding-DIY';
 
+    this.showMicrAndAccountType = this.utm_source === 'RSRMApp';
+
     this.getBankCodeDetails();
+          // const bankFailModal = document.getElementById('BankFail');
+
+          // if (bankFailModal) {
+          //   const myModal = new bootstrap.Modal(bankFailModal);
+          //   myModal.show();
+          // }
+    // this.openSuccessModal();
 
     this.route.params.subscribe((params) => {
       const formNumber = params['formNumber'];
@@ -240,6 +260,11 @@ export class PennyDropComponent implements OnInit {
               this.selectedBankPrefix = response[0].ifsc_prefix;
 
               this.getBankIFSCDetails(this.enteredIFSCNumber);
+
+              if (this.showMicrAndAccountType) {
+                this.getMICRDetails(this.enteredIFSCNumber);
+              }
+
               this.isBankAccountForm = false;
 
               const accntno = document.getElementById('accountNo');
@@ -488,7 +513,8 @@ export class PennyDropComponent implements OnInit {
 
       //console.log('this.enteredIFSCCode set as ,', this.GlobalIfsc);
     }
-    const reqData = {
+
+    const reqData: any = {
       c_ifsc: this.enteredIFSCCode,
       formNumber: window.sessionStorage.getItem('FormNumber'),
       c_accntid: this.accountNumber,
@@ -497,6 +523,11 @@ export class PennyDropComponent implements OnInit {
       utm_campaign: this.utm_campaign,
       Stage: 8,
     };
+
+    if (this.showMicrAndAccountType) {
+      reqData.c_micr = this.selectedMICR;
+      reqData.accountType = this.selectedAccountType;
+    }
 
     if (
       this.utm_source === 'PROPRIETOR' &&
@@ -581,7 +612,10 @@ export class PennyDropComponent implements OnInit {
             window.sessionStorage.setItem('mode', 'Penny Drop');
 
             this.openSuccessModal();
-          } else if (response.message === 'Bank Account Already Verified') {
+          }
+
+
+          else if (response.message === 'Bank Account Already Verified') {
             this.MoengageService.trackEvent('Bank Verification PennyDrop', {
               product_id: window.sessionStorage.getItem('FormNumber') ?? '',
               Bank_Name: this.selectedBankName,
@@ -717,11 +751,29 @@ export class PennyDropComponent implements OnInit {
             category: 'Bank Verification',
           });
 
-          this.toastr.error(response.message, '', {
+          this.toastr.error("This bank account is already linked in our system. Please try linking a different bank account.", '', {
             positionClass: 'toast-bottom-center',
             timeOut: 3000,
           });
-        } else {
+        }
+        else if (response.message === 'Your PAN name and bank details don’t match. Please try adding another bank account.'){
+            this.MoengageService.trackEvent('Bank Verification PennyDrop', {
+              product_id: window.sessionStorage.getItem('FormNumber') ?? '',
+              Bank_Name: this.selectedBankName,
+              IFSC_Code: this.enteredIFSCCode,
+              Account_Number: this.accountNumber,
+              Response: response.message,
+              product_name: 'Onboarding DIY',
+              category: 'Bank Verification',
+            });
+          const bankFailModal = document.getElementById('BankFail');
+
+          if (bankFailModal) {
+            const myModal = new bootstrap.Modal(bankFailModal);
+            myModal.show();
+          }
+          }
+        else {
           this.MoengageService.trackEvent('Bank Verification PennyDrop Error', {
             product_id: window.sessionStorage.getItem('FormNumber') ?? '',
             Bank_Name: this.selectedBankName,
@@ -842,6 +894,7 @@ export class PennyDropComponent implements OnInit {
     }
   }
 
+
   redirectToFillDetails(bank: any) {
     this.filteredBanks.forEach((bankItem) => (bankItem.selected = false));
     bank.selected = true;
@@ -865,6 +918,10 @@ export class PennyDropComponent implements OnInit {
     this.accountNumber = '';
     this.reenteredAccountNumber = '';
     this.IFSCResponse[0].BBM_LOCATION = '';
+
+    this.selectedMICR = '';
+    this.micrList = [];
+    this.selectedAccountType = '';
   }
 
   validateAccountForm() {
@@ -886,6 +943,10 @@ export class PennyDropComponent implements OnInit {
       !this.ReenterACBankValidationSpecial &&
       !this.ReenterACBankValidationSpace &&
       this.reenteredAccountNumber !== '';
+
+    const isMICRValid = this.showMicrAndAccountType ? this.selectedMICR !== '' : true;
+    const isAccountTypeValid = this.showMicrAndAccountType ? this.selectedAccountType !== '' : true;
+    
     const isAccountMatch = this.accountNumber === this.reenteredAccountNumber;
     if (this.isIfsc) {
       //bypassing IFSC Validation in the case of Global Ifsc
@@ -927,6 +988,8 @@ export class PennyDropComponent implements OnInit {
     } else {
       if (
         isIFSCValid &&
+        isMICRValid &&
+        isAccountTypeValid &&
         isAccountValid &&
         isReenterAccountValid &&
         //this.ifscCodeValidation &&
@@ -959,6 +1022,12 @@ export class PennyDropComponent implements OnInit {
     if (!this.ifscBankValidation) {
       this.enteredIFSCCode = fullIFSCCode;
       this.getBankIFSCDetails(fullIFSCCode);
+
+      if (this.showMicrAndAccountType) {
+        // Fetch MICRs based on selected IFSC
+        this.getMICRDetails(fullIFSCCode);
+      }
+
       //this.isBankAccountForm = false;
       this.validateAccountForm();
     } else {
@@ -969,6 +1038,7 @@ export class PennyDropComponent implements OnInit {
 
   accountIfsc(event: any) {
     this.enteredIFSCNumber = event.target.value.toUpperCase();
+    this.setBankDetailsFromIfsc();
     this.ifscBankValidationSpecial = false;
     this.ifscBankValidationSpace = false;
     this.ifscBankValidation = false;
@@ -983,6 +1053,32 @@ export class PennyDropComponent implements OnInit {
       this.accountIfsc2(event);
     } else {
       this.isBankAccountForm = true;
+    }
+  }
+
+  // Show bank logo, name & address based on the first 4 letters of the entered IFSC
+  setBankDetailsFromIfsc() {
+    const prefix = (this.enteredIFSCNumber || '').substring(0, 4).toUpperCase();
+
+    const bank =
+      prefix.length === 4
+        ? (this.indianBanks || []).find(
+            (b: any) =>
+              (b.BankCode || '').substring(0, 4).toUpperCase() === prefix,
+          )
+        : null;
+
+    if (bank) {
+      this.selectedBankName = bank.BankName;
+      this.selectedBankLogo = bank.BankLogo;
+      this.selectedBankPrefix = bank.BankCode;
+      this.bankAutoSelected = true;
+    } else if (this.bankAutoSelected) {
+      this.selectedBankName = null;
+      this.selectedBankLogo = null;
+      this.selectedBankPrefix = null;
+      this.IFSCResponse = [{ BBM_LOCATION: '' }];
+      this.bankAutoSelected = false;
     }
   }
 
@@ -1724,7 +1820,7 @@ export class PennyDropComponent implements OnInit {
             );
 
             this.toastr.error(
-              'Oops! This bank account seems to belonging to someone else as per bank record. Please change the bank details to continue.',
+              'This bank account is already linked in our system. Please try linking a different bank account.',
               '',
               {
                 positionClass: 'toast-bottom-center',
@@ -1837,11 +1933,66 @@ export class PennyDropComponent implements OnInit {
     this.clearIFSCFields();
 
     setTimeout(() => {
-      this.router.navigate(['/personalDetailsForm', 6]);
+      this.router.navigate(['/personalDetailsForm', 5]);
 
       this.spinner.hide();
     }, 200);
+    // this.getBankConfiguration();
   }
+
+  //     getBankConfiguration() {
+  //   this.spinner.show();
+  //   setTimeout(() => {
+  //     var reqData = {
+  //       flag: 'GETBANKCONFIG',
+  //     };
+  //     this._http
+  //       .postRequest('api/v1/masters/get', reqData)
+  //       .subscribe((resp) => {
+  //         let response: any = resp.body;
+  //         if (response.status == true) {
+  //           response = JSON.parse(
+  //             this.aesService.decrypt(
+  //               response.data,
+  //               this.clientid,
+  //               this.clientid
+  //             )
+  //           );
+  //           //console.log('RESPO', response);
+  //           // console.log('BankConfig',response)
+
+  //           if (response?.data?.[0]) {
+  //               var temp_rpd_status = response?.data?.[0]?.IsRPDActiveStatus === 'YES';
+  //               var temp_pd_status = response?.data?.[0]?.IsPDActiveStatus === 'YES'
+  //               if (temp_rpd_status == false || temp_pd_status == false){
+  //                 setTimeout(() => {
+  //                   this.router.navigate(['/personalDetailsForm', 5]);
+  //                   this.spinner.hide();
+  //                 }, 200);
+  //               }
+  //               else{
+  //                 // this.RPDActiveStatus = true;
+  //                 // this.PDActiveStatus = true;
+  //                 setTimeout(() => {
+  //                   this.router.navigate(['/personalDetailsForm', 6]);
+  //                   this.spinner.hide();
+  //                 }, 200);
+  //               }
+
+
+
+  //           }
+
+  //           // console.log("this.RPDActiveStatus: ",this.RPDActiveStatus);
+  //           // console.log("this.PDActiveStatus: ",this.PDActiveStatus);
+
+
+  //         }
+
+  //         this.spinner.hide();
+  //       });
+  //   }, 200);
+  // }
 
   BackToPennyDropOne() {
     this.spinner.show();
@@ -1880,7 +2031,8 @@ export class PennyDropComponent implements OnInit {
         this.ReenterACBankValidationSpace = false;
         this.ifscCodeValidation = false;
         this.clearIFSCFields();
-        this.router.navigate(['/PennyDrop', 1]);
+        // this.router.navigate(['/PennyDrop', 1]);
+        this.router.navigate(['/reversePennyDrop', 1]);
         this.spinner.hide();
       }, 200);
     }
@@ -1891,10 +2043,94 @@ export class PennyDropComponent implements OnInit {
     //console.log('this.capture_event', this.capture_event);
   }
 
-  faqHelpBtn(stageName: string) {
+ faqHelpBtn(stageName: string) {
     const encodedStageName = btoa(stageName);
     window.location.href = `faq?stageName=${encodeURIComponent(
-      encodedStageName
+      this.aesService.encrypt(encodedStageName, '', ''),
     )}`;
+  }
+
+  // getMICRDetails(ifscCode: string) {
+  //   // TODO: Replace with actual API integration
+
+  //   this.micrList = [];
+
+  //   if (ifscCode) {
+  //     this.micrList = [
+  //       '400002123',
+  //       '400002124',
+  //       '400002125'
+  //     ];
+  //   }
+
+  //   // Auto select if only one MICR returned
+  //   if (this.micrList.length === 1) {
+  //     this.selectedMICR = this.micrList[0];
+  //   } else {
+  //     this.selectedMICR = '';
+  //   }
+
+  //   this.validateAccountForm();
+  // }
+
+  getMICRDetails(fullIFSCCode: string) {
+    const reqData = {
+      flag: 'getMICRDetails',
+      ifsc: fullIFSCCode,
+    };
+
+    this._http.postRequest('api/v1/BankDetails/list', reqData).subscribe(
+      (resp: any) => {
+        let response = resp.body;
+
+        if (response.status === true) {
+          response = JSON.parse(
+            this.aesService.decrypt(
+              response.data,
+              this.clientid,
+              this.clientid
+            )
+          );
+        }
+
+        this.micrList = [];
+        this.selectedMICR = '';
+
+        if (response && Array.isArray(response) && response.length > 0) {
+          this.micrList = [
+            ...new Set(
+              response
+                .filter((x: any) => x.BBM_MICR_NO)
+                .map((x: any) => x.BBM_MICR_NO)
+            )
+          ] as string[];
+
+          // Auto select if only one MICR returned
+          if (this.micrList.length === 1) {
+            this.selectedMICR = this.micrList[0];
+          }
+        }
+
+        this.validateAccountForm();
+      },
+      (error) => {
+        console.error('Error fetching MICR details:', error);
+
+        this.micrList = [];
+        this.selectedMICR = '';
+
+        this.validateAccountForm();
+      }
+    );
+  }
+
+  onMICRChange() {
+    this.micrValidation = !this.selectedMICR;
+    this.validateAccountForm();
+  }
+
+  onAccountTypeChange() {
+    this.accountTypeValidation = !this.selectedAccountType;
+    this.validateAccountForm();
   }
 }

@@ -1,148 +1,84 @@
-<section class="pan_details_form">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-10 col-12 m-auto">
-          <div class="mobile_css">
-            <div class="back_cls">
-              <!-- <div
-                *ngIf="this.RejectStatus != 'R'"
-                (click)="redirectAddNominee()">
-                <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
-    
-                <div *ngIf="this.RejectStatus === 'R'" class="back_cls"></div>
-    
-              </div> -->
+<section aria-label="FnO eSign — Derivative Activation" class="pan_details_form">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-12 m-auto">
+        <div class="mobile_css">
+          <div class="back_cls">
+            <div class="mobile_header_padding">
+              <div class="help_faq_css">
+                <div class="d-flex gap-2">
+                  <div class="d-flex flex-column gap-2">
+                    <h5>Finish eSign for Derivative Activation</h5>
+                  </div>
+                </div>
+                <div>
+                  <div class="help_btn" (click)="faqHelpBtn('FnoEsign')" (keydown.enter)="faqHelpBtn('FnoEsign')"
+                    (keydown.space)="faqHelpBtn('FnoEsign')" role="button" tabindex="0">Need Help?</div>
+                </div>
+              </div>
+              <p class="sub_title">
+                Almost done! Verify your details and
+                complete e-sign securely with Aadhaar OTP.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <form aria-label="FnO eSign" method="post">
+          <div class="">
+            <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="mobile_header_padding">
                 <div class="help_faq_css">
                   <div class="d-flex gap-2">
-                    <div class="d-flex flex-column gap-2">
+                    <div class="heading">
                       <h5>Finish eSign for Derivative Activation</h5>
+                      <p class="sub_title">
+                        Almost done! Verify your details and
+                        complete e-sign securely with Aadhaar OTP.
+                      </p>
                     </div>
                   </div>
                   <div>
-                    <div class="help_btn" (click)="faqHelpBtn('FnoEsign')">Need Help?</div>
+                    <div class="help_btn" (click)="faqHelpBtn('FnoEsign')" (keydown.enter)="faqHelpBtn('FnoEsign')"
+                      (keydown.space)="faqHelpBtn('FnoEsign')" role="button" tabindex="0">Need Help?</div>
                   </div>
                 </div>
-                <p class="sub_title">
-                  Almost done! Verify your details and 
-                  complete e-sign securely with Aadhaar OTP.
-                </p>
               </div>
             </div>
+            <hr class="desktop_css" />
           </div>
-  
-          <form method="post">
-            <div class="">
-              <div class="col-lg-12 col-md-12 col-12 desktop_css">
-                <div class="mobile_header_padding">
-                  <div class="help_faq_css">
-                    <div class="d-flex gap-2">
-                      <!-- <div
-                        *ngIf="this.RejectStatus != 'R'"
-                        (click)="redirectAddNominee()"
-                      >
-                        <span>
-                          <svg
-                            width="24"
-                            height="25"
-                            viewBox="0 0 24 25"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <g clip-path="url(#clip0_0_10804)">
-                              <path
-                                d="M5 12.5H19"
-                                stroke="black"
-                                stroke-width="1.5"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                              <path
-                                d="M5 12.5L11 18.5"
-                                stroke="black"
-                                stroke-width="1.5"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                              <path
-                                d="M5 12.5L11 6.5"
-                                stroke="black"
-                                stroke-width="1.5"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                            </g>
-                            <defs>
-                              <clipPath id="clip0_0_10804">
-                                <rect
-                                  width="24"
-                                  height="24"
-                                  fill="white"
-                                  transform="translate(0 0.5)"
-                                />
-                              </clipPath>
-                            </defs>
-                          </svg>
-                        </span>
-                      </div> -->
-                      <div class="heading">
-                        <h5>Finish eSign for Derivative Activation</h5>
-                        <p class="sub_title">
-                          Almost done! Verify your details and 
-                          complete e-sign securely with Aadhaar OTP.
-                        </p>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="help_btn" (click)="faqHelpBtn('FnoEsign')">Need Help?</div>
-                    </div>
-                  </div>
-                </div>
+          <div class="esign_front_msg">
+            <p>
+              By clicking on "Proceed to eSign" you agree to digitally sign the
+              account opening form and you will redirected to the e-Sign service
+              provider website.
+            </p>
+            <div class="text-center my-2">
+              <img class="" src="assets/images/diy/consent-form.png" alt="Application consent form preview" />
+            </div>
+            <button (click)="ReviewApplication()" class="review_section" [disabled]="btnReviewApplication"
+              [attr.aria-disabled]="btnReviewApplication">
+              <div class="btn_download">
+                <img src="assets/images/diy/Download.png" alt="Download" />
               </div>
-              <hr class="desktop_css" />
-            </div>
-            <div class="esign_front_msg">
-              <p>
-                By clicking on “Proceed to eSign” you agree to digitally sign the
-                account opening form and you will redirected to the e-Sign service
-                provider website.
-              </p>
-              <div class="text-center my-2">
-                <img class="" src="assets/images/diy/consent-form.png" alt="" />
-              </div>
-              <button
-                (click)="ReviewApplication()"
-                class="review_section"
-                [disabled]="btnReviewApplication"
-              >
-                <div class="btn_download">
-                  <img src="assets/images/diy/Download.png" alt="" />
-                </div>
-                <span>Review your application form</span>
-              </button>
-            </div>
-            <div class="btn_align stickybtn_desk desktop_css">
-              <button
-                class="btn btn_cls"
-                [disabled]="!isActiveProeedBtn"
-                (click)="proceedToEsign()"
-              >
-                Proceed to eSign
-              </button>
-            </div>
-          </form>
-        </div>
-  
-        <div class="btn_align stickybtn mobile_css">
-          <button
-            class="btn btn_cls"
-            [disabled]="!isActiveProeedBtn"
-            (click)="proceedToEsign()"
-          >
-            Proceed to eSign
-          </button>
-        </div>
+              <span>Review your application form</span>
+            </button>
+          </div>
+          <div class="btn_align stickybtn_desk desktop_css">
+            <button class="btn btn_cls" [attr.aria-disabled]="!isActiveProeedBtn" [disabled]="!isActiveProeedBtn"
+              (click)="proceedToEsign()">
+              Proceed to eSign
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="btn_align stickybtn mobile_css">
+        <button class="btn btn_cls" [attr.aria-disabled]="!isActiveProeedBtn" [disabled]="!isActiveProeedBtn"
+          (click)="proceedToEsign()">
+          Proceed to eSign
+        </button>
       </div>
     </div>
-  </section>
-  
+  </div>
+</section>

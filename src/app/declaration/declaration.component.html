@@ -1,11 +1,14 @@
-<section class="pan_details_form" *ngIf="this.PreferenceDeny == false">
+<section aria-label="Declaration and Terms for Demat Account" class="pan_details_form"
+  *ngIf="this.PreferenceDeny == false">
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-12 m-auto">
         <div class="mobile_css">
           <div class="back_cls">
-            <div *ngIf="this.RejectStatus != 'R'" (click)="redirectToBankDetails()">
-              <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
+            <div role="button" tabindex="0" (keydown.enter)="redirectToBankDetails()"
+              (keydown.space)="redirectToBankDetails()" aria-label="Go back" *ngIf="this.RejectStatus != 'R'"
+              (click)="redirectToBankDetails()">
+              <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
             </div>
 
             <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div>
@@ -22,57 +25,31 @@
             </div>
           </div>
         </div>
-        <form method="post">
+        <form aria-label="Declaration and Terms" method="post">
           <div class="">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="d-flex align-items-start gap-2">
-                <div
-                  *ngIf="this.RejectStatus != 'R'"
-                  (click)="redirectToBankDetails()"
-                >
-                  <span
-                    >
-                     <svg
-                      width="24"
-                      height="25"
-                      viewBox="0 0 24 25"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                <div role="button" tabindex="0" (keydown.enter)="redirectToBankDetails()"
+                  (keydown.space)="redirectToBankDetails()" aria-label="Go back" *ngIf="this.RejectStatus != 'R'"
+                  (click)="redirectToBankDetails()">
+                  <span aria-hidden="true">
+                    <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true" focusable="false">
                       <g clip-path="url(#clip0_0_10804)">
-                        <path
-                          d="M5 12.5H19"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M5 12.5L11 18.5"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M5 12.5L11 6.5"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
+                        <path d="M5 12.5H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                        <path d="M5 12.5L11 18.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                        <path d="M5 12.5L11 6.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
                       </g>
                       <defs>
                         <clipPath id="clip0_0_10804">
-                          <rect
-                            width="24"
-                            height="24"
-                            fill="white"
-                            transform="translate(0 0.5)"
-                          />
+                          <rect width="24" height="24" fill="white" transform="translate(0 0.5)" />
                         </clipPath>
                       </defs>
-                    </svg></span>
+                    </svg>
+                  </span>
                 </div>
                 <div class="d-flex flex-column align-items-start gap-2">
                   <h5>
@@ -91,12 +68,12 @@
             <div class="col-lg-12">
               <div class="declaration-box">
                 <div class="pan_details_align">
-                  <label (click)="selectAllCheckboxes()" for="selectAll" class="form-check-label">
+                  <label (click)="selectAllCheckboxes()" for="selectAll" class="form-check-label" aria-hidden="true">
                     <input id="selectAll" type="checkbox" name="citizenSelectAll" class="form-check-input"
-                      [(ngModel)]="selectAll" (change)="selectAllCheckboxes()" />
+                      [(ngModel)]="selectAll" (change)="selectAllCheckboxes()" aria-labelledby="lbl-selectAll" />
                   </label>
                   <div class="upload_css">
-                    <h5>Select All</h5>
+                    <h5 id="lbl-selectAll">Select All</h5>
                   </div>
                 </div>
               </div>
@@ -104,17 +81,20 @@
             <div class="col-lg-12">
               <div class="declaration-box">
                 <div class="pan_details_align">
-                  <label for="indianCitizen" class="form-check-label">
+                  <label for="indianCitizen" class="form-check-label" aria-hidden="true">
                     <input id="indianCitizen" type="checkbox" name="indcitizen" class="form-check-input"
-                      [(ngModel)]="isIndianCitizen" (change)="storeSelectedValues('indianCitizen')" />
+                      [(ngModel)]="isIndianCitizen" (change)="storeSelectedValues('indianCitizen')"
+                      aria-labelledby="lbl-indianCitizen" />
                   </label>
                   <div class="upload_css">
-                    <h5>I have tax residency of India only</h5>
+                    <h5 id="lbl-indianCitizen">I have tax residency of India only</h5>
                   </div>
                 </div>
-                <div data-bs-target="#taxpayer" data-bs-toggle="modal">
-                  <img src="assets/images/diy/InfoCircle.png" alt="" />
-                </div>
+                <button type="button" class="info-icon-btn" data-bs-target="#taxpayer" data-bs-toggle="modal"
+                  aria-label="More information about tax residency"
+                  style="background:none;border:none;padding:0;cursor:pointer;">
+                  <img src="assets/images/diy/InfoCircle.png" alt="" aria-hidden="true" />
+                </button>
               </div>
             </div>
             <div class="col-lg-12">
@@ -130,9 +110,11 @@
                     </h5>
                   </div>
                 </div>
-                <div data-bs-target="#politicalexpose" data-bs-toggle="modal" (click)="stopPropagation($event)">
-                  <img src="assets/images/diy/InfoCircle.png" alt="" />
-                </div>
+                <button type="button" class="info-icon-btn" data-bs-target="#politicalexpose" data-bs-toggle="modal"
+                  (click)="stopPropagation($event)" aria-label="More information about politically-exposed persons"
+                  style="background:none;border:none;padding:0;cursor:pointer;">
+                  <img src="assets/images/diy/InfoCircle.png" alt="" aria-hidden="true" />
+                </button>
               </div>
             </div>
             <div class="col-lg-12">
@@ -145,14 +127,17 @@
                   <div class="upload_css">
                     <h5>
                       I accept the
-                      <span data-bs-target="#tradingpref" data-bs-toggle="modal">Preferences</span>
+                      <button type="button" class="link-style-btn" data-bs-target="#tradingpref" data-bs-toggle="modal"
+                        style="background:none;border:none;padding:0;color:inherit;text-decoration:underline;cursor:pointer;">Preferences</button>
                       set by SBI Securities
                     </h5>
                   </div>
                 </div>
-                <div data-bs-target="#tradingpref" data-bs-toggle="modal">
-                  <img src="assets/images/diy/InfoCircle.png" alt="" />
-                </div>
+                <button type="button" class="info-icon-btn" data-bs-target="#tradingpref" data-bs-toggle="modal"
+                  aria-label="More information about trading preferences"
+                  style="background:none;border:none;padding:0;cursor:pointer;">
+                  <img src="assets/images/diy/InfoCircle.png" alt="" aria-hidden="true" />
+                </button>
               </div>
             </div>
             <div class="col-lg-12">
@@ -169,9 +154,11 @@
                   </div>
                 </div>
                 <div class="dropdown dropdown_cls" data-bs-target="#fundcycle" data-bs-toggle="modal"
-                  (click)="stopPropagation($event)">
+                  (click)="stopPropagation($event)" (keydown.enter)="stopPropagation($event)"
+                  (keydown.space)="stopPropagation($event)" role="button" tabindex="0">
                   <button class="btn dropdown-toggle nowrap" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
+                    aria-expanded="false"
+                    [attr.aria-label]="'Change fund settlement cycle, currently ' + selectedOption.Days">
                     {{ selectedOption.Days }}
                   </button>
                 </div>
@@ -187,7 +174,9 @@
                   <div class="upload_css">
                     <h5>
                       I accept
-                      <span data-bs-target="#terms" data-bs-toggle="modal">Terms and Conditions</span>
+                      <button type="button" class="link-style-btn" data-bs-target="#terms" data-bs-toggle="modal"
+                        style="background:none;border:none;padding:0;color:inherit;text-decoration:underline;cursor:pointer;">Terms
+                        and Conditions</button>
                       (MITC, R&O, RDD, P&P, Guidance Note)
                     </h5>
 
@@ -196,9 +185,11 @@
                     </p>
                   </div>
                 </div>
-                <div data-bs-target="#terms" data-bs-toggle="modal">
-                  <img src="assets/images/diy/InfoCircle.png" alt="" />
-                </div>
+                <button type="button" class="info-icon-btn" data-bs-target="#terms" data-bs-toggle="modal"
+                  aria-label="More information about Terms and Conditions"
+                  style="background:none;border:none;padding:0;cursor:pointer;">
+                  <img src="assets/images/diy/InfoCircle.png" alt="" aria-hidden="true" />
+                </button>
               </div>
             </div>
             <div class="col-lg-12" *ngIf="this.IsYonoForm">
@@ -222,7 +213,10 @@
             </div>
           </div>
           <div class="stickybtn_desk desktop_css">
-            <button [disabled]="isProceedButton" class="btn btn_cls" (click)="DeclartionAPICall()">
+            <span id="declarationProceedHintDesk" class="visually-hidden">Tick all required declaration checkboxes to
+              enable Proceed.</span>
+            <button [attr.aria-disabled]="isProceedButton" class="btn btn_cls" (click)="DeclartionAPICall()"
+              [disabled]="isProceedButton" aria-describedby="declarationProceedHintDesk">
               Proceed
             </button>
           </div>
@@ -230,15 +224,10 @@
       </div>
 
       <div class="stickybtn mobile_css">
-        <!-- <button
-          class="btn btn_cls"
-          *ngIf="!allCheckboxesSelected"
-          (click)="selectAllCheckboxes()"
-        >
-          Select All
-        </button> -->
-        <!-- *ngIf="allCheckboxesProceed" -->
-        <button class="btn btn_cls" [disabled]="isProceedButton" (click)="DeclartionAPICall()">
+        <span id="declarationProceedHintMob" class="visually-hidden">Tick all required declaration checkboxes to enable
+          Proceed.</span>
+        <button class="btn btn_cls" [attr.aria-disabled]="isProceedButton" (click)="DeclartionAPICall()"
+          [disabled]="isProceedButton" aria-describedby="declarationProceedHintMob">
           Proceed
         </button>
       </div>
@@ -247,17 +236,18 @@
 </section>
 
 <!-- Trading Preference Acceptance Modal -->
-<div class="modal fade uploadPan" id="tradingpref" tabindex="-1" aria-labelledby="tradingprefLabel" aria-hidden="true">
+<div class="modal fade uploadPan" id="tradingpref" tabindex="-1" aria-labelledby="tradingprefLabel" aria-hidden="true"
+  role="dialog" aria-modal="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-        <h1 class="modal-title fs-5" id="tradingprefLabel"></h1>
+        <h2 class="modal-title fs-5 visually-hidden" id="tradingprefLabel">Trading preference acceptance</h2>
         <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
           (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
         <h5>Trading preference acceptance</h5>
-        <form method="post">
+        <form aria-label="Trading Preference Questionnaire" method="post">
           <div *ngFor="let data of questionnaireResponse" class="trading_qna">
             <h4>{{ data?.Title }}</h4>
             <p *ngIf="data.Description">{{ data.Description }}</p>
@@ -267,19 +257,12 @@
               <div class="trading_qna_align">
                 <div class="pan_details_align" *ngFor="let ansData of Qata.Answer">
                   <input type="radio" [name]="'radio-button-' + Qata.QuestionId" class="radio-button"
-                    value="{{ ansData.Key }}" [(ngModel)]="Qata.SelectedAns" [checked]="ansData.Key" />
-                  <!-- [attr.disabled] = "Qata.SelectedAns != ansData.Key" -->
+                    id="{{ ansData.Key }}-{{ Qata.QuestionId }}" value="{{ ansData.Key }}"
+                    [(ngModel)]="Qata.SelectedAns" [checked]="ansData.Key" />
                   <label for="{{ ansData.Key }}-{{ Qata.QuestionId }}">{{
                     ansData.Key
                     }}</label>
                 </div>
-
-                <!-- <div class="pan_details_align">
-                  <input id="no-{{ data.TitleId }}" type="radio" [name]="'radio-button-' + data.TitleId"
-                    class="radio-button" value="NO" [(ngModel)]="data.SelectedAns"
-                    [checked]="data.SelectedAns === 'NO'" />
-                  <label for="no-{{ data.TitleId }}">No</label>
-                </div> -->
               </div>
             </span>
           </div>
@@ -289,7 +272,8 @@
           <h6>Note:</h6>
           <ul class="">
             <li>To register for easi, please visit: <a href="www.cdslindia.com">www.cdslindia.com</a></li>
-            <li>For IDEAS, please visit: <a href="https://eservices.nsdl.com/" target="_blank">https://eservices.nsdl.com/</a></li>
+            <li>For IDEAS, please visit: <a href="https://eservices.nsdl.com/"
+                target="_blank">https://eservices.nsdl.com/</a></li>
             <li>IDEAS/easi enables a BO to view ISIN balances, transactions, and the value of the portfolio online.</li>
           </ul>
         </div>
@@ -305,17 +289,18 @@
 </div>
 
 <!-- Help Screen -->
-<div class="modal fade uploadPan" id="helpscreen" tabindex="-1" aria-labelledby="helpscreenLabel" aria-hidden="true">
+<div class="modal fade uploadPan" id="helpscreen" tabindex="-1" aria-labelledby="helpscreenLabel" aria-hidden="true"
+  role="dialog" aria-modal="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-        <h1 class="modal-title fs-5" id="helpscreenLabel"></h1>
+        <h2 class="modal-title fs-5 visually-hidden" id="helpscreenLabel">Help information</h2>
         <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
           (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
         <div class="img_preview text-center">
-          <img src="assets/images/diy/help-img.png" alt="" />
+          <img src="assets/images/diy/help-img.png" alt="Help Image" role="img" />
         </div>
         <div class="text-center my-3">
           <span>A a standard format for seeking the trading preference to ensure
@@ -327,11 +312,12 @@
 </div>
 
 <!-- Fund Settlement Cycle Modal -->
-<div class="modal fade uploadPan" id="fundcycle" tabindex="-1" aria-labelledby="fundcycleLabel" aria-hidden="true">
+<div class="modal fade uploadPan" id="fundcycle" tabindex="-1" aria-labelledby="fundcycleLabel" role="dialog"
+  aria-modal="true" aria-labelledby="fundcycleLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block p-3 p-sm-0" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-        <h1 class="modal-title fs-5" id="fundcycleLabel"></h1>
+        <h2 class="modal-title fs-5 visually-hidden" id="fundcycleLabel">Fund settlement cycle</h2>
         <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
           (click)="removeModal()"></button>
       </div>
@@ -369,11 +355,12 @@
 </div>
 
 <!-- Terms and Condition Modal -->
-<div class="modal fade uploadPan" id="terms" tabindex="-1" aria-labelledby="termsLabel" aria-hidden="true">
+<div class="modal fade uploadPan" id="terms" tabindex="-1" aria-labelledby="termsLabel" role="dialog" aria-modal="true"
+  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-        <h1 class="modal-title fs-5" id="termsLabel"></h1>
+        <h2 class="modal-title fs-5 visually-hidden" id="termsLabel">Terms and Conditions</h2>
         <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
           (click)="removeModal()"></button>
       </div>
@@ -394,11 +381,12 @@
 
 <!-- Political Expose Modal -->
 <div class="modal fade uploadPan" id="politicalexpose" tabindex="-1" aria-labelledby="politicalexposeLabel"
-  aria-hidden="true">
+  role="dialog" aria-modal="true" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-        <h1 class="modal-title fs-5" id="politicalexposeLabel"></h1>
+        <h2 class="modal-title fs-5 visually-hidden" id="politicalexposeLabel">Politically exposed person information
+        </h2>
         <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
           (click)="removeModal()"></button>
       </div>
@@ -423,11 +411,12 @@
 </div>
 
 <!-- Tax Payer Modal -->
-<div class="modal fade uploadPan" id="taxpayer" tabindex="-1" aria-labelledby="taxpayerLabel" aria-hidden="true">
+<div class="modal fade uploadPan" id="taxpayer" tabindex="-1" aria-labelledby="taxpayerLabel" aria-hidden="true"
+  role="dialog" aria-modal="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-        <h1 class="modal-title fs-5" id="taxpayerLabel"></h1>
+        <h2 class="modal-title fs-5 visually-hidden" id="taxpayerLabel">Tax payer declaration</h2>
         <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
           (click)="removeModal()"></button>
       </div>
@@ -446,17 +435,18 @@
   </div>
 </div>
 
-<div class="modal fade uploadPan" id="helpscreen" tabindex="-1" aria-labelledby="helpscreenLabel" aria-hidden="true">
+<div class="modal fade uploadPan" id="helpscreenAlt" tabindex="-1" aria-labelledby="helpscreenAltLabel"
+  aria-hidden="true" role="dialog" aria-modal="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-        <h1 class="modal-title fs-5" id="helpscreenLabel"></h1>
+        <h2 class="modal-title fs-5 visually-hidden" id="helpscreenAltLabel">Help information</h2>
         <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
           (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
         <div class="img_preview text-center">
-          <img src="assets/images/diy/help-img.png" alt="" />
+          <img src="assets/images/diy/help-img.png" alt="Help information" />
         </div>
         <div class="text-center my-3">
           <span>A a standard format for seeking the trading preference to ensure
@@ -468,11 +458,12 @@
 </div>
 
 <!-- Confirm Preference Modal -->
-<div class="modal fade uploadPan" id="confirmPref" tabindex="-1" aria-labelledby="confirmPrefLabel" aria-hidden="true">
+<div class="modal fade uploadPan" id="confirmPref" tabindex="-1" aria-labelledby="confirmPrefLabel" aria-hidden="true"
+  role="dialog" aria-modal="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
-        <h5 class="text-start" style="padding: 20px; padding-left: 2px">
+        <h5 id="confirmPrefLabel" class="text-start" style="padding: 20px; padding-left: 2px">
           Trading Preference Acceptance
         </h5>
 
@@ -498,7 +489,7 @@
   </div>
 </div>
 
-<section class="pan_details_form" *ngIf="this.PreferenceDeny == true">
+<section aria-label="Declaration Denied — Contact Support" class="pan_details_form" *ngIf="this.PreferenceDeny == true">
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-12 m-auto">
@@ -509,7 +500,7 @@
             </div>
           </div>
         </div>
-        <form method="post">
+        <form aria-label="Physical Application" method="post">
           <div class="">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="d-flex align-items-start gap-2">
@@ -525,7 +516,7 @@
                 align-items: center;
               ">
               <div style="text-align: center; margin-top: 60px; max-width: 360px">
-                <img src="assets/images/diy/TradePreference.png" />
+                <img src="assets/images/diy/TradePreference.png" alt="" />
                 <h5>
                   You have selected the option to open account with Physical
                   Application.
@@ -551,18 +542,18 @@
   </div>
 
   <!-- Trading Preference Acceptance Modal -->
-  <div class="modal fade uploadPan" id="tradingpref" tabindex="-1" aria-labelledby="tradingprefLabel"
+  <div class="modal fade uploadPan" id="tradingprefAlt" tabindex="-1" aria-labelledby="tradingprefAltLabel"
     aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-          <h1 class="modal-title fs-5" id="tradingprefLabel"></h1>
+          <h2 class="modal-title fs-5 visually-hidden" id="tradingprefAltLabel">Trading preference acceptance</h2>
           <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
             (click)="removeModal()"></button>
         </div>
         <div class="modal-body">
           <h5>Trading preference acceptance</h5>
-          <form method="post">
+          <form aria-label="Trading Preference" method="post">
             <div *ngFor="let data of questionnaireResponse" class="trading_qna">
               <h4>{{ data?.Title }}</h4>
               <p *ngIf="data.Description">{{ data.Description }}</p>
@@ -573,18 +564,10 @@
                   <div class="pan_details_align" *ngFor="let ansData of Qata.Answer">
                     <input type="radio" [name]="'radio-button-' + Qata.QuestionId" class="radio-button"
                       value="{{ ansData.Key }}" [(ngModel)]="Qata.SelectedAns" [checked]="ansData.Key" />
-                    <!-- [attr.disabled] = "Qata.SelectedAns != ansData.Key" -->
                     <label for="{{ ansData.Key }}-{{ Qata.QuestionId }}">{{
                       ansData.Key
                       }}</label>
                   </div>
-
-                  <!-- <div class="pan_details_align">
-                  <input id="no-{{ data.TitleId }}" type="radio" [name]="'radio-button-' + data.TitleId"
-                    class="radio-button" value="NO" [(ngModel)]="data.SelectedAns"
-                    [checked]="data.SelectedAns === 'NO'" />
-                  <label for="no-{{ data.TitleId }}">No</label>
-                </div> -->
                 </div>
               </span>
             </div>

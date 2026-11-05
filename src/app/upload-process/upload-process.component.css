@@ -521,6 +521,11 @@ body.modal-open {
   text-transform: uppercase;
 }
 
+/* Full Name: show text exactly as the user types it (no auto-capitalize) */
+.pan_details_form #EnterFullNameCard {
+  text-transform: uppercase;
+}
+
 ::ng-deep .p-inputwrapper .p-calendar .p-datepicker-header {
   padding: 0rem 0.5rem;
 }
@@ -545,7 +550,7 @@ body.modal-open {
   ::ng-deep
   .p-calendar
   .p-inputtext::placeholder {
-  color: #999999;
+  color: #737373;
   font-weight: 500;
   font-size: 14px;
 }

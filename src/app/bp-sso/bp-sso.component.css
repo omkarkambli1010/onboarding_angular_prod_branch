@@ -3,6 +3,7 @@ body.modal-open {
   position: fixed !important;
   width: 100% !important;
 }
+
 .pan_details_form {
   display: flex;
   flex-direction: column;
@@ -12,12 +13,15 @@ body.modal-open {
   align-items: center;
   justify-content: center;
 }
+
 .pan_details_form .desktop_css {
   display: block;
 }
+
 .pan_details_form .mobile_css {
   display: none;
 }
+
 .pan_details_form form {
   background: #fff;
   padding: 24px;
@@ -38,23 +42,28 @@ body.modal-open {
   align-items: center;
   flex-wrap: wrap;
 }
+
 .pan_details_form .pan_caption span {
   font-size: 14px;
   color: #666666;
   font-weight: 400;
 }
+
 .pan_details_form .pan_confirmation {
   background: #eceeff80;
   border: 1px dashed #c3c7ed;
   padding: 8px 16px;
   margin: 20px 0;
 }
+
 .pan_details_form .pan_confirmation p {
   font-size: 14px;
 }
+
 .pan_details_form .pan_confirmation span {
   font-weight: 600;
 }
+
 .pan_details_form .verify_pan_btn {
   background: #280071;
   color: #fff;
@@ -66,15 +75,18 @@ body.modal-open {
   font-weight: 600;
   text-align: center;
 }
+
 .pan_details_form .stickybtn_desk {
   position: relative;
 }
+
 .pan_details_form .stickybtn_desk button {
   padding: 15px 0;
   max-width: 350px;
   /* margin: 150px auto auto auto; */
   margin: auto;
 }
+
 .pan_details_form .stickybtn {
   background: #fff;
   position: fixed;
@@ -83,6 +95,7 @@ body.modal-open {
   left: 0;
   right: 0;
 }
+
 .pan_details_form .stickybtn button {
   padding: 15px 0;
   max-width: 300px;
@@ -94,20 +107,25 @@ body.modal-open {
   width: 100%;
   align-items: center;
 }
-.pan_details_form .desktop_align > div:nth-child(1) {
+
+.pan_details_form .desktop_align>div:nth-child(1) {
   flex: 2;
 }
-.pan_details_form .desktop_align > div:nth-child(2) {
+
+.pan_details_form .desktop_align>div:nth-child(2) {
   flex: 2;
 }
-.pan_details_form .desktop_align > div:nth-child(2) ::ng-deep .p-calendar {
+
+.pan_details_form .desktop_align>div:nth-child(2) ::ng-deep .p-calendar {
   display: flex;
   max-width: 300px;
 }
+
 .pan_details_form .sub_title {
   font-size: 14px;
   color: #666666;
 }
+
 .pan_details_form h5 {
   font-weight: 600;
 }
@@ -116,10 +134,12 @@ body.modal-open {
   text-align: center;
   margin-bottom: 0px;
 }
+
 .pan_details .sub_title {
   text-align: center;
   margin: 20px 0;
 }
+
 .pan_details .square-box {
   width: 100%;
   height: 100%;
@@ -131,9 +151,11 @@ body.modal-open {
   align-items: center;
   padding: 24px;
 }
+
 .pan_details .square-box.selected {
   background: #eceeff80;
 }
+
 .pan_details .square-box .status {
   position: absolute;
   background-color: #280071;
@@ -145,31 +167,37 @@ body.modal-open {
   right: 15px;
   top: 10px;
 }
+
 .pan_details .pan_details_align {
   display: flex;
   width: 100%;
   justify-content: center;
   gap: 24px;
 }
+
 .pan_details .pan_details_align .upload_css {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
+
 .pan_details .pan_details_align .upload_css h5 {
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 0px;
   color: #2b2b2b;
 }
+
 .pan_details .pan_details_align .upload_css span {
   font-size: 12px;
   font-weight: 400;
   color: #666666;
 }
+
 .uploadPan .modal-header {
   border-bottom: unset;
 }
+
 .uploadPan .modal-body .pan_modal_heading {
   display: flex;
   gap: 15px;
@@ -178,6 +206,7 @@ body.modal-open {
   align-items: center;
   justify-content: flex-start;
 }
+
 .uploadPan .modal-body .pan_modal_heading p {
   font-size: 14px;
   font-weight: 400;
@@ -189,6 +218,7 @@ body.modal-open {
   position: relative;
   font-size: 14px;
 }
+
 .uploadPan .modal-body .verification_points ul {
   counter-reset: step-counter;
   list-style: none;
@@ -220,15 +250,18 @@ body.modal-open {
   font-weight: 600;
   /* margin-bottom: 20px; */
 }
+
 .uploadPan .modal-body p {
   margin-bottom: 0px;
 }
+
 .uploadPan .modal-body .img_upload {
   display: flex;
   justify-content: center;
   gap: 48px;
   margin: 20px 0;
 }
+
 .uploadPan .modal-body .file_type_css {
   display: flex;
   flex-direction: column;
@@ -236,6 +269,7 @@ body.modal-open {
   gap: 5px;
   font-size: 12px;
 }
+
 .uploadPan .modal-footer .continue-btn {
   padding: 16px;
   width: 100%;
@@ -244,26 +278,29 @@ body.modal-open {
   color: #fff;
 }
 
-.uploadPan .modal-body .file_upload_css > img {
+.uploadPan .modal-body .file_upload_css>img {
   object-fit: cover;
   width: 100%;
   height: 100%;
 }
-.uploadPan .modal-body .file_loading_css > img {
+
+.uploadPan .modal-body .file_loading_css>img {
   object-fit: scale-down;
   width: 100%;
   height: 100%;
 }
+
 .uploadPan .modal-body .img_preview {
   margin: 20px 0;
 }
 
-.uploadPan .modal-body .img_preview > img {
+.uploadPan .modal-body .img_preview>img {
   object-fit: contain;
   width: 100%;
   height: 200px;
   max-height: 200px;
 }
+
 .uploadPan .modal-footer .btn_align {
   display: flex;
   width: 100%;
@@ -275,15 +312,18 @@ body.modal-open {
 .pan_details_form form::-webkit-scrollbar {
   width: 7px;
 }
+
 .pan_details_form form::-webkit-scrollbar-track {
   background: #c3c7ed;
   border-radius: 10px;
   box-shadow: #280071;
 }
+
 .pan_details_form form::-webkit-scrollbar-thumb {
   background: #280071;
   border-radius: 10px;
 }
+
 .uploadPan .modal-footer .btn_align .changePan-btn {
   background: #fff;
   border: 1px solid #280071;
@@ -292,6 +332,7 @@ body.modal-open {
   flex: 1;
   font-weight: 600;
 }
+
 .uploadPan .modal-footer .btn_align .confirm-btn {
   background: #280071;
   color: #fff;
@@ -300,10 +341,12 @@ body.modal-open {
   flex: 1;
   font-weight: 600;
 }
+
 /* Responsive Styles */
 .form_bottom {
   display: none;
 }
+
 .pan_details .or_css {
   display: none;
 }
@@ -317,12 +360,15 @@ body.modal-open {
 .upper {
   text-transform: uppercase;
 }
+
 ::ng-deep .p-inputwrapper .p-calendar .p-datepicker-header {
   padding: 0rem 0.5rem;
 }
+
 ::ng-deep .p-inputwrapper .p-calendar {
   width: 100%;
 }
+
 ::ng-deep .p-inputwrapper .p-calendar .p-inputtext {
   width: 100%;
   font-weight: 600;
@@ -333,13 +379,8 @@ body.modal-open {
 }
 
 .pan_details_form .form-control[type="text"]::placeholder,
-.pan_details_form
-  .desktop_align
-  > div:nth-child(2)
-  ::ng-deep
-  .p-calendar
-  .p-inputtext::placeholder {
-  color: #999999;
+.pan_details_form .desktop_align>div:nth-child(2) ::ng-deep .p-calendar .p-inputtext::placeholder {
+  color: #737373;
   font-weight: 500;
   font-size: 14px;
 }
@@ -347,13 +388,16 @@ body.modal-open {
 ::ng-deep .p-inputwrapper .p-calendar.p-focus {
   width: 100%;
 }
+
 ::ng-deep .p-inputwrapper .p-inputwrapper-filled {
   font-family: 600;
 }
+
 ::ng-deep .p-datepicker-calendar thead tr th {
   text-align: center;
 }
-::ng-deep .p-calendar:not(.p-calendar-disabled).p-focus > .p-inputtext {
+
+::ng-deep .p-calendar:not(.p-calendar-disabled).p-focus>.p-inputtext {
   box-shadow: unset;
   border: 1px solid #666666;
 }
@@ -395,6 +439,7 @@ body.modal-open {
 .pan_details_form .line_css {
   border-bottom: 0.5px solid #d9d9d9;
 }
+
 .pan_details_form .header_padding {
   /* padding: 24px; */
   display: flex;
@@ -404,32 +449,38 @@ body.modal-open {
 }
 
 @media screen and (max-width: 991px) {
-  .pan_details_form .desktop_align > div:nth-child(2) ::ng-deep .p-calendar {
+  .pan_details_form .desktop_align>div:nth-child(2) ::ng-deep .p-calendar {
     /* max-width: 100%; */
     width: 100%;
   }
+
   .pan_details .pan_details_align {
     justify-content: flex-start;
   }
+
   .pan_details .or_css {
     display: block;
     margin: 20px 0;
   }
-  .pan_details .or_css > img {
+
+  .pan_details .or_css>img {
     object-fit: cover;
     width: 100%;
     height: 100%;
   }
+
   .pan_details h2,
   .pan_details .sub_title {
     text-align: left;
   }
+
   .pan_details_form .back_cls {
     display: flex;
     width: 100%;
     justify-content: flex-start;
     /* margin: 30px 0; */
   }
+
   .pan_details_form .back_cls img {
     width: 20px;
     /* height: 19px; */
@@ -437,37 +488,46 @@ body.modal-open {
 }
 
 @media screen and (max-width: 767px) {
-  .pan_details_form .desktop_align > div:nth-child(2) ::ng-deep .p-calendar {
+  .pan_details_form .desktop_align>div:nth-child(2) ::ng-deep .p-calendar {
     max-width: 100%;
     width: 100%;
   }
+
   .pan_details_form {
     display: block;
     height: auto;
     margin: 20px 0;
   }
+
   .pan_details_form form {
     margin: 20px 0 80px 0;
   }
+
   .pan_details_form .desktop_css {
     display: none;
   }
+
   .pan_details_form .mobile_css {
     display: block;
   }
+
   .mobile_heading h1 {
     margin-top: 3rem;
     font-size: 28px;
   }
+
   .ref-form {
     margin-top: 20px;
   }
+
   .benefits_section h2 {
     font-size: 28px;
   }
-  .form_bottom > span:nth-child(2) {
+
+  .form_bottom>span:nth-child(2) {
     display: none;
   }
+
   .pan_details_form .stickybtn {
     border: 1px solid #ffffff;
     background: white;
@@ -479,20 +539,25 @@ body.modal-open {
     left: 0;
     right: 0;
   }
+
   .pan_details_form .stickybtn button {
     max-width: 100%;
   }
+
   .pan_details_form .desktop_align {
     flex-direction: column;
     align-items: flex-start;
   }
-  .pan_details_form .desktop_align > div:nth-child(1) {
+
+  .pan_details_form .desktop_align>div:nth-child(1) {
     flex: unset;
   }
-  .pan_details_form .desktop_align > div:nth-child(2) {
+
+  .pan_details_form .desktop_align>div:nth-child(2) {
     flex: unset;
     width: 100%;
   }
+
   /* .pan_details_form .desktop_align > div:nth-child(2) ::ng-deep .p-calendar {
     display: block;
     max-width: 100%;
@@ -500,6 +565,7 @@ body.modal-open {
   .pan_details_form .help_faq_css .help_btn {
     white-space: nowrap;
   }
+
   .pan_details_form .help_faq_css {
     display: flex;
     align-items: center;
@@ -507,6 +573,7 @@ body.modal-open {
     width: 100%;
     gap: 10px;
   }
+
   .pan_details_form .sub_title {
     font-size: 14px;
   }

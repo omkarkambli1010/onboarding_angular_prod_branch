@@ -136,6 +136,66 @@ export class FatherSpouseNameComponent implements OnInit {
         }
       );
   }
+    getBankConfiguration() {
+    this.spinner.show();
+    setTimeout(() => {
+      var reqData = {
+        flag: 'GETBANKCONFIG',
+      };
+      this._http
+        .postRequest('api/v1/masters/get', reqData)
+        .subscribe((resp) => {
+          let response: any = resp.body;
+          if (response.status == true) {
+            response = JSON.parse(
+              this.aesService.decrypt(
+                response.data,
+                this.clientid,
+                this.clientid
+              )
+            );
+            //console.log('RESPO', response);
+            // console.log('BankConfig',response)
+            
+            if (response?.data?.[0]) {
+                var temp_rpd_status = response?.data?.[0]?.IsRPDActiveStatus === 'YES';
+                var temp_pd_status = response?.data?.[0]?.IsPDActiveStatus === 'YES'
+                if (temp_rpd_status == true && temp_pd_status == false){
+                  setTimeout(() => {
+                    this.router.navigate(['/reversePennyDrop', 1]);
+                    this.spinner.hide();
+                  }, 200);
+                }
+                else if (temp_pd_status == true && temp_rpd_status == false){
+                  setTimeout(() => {
+                    this.router.navigate(['/PennyDrop', 1]);
+                    this.spinner.hide();
+                  }, 200);
+                }
+                else{
+                  // this.RPDActiveStatus = true;
+                  // this.PDActiveStatus = true;
+                  setTimeout(() => {
+                    // this.router.navigate(['/personalDetailsForm', 6]);
+                    this.router.navigate(['/reversePennyDrop', 1]);
+                    this.spinner.hide();
+                  }, 200);
+                }
+
+
+
+            } 
+
+            // console.log("this.RPDActiveStatus: ",this.RPDActiveStatus);
+            // console.log("this.PDActiveStatus: ",this.PDActiveStatus);
+
+
+          }
+
+          this.spinner.hide();
+        });
+    }, 200);
+  }
 
   PersonalDetailsave(flag: string, declaration: string) {
     let reqData;
@@ -202,7 +262,7 @@ export class FatherSpouseNameComponent implements OnInit {
                 this.router.navigate(['/PennyDrop', 2]);
                 this.spinner.hide();
               }, 200);
-            } else if (mode === 'RevPennyDrop') {
+            } else if (mode === 'RPD') {
               setTimeout(() => {
                 const modalBackdrops =
                   document.querySelectorAll('.modal-backdrop');
@@ -215,10 +275,11 @@ export class FatherSpouseNameComponent implements OnInit {
                 this.spinner.hide();
               }, 200);
             } else {
-              setTimeout(() => {
-                this.router.navigate(['/personalDetailsForm', 6]);
-                this.spinner.hide();
-              }, 200);
+              // setTimeout(() => {
+              //   this.router.navigate(['/personalDetailsForm', 6]);
+              //   this.spinner.hide();
+              // }, 200);
+              this.getBankConfiguration();
             }
           }
           // this.spinner.hide();

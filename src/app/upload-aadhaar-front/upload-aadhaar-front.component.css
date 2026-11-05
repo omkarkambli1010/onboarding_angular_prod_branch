@@ -57,7 +57,8 @@
   padding: 24px;
   border-radius: 24px;
   height: 71vh;
-  overflow: auto;
+  /* overflow: auto; */
+  overflow: unset;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

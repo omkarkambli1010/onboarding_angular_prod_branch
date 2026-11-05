@@ -1,4 +1,4 @@
-<section *ngIf="PersonalFormOne" class="pan_details_form">
+<section aria-label="Derivatives Activation Submitted — Thank You" *ngIf="PersonalFormOne" class="pan_details_form">
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-12 m-auto">
@@ -13,23 +13,24 @@
           </div>
         </div>
 
-        <form method="post">
+        <form aria-label="Derivatives Thank You" method="post">
           <div class="div">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="d-flex flex-column align-items-start gap-2">
                 <h5>Thank You</h5>
                 <p class="sub_title">
-                  You can download or track your application status.
+                  <!-- You can download or track your application status. -->
+                  Your trading journey is almost here!
                 </p>
               </div>
             </div>
             <hr class="desktop_css" />
             <div class="text-center">
-              <img src="assets/images/Featured_tick.svg" alt="" />
+              <img src="assets/images/Featured_tick.svg" alt="Verified successfully" />
               <p class="main_text">
-                We are verifying your details.<br>
-                Your request for activating derivatives is submitted successfully.<br>
-                <!-- The paid plan will be debited from your account's ledger balance.  -->
+                <!-- We are verifying your details.<br>
+                Your request for activating derivatives is submitted successfully.<br> -->
+                Your trading journey is almost here! <br>
               </p>
               <div class="paid_text">
                 <p>{{this.paidPlanTextCheck[0].Paidplantextshow}}</p>
@@ -38,23 +39,26 @@
 
             </div>
             <div class="button-row">
-              <button (click)="ReviewApplication()" class="review_section" [disabled]="btnReviewApplication">
+              <button (click)="ReviewApplication()" class="review_section" [disabled]="btnReviewApplication"
+                [attr.aria-disabled]="btnReviewApplication">
                 <div class="btn_download">
-                  <img src="assets/images/diy/Download.png" alt="" />
+                  <img src="assets/images/diy/Download.png" alt="Download" />
                 </div>
                 <span>Download Account Opening Form</span>
               </button>
-              <button (click)="ReviewFnoApplication()" class="review_section" [disabled]="btnReviewApplication">
+              <button (click)="ReviewFnoApplication()" class="review_section" [disabled]="btnReviewApplication"
+                [attr.aria-disabled]="btnReviewApplication">
                 <div class="btn_download">
-                  <img src="assets/images/diy/Download.png" alt="" />
+                  <img src="assets/images/diy/Download.png" alt="Download" />
                 </div>
                 <span>Download Derivatives Segment</span>
               </button>
             </div>
           </div>
           <p class="bottom_text">
-            Your account will be active within 24-48 hours after successful verification.
-            <!-- Your account will be activated within 24-48 hours after successful verification. -->
+            <!-- Your account will be active within 24-48 hours after successful verification. -->
+            Your application is under verification. We'll activate your account as soon as the verification is
+            completed.
           </p>
         </form>
       </div>
@@ -62,14 +66,14 @@
   </div>
 </section>
 
-<section *ngIf="PersonalFormTwo" class="pan_details_form">
+<section aria-label="Derivatives Activation Error" *ngIf="PersonalFormTwo" class="pan_details_form">
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-12 m-auto">
         <h5 class="text-center my-3">Thank you</h5>
-        <form method="post">
+        <form aria-label="Derivatives Error" method="post">
           <div class="text-center">
-            <img src="assets/images/diy/invalid_icon.png" alt="" />
+            <img src="assets/images/diy/invalid_icon.png" alt="Error" />
             <p class="my-2">
               {{ this.errorValue }}
             </p>

@@ -93,7 +93,6 @@ export class UploadProcessComponent {
   ) {}
 
   ngOnInit(): void {
-    this.title.setTitle('Upload Process - Onboarding-DIY-PWA');
     this.meta.updateTag({
       name: 'description',
       content: 'Uploading the details of the customer.',
@@ -107,7 +106,7 @@ export class UploadProcessComponent {
 
     this.utm_source = window.sessionStorage.getItem('UTMSOURCE') ?? '';
 
-    if (this.utm_source === 'ISMART_GI') {
+    if (this.utm_source === 'ISMART_GI' || this.utm_source === 'RSRMApp') {
       this.utm_medium = window.sessionStorage.getItem('UTMMEDIUM') ?? '';
       this.setGeneralIncRmCode();
     } else {
@@ -146,9 +145,9 @@ export class UploadProcessComponent {
       pauseOnHover: true,
     }).mount();
   }
-  
+
   setGeneralIncRmCode(): void {
-    if (this.utm_source === 'ISMART_GI') {
+    if (this.utm_source === 'ISMART_GI' || this.utm_source === 'RSRMApp') {
       const sessionRmCode = window.sessionStorage.getItem('UTMMEDIUM') ?? '';
 
       this.utm_medium = sessionRmCode;
@@ -351,18 +350,6 @@ export class UploadProcessComponent {
     }
   }
 
-  checkInput(event: any): void {
-    let value = event.target.value;
-    if (/^\s/.test(value)) {
-      value = value.trimStart();
-    }
-    value = value.replace(/\s{2,}/g, ' ');
-    value = value.replace(/[^a-zA-Z\s]/g, '');
-    value = value.toUpperCase();
-    event.target.value = value;
-    this.panDetailsManual.fullname_as_pancard = value;
-  }
-
   updateDisplayedName(value: string, flag: string): void {
     let trimmedValue = value.trim();
     trimmedValue = trimmedValue.replace(/\s{2,}/g, ' ');
@@ -378,7 +365,7 @@ export class UploadProcessComponent {
       !containsEmoji
     ) {
       if (flag === 'fout') {
-        this.panDetailsManual.fullname_as_pancard = trimmedValue.toUpperCase();
+        this.panDetailsManual.fullname_as_pancard = trimmedValue;
       }
       this.panFullNameReqSpace = false;
     } else {
@@ -412,6 +399,7 @@ export class UploadProcessComponent {
       this.utm_source != 'Retailsales' &&
       this.utm_source != 'PAISALO' &&
       this.utm_source != 'ISMART_GI' &&
+      this.utm_source != 'RSRMApp' &&
       (value == '' || value == null)
     ) {
       this.rmcodenull = true;

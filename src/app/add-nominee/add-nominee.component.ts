@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common';
 import { concat } from 'rxjs';
 import { MoengagesdkService } from '../moengagesdk.service';
 import { Action } from 'rxjs/internal/scheduler/Action';
+import * as bootstrap from 'bootstrap';
 declare var $: any;
 @Component({
   selector: 'app-add-nominee',
@@ -109,7 +110,7 @@ export class AddNomineeComponent {
     nomineelname: '',
     nomineeOnedob: '',
     nomineeAllocationRange: '100',
-    nomineeApplicantCheck: true,
+    nomineeApplicantCheck: false,
     nomineeisMinorCheck: false,
     isNomineeMinorDisable: false,
     nomineeAddress1: '',
@@ -135,6 +136,10 @@ export class AddNomineeComponent {
     nomineeGuardianProofnumber: '',
 
     nom_relation: '',
+
+    // free-text relationship typed when the dropdown is on "Others"
+
+    NomineeOtherRelation: '',
     nom_guard_relation: '',
     utm_source: this.utm_source,
     utm_medium: this.utm_medium,
@@ -152,7 +157,7 @@ export class AddNomineeComponent {
     nomineelname: '',
     nomineeOnedob: '',
     nomineeAllocationRange: '',
-    nomineeApplicantCheck: true,
+    nomineeApplicantCheck: false,
     nomineeisMinorCheck: false,
     isNomineeMinorDisable: false,
     nomineeGuardianAddress1: '',
@@ -178,6 +183,8 @@ export class AddNomineeComponent {
     nomineeGuardiandob: '',
     nomineeGuardianApplicantCheck: false,
     nom_relation: '',
+    // free-text relationship typed when the dropdown is on "Others"
+    NomineeOtherRelation: '',
     nom_guard_relation: '',
     utm_source: this.utm_source,
     utm_medium: this.utm_medium,
@@ -194,7 +201,7 @@ export class AddNomineeComponent {
     nomineelname: '',
     nomineeOnedob: '',
     nomineeAllocationRange: '',
-    nomineeApplicantCheck: true,
+    nomineeApplicantCheck: false,
     nomineeisMinorCheck: false,
     isNomineeMinorDisable: false,
     nomineeAddress1: '',
@@ -220,6 +227,10 @@ export class AddNomineeComponent {
     nomineeGuardianProofnumber: '',
 
     nom_relation: '',
+
+    // free-text relationship typed when the dropdown is on "Others"
+
+    NomineeOtherRelation: '',
     nom_guard_relation: '',
     utm_source: this.utm_source,
     utm_medium: this.utm_medium,
@@ -274,6 +285,20 @@ export class AddNomineeComponent {
   Nominee2Relation: boolean = false;
   Nominee3Relation: boolean = false;
 
+  // Free-text relationship, shown when "Others" is picked in the dropdown.
+  // nom_relation itself stays "Others"; the typed value is mirrored onto
+  // NomineeOtherRelation on each nominee's model and posted to
+  // /nomineesave alongside it.
+  nominee1ShowOtherRelation: boolean = false;
+  nominee2ShowOtherRelation: boolean = false;
+  nominee3ShowOtherRelation: boolean = false;
+  nominee1OtherRelation: string = '';
+  nominee2OtherRelation: string = '';
+  nominee3OtherRelation: string = '';
+  Nominee1OtherRelationError: boolean = false;
+  Nominee2OtherRelationError: boolean = false;
+  Nominee3OtherRelationError: boolean = false;
+
   // Nominee1DOB: boolean = false;
   // Nominee2DOB: boolean = false;
   // Nominee3DOB: boolean = false;
@@ -300,6 +325,10 @@ export class AddNomineeComponent {
   Nominee1ProofIdNo: boolean = false;
   Nominee2ProofIdNo: boolean = false;
   Nominee3ProofIdNo: boolean = false;
+  // Identity Proof no. is mandatory for every nominee.
+  Nominee1ProofIdNoReq: boolean = false;
+  Nominee2ProofIdNoReq: boolean = false;
+  Nominee3ProofIdNoReq: boolean = false;
 
   NomineeGuar1Prooftype: boolean = false;
   NomineeGuar2Prooftype: boolean = false;
@@ -410,6 +439,25 @@ export class AddNomineeComponent {
   Nominee1GuardianRelation: boolean = false;
   Nominee2GuardianRelation: boolean = false;
   Nominee3GuardianRelation: boolean = false;
+
+  guardian1ShowOtherRelation: boolean = false;
+  guardian2ShowOtherRelation: boolean = false;
+  guardian3ShowOtherRelation: boolean = false;
+  guardian1OtherRelation: string = '';
+  guardian2OtherRelation: string = '';
+  guardian3OtherRelation: string = '';
+  Guardian1OtherRelationError: boolean = false;
+  Guardian2OtherRelationError: boolean = false;
+  Guardian3OtherRelationError: boolean = false;
+  guardian1FirstTouched: boolean = false;
+  guardian1LastTouched: boolean = false;
+  guardian2FirstTouched: boolean = false;
+  guardian2LastTouched: boolean = false;
+  guardian3FirstTouched: boolean = false;
+  guardian3LastTouched: boolean = false;
+  guardian1SubmitAttempted: boolean = false;
+  guardian2SubmitAttempted: boolean = false;
+  guardian3SubmitAttempted: boolean = false;
   Nominee1GuardianDOB: boolean = false;
   Nominee2GuardianDOB: boolean = false;
   Nominee3GuardianDOB: boolean = false;
@@ -466,7 +514,6 @@ export class AddNomineeComponent {
   // }
 
   ngOnInit(): void {
-    this.title.setTitle('Add Nominee - Onboarding-DIY-PWA');
 
     this.meta.updateTag({
       name: 'description',
@@ -578,6 +625,8 @@ export class AddNomineeComponent {
           response = JSON.parse(
             this.aesService.decrypt(response.data, this.clientid, this.clientid)
           );
+          console.log("responseresponseresponse", response);
+                    
 
           if (resp.body.message === 'Data found') {
             // console.log('response',response)
@@ -606,7 +655,8 @@ export class AddNomineeComponent {
                 nomineeprooftype: response[0].nomineeprooftype,
                 nomineeproofnumber: response[0].nomineeproofnumber,
 
-                nomineeOnedob: response[0].NomtrdDOB,
+                // Parsed into a Date: p-calendar cannot bind the raw string.
+                nomineeOnedob: this.parseNomineeDob(response[0].NomtrdDOB),
 
                 nomineeAllocationRange: response[0].nomineepercentage,
 
@@ -643,10 +693,13 @@ export class AddNomineeComponent {
                 //   response[0].nomineeGuardiandob,
                 //   'dd/MM/yyyy'),
 
-                nomineeGuardianApplicantCheck:
-                  response[0].sameAsGuardianAddress,
+                // 'Same as applicant address' was removed from the guardian section,
+                // so the guardian address is always entered explicitly.
+                nomineeGuardianApplicantCheck: false,
 
                 nom_relation: response[0].NomTrdRelation,
+
+                NomineeOtherRelation: response[0].NomineeOtherRelation ?? '',
 
                 nom_guard_relation: response[0].NomTrdGurRelation,
 
@@ -679,7 +732,8 @@ export class AddNomineeComponent {
                 nomineeprooftype: response[1].nomineeprooftype,
                 nomineeproofnumber: response[1].nomineeproofnumber,
 
-                nomineeOnedob: response[1].NomtrdDOB,
+                // Parsed into a Date: p-calendar cannot bind the raw string.
+                nomineeOnedob: this.parseNomineeDob(response[1].NomtrdDOB),
 
                 nomineeAllocationRange: response[1].nomineepercentage,
 
@@ -716,10 +770,13 @@ export class AddNomineeComponent {
                 //   response[1].nomineeGuardiandob,
                 //   'dd/MM/yyyy'),
 
-                nomineeGuardianApplicantCheck:
-                  response[1].sameAsGuardianAddress,
+                // 'Same as applicant address' was removed from the guardian section,
+                // so the guardian address is always entered explicitly.
+                nomineeGuardianApplicantCheck: false,
 
                 nom_relation: response[1].NomTrdRelation,
+
+                NomineeOtherRelation: response[1].NomineeOtherRelation ?? '',
 
                 nom_guard_relation: response[1].NomTrdGurRelation,
 
@@ -743,17 +800,12 @@ export class AddNomineeComponent {
 
                 nomineelname: response[2].NomTrdNameLas,
 
-                // nomineeOnedob: this.datePipe.transform(
-                //   response[2].NomtrdDOB,
-                //   'dd/MM/yyyy'
-                // ),
-
                 NomTrdMobile: response[2].NomTrdMobile,
                 NomEmailID: response[2].NomEmailID,
                 nomineeprooftype: response[2].nomineeprooftype,
                 nomineeproofnumber: response[2].nomineeproofnumber,
 
-                nomineeOnedob: response[2].NomtrdDOB,
+                nomineeOnedob: this.parseNomineeDob(response[2].NomtrdDOB),
 
                 nomineeAllocationRange: response[2].nomineepercentage,
 
@@ -785,14 +837,12 @@ export class AddNomineeComponent {
                 nomineeGuardianMobile: response[2].NomTrdGurMobile,
                 nomineeGuardianProofType: response[2].gurnomineeprooftype,
                 nomineeGuardianProofnumber: response[2].gurnomineeproofnumber,
-                // nomineeGuardiandob: this.datePipe.transform(
-                //   response[2].nomineeGuardiandob,
-                //   'dd/MM/yyyy'),
-
-                nomineeGuardianApplicantCheck:
-                  response[2].sameAsGuardianAddress,
+             
+                nomineeGuardianApplicantCheck: false,
 
                 nom_relation: response[2].NomTrdRelation,
+
+                NomineeOtherRelation: response[2].NomineeOtherRelation ?? '',
 
                 nom_guard_relation: response[2].NomTrdGurRelation,
 
@@ -807,7 +857,42 @@ export class AddNomineeComponent {
             }
           }
         }
+
+        if (this.visibleAccordions === 1) {
+          this.nomineeDetails.nomineeAllocationRange = '100';
+        }
+
+        this.restoreOtherRelationState();
+        this.restoreGuardianOtherRelationState();
       });
+  }
+
+  private syncAllocations(previousCount: number, nextCount: number): void {
+    const visible = Math.max(1, Math.min(nextCount, 3));
+    const models = [
+      this.nomineeDetails,
+      this.nomineeDetails2,
+      this.nomineeDetails3,
+    ];
+
+    if (visible === 1) {
+      models.forEach((model, index) => {
+        if (model) {
+          model.nomineeAllocationRange = index === 0 ? '100' : '';
+        }
+      });
+      return;
+    }
+
+    if (previousCount <= 1 && this.nomineeDetails) {
+      this.nomineeDetails.nomineeAllocationRange = '';
+    }
+
+    models.forEach((model, index) => {
+      if (model && index >= visible) {
+        model.nomineeAllocationRange = '';
+      }
+    });
   }
 
   addNominee() {
@@ -818,7 +903,13 @@ export class AddNomineeComponent {
           accordion.classList.remove('show');
         });
       this.accordionItems.push({ heading: '', body: '', isOpen: false });
+      const previousCount = this.visibleAccordions;
       this.visibleAccordions++;
+
+      // Only the automatic 100% from the single-nominee case is cleared here;
+      // percentages the user typed for nominees 2 and 3 are left alone.
+      this.syncAllocations(previousCount, this.visibleAccordions);
+
       // this.saveToLocalStorage();
       setTimeout(() => {
         const newAccordion = document.querySelectorAll('.accordion-collapse')[
@@ -833,27 +924,76 @@ export class AddNomineeComponent {
     }
   }
 
+  private createEmptyNominee(): any {
+    return {
+      FormNumber: window.sessionStorage.getItem('FormNumber'),
+      nomineefname: '',
+      nomineelname: '',
+      nomineeOnedob: '',
+      nomineeAllocationRange: '',
+      nomineeApplicantCheck: true,
+      nomineeisMinorCheck: false,
+      isNomineeMinorDisable: false,
+      nomineeAddress1: '',
+      nomineeAddress2: '',
+      nomineeAddress3: '',
+      nomineePincode: '',
+      nomineeState: '',
+      nomineeCity: '',
+      nomineeGuardianFirstName: '',
+      nomineeGuardianLastName: '',
+      nomineeGuardiandob: '',
+      nomineeGuardianApplicantCheck: false,
+      nomineeGuardianAddress1: '',
+      nomineeGuardianAddress2: '',
+      nomineeGuardianAddress3: '',
+      nomineeGuardianPincode: '',
+      nomineeGuardianState: '',
+      nomineeGuardianCity: '',
+      nomineeGuardianEmail: '',
+      nomineeGuardianMobile: '',
+      nomineeGuardianProofType: '',
+      nomineeGuardianProofnumber: '',
+      nom_relation: '',
+      // free-text relationship typed when the dropdown is on "Others"
+      NomineeOtherRelation: '',
+      nom_guard_relation: '',
+      utm_source: this.utm_source,
+      utm_medium: this.utm_medium,
+      utm_campaign: this.utm_campaign,
+      NomTrdMobile: '',
+      NomEmailID: '',
+      nomineeprooftype: '',
+      nomineeproofnumber: '',
+    };
+  }
+
   removeNominee() {
     if (this.visibleAccordions > 1) {
       this.accordionItems.pop();
+      const previousCount = this.visibleAccordions;
       this.visibleAccordions--;
       // this.saveToLocalStorage();
 
       // this.save_allnomineedetails(this.visibleAccordions);
 
-      if (this.visibleAccordions === 1) {
-        this.nomineeDetails2 = [];
+      // Removal always pops the last nominee, so reset every model that now
+      // sits beyond the visible count. Without this, re-adding a nominee
+      // brings the previous occupant's details back.
+      if (this.visibleAccordions < 3) {
+        this.nomineeDetails3 = this.createEmptyNominee();
+        this.nomineeThreeGuardian = false;
+      }
 
-        this.nomineeDetails3 = [];
-
+      if (this.visibleAccordions < 2) {
+        this.nomineeDetails2 = this.createEmptyNominee();
         this.nomineeTwoGuardian = false;
-        this.nomineeThreeGuardian = false;
-        this.nomineeDetails.nomineeAllocationRange = '100';
       }
 
-      if (this.visibleAccordions === 2) {
-        this.nomineeThreeGuardian = false;
-      }
+      // Dropping back to a single nominee re-pins it to 100%. Going 3 -> 2
+      // leaves the remaining percentages untouched; only the removed
+      // nominee's value is cleared.
+      this.syncAllocations(previousCount, this.visibleAccordions);
     }
   }
 
@@ -863,6 +1003,15 @@ export class AddNomineeComponent {
     const emojiRegExp = /[\p{Emoji_Presentation}\p{Extended_Pictographic}]/u;
 
     if (!regExp.test(char) || emojiRegExp.test(char)) {
+      event.preventDefault();
+    }
+  }
+
+  onAlphaNumericKeyPress(event: KeyboardEvent) {
+    const char = event.key;
+    const regExp = /^[A-Za-z0-9]$/;
+
+    if (!regExp.test(char)) {
       event.preventDefault();
     }
   }
@@ -950,6 +1099,48 @@ export class AddNomineeComponent {
   //   }, 2000);
   // }
 
+  /**
+   * Turns the DOB the API returns into a real Date for p-calendar.
+   *
+   * NomtrdDOB arrives as a string ("05/08/2026", sometimes "2026-08-05" or a
+   * full ISO timestamp). p-calendar's ngModel only understands a Date object -
+   * given a string it renders an empty field, which is why the saved DOB never
+   * appeared. Returns null for blanks and anything unparseable, so the input
+   * simply stays empty rather than showing "Invalid Date".
+   */
+  private parseNomineeDob(value: any): Date | null {
+    if (!value) {
+      return null;
+    }
+    if (value instanceof Date) {
+      return isNaN(value.getTime()) ? null : value;
+    }
+
+    const raw = String(value).trim();
+    if (!raw) {
+      return null;
+    }
+
+    // dd/MM/yyyy or dd-MM-yyyy
+    let match = raw.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
+    if (match) {
+      const [, day, month, year] = match.map(Number);
+      const date = new Date(year, month - 1, day);
+      return isNaN(date.getTime()) ? null : date;
+    }
+
+    // yyyy-MM-dd, optionally followed by a time component
+    match = raw.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+    if (match) {
+      const [, year, month, day] = match.map(Number);
+      const date = new Date(year, month - 1, day);
+      return isNaN(date.getTime()) ? null : date;
+    }
+
+    const parsed = new Date(raw);
+    return isNaN(parsed.getTime()) ? null : parsed;
+  }
+
   checkNomineeAge(): void {
     let nomineedob = this.nomineeDetails.nomineeOnedob;
     if (typeof nomineedob === 'string') {
@@ -1001,6 +1192,7 @@ export class AddNomineeComponent {
         // this.nomineeDetails.nomineeGuardianApplicantCheck = false;
         this.nomineeDetails.isNomineeMinorDisable = true;
         this.nomineeDetails.nom_guard_relation = '';
+        this.clearGuardianOtherRelation(1);
       }
       this.nomineeOneGuardian = this.ageBelow18warning;
     }
@@ -1059,6 +1251,7 @@ export class AddNomineeComponent {
         // this.nomineeDetails2.nomineeGuardianApplicantCheck = false;
         this.nomineeDetails2.isNomineeMinorDisable = true;
         this.nomineeDetails2.nom_guard_relation = '';
+        this.clearGuardianOtherRelation(2);
       }
 
       this.nomineeTwoGuardian = this.ageBelow18warning2;
@@ -1118,12 +1311,13 @@ export class AddNomineeComponent {
         this.nomineeDetails3.nomineeGuardianApplicantCheck = false;
         this.nomineeDetails3.isNomineeMinorDisable = true;
         this.nomineeDetails3.nom_guard_relation = '';
+        this.clearGuardianOtherRelation(3);
       }
 
       this.nomineeThreeGuardian = this.ageBelow18warning3;
     }
 
-    this.nomineeDetails3.nomineeisMinorCheck = this.ageBelow18warning;
+    this.nomineeDetails3.nomineeisMinorCheck = this.ageBelow18warning3;
   }
 
   redirectToTwo() {
@@ -1170,8 +1364,11 @@ export class AddNomineeComponent {
 
       this.CityStateResponse = this.PersonalResponse.data18;
 
-      this.NomineeTwoResponse = this.PersonalResponse.data3;
-      this.NomineeThreeResponse = this.PersonalResponse.data3;
+      this.NomineeTwoResponse = this.PersonalResponse.data5;
+      this.NomineeThreeResponse = this.PersonalResponse.data5;
+
+      this.restoreOtherRelationState();
+      this.restoreGuardianOtherRelationState();
     });
   }
 
@@ -1314,6 +1511,27 @@ export class AddNomineeComponent {
     $('#confirmPref').modal('show');
   }
 
+  openOptOutModal() {
+    const optOutModal = document.getElementById('nomineeOptOutConfirm');
+    if (optOutModal) {
+      bootstrap.Modal.getOrCreateInstance(optOutModal).show();
+    } else {
+      this.terminateModal();
+    }
+  }
+
+  closeOptOutModal() {
+    const optOutModal = document.getElementById('nomineeOptOutConfirm');
+    if (optOutModal) {
+      bootstrap.Modal.getOrCreateInstance(optOutModal).hide();
+    }
+    setTimeout(() => {
+      if (!document.querySelector('.modal.show')) {
+        this.removeModal();
+      }
+    }, 400);
+  }
+
   terminateModal() {
     //this.nomineeoptout = true
     this.save_optoutstatus('Yes');
@@ -1331,58 +1549,58 @@ export class AddNomineeComponent {
   }
 
   NomMobVal1() {
-    if (this.nomineeDetails.NomTrdMobile.length < 10) {
+    const mobile = (this.nomineeDetails.NomTrdMobile || '').trim();
+    if (mobile.length > 0 && mobile.length < 10) {
       this.Nominee1Mobilerror = true;
       return false;
-    } else {
-      this.Nominee1Mobilerror = false;
     }
+    this.Nominee1Mobilerror = false;
     return true;
   }
   NomGuarMobVal1() {
-    if (this.nomineeDetails.nomineeGuardianMobile.length < 10) {
+    const mobile = this.nomineeDetails.nomineeGuardianMobile.trim();
+    if (mobile.length > 0 && mobile.length < 10) {
       this.Nominee1GuarMobilerror = true;
       return false;
-    } else {
-      this.Nominee1GuarMobilerror = false;
     }
+    this.Nominee1GuarMobilerror = false;
     return true;
   }
 
   NomMobVal2() {
-    if (this.nomineeDetails2.NomTrdMobile.length < 10) {
+    const mobile = (this.nomineeDetails2.NomTrdMobile || '').trim();
+    if (mobile.length > 0 && mobile.length < 10) {
       this.Nominee2Mobilerror = true;
       return false;
-    } else {
-      this.Nominee2Mobilerror = false;
     }
+    this.Nominee2Mobilerror = false;
     return true;
   }
   NomGuarMobVal2() {
-    if (this.nomineeDetails2.nomineeGuardianMobile.length < 10) {
+    const mobile = this.nomineeDetails2.nomineeGuardianMobile.trim();
+    if (mobile.length > 0 && mobile.length < 10) {
       this.Nominee2GuarMobilerror = true;
       return false;
-    } else {
-      this.Nominee2GuarMobilerror = false;
     }
+    this.Nominee2GuarMobilerror = false;
     return true;
   }
   NomMobVal3() {
-    if (this.nomineeDetails3.NomTrdMobile.length < 10) {
+    const mobile = (this.nomineeDetails3.NomTrdMobile || '').trim();
+    if (mobile.length > 0 && mobile.length < 10) {
       this.Nominee3Mobilerror = true;
       return false;
-    } else {
-      this.Nominee3Mobilerror = false;
     }
+    this.Nominee3Mobilerror = false;
     return true;
   }
   NomGuarMobVal3() {
-    if (this.nomineeDetails3.nomineeGuardianMobile.length < 10) {
+    const mobile = this.nomineeDetails3.nomineeGuardianMobile.trim();
+    if (mobile.length > 0 && mobile.length < 10) {
       this.Nominee3GuarMobilerror = true;
       return false;
-    } else {
-      this.Nominee3GuarMobilerror = false;
     }
+    this.Nominee3GuarMobilerror = false;
     return true;
   }
   checkEmailSecialchars(email: string): boolean {
@@ -1412,9 +1630,9 @@ export class AddNomineeComponent {
     } else {
       this.emailmultiplesymbGuar1 = false;
     }
-    this.emailReqGuar1 = this.nomineeDetails.nomineeGuardianEmail.length === 0;
+    this.emailReqGuar1 = false;
     this.emailFormatValGuar1 =
-      !this.emailReq1 &&
+      this.nomineeDetails.nomineeGuardianEmail.trim().length > 0 &&
       !this.isEmailValid(this.nomineeDetails.nomineeGuardianEmail);
 
     if (this.emailFormatValGuar1) {
@@ -1429,12 +1647,8 @@ export class AddNomineeComponent {
       return false;
     }
 
-    if (this.nomineeDetails.nomineeGuardianEmail) {
-      this.isEmailDisableBtnGuar1 = false;
-    } else {
-      this.isEmailDisableBtnGuar1 = true;
-      return false;
-    }
+    // Optional field: blank passes, so the required flag never fires.
+    this.isEmailDisableBtnGuar1 = false;
 
     return true;
   }
@@ -1447,9 +1661,11 @@ export class AddNomineeComponent {
     } else {
       this.emailmultiplesymb1 = false;
     }
-    this.emailReq1 = this.nomineeDetails.NomEmailID.length === 0;
+    // Optional field: an empty email is never flagged as required.
+    this.emailReq1 = false;
     this.emailFormatVal1 =
-      !this.emailReq1 && !this.isEmailValid(this.nomineeDetails.NomEmailID);
+      (this.nomineeDetails.NomEmailID || '').trim().length > 0 &&
+      !this.isEmailValid(this.nomineeDetails.NomEmailID);
 
     if (this.emailFormatVal1) {
       return false;
@@ -1463,12 +1679,8 @@ export class AddNomineeComponent {
       return false;
     }
 
-    if (this.nomineeDetails.NomEmailID) {
-      this.isEmailDisableBtn1 = false;
-    } else {
-      this.isEmailDisableBtn1 = true;
-      return false;
-    }
+    // Optional field: blank passes, so the required flag never fires.
+    this.isEmailDisableBtn1 = false;
 
     return true;
   }
@@ -1480,9 +1692,11 @@ export class AddNomineeComponent {
     } else {
       this.emailmultiplesymb2 = false;
     }
-    this.emailReq2 = this.nomineeDetails2.NomEmailID.length === 0;
+    // Optional field: an empty email is never flagged as required.
+    this.emailReq2 = false;
     this.emailFormatVal2 =
-      !this.emailReq2 && !this.isEmailValid(this.nomineeDetails2.NomEmailID);
+      (this.nomineeDetails2.NomEmailID || '').trim().length > 0 &&
+      !this.isEmailValid(this.nomineeDetails2.NomEmailID);
 
     if (this.emailFormatVal2) {
       return false;
@@ -1496,12 +1710,8 @@ export class AddNomineeComponent {
       return false;
     }
 
-    if (this.nomineeDetails2.NomEmailID) {
-      this.isEmailDisableBtn2 = false;
-    } else {
-      this.isEmailDisableBtn2 = true;
-      return false;
-    }
+    // Optional field: blank passes, so the required flag never fires.
+    this.isEmailDisableBtn2 = false;
 
     return true;
   }
@@ -1515,9 +1725,9 @@ export class AddNomineeComponent {
     } else {
       this.emailmultiplesymbGuar2 = false;
     }
-    this.emailReqGuar2 = this.nomineeDetails2.nomineeGuardianEmail.length === 0;
+    this.emailReqGuar2 = false;
     this.emailFormatValGuar2 =
-      !this.emailReq1 &&
+      this.nomineeDetails2.nomineeGuardianEmail.trim().length > 0 &&
       !this.isEmailValid(this.nomineeDetails2.nomineeGuardianEmail);
 
     if (this.emailFormatValGuar2) {
@@ -1532,12 +1742,7 @@ export class AddNomineeComponent {
       return false;
     }
 
-    if (this.nomineeDetails2.nomineeGuardianEmail) {
-      this.isEmailDisableBtnGuar2 = false;
-    } else {
-      this.isEmailDisableBtnGuar2 = true;
-      return false;
-    }
+    this.isEmailDisableBtnGuar2 = false;
 
     return true;
   }
@@ -1550,9 +1755,10 @@ export class AddNomineeComponent {
     } else {
       this.emailmultiplesymb3 = false;
     }
-    this.emailReq3 = this.nomineeDetails3.NomEmailID.length === 0;
+    this.emailReq3 = false;
     this.emailFormatVal3 =
-      !this.emailReq3 && !this.isEmailValid(this.nomineeDetails3.NomEmailID);
+      (this.nomineeDetails3.NomEmailID || '').trim().length > 0 &&
+      !this.isEmailValid(this.nomineeDetails3.NomEmailID);
 
     if (this.emailFormatVal3) {
       return false;
@@ -1566,11 +1772,8 @@ export class AddNomineeComponent {
       return false;
     }
 
-    if (this.nomineeDetails3.NomEmailID) {
-      this.isEmailDisableBtn3 = false;
-    } else {
-      this.isEmailDisableBtn3 = true;
-    }
+    // Optional field: blank passes, so the required flag never fires.
+    this.isEmailDisableBtn3 = false;
 
     return true;
   }
@@ -1584,9 +1787,9 @@ export class AddNomineeComponent {
     } else {
       this.emailmultiplesymbGuar3 = false;
     }
-    this.emailReqGuar3 = this.nomineeDetails3.nomineeGuardianEmail.length === 0;
+    this.emailReqGuar3 = false;
     this.emailFormatValGuar3 =
-      !this.emailReq1 &&
+      this.nomineeDetails3.nomineeGuardianEmail.trim().length > 0 &&
       !this.isEmailValid(this.nomineeDetails3.nomineeGuardianEmail);
 
     if (this.emailFormatValGuar3) {
@@ -1601,12 +1804,8 @@ export class AddNomineeComponent {
       return false;
     }
 
-    if (this.nomineeDetails3.nomineeGuardianEmail) {
-      this.isEmailDisableBtnGuar3 = false;
-    } else {
-      this.isEmailDisableBtnGuar3 = true;
-      return false;
-    }
+    // Optional field: blank passes, so the required flag never fires.
+    this.isEmailDisableBtnGuar3 = false;
 
     return true;
   }
@@ -1630,51 +1829,144 @@ export class AddNomineeComponent {
   }
   nomineeprooftypeval1(event: any): void {
     const Nomineeproofvalue = event.target.value;
-    if (Nomineeproofvalue == '') {
-      this.Nominee1Prooftype = true;
-    } else {
-      this.Nominee1Prooftype = false;
+
+    // Going back to "Select Proof Type" is allowed while editing; the
+    // mandatory check for type and number runs on save.
+    this.Nominee1Prooftype = false;
+
+    // Clearing the type clears the number with it: the two are only
+    // meaningful together, and a number left behind would be saved with no
+    // type to validate it against.
+    if (Nomineeproofvalue === '') {
+      this.nomineeDetails.nomineeproofnumber = '';
+      this.Nominee1ProofIdNo = false;
+      this.Nominee1adharmsg = false;
+      this.Nominee1ProofIdNoReq = false;
+      return;
+    }
+
+    // Each type has its own format, so the previous type's error flags are
+    // stale the moment the type changes - switching Aadhaar -> Pan used to
+    // leave the aadhaar message on screen.
+    this.Nominee1ProofIdNo = false;
+    this.Nominee1adharmsg = false;
+
+    // Re-check only a number that is already typed, so the user is not
+    // shown an error the instant they pick a type.
+    if ((this.nomineeDetails.nomineeproofnumber || '').trim()) {
+      this.nomineeidproofval1();
     }
   }
   nomineeguarprooftypeval1(event: any): void {
-    const Nomineeproofvalue = event.target.value;
-    if (Nomineeproofvalue == '') {
-      this.NomineeGuar1Prooftype = true;
-    } else {
-      this.NomineeGuar1Prooftype = false;
+    // Guardian proof of identity is optional; a blank selection is valid.
+    this.NomineeGuar1Prooftype = false;
+
+    if ((event.target.value ?? '') === '') {
+      this.nomineeDetails.nomineeGuardianProofnumber = '';
+      this.NomineeGuar1ProofIdNo = false;
+      this.NomineeGuar1adharmsg = false;
+      return;
+    }
+
+    this.NomineeGuar1ProofIdNo = false;
+    this.NomineeGuar1adharmsg = false;
+    if ((this.nomineeDetails.nomineeGuardianProofnumber || '').trim()) {
+      this.nomineeguaridproofval1();
     }
   }
   nomineeprooftypeval2(event: any): void {
     const Nomineeproofvalue = event.target.value;
-    if (Nomineeproofvalue == '') {
-      this.Nominee2Prooftype = true;
-    } else {
-      this.Nominee2Prooftype = false;
+
+    // Going back to "Select Proof Type" is allowed while editing; the
+    // mandatory check for type and number runs on save.
+    this.Nominee2Prooftype = false;
+
+    // Clearing the type clears the number with it: the two are only
+    // meaningful together, and a number left behind would be saved with no
+    // type to validate it against.
+    if (Nomineeproofvalue === '') {
+      this.nomineeDetails2.nomineeproofnumber = '';
+      this.Nominee2ProofIdNo = false;
+      this.Nominee2adharmsg = false;
+      this.Nominee2ProofIdNoReq = false;
+      return;
+    }
+
+    // Each type has its own format, so the previous type's error flags are
+    // stale the moment the type changes - switching Aadhaar -> Pan used to
+    // leave the aadhaar message on screen.
+    this.Nominee2ProofIdNo = false;
+    this.Nominee2adharmsg = false;
+
+    // Re-check only a number that is already typed, so the user is not
+    // shown an error the instant they pick a type.
+    if ((this.nomineeDetails2.nomineeproofnumber || '').trim()) {
+      this.nomineeidproofval2();
     }
   }
   nomineeguarprooftypeval2(event: any): void {
-    const Nomineeproofvalue = event.target.value;
-    if (Nomineeproofvalue == '') {
-      this.NomineeGuar2Prooftype = true;
-    } else {
-      this.NomineeGuar2Prooftype = false;
+    // Guardian proof of identity is optional; a blank selection is valid.
+    this.NomineeGuar2Prooftype = false;
+
+    if ((event.target.value ?? '') === '') {
+      this.nomineeDetails2.nomineeGuardianProofnumber = '';
+      this.NomineeGuar2ProofIdNo = false;
+      this.NomineeGuar2adharmsg = false;
+      return;
+    }
+
+    this.NomineeGuar2ProofIdNo = false;
+    this.NomineeGuar2adharmsg = false;
+    if ((this.nomineeDetails2.nomineeGuardianProofnumber || '').trim()) {
+      this.nomineeguaridproofval2();
     }
   }
 
   nomineeprooftypeval3(event: any): void {
     const Nomineeproofvalue = event.target.value;
-    if (Nomineeproofvalue == '') {
-      this.Nominee3Prooftype = true;
-    } else {
-      this.Nominee3Prooftype = false;
+
+    // Going back to "Select Proof Type" is allowed while editing; the
+    // mandatory check for type and number runs on save.
+    this.Nominee3Prooftype = false;
+
+    // Clearing the type clears the number with it: the two are only
+    // meaningful together, and a number left behind would be saved with no
+    // type to validate it against.
+    if (Nomineeproofvalue === '') {
+      this.nomineeDetails3.nomineeproofnumber = '';
+      this.Nominee3ProofIdNo = false;
+      this.Nominee3adharmsg = false;
+      this.Nominee3ProofIdNoReq = false;
+      return;
+    }
+
+    // Each type has its own format, so the previous type's error flags are
+    // stale the moment the type changes - switching Aadhaar -> Pan used to
+    // leave the aadhaar message on screen.
+    this.Nominee3ProofIdNo = false;
+    this.Nominee3adharmsg = false;
+
+    // Re-check only a number that is already typed, so the user is not
+    // shown an error the instant they pick a type.
+    if ((this.nomineeDetails3.nomineeproofnumber || '').trim()) {
+      this.nomineeidproofval3();
     }
   }
   nomineeguarprooftypeval3(event: any): void {
-    const Nomineeproofvalue = event.target.value;
-    if (Nomineeproofvalue == '') {
-      this.NomineeGuar3Prooftype = true;
-    } else {
-      this.NomineeGuar3Prooftype = false;
+    // Guardian proof of identity is optional; a blank selection is valid.
+    this.NomineeGuar3Prooftype = false;
+
+    if ((event.target.value ?? '') === '') {
+      this.nomineeDetails3.nomineeGuardianProofnumber = '';
+      this.NomineeGuar3ProofIdNo = false;
+      this.NomineeGuar3adharmsg = false;
+      return;
+    }
+
+    this.NomineeGuar3ProofIdNo = false;
+    this.NomineeGuar3adharmsg = false;
+    if ((this.nomineeDetails3.nomineeGuardianProofnumber || '').trim()) {
+      this.nomineeguaridproofval3();
     }
   }
 
@@ -1689,6 +1981,39 @@ export class AddNomineeComponent {
       /^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$/;
     const nomineproofregex3 = /^[0-9]{4}$/;
     const nomineproofregex4 = /^[A-Za-z0-9](?:[A-Za-z0-9 -]*[A-Za-z0-9])?$/;
+
+    const proofType = (this.nomineeDetails.nomineeprooftype || '').trim();
+    const proofNumber = (this.nomineeDetails.nomineeproofnumber || '').trim();
+
+    // Proof of Identity type is optional: leaving both fields blank is valid.
+    // Once a type is selected, Identity Proof no. becomes mandatory.
+    if (!proofType && !proofNumber) {
+      this.Nominee1Prooftype = false;
+      this.Nominee1ProofIdNoReq = false;
+      this.Nominee1ProofIdNo = false;
+      this.Nominee1adharmsg = false;
+      return true;
+    }
+
+    // A number can only be validated against its type, so a number typed
+    // without a type asks the user to select the type first.
+    if (!proofType) {
+      this.Nominee1ProofIdNoReq = false;
+      this.Nominee1ProofIdNo = false;
+      this.Nominee1adharmsg = false;
+      this.Nominee1Prooftype = true;
+      return false;
+    }
+
+    if (!proofNumber) {
+      this.Nominee1Prooftype = false;
+      this.Nominee1ProofIdNo = false;
+      this.Nominee1adharmsg = false;
+      this.Nominee1ProofIdNoReq = true;
+      return false;
+    }
+
+    this.Nominee1ProofIdNoReq = false;
 
     // console.log('voter id'+  typeof pattern +' test '+ typeof this.NomineeOneProofResponse[0].Regex_Validation)
 
@@ -1759,13 +2084,32 @@ export class AddNomineeComponent {
     const nomineproofregex3 = /^[0-9]{4}$/;
     const nomineproofregex4 = /^[A-Za-z0-9](?:[A-Za-z0-9 -]*[A-Za-z0-9])?$/;
 
+    const proofType = (this.nomineeDetails.nomineeGuardianProofType || '').trim();
+    const proofNumber = (this.nomineeDetails.nomineeGuardianProofnumber || '').trim();
+
+    if (!proofType && !proofNumber) {
+      this.NomineeGuar1Prooftype = false;
+      this.NomineeGuar1ProofIdNo = false;
+      this.NomineeGuar1adharmsg = false;
+      return true;
+    }
+
+    if (!proofType) {
+      this.NomineeGuar1Prooftype = true;
+      return false;
+    }
+
+    if (!proofNumber) {
+      this.NomineeGuar1Prooftype = false;
+      this.NomineeGuar1ProofIdNo = false;
+      this.NomineeGuar1adharmsg = false;
+      return true;
+    }
+
     // console.log('voter id'+  typeof pattern +' test '+ typeof this.NomineeOneProofResponse[0].Regex_Validation)
 
-    if (this.nomineeDetails.nomineeGuardianProofType) {
-      this.NomineeGuar1Prooftype = false;
-    } else {
-      this.NomineeGuar1Prooftype = true;
-    }
+    // Guardian proof of identity is optional; not selecting one is valid.
+    this.NomineeGuar1Prooftype = false;
 
     if (this.nomineeDetails.nomineeGuardianProofType == 'Pan') {
       this.NomineeGuar1adharmsg = false;
@@ -1833,6 +2177,39 @@ export class AddNomineeComponent {
       /^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$/;
     const nomineproofregex3 = /^[0-9]{4}$/;
     const nomineproofregex4 = /^[A-Za-z0-9](?:[A-Za-z0-9 -]*[A-Za-z0-9])?$/;
+
+    const proofType = (this.nomineeDetails2.nomineeprooftype || '').trim();
+    const proofNumber = (this.nomineeDetails2.nomineeproofnumber || '').trim();
+
+    // Proof of Identity type is optional: leaving both fields blank is valid.
+    // Once a type is selected, Identity Proof no. becomes mandatory.
+    if (!proofType && !proofNumber) {
+      this.Nominee2Prooftype = false;
+      this.Nominee2ProofIdNoReq = false;
+      this.Nominee2ProofIdNo = false;
+      this.Nominee2adharmsg = false;
+      return true;
+    }
+
+    // A number can only be validated against its type, so a number typed
+    // without a type asks the user to select the type first.
+    if (!proofType) {
+      this.Nominee2ProofIdNoReq = false;
+      this.Nominee2ProofIdNo = false;
+      this.Nominee2adharmsg = false;
+      this.Nominee2Prooftype = true;
+      return false;
+    }
+
+    if (!proofNumber) {
+      this.Nominee2Prooftype = false;
+      this.Nominee2ProofIdNo = false;
+      this.Nominee2adharmsg = false;
+      this.Nominee2ProofIdNoReq = true;
+      return false;
+    }
+
+    this.Nominee2ProofIdNoReq = false;
 
     // console.log('voter id'+  typeof pattern +' test '+ typeof this.NomineeOneProofResponse[0].Regex_Validation)
 
@@ -1902,13 +2279,33 @@ export class AddNomineeComponent {
     const nomineproofregex3 = /^[0-9]{4}$/;
     const nomineproofregex4 = /^[A-Za-z0-9](?:[A-Za-z0-9 -]*[A-Za-z0-9])?$/;
 
+    const proofType = (this.nomineeDetails2.nomineeGuardianProofType || '').trim();
+    const proofNumber = (this.nomineeDetails2.nomineeGuardianProofnumber || '').trim();
+
+    if (!proofType && !proofNumber) {
+      this.NomineeGuar2Prooftype = false;
+      this.NomineeGuar2ProofIdNo = false;
+      this.NomineeGuar2adharmsg = false;
+      return true;
+    }
+
+    if (!proofType) {
+      this.NomineeGuar2Prooftype = true;
+      return false;
+    }
+
+    // Type chosen but no number yet: still optional, so this passes.
+    if (!proofNumber) {
+      this.NomineeGuar2Prooftype = false;
+      this.NomineeGuar2ProofIdNo = false;
+      this.NomineeGuar2adharmsg = false;
+      return true;
+    }
+
     // console.log('voter id'+  typeof pattern +' test '+ typeof this.NomineeOneProofResponse[0].Regex_Validation)
 
-    if (this.nomineeDetails2.nomineeGuardianProofType) {
-      this.NomineeGuar2Prooftype = false;
-    } else {
-      this.NomineeGuar2Prooftype = true;
-    }
+    // Guardian proof of identity is optional; not selecting one is valid.
+    this.NomineeGuar2Prooftype = false;
 
     if (this.nomineeDetails2.nomineeGuardianProofType == 'Pan') {
       this.NomineeGuar2adharmsg = false;
@@ -1976,7 +2373,36 @@ export class AddNomineeComponent {
     const nomineproofregex3 = /^[0-9]{4}$/;
     const nomineproofregex4 = /^[A-Za-z0-9](?:[A-Za-z0-9 -]*[A-Za-z0-9])?$/;
 
-    // console.log('voter id'+  typeof pattern +' test '+ typeof this.NomineeOneProofResponse[0].Regex_Validation)
+    const proofType = (this.nomineeDetails3.nomineeprooftype || '').trim();
+    const proofNumber = (this.nomineeDetails3.nomineeproofnumber || '').trim();
+
+    // Proof of Identity type is optional: leaving both fields blank is valid.
+    // Once a type is selected, Identity Proof no. becomes mandatory.
+    if (!proofType && !proofNumber) {
+      this.Nominee3Prooftype = false;
+      this.Nominee3ProofIdNoReq = false;
+      this.Nominee3ProofIdNo = false;
+      this.Nominee3adharmsg = false;
+      return true;
+    }
+
+    if (!proofType) {
+      this.Nominee3ProofIdNoReq = false;
+      this.Nominee3ProofIdNo = false;
+      this.Nominee3adharmsg = false;
+      this.Nominee3Prooftype = true;
+      return false;
+    }
+
+    if (!proofNumber) {
+      this.Nominee3Prooftype = false;
+      this.Nominee3ProofIdNo = false;
+      this.Nominee3adharmsg = false;
+      this.Nominee3ProofIdNoReq = true;
+      return false;
+    }
+
+    this.Nominee3ProofIdNoReq = false;
 
     if (this.nomineeDetails3.nomineeprooftype) {
       this.Nominee3Prooftype = false;
@@ -2042,13 +2468,33 @@ export class AddNomineeComponent {
     const nomineproofregex3 = /^[0-9]{4}$/;
     const nomineproofregex4 = /^[A-Za-z0-9](?:[A-Za-z0-9 -]*[A-Za-z0-9])?$/;
 
+    const proofType = (this.nomineeDetails3.nomineeGuardianProofType || '').trim();
+    const proofNumber = (this.nomineeDetails3.nomineeGuardianProofnumber || '').trim();
+
+    if (!proofType && !proofNumber) {
+      this.NomineeGuar3Prooftype = false;
+      this.NomineeGuar3ProofIdNo = false;
+      this.NomineeGuar3adharmsg = false;
+      return true;
+    }
+
+    if (!proofType) {
+      this.NomineeGuar3Prooftype = true;
+      return false;
+    }
+
+    // Type chosen but no number yet: still optional, so this passes.
+    if (!proofNumber) {
+      this.NomineeGuar3Prooftype = false;
+      this.NomineeGuar3ProofIdNo = false;
+      this.NomineeGuar3adharmsg = false;
+      return true;
+    }
+
     // console.log('voter id'+  typeof pattern +' test '+ typeof this.NomineeOneProofResponse[0].Regex_Validation)
 
-    if (this.nomineeDetails3.nomineeGuardianProofType) {
-      this.NomineeGuar3Prooftype = false;
-    } else {
-      this.NomineeGuar3Prooftype = true;
-    }
+    // Guardian proof of identity is optional; not selecting one is valid.
+    this.NomineeGuar3Prooftype = false;
 
     if (this.nomineeDetails3.nomineeGuardianProofType == 'Pan') {
       this.NomineeGuar3adharmsg = false;
@@ -2110,6 +2556,360 @@ export class AddNomineeComponent {
   }
   //  Nominee new regulatory changes added by Nitesh S on 28022025 End
 
+  /** Matches the master-list "Others" entry, whatever its casing. */
+  private isOthersOption(value: any): boolean {
+    const relation = String(value ?? '')
+      .trim()
+      .toLowerCase();
+    return relation === 'others' || relation === 'other';
+  }
+
+  private othersOptionLabel(options: any[]): string {
+    const found = (options || []).find((option: any) =>
+      this.isOthersOption(option?.relation)
+    );
+    return found ? String(found.relation) : 'Others';
+  }
+
+  onRelationChange(nominee: number): void {
+    if (nominee === 1) {
+      const isOthers = this.isOthersOption(this.nomineeDetails.nom_relation);
+      this.nominee1ShowOtherRelation = isOthers;
+      if (!isOthers) {
+        this.nominee1OtherRelation = '';
+        this.nomineeDetails.NomineeOtherRelation = '';
+      }
+      this.Nominee1OtherRelationError = false;
+    } else if (nominee === 2) {
+      const isOthers = this.isOthersOption(this.nomineeDetails2.nom_relation);
+      this.nominee2ShowOtherRelation = isOthers;
+      if (!isOthers) {
+        this.nominee2OtherRelation = '';
+        this.nomineeDetails2.NomineeOtherRelation = '';
+      }
+      this.Nominee2OtherRelationError = false;
+    } else {
+      const isOthers = this.isOthersOption(this.nomineeDetails3.nom_relation);
+      this.nominee3ShowOtherRelation = isOthers;
+      if (!isOthers) {
+        this.nominee3OtherRelation = '';
+        this.nomineeDetails3.NomineeOtherRelation = '';
+      }
+      this.Nominee3OtherRelationError = false;
+    }
+  }
+
+  /**
+   * Keeps the typed "Other" relationship text in sync with the nominee's own
+   * model so it is included in the /nomineesave payload as-is, and clears
+   * the inline error once the person starts typing.
+   */
+  onOtherRelationInput(nominee: number): void {
+    if (nominee === 1) {
+      this.nomineeDetails.NomineeOtherRelation = this.nominee1OtherRelation;
+      this.Nominee1OtherRelationError = false;
+    } else if (nominee === 2) {
+      this.nomineeDetails2.NomineeOtherRelation = this.nominee2OtherRelation;
+      this.Nominee2OtherRelationError = false;
+    } else {
+      this.nomineeDetails3.NomineeOtherRelation = this.nominee3OtherRelation;
+      this.Nominee3OtherRelationError = false;
+    }
+  }
+
+  private restoreOtherRelationState(): void {
+    const restore = (
+      model: any,
+      options: any[]
+    ): { show: boolean; text: string } => {
+      if (!model) {
+        return { show: false, text: '' };
+      }
+
+      const value = String(model?.nom_relation ?? '').trim();
+      const savedOther = String(model?.NomineeOtherRelation ?? '').trim();
+
+      if (value && options && options.length > 0) {
+        const known = options.some(
+          (option: any) =>
+            String(option?.relation ?? '')
+              .trim()
+              .toLowerCase() === value.toLowerCase()
+        );
+        if (!known) {
+          model.nom_relation = this.othersOptionLabel(options);
+        }
+      }
+
+      const isOthers = this.isOthersOption(model.nom_relation);
+      if (!isOthers) {
+        model.NomineeOtherRelation = '';
+        return { show: false, text: '' };
+      }
+
+      model.NomineeOtherRelation = savedOther;
+      return { show: true, text: savedOther };
+    };
+
+    const state1 = restore(this.nomineeDetails, this.NomineeOneResponse);
+    const state2 = restore(this.nomineeDetails2, this.NomineeTwoResponse);
+    const state3 = restore(this.nomineeDetails3, this.NomineeThreeResponse);
+
+    this.nominee1ShowOtherRelation = state1.show;
+    this.nominee2ShowOtherRelation = state2.show;
+    this.nominee3ShowOtherRelation = state3.show;
+    this.nominee1OtherRelation = state1.text;
+    this.nominee2OtherRelation = state2.text;
+    this.nominee3OtherRelation = state3.text;
+    this.Nominee1OtherRelationError = false;
+    this.Nominee2OtherRelationError = false;
+    this.Nominee3OtherRelationError = false;
+  }
+
+  private hasGuardianName(model: any): boolean {
+    return (
+      String(model?.nomineeGuardianFirstName ?? '').trim() !== '' ||
+      String(model?.nomineeGuardianLastName ?? '').trim() !== ''
+    );
+  }
+
+  get isGuardian1Required(): boolean {
+    return this.nomineeOneGuardian && this.hasGuardianName(this.nomineeDetails);
+  }
+
+  get isGuardian2Required(): boolean {
+    return this.nomineeTwoGuardian && this.hasGuardianName(this.nomineeDetails2);
+  }
+
+  get isGuardian3Required(): boolean {
+    return (
+      this.nomineeThreeGuardian && this.hasGuardianName(this.nomineeDetails3)
+    );
+  }
+
+  markGuardianFieldTouched(nominee: number, field: 'first' | 'last'): void {
+    if (nominee === 1) {
+      if (field === 'first') {
+        this.guardian1FirstTouched = true;
+      } else {
+        this.guardian1LastTouched = true;
+      }
+    } else if (nominee === 2) {
+      if (field === 'first') {
+        this.guardian2FirstTouched = true;
+      } else {
+        this.guardian2LastTouched = true;
+      }
+    } else {
+      if (field === 'first') {
+        this.guardian3FirstTouched = true;
+      } else {
+        this.guardian3LastTouched = true;
+      }
+    }
+    this.syncGuardianRequirement(nominee);
+  }
+
+  private markGuardianSubmitAttempted(nominee: number): void {
+    if (nominee === 1) {
+      this.guardian1SubmitAttempted = true;
+    } else if (nominee === 2) {
+      this.guardian2SubmitAttempted = true;
+    } else {
+      this.guardian3SubmitAttempted = true;
+    }
+    this.syncGuardianRequirement(nominee);
+  }
+
+  private resetGuardianTouched(nominee: number): void {
+    if (nominee === 1) {
+      this.guardian1FirstTouched = false;
+      this.guardian1LastTouched = false;
+      this.guardian1SubmitAttempted = false;
+    } else if (nominee === 2) {
+      this.guardian2FirstTouched = false;
+      this.guardian2LastTouched = false;
+      this.guardian2SubmitAttempted = false;
+    } else {
+      this.guardian3FirstTouched = false;
+      this.guardian3LastTouched = false;
+      this.guardian3SubmitAttempted = false;
+    }
+  }
+
+  private isGuardianFieldReportable(
+    nominee: number,
+    field: 'first' | 'last'
+  ): boolean {
+    if (this.isGuardianFieldTouched(nominee, field)) {
+      return true;
+    }
+    if (nominee === 1) {
+      return this.guardian1SubmitAttempted;
+    }
+    if (nominee === 2) {
+      return this.guardian2SubmitAttempted;
+    }
+    return this.guardian3SubmitAttempted;
+  }
+
+  private isGuardianFieldTouched(
+    nominee: number,
+    field: 'first' | 'last'
+  ): boolean {
+    if (nominee === 1) {
+      return field === 'first'
+        ? this.guardian1FirstTouched
+        : this.guardian1LastTouched;
+    }
+    if (nominee === 2) {
+      return field === 'first'
+        ? this.guardian2FirstTouched
+        : this.guardian2LastTouched;
+    }
+    return field === 'first'
+      ? this.guardian3FirstTouched
+      : this.guardian3LastTouched;
+  }
+
+  private syncGuardianRequirement(nominee: number): void {
+    const model =
+      nominee === 1
+        ? this.nomineeDetails
+        : nominee === 2
+          ? this.nomineeDetails2
+          : this.nomineeDetails3;
+    const started = this.hasGuardianName(model);
+    const firstName = String(model?.nomineeGuardianFirstName ?? '').trim();
+    const lastName = String(model?.nomineeGuardianLastName ?? '').trim();
+
+    if (nominee === 1) {
+      this.Nominee1FGuardianSpace =
+        started &&
+        firstName.length === 0 &&
+        this.isGuardianFieldReportable(1, 'first');
+      this.Nominee1LGuardianSpace =
+        started &&
+        lastName.length === 0 &&
+        this.isGuardianFieldReportable(1, 'last');
+      this.Nominee1FGuardianName =
+        this.Nominee1FGuardianSpace ||
+        this.Nominee1FGuardianSpecial ||
+        this.Nominee1FGuardianDigit;
+      this.Nominee1LGuardianName =
+        this.Nominee1LGuardianSpace ||
+        this.Nominee1LGuardianSpecial ||
+        this.Nominee1LGuardianDigit;
+      if (!started) {
+        this.Nominee1GuardianRelation = false;
+        this.Guardian1OtherRelationError = false;
+        this.resetGuardianTouched(1);
+      }
+    } else if (nominee === 2) {
+      this.Nominee2FGuardianSpace =
+        started &&
+        firstName.length === 0 &&
+        this.isGuardianFieldReportable(2, 'first');
+      this.Nominee2LGuardianSpace =
+        started &&
+        lastName.length === 0 &&
+        this.isGuardianFieldReportable(2, 'last');
+      this.Nominee2FGuardianName =
+        this.Nominee2FGuardianSpace ||
+        this.Nominee2FGuardianSpecial ||
+        this.Nominee2FGuardianDigit;
+      this.Nominee2LGuardianName =
+        this.Nominee2LGuardianSpace ||
+        this.Nominee2LGuardianSpecial ||
+        this.Nominee2LGuardianDigit;
+      if (!started) {
+        this.Nominee2GuardianRelation = false;
+        this.Guardian2OtherRelationError = false;
+        this.resetGuardianTouched(2);
+      }
+    } else {
+      this.Nominee3FGuardianSpace =
+        started &&
+        firstName.length === 0 &&
+        this.isGuardianFieldReportable(3, 'first');
+      this.Nominee3LGuardianSpace =
+        started &&
+        lastName.length === 0 &&
+        this.isGuardianFieldReportable(3, 'last');
+      this.Nominee3FGuardianName =
+        this.Nominee3FGuardianSpace ||
+        this.Nominee3FGuardianSpecial ||
+        this.Nominee3FGuardianDigit;
+      this.Nominee3LGuardianName =
+        this.Nominee3LGuardianSpace ||
+        this.Nominee3LGuardianSpecial ||
+        this.Nominee3LGuardianDigit;
+      if (!started) {
+        this.Nominee3GuardianRelation = false;
+        this.Guardian3OtherRelationError = false;
+        this.resetGuardianTouched(3);
+      }
+    }
+  }
+
+  private othersGuardianOptionLabel(options: any[]): string {
+    const found = (options || []).find((option: any) =>
+      this.isOthersOption(option?.nom_guard_rel_master)
+    );
+    return found ? String(found.nom_guard_rel_master) : 'Others';
+  }
+
+  private clearGuardianOtherRelation(nominee: number): void {
+    if (nominee === 1) {
+      this.guardian1ShowOtherRelation = false;
+      this.guardian1OtherRelation = '';
+      this.Guardian1OtherRelationError = false;
+    } else if (nominee === 2) {
+      this.guardian2ShowOtherRelation = false;
+      this.guardian2OtherRelation = '';
+      this.Guardian2OtherRelationError = false;
+    } else {
+      this.guardian3ShowOtherRelation = false;
+      this.guardian3OtherRelation = '';
+      this.Guardian3OtherRelationError = false;
+    }
+  }
+
+  onGuardianRelationChange(nominee: number): void {
+    this.clearGuardianOtherRelation(nominee);
+  }
+
+  private restoreGuardianOtherRelationState(): void {
+    this.clearGuardianOtherRelation(1);
+    this.clearGuardianOtherRelation(2);
+    this.clearGuardianOtherRelation(3);
+
+    const options = this.guardianListResponse;
+    if (!options || options.length === 0) {
+      return;
+    }
+
+    const restore = (model: any): void => {
+      const value = String(model?.nom_guard_relation ?? '').trim();
+      if (!value) {
+        return;
+      }
+      const known = options.some(
+        (option: any) =>
+          String(option?.nom_guard_rel_master ?? '')
+            .trim()
+            .toLowerCase() === value.toLowerCase()
+      );
+      if (!known) {
+        model.nom_guard_relation = this.othersGuardianOptionLabel(options);
+      }
+    };
+
+    restore(this.nomineeDetails);
+    restore(this.nomineeDetails2);
+    restore(this.nomineeDetails3);
+  }
+
   Nominee1RelationValidation(event: any): void {
     const nom1Relation = event.target.value;
     if (nom1Relation == '') {
@@ -2137,104 +2937,147 @@ export class AddNomineeComponent {
     }
   }
 
-  enteredAllocation(event: any, flag: string) {
-    let inputValue = event.target.value;
-
+  private sanitiseAllocation(raw: any): string {
     const emojiRegex = /[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu;
-    inputValue = inputValue.replace(emojiRegex, '');
-    const pattern = /^[0-9]*$/;
+    let value = String(raw ?? '').replace(emojiRegex, '');
 
-    if (!pattern.test(inputValue)) {
-      inputValue = inputValue.replace(/[^0-9]/g, '');
-    }
-    event.target.value = inputValue;
-    const nom1Allocation = inputValue;
-    const percent1 = parseInt(this.nomineeDetails.nomineeAllocationRange);
+    value = value.replace(/[^0-9.]/g, '').split('.')[0];
+    value = value.replace(/^0+(?=\d)/, '').slice(0, 3);
 
-    if (percent1 > 100) {
-      inputValue = '';
-
-      this.nomineeDetails.nomineeAllocationRange = inputValue;
+    if (value !== '' && parseInt(value, 10) > 100) {
+      value = '';
     }
 
-    if (flag === 'fout') {
-      if (nom1Allocation === '') {
-        this.Nominee1Allocation = true;
-      } else {
-        this.Nominee1Allocation = false;
-      }
-    } else {
-      this.Nominee1Allocation = false;
+    return value;
+  }
+
+  /**
+   * Parses an Allocation % into hundredths.
+   *   ''      -> null   (blank)
+   *   'abc'   -> NaN    (not a valid percentage)
+   *   '33.34' -> 3334
+   */
+  private allocationCents(value: any): number | null {
+    const raw = String(value ?? '').trim();
+    if (raw === '') {
+      return null;
+    }
+    if (!/^(100|\d{1,2})$/.test(raw)) {
+      return NaN;
+    }
+    return parseInt(raw, 10) * 100;
+  }
+
+  /**
+   * 5000 -> '50', 3333 -> '33.33'
+   * Unused since the equal split was removed; retained for the same reason.
+   */
+  private formatAllocation(cents: number): string {
+    const value = cents / 100;
+    return Number.isInteger(value) ? String(value) : value.toFixed(2);
+  }
+
+  private validateMultiNomineeAllocation(count: number): boolean {
+    // A sole nominee's field is disabled, so it can only be set here.
+    if (count <= 1) {
+      this.nomineeDetails.nomineeAllocationRange = '100';
+      return true;
     }
 
-    if (percent1 > 100) {
-      this.Nominee1AllocationPer = true;
-    } else if (isNaN(percent1)) {
-      this.Nominee1AllocationPer = false;
-    } else {
-      this.Nominee1AllocationPer = false;
+    const visible = Math.min(count, 3);
+    const models = [
+      this.nomineeDetails,
+      this.nomineeDetails2,
+      this.nomineeDetails3,
+    ].slice(0, visible);
+
+    const title =
+      'Nominee ' +
+      Array.from({ length: visible }, (_, index) => index + 1).join(',');
+
+    const raw = models.map((model) =>
+      String(model?.nomineeAllocationRange ?? '').trim()
+    );
+    const blanks = raw.filter((value) => value === '').length;
+
+    if (blanks > 0 && blanks < visible) {
+      this.MoengageService.trackEvent('Nominee Submission Error', {
+        product_id: window.sessionStorage.getItem('FormNumber') ?? '',
+        Noof_NomineeAdded: count,
+        ErrorMsg:
+          'Either enter allocation for all nominees or leave all allocations blank',
+        product_name: 'Onboarding DIY',
+        category: 'Nominee',
+      });
+
+      this.toastr.warning(
+        'Either enter allocation for all nominees or leave all allocations blank',
+        title,
+        {
+          positionClass: 'toast-bottom-center',
+          timeOut: 5000,
+        }
+      );
+      return false;
     }
+
+    if (blanks === visible) {
+      return true;
+    }
+
+    const totalCents = models.reduce((sum, model) => {
+      const cents = this.allocationCents(model?.nomineeAllocationRange);
+      return sum + (cents === null || isNaN(cents) ? 0 : cents);
+    }, 0);
+
+    if (totalCents !== 10000) {
+      this.MoengageService.trackEvent('Nominee Submission Error', {
+        product_id: window.sessionStorage.getItem('FormNumber') ?? '',
+        Noof_NomineeAdded: count,
+        ErrorMsg:
+          'Oops! Total percentage of share cannot be more or less than 100%. Please check the share of nominee and continue or optout from nomination',
+        product_name: 'Onboarding DIY',
+        category: 'Nominee',
+      });
+
+      this.toastr.warning(
+        'Oops! Total percentage of share cannot be more or less than 100%. Please check the share of nominee and continue or optout from nomination',
+        title,
+        {
+          positionClass: 'toast-bottom-center',
+          timeOut: 5000,
+        }
+      );
+      return false;
+    }
+
+    return true;
+  }
+
+  enteredAllocation(event: any, flag: string) {
+    const value = this.sanitiseAllocation(event.target.value);
+    event.target.value = value;
+    this.nomineeDetails.nomineeAllocationRange = value;
+    this.Nominee1Allocation = false;
+    this.Nominee1AllocationPer = false;
   }
 
   enteredAllocation2(event: any, flag: string) {
-    let inputValue = event.target.value;
+    const value = this.sanitiseAllocation(event.target.value);
+    event.target.value = value;
+    this.nomineeDetails2.nomineeAllocationRange = value;
 
-    const emojiRegex = /[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu;
-    inputValue = inputValue.replace(emojiRegex, '');
-    const pattern = /^[0-9]*$/;
-
-    if (!pattern.test(inputValue)) {
-      inputValue = inputValue.replace(/[^0-9]/g, '');
-    }
-    event.target.value = inputValue;
-    const nom1Allocation = inputValue;
-    const percent1 = parseInt(this.nomineeDetails2.nomineeAllocationRange);
-
-    if (flag === 'fout') {
-      if (nom1Allocation === '') {
-        this.Nominee2Allocation = true;
-      } else {
-        this.Nominee2Allocation = false;
-      }
-    } else {
-      this.Nominee2Allocation = false;
-    }
-
-    // if (percent1 > 100) {
-    //   this.Nominee1AllocationPer = true;
-    // } else {
-    //   this.Nominee1AllocationPer = false;
-    // }
+    this.Nominee2Allocation = false;
+    this.Nominee2AllocationPer = false;
   }
 
   enteredAllocation3(event: any, flag: string) {
-    let inputValue = event.target.value;
+    const value = this.sanitiseAllocation(event.target.value);
+    event.target.value = value;
+    this.nomineeDetails3.nomineeAllocationRange = value;
 
-    const emojiRegex = /[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu;
-    inputValue = inputValue.replace(emojiRegex, '');
-    const pattern = /^[0-9]*$/;
-
-    if (!pattern.test(inputValue)) {
-      inputValue = inputValue.replace(/[^0-9]/g, '');
-    }
-    event.target.value = inputValue;
-    const nom1Allocation = inputValue;
-    const percent1 = parseInt(this.nomineeDetails3.nomineeAllocationRange);
-
-    if (flag === 'fout') {
-      if (nom1Allocation === '') {
-        this.Nominee3Allocation = true;
-      } else {
-        this.Nominee3Allocation = false;
-      }
-    } else {
-      this.Nominee3Allocation = false;
-    }
-    // if (percent1 > 100) {
-    //   this.Nominee1AllocationPer = true;
-    // } else {
-    //   this.Nominee1AllocationPer = false;
-    // }
+    this.Nominee3Allocation = false;
+    this.Nominee3AllocationPer = false;
   }
 
   // Nominee1AddLine1Validation(): void {
@@ -2348,6 +3191,7 @@ export class AddNomineeComponent {
       );
     }
   }
+
   NomineeGuardianAddressValidation(): void {
     const emojiRegex = /[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu;
     const specialCharRegex = /[!@#$%^&*()\-+={}[\]:;"'<>,.?\/|\\]/;
@@ -2782,7 +3626,8 @@ export class AddNomineeComponent {
       }
       this.Nominee1GuardianCity = false;
     } else {
-      this.Nominee1GuardianCity = true;
+      // Optional: blank is valid; only invalid characters are an error.
+      this.Nominee1GuardianCity = trimmedValue.length > 0;
     }
   }
   checkCityInput1(event: any): void {
@@ -2861,7 +3706,8 @@ export class AddNomineeComponent {
       }
       this.Nominee2GuardianCity = false;
     } else {
-      this.Nominee2GuardianCity = true;
+      // Optional: blank is valid; only invalid characters are an error.
+      this.Nominee2GuardianCity = trimmedValue.length > 0;
     }
   }
 
@@ -2942,7 +3788,8 @@ export class AddNomineeComponent {
       }
       this.Nominee3GuardianCity = false;
     } else {
-      this.Nominee3GuardianCity = true;
+      // Optional: blank is valid; only invalid characters are an error.
+      this.Nominee3GuardianCity = trimmedValue.length > 0;
     }
   }
 
@@ -2977,11 +3824,7 @@ export class AddNomineeComponent {
 
     this.Nominee1FGuardianSpecial = specialCharRegex.test(guardianFirstName);
     this.Nominee1FGuardianDigit = /\d/.test(guardianFirstName);
-    this.Nominee1FGuardianSpace = guardianFirstName.length === 0;
-    this.Nominee1FGuardianName =
-      this.Nominee1FGuardianSpace ||
-      this.Nominee1FGuardianSpecial ||
-      this.Nominee1FGuardianDigit;
+    this.markGuardianFieldTouched(1, 'first');
   }
 
   Nominee1LastGuardianValidation(): void {
@@ -2992,19 +3835,17 @@ export class AddNomineeComponent {
 
     this.Nominee1LGuardianSpecial = specialCharRegex.test(guardianLastName);
     this.Nominee1LGuardianDigit = /\d/.test(guardianLastName);
-    this.Nominee1LGuardianSpace = guardianLastName.length === 0;
-    this.Nominee1LGuardianName =
-      this.Nominee1LGuardianSpace ||
-      this.Nominee1LGuardianSpecial ||
-      this.Nominee1LGuardianDigit;
+    this.markGuardianFieldTouched(1, 'last');
   }
 
   Nominee1RelationGuardianValidation(event: any): void {
     const nom1GuardianRelation = event.target.value.trim();
     const emojiRegex = /[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu;
     this.Nominee1GuardianRelation =
-      nom1GuardianRelation.length === 0 ||
+      (nom1GuardianRelation.length === 0 &&
+        this.hasGuardianName(this.nomineeDetails)) ||
       emojiRegex.test(nom1GuardianRelation);
+    this.onGuardianRelationChange(1);
   }
 
   Nominee2GuardianValidation(): void {
@@ -3015,11 +3856,7 @@ export class AddNomineeComponent {
 
     this.Nominee2FGuardianSpecial = specialCharRegex.test(guardianFirstName);
     this.Nominee2FGuardianDigit = /\d/.test(guardianFirstName);
-    this.Nominee2FGuardianSpace = guardianFirstName.length === 0;
-    this.Nominee2FGuardianName =
-      this.Nominee2FGuardianSpace ||
-      this.Nominee2FGuardianSpecial ||
-      this.Nominee2FGuardianDigit;
+    this.markGuardianFieldTouched(2, 'first');
   }
 
   Nominee2LastGuardianValidation(): void {
@@ -3030,11 +3867,7 @@ export class AddNomineeComponent {
 
     this.Nominee2LGuardianSpecial = specialCharRegex.test(guardianLastName);
     this.Nominee2LGuardianDigit = /\d/.test(guardianLastName);
-    this.Nominee2LGuardianSpace = guardianLastName.length === 0;
-    this.Nominee2LGuardianName =
-      this.Nominee2LGuardianSpace ||
-      this.Nominee2LGuardianSpecial ||
-      this.Nominee2LGuardianDigit;
+    this.markGuardianFieldTouched(2, 'last');
   }
 
   Nominee2RelationGuardianValidation(event: any): void {
@@ -3042,8 +3875,10 @@ export class AddNomineeComponent {
     const emojiRegex = /[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu;
 
     this.Nominee2GuardianRelation =
-      nom1GuardianRelation.length === 0 ||
+      (nom1GuardianRelation.length === 0 &&
+        this.hasGuardianName(this.nomineeDetails2)) ||
       emojiRegex.test(nom1GuardianRelation);
+    this.onGuardianRelationChange(2);
   }
 
   Nominee3GuardianValidation(): void {
@@ -3054,11 +3889,7 @@ export class AddNomineeComponent {
 
     this.Nominee3FGuardianSpecial = specialCharRegex.test(guardianFirstName);
     this.Nominee3FGuardianDigit = /\d/.test(guardianFirstName);
-    this.Nominee3FGuardianSpace = guardianFirstName.length === 0;
-    this.Nominee3FGuardianName =
-      this.Nominee3FGuardianSpace ||
-      this.Nominee3FGuardianSpecial ||
-      this.Nominee3FGuardianDigit;
+    this.markGuardianFieldTouched(3, 'first');
   }
 
   Nominee3LastGuardianValidation(): void {
@@ -3070,11 +3901,7 @@ export class AddNomineeComponent {
 
     this.Nominee3LGuardianSpecial = specialCharRegex.test(guardianLastName);
     this.Nominee3LGuardianDigit = /\d/.test(guardianLastName);
-    this.Nominee3LGuardianSpace = guardianLastName.length === 0;
-    this.Nominee3LGuardianName =
-      this.Nominee3LGuardianSpace ||
-      this.Nominee3LGuardianSpecial ||
-      this.Nominee3LGuardianDigit;
+    this.markGuardianFieldTouched(3, 'last');
   }
 
   Nominee3RelationGuardianValidation(event: any): void {
@@ -3082,8 +3909,10 @@ export class AddNomineeComponent {
     const emojiRegex = /[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu;
 
     this.Nominee3GuardianRelation =
-      nom1GuardianRelation.length === 0 ||
+      (nom1GuardianRelation.length === 0 &&
+        this.hasGuardianName(this.nomineeDetails3)) ||
       emojiRegex.test(nom1GuardianRelation);
+    this.onGuardianRelationChange(3);
   }
 
   Nominee1DOBGuardianValidation(event: any): void {
@@ -3632,8 +4461,15 @@ export class AddNomineeComponent {
       return;
     }
   }
+
+  private isDobMissing(dob: any): boolean {
+    if (dob instanceof Date) {
+      return isNaN(dob.getTime());
+    }
+    return dob === null || dob === undefined || String(dob).trim() === '';
+  }
+
   IsNomineeMinor() {
-    debugger;
     this.Nominee1DOBisMinor = this.nomineeDetails.nomineeisMinorCheck;
     this.Nominee2DOBisMinor = this.nomineeDetails2.nomineeisMinorCheck;
     this.Nominee3DOBisMinor = this.nomineeDetails3.nomineeisMinorCheck;
@@ -3641,7 +4477,7 @@ export class AddNomineeComponent {
     //Nomine 1 Minor Check
     if (
       this.nomineeDetails.nomineeisMinorCheck &&
-      this.nomineeDetails.nomineeOnedob == ''
+      this.isDobMissing(this.nomineeDetails.nomineeOnedob)
     ) {
       this.toastr.warning('Please Enter the Date of Birth', 'Nominee 1', {
         positionClass: 'toast-bottom-center',
@@ -3658,13 +4494,14 @@ export class AddNomineeComponent {
       this.nomineeDetails.nomineeGuardianLastName = '';
       // this.nomineeDetails.nomineeGuardiandob = '';
       this.nomineeDetails.nom_guard_relation = '';
+      this.clearGuardianOtherRelation(1);
       this.nomineeOneGuardian = false;
     }
 
     //Nomine 2 Minor Check
     if (
       this.nomineeDetails2.nomineeisMinorCheck &&
-      this.nomineeDetails2.nomineeOnedob == ''
+      this.isDobMissing(this.nomineeDetails2.nomineeOnedob)
     ) {
       this.toastr.warning('Please Enter the Date of Birth', 'Nominee 2', {
         positionClass: 'toast-bottom-center',
@@ -3681,13 +4518,14 @@ export class AddNomineeComponent {
       this.nomineeDetails2.nomineeGuardianLastName = '';
       // this.nomineeDetails2.nomineeGuardiandob = '';
       this.nomineeDetails2.nom_guard_relation = '';
+      this.clearGuardianOtherRelation(2);
       this.nomineeTwoGuardian = false;
     }
 
     //Nomine 3 Minor Check
     if (
       this.nomineeDetails3.nomineeisMinorCheck &&
-      this.nomineeDetails3.nomineeOnedob == ''
+      this.isDobMissing(this.nomineeDetails3.nomineeOnedob)
     ) {
       this.toastr.warning('Please Enter the Date of Birth', 'Nominee 3', {
         positionClass: 'toast-bottom-center',
@@ -3704,6 +4542,7 @@ export class AddNomineeComponent {
       this.nomineeDetails3.nomineeGuardianLastName = '';
       // this.nomineeDetails3.nomineeGuardiandob = '';
       this.nomineeDetails3.nom_guard_relation = '';
+      this.clearGuardianOtherRelation(3);
       this.nomineeThreeGuardian = false;
     }
 
@@ -3720,7 +4559,9 @@ export class AddNomineeComponent {
       this.nomineeDetails.nomineeGuardianLastName = '';
       this.nomineeDetails.nomineeGuardiandob = '';
       this.nomineeDetails.nom_guard_relation = '';
-      this.nomineeDetails.nomineeGuardianApplicantCheck = true;
+      this.clearGuardianOtherRelation(1);
+      // Always false: the guardian address section is no longer collapsible.
+      this.nomineeDetails.nomineeGuardianApplicantCheck = false;
     } else {
       // console.log(this.Nominee1DOBisMinor)
 
@@ -3730,6 +4571,7 @@ export class AddNomineeComponent {
       this.nomineeDetails.nomineeGuardianLastName = '';
       this.nomineeDetails.nomineeGuardiandob = '';
       this.nomineeDetails.nom_guard_relation = '';
+      this.clearGuardianOtherRelation(1);
       this.nomineeDetails.nomineeGuardianApplicantCheck = false;
     }
   }
@@ -3742,7 +4584,9 @@ export class AddNomineeComponent {
       this.nomineeDetails2.nomineeGuardianLastName = '';
       this.nomineeDetails2.nomineeGuardiandob = '';
       this.nomineeDetails2.nom_guard_relation = '';
-      this.nomineeDetails2.nomineeGuardianApplicantCheck = true;
+      this.clearGuardianOtherRelation(2);
+      // Always false: the guardian address section is no longer collapsible.
+      this.nomineeDetails2.nomineeGuardianApplicantCheck = false;
     } else {
       this.nomineeTwoGuardian = false;
       this.nomineeDetails2.nomineeOnedob = '';
@@ -3750,6 +4594,7 @@ export class AddNomineeComponent {
       this.nomineeDetails2.nomineeGuardianLastName = '';
       this.nomineeDetails2.nomineeGuardiandob = '';
       this.nomineeDetails2.nom_guard_relation = '';
+      this.clearGuardianOtherRelation(2);
       this.nomineeDetails2.nomineeGuardianApplicantCheck = false;
     }
   }
@@ -3762,7 +4607,9 @@ export class AddNomineeComponent {
       this.nomineeDetails3.nomineeGuardianLastName = '';
       this.nomineeDetails3.nomineeGuardiandob = '';
       this.nomineeDetails3.nom_guard_relation = '';
-      // this.nomineeDetails3.nomineeGuardianApplicantCheck = true;
+      this.clearGuardianOtherRelation(3);
+      // Always false: the guardian address section is no longer collapsible.
+      this.nomineeDetails3.nomineeGuardianApplicantCheck = false;
     } else {
       this.nomineeThreeGuardian = false;
       this.nomineeDetails3.nomineeOnedob = '';
@@ -3770,8 +4617,198 @@ export class AddNomineeComponent {
       this.nomineeDetails3.nomineeGuardianLastName = '';
       this.nomineeDetails3.nomineeGuardiandob = '';
       this.nomineeDetails3.nom_guard_relation = '';
-      // this.nomineeDetails3.nomineeGuardianApplicantCheck = false;
+      this.clearGuardianOtherRelation(3);
+      this.nomineeDetails3.nomineeGuardianApplicantCheck = false;
     }
+  }
+
+  private readonly inlineErrorFlags: {
+    [nominee: number]: { nominee: string[]; guardian: string[] };
+  } = {
+    1: {
+      nominee: [
+        'Nominee1Allocation',
+        'Nominee1AllocationPer',
+        'Nominee1FDigit',
+        'Nominee1FName',
+        'Nominee1FSpace',
+        'Nominee1FSpecial',
+        'Nominee1LDigit',
+        'Nominee1LName',
+        'Nominee1LSpace',
+        'Nominee1LSpecial',
+        'Nominee1Mobile',
+        'Nominee1Mobilerror',
+        'Nominee1ProofIdNo',
+        'Nominee1ProofIdNoReq',
+        'Nominee1Prooftype',
+        'Nominee1Relation',
+        'Nominee1adharmsg',
+        'emailFormatVal1',
+        'emailmultiplesymb1',
+        'emailspecialchars1',
+        'isEmailDisableBtn1',
+      ],
+      guardian: [
+        'Nominee1FGuardianDigit',
+        'Nominee1FGuardianName',
+        'Nominee1FGuardianSpace',
+        'Nominee1FGuardianSpecial',
+        'Nominee1GuarMobile',
+        'Nominee1GuarMobilerror',
+        'Nominee1GuardianRelation',
+        'Nominee1LGuardianDigit',
+        'Nominee1LGuardianName',
+        'Nominee1LGuardianSpace',
+        'Nominee1LGuardianSpecial',
+        'NomineeGuar1ProofIdNo',
+        'NomineeGuar1Prooftype',
+        'NomineeGuar1adharmsg',
+        'emailFormatValGuar1',
+        'emailmultiplesymbGuar1',
+        'emailspecialcharsGuar1',
+        'isEmailDisableBtnGuar1',
+      ],
+    },
+    2: {
+      nominee: [
+        'Nominee2Allocation',
+        'Nominee2FDigit',
+        'Nominee2FName',
+        'Nominee2FSpace',
+        'Nominee2FSpecial',
+        'Nominee2LDigit',
+        'Nominee2LName',
+        'Nominee2LSpace',
+        'Nominee2LSpecial',
+        'Nominee2Mobile',
+        'Nominee2Mobilerror',
+        'Nominee2ProofIdNo',
+        'Nominee2ProofIdNoReq',
+        'Nominee2Prooftype',
+        'Nominee2Relation',
+        'Nominee2adharmsg',
+        'emailFormatVal2',
+        'emailmultiplesymb2',
+        'emailspecialchars2',
+        'isEmailDisableBtn2',
+      ],
+      guardian: [
+        'Nominee2FGuardianDigit',
+        'Nominee2FGuardianName',
+        'Nominee2FGuardianSpace',
+        'Nominee2FGuardianSpecial',
+        'Nominee2GuarMobile',
+        'Nominee2GuarMobilerror',
+        'Nominee2GuardianRelation',
+        'Nominee2LGuardianDigit',
+        'Nominee2LGuardianName',
+        'Nominee2LGuardianSpace',
+        'Nominee2LGuardianSpecial',
+        'NomineeGuar2ProofIdNo',
+        'NomineeGuar2Prooftype',
+        'NomineeGuar2adharmsg',
+        'emailFormatValGuar2',
+        'emailmultiplesymbGuar2',
+        'emailspecialcharsGuar2',
+        'isEmailDisableBtnGuar2',
+      ],
+    },
+    3: {
+      nominee: [
+        'Nominee3Allocation',
+        'Nominee3FDigit',
+        'Nominee3FName',
+        'Nominee3FSpace',
+        'Nominee3FSpecial',
+        'Nominee3LDigit',
+        'Nominee3LName',
+        'Nominee3LSpace',
+        'Nominee3LSpecial',
+        'Nominee3Mobile',
+        'Nominee3Mobilerror',
+        'Nominee3ProofIdNo',
+        'Nominee3ProofIdNoReq',
+        'Nominee3Prooftype',
+        'Nominee3Relation',
+        'Nominee3adharmsg',
+        'emailFormatVal3',
+        'emailmultiplesymb3',
+        'emailspecialchars3',
+        'isEmailDisableBtn3',
+      ],
+      guardian: [
+        'Nominee3FGuardianDigit',
+        'Nominee3FGuardianName',
+        'Nominee3FGuardianSpace',
+        'Nominee3FGuardianSpecial',
+        'Nominee3GuarMobile',
+        'Nominee3GuarMobilerror',
+        'Nominee3GuardianRelation',
+        'Nominee3LGuardianDigit',
+        'Nominee3LGuardianName',
+        'Nominee3LGuardianSpace',
+        'Nominee3LGuardianSpecial',
+        'NomineeGuar3ProofIdNo',
+        'NomineeGuar3Prooftype',
+        'NomineeGuar3adharmsg',
+        'emailFormatValGuar3',
+        'emailmultiplesymbGuar3',
+        'emailspecialcharsGuar3',
+        'isEmailDisableBtnGuar3',
+      ],
+    },
+  };
+
+  private hasInlineValidationErrors(count: number): boolean {
+    const guardianVisible: { [nominee: number]: boolean } = {
+      1: this.nomineeOneGuardian,
+      2: this.nomineeTwoGuardian,
+      3: this.nomineeThreeGuardian,
+    };
+    const state = this as unknown as { [flag: string]: boolean };
+
+    for (let nominee = 1; nominee <= count; nominee++) {
+      const group = this.inlineErrorFlags[nominee];
+      if (!group) {
+        continue;
+      }
+
+      const flags = guardianVisible[nominee]
+        ? [...group.nominee, ...group.guardian]
+        : group.nominee;
+
+      const failed = flags.find((flag) => state[flag] === true);
+      if (failed) {
+        this.MoengageService.trackEvent('Nominee Submission Error', {
+          product_id: window.sessionStorage.getItem('FormNumber') ?? '',
+          Noof_NomineeAdded: count,
+          ErrorMsg: `Validation failed: ${failed}`,
+          product_name: 'Onboarding DIY',
+          category: 'Nominee',
+        });
+
+        this.toastr.warning(
+          'Please correct the highlighted fields before saving.',
+          `Nominee ${nominee}`,
+          { positionClass: 'toast-bottom-center', timeOut: 3000 }
+        );
+        this.scrollToFirstInlineError();
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  private scrollToFirstInlineError(): void {
+    if (typeof document === 'undefined') {
+      return;
+    }
+    setTimeout(() => {
+      const target = document.querySelector('.red_warning');
+      target?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 0);
   }
 
   save_allnomineedetails(count: number) {
@@ -3941,31 +4978,9 @@ export class AddNomineeComponent {
     }
 
     if (count === 2) {
-      var percent1 =
-        parseInt(this.nomineeDetails.nomineeAllocationRange) +
-        parseInt(this.nomineeDetails2.nomineeAllocationRange);
-
-      if (percent1 != 100) {
-        this.MoengageService.trackEvent('Nominee Submission Error', {
-          product_id: window.sessionStorage.getItem('FormNumber') ?? '',
-          Noof_NomineeAdded: count,
-          ErrorMsg:
-            'Oops! Total percentage of share cannot be more or less than 100%. Please check the share of nominee and continue or optout from nomination',
-          product_name: 'Onboarding DIY',
-          category: 'Nominee',
-        });
-
-        //this.toastr.warning('Total Allocation should be 100%', 'Nominee 1,2', {
-        this.toastr.warning(
-          'Oops! Total percentage of share cannot be more or less than 100%. Please check the share of nominee and continue or optout from nomination',
-          'Nominee 1,2',
-          {
-            positionClass: 'toast-bottom-center',
-            timeOut: 2000,
-          }
-        );
-        return;
-      }
+      // Allocation total is no longer blocked here (nominees 1,2). The backend
+      // validates it and its message is surfaced from the nomineesave
+      // response, so a total other than 100% reaches the next screen.
 
       if (
         this.nomineeDetails.nomineefname.toUpperCase().trim() ==
@@ -3993,59 +5008,9 @@ export class AddNomineeComponent {
         return;
       }
 
-      if (
-        this.nomineeDetails.nomineeproofnumber ==
-        this.nomineeDetails2.nomineeproofnumber
-      ) {
-        this.MoengageService.trackEvent('Nominee Submission Error', {
-          product_id: window.sessionStorage.getItem('FormNumber') ?? '',
-          Noof_NomineeAdded: count,
-          ErrorMsg:
-            'Oops! Proof of nominee 1 and 2 cannot be same. Please enter a valid nominee proof or optout from nomination',
-          product_name: 'Onboarding DIY',
-          category: 'Nominee',
-        });
-
-        this.toastr.warning(
-          'Oops! Proof of nominee 1 and 2 cannot be same. Please enter a valid nominee proof or optout from nomination',
-          'Nominee 1,2',
-          {
-            positionClass: 'toast-bottom-center',
-            timeOut: 5000,
-          }
-        );
-        return;
-      }
     }
 
     if (count === 3) {
-      var percent1 =
-        parseInt(this.nomineeDetails.nomineeAllocationRange) +
-        parseInt(this.nomineeDetails2.nomineeAllocationRange) +
-        parseInt(this.nomineeDetails3.nomineeAllocationRange);
-
-      if (percent1 != 100) {
-        //this.toastr.warning('Total Allocation should be 100%', 'Nominee 1,2', {
-
-        this.MoengageService.trackEvent('Nominee Submission Error', {
-          product_id: window.sessionStorage.getItem('FormNumber') ?? '',
-          Noof_NomineeAdded: count,
-          ErrorMsg:
-            'Oops! Total percentage of share cannot be more or less than 100%. Please check the share of nominee and continue or optout from nomination',
-          product_name: 'Onboarding DIY',
-          category: 'Nominee',
-        });
-
-        this.toastr.warning(
-          'Oops! Total percentage of share cannot be more or less than 100%. Please check the share of nominee and continue or optout from nomination',
-          'Nominee 1,2,3',
-          {
-            positionClass: 'toast-bottom-center',
-            timeOut: 2000,
-          }
-        );
-        return;
-      }
 
       if (
         this.nomineeDetails.nomineefname.toUpperCase().trim() ==
@@ -4099,53 +5064,6 @@ export class AddNomineeComponent {
         return;
       }
 
-      if (
-        this.nomineeDetails.nomineeproofnumber ==
-        this.nomineeDetails3.nomineeproofnumber
-      ) {
-        this.MoengageService.trackEvent('Nominee Submission Error', {
-          product_id: window.sessionStorage.getItem('FormNumber') ?? '',
-          Noof_NomineeAdded: count,
-          ErrorMsg:
-            'Oops! Proof of nominee 1 and 3 cannot be same. Please enter a valid nominee proof or optout from nomination',
-          product_name: 'Onboarding DIY',
-          category: 'Nominee',
-        });
-
-        this.toastr.warning(
-          'Oops! Proof of nominee 1 and 3 cannot be same. Please enter a valid nominee proof or optout from nomination',
-          'Nominee 1,3',
-          {
-            positionClass: 'toast-bottom-center',
-            timeOut: 5000,
-          }
-        );
-        return;
-      }
-
-      if (
-        this.nomineeDetails2.nomineeproofnumber ==
-        this.nomineeDetails3.nomineeproofnumber
-      ) {
-        this.MoengageService.trackEvent('Nominee Submission Error', {
-          product_id: window.sessionStorage.getItem('FormNumber') ?? '',
-          Noof_NomineeAdded: count,
-          ErrorMsg:
-            'Oops! Proof of nominee 2 and 3 cannot be same. Please enter a valid nominee proof or optout from nomination',
-          product_name: 'Onboarding DIY',
-          category: 'Nominee',
-        });
-
-        this.toastr.warning(
-          'Oops! Proof of nominee 2 and 3 cannot be same. Please enter a valid nominee proof or optout from nomination',
-          'Nominee 2,3',
-          {
-            positionClass: 'toast-bottom-center',
-            timeOut: 5000,
-          }
-        );
-        return;
-      }
     }
 
     if (count >= 1) {
@@ -4198,16 +5116,6 @@ export class AddNomineeComponent {
         return;
       }
 
-      if (this.nomineeDetails.nomineeprooftype == '') {
-        this.Nominee1Prooftype = true;
-        return;
-      }
-
-      // if (this.nomineeDetails.nomineeproofnumber == '') {
-      //   this.Nominee1ProofIdNo = true;
-      //   return
-      // }
-
       // added by nitesh mitesh on 28022025 end
 
       // Relation ship
@@ -4216,15 +5124,19 @@ export class AddNomineeComponent {
         return;
       }
 
+      if (
+        this.nominee1ShowOtherRelation &&
+        !this.nominee1OtherRelation.trim()
+      ) {
+        this.Nominee1OtherRelationError = true;
+        return;
+      }
+
       // if (this.nomineeDetails.nomineeOnedob == '') {
       //   this.Nominee1DOB = true;
       //   return;
       // }
 
-      if (this.nomineeDetails.nomineeAllocationRange == '') {
-        this.Nominee1Allocation = true;
-        return;
-      }
     }
 
     if (count >= 2) {
@@ -4277,15 +5189,17 @@ export class AddNomineeComponent {
         return;
       }
 
-      if (this.nomineeDetails2.nomineeprooftype == '') {
-        this.Nominee2Prooftype = true;
-        return;
-      }
-      // added by nitesh mitesh on 28022025 end
-
       // Relation ship
       if (this.nomineeDetails2.nom_relation == '') {
         this.Nominee2Relation = true;
+        return;
+      }
+
+      if (
+        this.nominee2ShowOtherRelation &&
+        !this.nominee2OtherRelation.trim()
+      ) {
+        this.Nominee2OtherRelationError = true;
         return;
       }
 
@@ -4294,10 +5208,6 @@ export class AddNomineeComponent {
       //   return;
       // }
 
-      if (this.nomineeDetails2.nomineeAllocationRange == '') {
-        this.Nominee2Allocation = true;
-        return;
-      }
     }
 
     if (count >= 3) {
@@ -4349,15 +5259,17 @@ export class AddNomineeComponent {
         return;
       }
 
-      if (this.nomineeDetails3.nomineeprooftype == '') {
-        this.Nominee3Prooftype = true;
-        return;
-      }
-      // added by nitesh mitesh on 28022025 end
-
       // Relation ship
       if (this.nomineeDetails3.nom_relation == '') {
         this.Nominee3Relation = true;
+        return;
+      }
+
+      if (
+        this.nominee3ShowOtherRelation &&
+        !this.nominee3OtherRelation.trim()
+      ) {
+        this.Nominee3OtherRelationError = true;
         return;
       }
 
@@ -4366,60 +5278,10 @@ export class AddNomineeComponent {
       //   return;
       // }
 
-      if (this.nomineeDetails3.nomineeAllocationRange == '') {
-        this.Nominee3Allocation = true;
-        return;
-      }
     }
 
     // nominee address line 1
-    if (this.nomineeDetails.nomineeApplicantCheck === false) {
-      if (this.nomineeDetails.nomineeAddress1.trim().length == 0) {
-        this.Nominee1AddLine1 = true;
-        return;
-      }
-      if (this.nomineeDetails.nomineeAddress1.trim().length == 0) {
-        this.Nominee1AddLine1Space = false;
 
-        return;
-      }
-
-      // nominee 1 pincode
-      if (this.nomineeDetails.nomineePincode == '') {
-        this.Nominee1AddLine2Space = false;
-        this.Nominee1AddLine3Space = false;
-        this.Nominee1Pincode = true;
-        return;
-      }
-      if (String(this.nomineeDetails.nomineePincode).length != 6) {
-        this.Nominee1PincodeLength = true;
-        return;
-      }
-    }
-
-    if (
-      this.visibleAccordions === 1 &&
-      this.nomineeDetails.nomineeApplicantCheck === false
-    ) {
-      // nominee 1 State
-
-      // if (
-      //   this.nomineeDetails.nomineeState == '' ||
-      //   this.nomineeDetails.nomineeState == 'Select State'
-      // ) {
-      //   this.Nominee1State = true;
-      //   return;
-      // }
-
-      // nominee 1 city
-      if (
-        this.nomineeDetails.nomineeCity == '' ||
-        this.nomineeDetails.nomineeCity == 'Select City'
-      ) {
-        this.Nominee1City = true;
-        return;
-      }
-    }
     // console.log("sasd",this.nomineeDetails)
     // console.log("sdada",this.nomineeOneGuardian)
 
@@ -4444,10 +5306,6 @@ export class AddNomineeComponent {
       // console.log("DSAFAFA",this.nomineeDetails.nomineeGuardianAddress1)
 
       // Guardian1 First name
-      if (this.nomineeDetails.nomineeGuardianFirstName.trim().length == 0) {
-        this.Nominee1FGuardianName = true;
-        return;
-      }
       if (regex.test(this.nomineeDetails.nomineeGuardianFirstName)) {
         this.Nominee1FGuardianSpecial = true;
         return;
@@ -4456,116 +5314,29 @@ export class AddNomineeComponent {
         this.Nominee1FGuardianDigit = true;
         return;
       }
-      if (this.nomineeDetails.nomineeGuardianFirstName.trim().length == 0) {
-        this.Nominee1FGuardianSpace = false;
-        return;
-      }
 
       // Guardian1 Last name
-      if (this.nomineeDetails.nomineeGuardianLastName.trim().length == 0) {
-        this.Nominee1LGuardianName = true;
-        return;
-      }
       if (regex.test(this.nomineeDetails.nomineeGuardianLastName)) {
         this.Nominee1LGuardianSpecial = true;
       }
       if (/\d/.test(this.nomineeDetails.nomineeGuardianLastName)) {
         this.Nominee1LGuardianDigit = true;
       }
-      if (this.nomineeDetails.nomineeGuardianLastName.trim().length == 0) {
-        this.Nominee1LGuardianSpace = false;
-      }
-      if (this.nomineeDetails.nomineeGuardianMobile.trim() == '') {
-        this.Nominee1GuarMobilerror = true;
-        return;
+
+      if (this.hasGuardianName(this.nomineeDetails)) {
+        this.markGuardianSubmitAttempted(1);
       }
 
-      if (this.nomineeDetails.nomineeGuardianEmail.trim() == '') {
-        this.isEmailDisableBtnGuar1 = true;
-        return;
-      }
-
-      if (this.nomineeDetails.nomineeGuardianProofType.trim() == '') {
-        this.NomineeGuar1Prooftype = true;
-        this.NomineeGuar1ProofIdNo = true;
-        return;
-      }
-      // Guardian1 Relationship
-      if (this.nomineeDetails.nom_guard_relation.trim() == '') {
-        this.Nominee1GuardianRelation = true;
-        return;
-      }
-      if (this.nomineeDetails.nomineeGuardianApplicantCheck == false) {
-        if (this.nomineeDetails.nomineeGuardianAddress1.trim() == '') {
-          this.Nominee1GuardianAddLine1 = true;
-          return;
-        }
-        if (this.nomineeDetails.nomineeGuardianAddress2.trim() == '') {
-          this.Nominee1GuardianAddLine2 = true;
-          return;
-        }
-        if (this.nomineeDetails.nomineeGuardianAddress3.trim() == '') {
-          this.Nominee1GuardianAddLine3 = true;
-          return;
-        }
-        if (this.nomineeDetails.nomineeGuardianPincode.trim() == '') {
-          this.Nominee1GuardianPincode = true;
-          return;
-        }
-        if (this.nomineeDetails.nomineeGuardianState.trim() == '') {
-          this.Nominee1GuardianPincode = true;
-          return;
-        }
-
-        if (this.nomineeDetails.nomineeGuardianCity.trim() == '') {
-          this.Nominee1GuardianCity = true;
-          return;
-        }
-      }
-    }
-    if (this.nomineeDetails2.nomineeApplicantCheck === false) {
-      // nominee address line 1
-      if (this.nomineeDetails2.nomineeAddress1.trim().length == 0) {
-        this.Nominee2AddLine1 = true;
-        return;
-      }
-      if (this.nomineeDetails2.nomineeAddress1.trim().length == 0) {
-        this.Nominee2AddLine1Space = false;
-        return;
-      }
-      // nominee 1 pincode
-      if (this.nomineeDetails2.nomineePincode == '') {
-        this.Nominee2AddLine2Space = false;
-        this.Nominee2AddLine3Space = false;
-        this.Nominee2Pincode = true;
-        return;
-      }
-      if (String(this.nomineeDetails2.nomineePincode).length != 6) {
-        this.Nominee2PincodeLength = true;
-        return;
-      }
-    }
-
-    if (
-      this.visibleAccordions === 2 &&
-      this.nomineeDetails2.nomineeApplicantCheck === false
-    ) {
-      // nominee 2 State
-
-      // if (
-      //   this.nomineeDetails2.nomineeState == '' ||
-      //   this.nomineeDetails2.nomineeState == 'Select State'
-      // ) {
-      //   this.Nominee2State = true;
-      //   return;
-      // }
-
-      // nominee 1 city
       if (
-        this.nomineeDetails2.nomineeCity == '' ||
-        this.nomineeDetails2.nomineeCity == 'Select City'
+        this.hasGuardianName(this.nomineeDetails) &&
+        String(this.nomineeDetails.nom_guard_relation ?? '').trim() === ''
       ) {
-        this.Nominee2City = true;
+        this.Nominee1GuardianRelation = true;
+        this.toastr.warning(
+          'Please select the Guardian Relationship.',
+          'Nominee 1',
+          { positionClass: 'toast-bottom-center', timeOut: 3000 }
+        );
         return;
       }
     }
@@ -4586,11 +5357,11 @@ export class AddNomineeComponent {
       //   || this.nomineeDetails2.nomineeGuardianProofnumber
       // )
     ) {
-      // Guardian1 First name
-      if (this.nomineeDetails2.nomineeGuardianFirstName.trim().length == 0) {
-        this.Nominee2FGuardianName = true;
-        return;
-      }
+      // All guardian details are optional when the nominee is a minor, so
+      // there are no presence checks here. Format rules still apply to
+      // whatever is entered - an empty string passes both tests below.
+
+      // Guardian2 First name
       if (regex.test(this.nomineeDetails2.nomineeGuardianFirstName)) {
         this.Nominee2FGuardianSpecial = true;
         return;
@@ -4599,70 +5370,30 @@ export class AddNomineeComponent {
         this.Nominee2FGuardianDigit = true;
         return;
       }
-      if (this.nomineeDetails2.nomineeGuardianFirstName.trim().length == 0) {
-        this.Nominee2FGuardianSpace = false;
-        return;
-      }
 
-      // Guardian1 Last name
-      if (this.nomineeDetails2.nomineeGuardianLastName.trim().length == 0) {
-        this.Nominee2LGuardianName = true;
-        return;
-      }
+      // Guardian2 Last name
       if (regex.test(this.nomineeDetails2.nomineeGuardianLastName)) {
         this.Nominee2LGuardianSpecial = true;
       }
       if (/\d/.test(this.nomineeDetails2.nomineeGuardianLastName)) {
         this.Nominee2LGuardianDigit = true;
       }
-      if (this.nomineeDetails2.nomineeGuardianLastName.trim().length == 0) {
-        this.Nominee1LGuardianSpace = false;
-      }
-      if (this.nomineeDetails2.nomineeGuardianMobile.trim() == '') {
-        this.Nominee2GuarMobilerror = true;
-        return;
-      }
-      if (this.nomineeDetails2.nomineeGuardianEmail.trim() == '') {
-        this.isEmailDisableBtnGuar2 = true;
-        return;
+
+      if (this.hasGuardianName(this.nomineeDetails2)) {
+        this.markGuardianSubmitAttempted(2);
       }
 
-      if (this.nomineeDetails2.nomineeGuardianProofType.trim() == '') {
-        this.NomineeGuar2Prooftype = true;
-        this.NomineeGuar2ProofIdNo = true;
-        return;
-      }
-      // Guardian1 Relationship
-      if (this.nomineeDetails2.nom_guard_relation.trim() == '') {
+      if (
+        this.hasGuardianName(this.nomineeDetails2) &&
+        String(this.nomineeDetails2.nom_guard_relation ?? '').trim() === ''
+      ) {
         this.Nominee2GuardianRelation = true;
+        this.toastr.warning(
+          'Please select the Guardian Relationship.',
+          'Nominee 2',
+          { positionClass: 'toast-bottom-center', timeOut: 3000 }
+        );
         return;
-      }
-      if (this.nomineeDetails2.nomineeGuardianApplicantCheck == false) {
-        if (this.nomineeDetails2.nomineeGuardianAddress1.trim() == '') {
-          this.Nominee2GuardianAddLine1 = true;
-          return;
-        }
-        if (this.nomineeDetails2.nomineeGuardianAddress2.trim() == '') {
-          this.Nominee2GuardianAddLine2 = true;
-          return;
-        }
-        if (this.nomineeDetails2.nomineeGuardianAddress3.trim() == '') {
-          this.Nominee2GuardianAddLine3 = true;
-          return;
-        }
-        if (this.nomineeDetails2.nomineeGuardianPincode.trim() == '') {
-          this.Nominee2GuardianPincode = true;
-          return;
-        }
-        if (this.nomineeDetails2.nomineeGuardianState.trim() == '') {
-          this.Nominee2GuardianPincode = true;
-          return;
-        }
-
-        if (this.nomineeDetails2.nomineeGuardianCity.trim() == '') {
-          this.Nominee2GuardianCity = true;
-          return;
-        }
       }
     }
     // if (count == 3) {
@@ -4685,54 +5416,6 @@ export class AddNomineeComponent {
     //   }
     // }
 
-    if (this.nomineeDetails3.nomineeApplicantCheck === false) {
-      // nominee address line 1
-      if (this.nomineeDetails3.nomineeAddress1.trim().length == 0) {
-        this.Nominee3AddLine1 = true;
-        return;
-      }
-      if (this.nomineeDetails3.nomineeAddress1.trim().length == 0) {
-        this.Nominee3AddLine1Space = false;
-
-        return;
-      }
-      // nominee 1 pincode
-      if (this.nomineeDetails3.nomineePincode.trim() == '') {
-        this.Nominee3AddLine2Space = false;
-        this.Nominee3AddLine3Space = false;
-        this.Nominee3Pincode = true;
-        return;
-      }
-      if (String(this.nomineeDetails3.nomineePincode).length != 6) {
-        this.Nominee3PincodeLength = true;
-        return;
-      }
-    }
-
-    if (
-      this.visibleAccordions === 3 &&
-      this.nomineeDetails3.nomineeApplicantCheck === false
-    ) {
-      // nominee 1 State
-
-      // if (
-      //   this.nomineeDetails3.nomineeState == '' ||
-      //   this.nomineeDetails3.nomineeState == 'Select State'
-      // ) {
-      //   this.Nominee3State = true;
-      //   return;
-      // }
-
-      // nominee 1 city
-      if (
-        this.nomineeDetails3.nomineeCity == '' ||
-        this.nomineeDetails3.nomineeCity == 'Select City'
-      ) {
-        this.Nominee3City = true;
-        return;
-      }
-    }
-
     if (
       this.nomineeThreeGuardian === true
       //   && (this.nomineeDetails3.nomineeGuardianFirstName
@@ -4749,11 +5432,11 @@ export class AddNomineeComponent {
       //   || this.nomineeDetails3.nomineeGuardianProofnumber
       // )
     ) {
-      // Guardian1 First name
-      if (this.nomineeDetails3.nomineeGuardianFirstName.trim().length == 0) {
-        this.Nominee3FGuardianName = true;
-        return;
-      }
+      // All guardian details are optional when the nominee is a minor, so
+      // there are no presence checks here. Format rules still apply to
+      // whatever is entered - an empty string passes both tests below.
+
+      // Guardian3 First name
       if (regex.test(this.nomineeDetails3.nomineeGuardianFirstName)) {
         this.Nominee3FGuardianSpecial = true;
         return;
@@ -4762,74 +5445,30 @@ export class AddNomineeComponent {
         this.Nominee3FGuardianDigit = true;
         return;
       }
-      if (this.nomineeDetails3.nomineeGuardianFirstName.trim().length == 0) {
-        this.Nominee3FGuardianSpace = false;
-        return;
-      }
 
-      // Guardian1 Last name
-      if (this.nomineeDetails3.nomineeGuardianLastName.trim().length == 0) {
-        this.Nominee3LGuardianName = true;
-        return;
-      }
+      // Guardian3 Last name
       if (regex.test(this.nomineeDetails3.nomineeGuardianLastName)) {
         this.Nominee3LGuardianSpecial = true;
       }
       if (/\d/.test(this.nomineeDetails3.nomineeGuardianLastName)) {
         this.Nominee3LGuardianDigit = true;
       }
-      if (this.nomineeDetails3.nomineeGuardianLastName.trim().length == 0) {
-        this.Nominee3LGuardianSpace = false;
-      }
-      if (this.nomineeDetails3.nomineeGuardianMobile.trim() == '') {
-        this.Nominee3GuarMobilerror = true;
-        return;
-      }
-      if (this.nomineeDetails3.nomineeGuardianEmail.trim() == '') {
-        this.isEmailDisableBtnGuar3 = true;
-        return;
+
+      if (this.hasGuardianName(this.nomineeDetails3)) {
+        this.markGuardianSubmitAttempted(3);
       }
 
-      if (this.nomineeDetails3.nomineeGuardianProofType.trim() == '') {
-        this.NomineeGuar3Prooftype = true;
-        this.NomineeGuar3ProofIdNo = true;
-        return;
-      }
-      // Guardian1 Relationship
-      if (this.nomineeDetails3.nom_guard_relation.trim() == '') {
+      if (
+        this.hasGuardianName(this.nomineeDetails3) &&
+        String(this.nomineeDetails3.nom_guard_relation ?? '').trim() === ''
+      ) {
         this.Nominee3GuardianRelation = true;
-        return;
-      }
-      if (this.nomineeDetails3.nomineeGuardianApplicantCheck == false) {
-        if (this.nomineeDetails3.nomineeGuardianAddress1 == '') {
-          this.Nominee3GuardianAddLine1 = true;
-          return;
-        }
-        if (this.nomineeDetails3.nomineeGuardianAddress2.trim() == '') {
-          this.Nominee3GuardianAddLine2 = true;
-          return;
-        }
-        if (this.nomineeDetails3.nomineeGuardianAddress3.trim() == '') {
-          this.Nominee3GuardianAddLine3 = true;
-          return;
-        }
-        console.log(
-          'nominee3 guardian pincode:- ',
-          this.nomineeDetails3.nomineeGuardianPincode
+        this.toastr.warning(
+          'Please select the Guardian Relationship.',
+          'Nominee 3',
+          { positionClass: 'toast-bottom-center', timeOut: 3000 }
         );
-        if (this.nomineeDetails3.nomineeGuardianPincode.trim() == '') {
-          this.Nominee3GuardianPincode = true;
-          return;
-        }
-        if (this.nomineeDetails3.nomineeGuardianState.trim() == '') {
-          this.Nominee3GuardianPincode = true;
-          return;
-        }
-
-        if (this.nomineeDetails3.nomineeGuardianCity.trim() == '') {
-          this.Nominee3GuardianCity = true;
-          return;
-        }
+        return;
       }
     }
 
@@ -4851,6 +5490,10 @@ export class AddNomineeComponent {
     //     return;
     //   }
     // }
+
+    if (!this.validateMultiNomineeAllocation(count)) {
+      return;
+    }
 
     let reqData = [];
     if (count >= 1) {
@@ -4904,18 +5547,25 @@ export class AddNomineeComponent {
 
       reqData.push(this.nomineeDetails3);
     }
-    // console.log("REQES",reqData)
+    if (this.hasInlineValidationErrors(count)) {
+      return;
+    }
+
     this.spinner.show();
 
     this._http
       .postRequest('api/v1/personalDetail/nomineesave', reqData)
       .subscribe((resp) => {
         let response: any = resp.body;
+        console.log("rsposne", response);
+        
         this.spinner.hide();
         if (response.status == true) {
           response = JSON.parse(
             this.aesService.decrypt(response.data, this.clientid, this.clientid)
           );
+          console.log("saveNominee", response);
+          
           if (response[0].Msg === 'Data Save Sucessfully') {
             // this.toastr.success('Data Saved Successfully', 'Nominees', {
             //   positionClass: 'toast-bottom-center',
@@ -5080,7 +5730,7 @@ export class AddNomineeComponent {
     });
   }
 
-  faqHelpBtn(stageName: string) {
+ faqHelpBtn(stageName: string) {
     const encodedStageName = btoa(stageName);
     window.location.href = `faq?stageName=${encodeURIComponent(
       encodedStageName

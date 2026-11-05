@@ -64,7 +64,8 @@
     gap: 16px;
     border-radius: 8px;
     border: 1px solid #280071;
-    cursor: pointer
+    cursor: pointer;
+    background: #fff;
 }
 
 .pan_details_form .mobile_section .email_screen .google_txt {
@@ -81,7 +82,15 @@
     gap: 8px
 }
 
-.pan_details_form .mobile_section .email_screen .email_text_section h6 {
+/* .pan_details_form .mobile_section .email_screen .email_text_section h6 {
+    color: #280071;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: normal
+} */
+
+.pan_details_form .mobile_section .email_screen .email_text_section h3 {
     color: #280071;
     text-align: center;
     font-size: 14px;
@@ -151,6 +160,36 @@
     border: 2px solid #ff2e00 !important;
 }
 
+.pan_details_form .help_faq_css {
+    display: flex;
+    gap: 8px;
+    width: 100%
+}
+
+/* .pan_details_form .help_faq_css h5 {
+    color: #222;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: normal
+} */
+
+.pan_details_form .help_faq_css h1,
+.pan_details_form .help_faq_css h2 {
+    color: #222;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.pan_details_form .back_cls h1,
+.pan_details_form .back_cls h2 {
+    color: #222;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: normal;
+}
+
+
 @media screen and (max-width:991px) {
 
     .pan_details_form .back_cls img {
@@ -173,6 +212,22 @@
         line-height: normal
     }
 
+    .pan_details_form .help_faq_css h1,
+    .pan_details_form .help_faq_css h2 {
+        color: #2b2b2b;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: normal;
+    }
+
+    .pan_details_form .back_cls h1,
+    .pan_details_form .back_cls h2 {
+        color: #2b2b2b;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: normal;
+    }
+
     .pan_details_form .back_cls>div:nth-child(1) {
         font-size: 16px;
         font-weight: 600;
@@ -185,6 +240,23 @@
     .pan_details_form .back_cls img {
         width: 15px
     }
+
+    .pan_details_form .help_faq_css h1,
+    .pan_details_form .help_faq_css h2 {
+        color: #2b2b2b;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: normal;
+    }
+
+    .pan_details_form .back_cls h1,
+    .pan_details_form .back_cls h2 {
+        color: #2b2b2b;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: normal;
+    }
+
 }
 
 @media screen and (max-width:767px) {

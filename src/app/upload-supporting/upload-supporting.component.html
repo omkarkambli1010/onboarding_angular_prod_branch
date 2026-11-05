@@ -1,11 +1,12 @@
-<section class="pan_details_form">
+<section aria-label="Upload Supporting Document" class="pan_details_form">
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-12 m-auto">
         <div class="mobile_css">
           <div class="back_cls">
-            <div  *ngIf="this.RejectStatus != 'R'"  (click)="redirectSignature()">
-              <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
+            <div *ngIf="this.RejectStatus != 'R'" (click)="redirectSignature()" (keydown.enter)="redirectSignature()"
+              (keydown.space)="redirectSignature()" role="button" tabindex="0">
+              <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
             </div>
             <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div>
             <div class="d-flex flex-column align-items-start gap-2">
@@ -17,50 +18,26 @@
           </div>
         </div>
 
-        <form method="post">
+        <form aria-label="Upload Supporting Document" method="post">
           <div class="">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="d-flex align-items-start gap-2">
-                <div *ngIf="this.RejectStatus != 'R'"  (click)="redirectSignature()">
-                  <span
-                    > <svg
-                      width="24"
-                      height="25"
-                      viewBox="0 0 24 25"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                <div *ngIf="this.RejectStatus != 'R'" (click)="redirectSignature()"
+                  (keydown.enter)="redirectSignature()" (keydown.space)="redirectSignature()" role="button"
+                  tabindex="0">
+                  <span>
+                    <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g clip-path="url(#clip0_0_10804)">
-                        <path
-                          d="M5 12.5H19"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M5 12.5L11 18.5"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M5 12.5L11 6.5"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
+                        <path d="M5 12.5H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                        <path d="M5 12.5L11 18.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                        <path d="M5 12.5L11 6.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
                       </g>
                       <defs>
                         <clipPath id="clip0_0_10804">
-                          <rect
-                            width="24"
-                            height="24"
-                            fill="white"
-                            transform="translate(0 0.5)"
-                          />
+                          <rect width="24" height="24" fill="white" transform="translate(0 0.5)" />
                         </clipPath>
                       </defs>
                     </svg></span>
@@ -78,22 +55,15 @@
             <div class="facial_align">
               <div class="row">
                 <div *ngIf="!supportDocUrl" class="col-lg-6 col-md-6 col-12">
-                  <img
-                    class="w-100"
-                    src="assets/images/diy/name-change-banner.png"
-                    alt=""
-                  />
+                  <img class="w-100" src="assets/images/diy/name-change-banner.png" alt="Name Change Banner" />
                 </div>
-                <div
-                  *ngIf="supportDocUrl && !isPDF"
-                  class="col-lg-6 col-md-6 col-12"
-                >
-                  <img class="w-100" src="{{ supportDocUrl }}" alt="" />
+                <div *ngIf="supportDocUrl && !isPDF" class="col-lg-6 col-md-6 col-12">
+                  <img class="w-100" src="{{ supportDocUrl }}" alt="" aria-hidden="true" />
                 </div>
                 <div *ngIf="isPDF" class="col-lg-6 col-md-6 col-12">
                   <div>
                     <button (click)="ViewPDF()" class="pdf_button">
-                      <img src="assets/images/diy/PDF.png" alt="" />View Document
+                      <img src="assets/images/diy/PDF.png" alt="PDF Icon" />View Document
                     </button>
                   </div>
                 </div>
@@ -102,23 +72,16 @@
                     <div class="heading">
                       <h5>Kindly upload any one valid document that matches the selfie taken during the journey</h5>
                     </div>
-                    <div class="group_btn">
-                    <div *ngFor="let document of documents" class="form_check_cls">
-                        <input
-                        class="form-check-input"
-                        type="radio"
-                        name="selectedDocument"
-                        [(ngModel)]="selectedDocument"
-                        (change)="
+                    <div class="group_btn" role="radiogroup" aria-label="Select a supporting document">
+                      <div *ngFor="let document of documents" class="form_check_cls">
+                        <input class="form-check-input visible_radio" type="radio" name="selectedDocument"
+                          [(ngModel)]="selectedDocument" (change)="
                             updateSelectedDocumentLabel(document.label, document.id)
-                        "
-                        [value]="document.id"
-                        id="{{ document.id }}"
-                        />
+                        " [value]="document.id" id="{{ document.id }}" />
                         <label class="form-check-label" for="{{ document.id }}">{{
-                        document.label
-                        }}</label>
-                    </div>
+                          document.label
+                          }}</label>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -126,27 +89,15 @@
             </div>
             <div class="stickybtn_desk desktop_css">
               <div *ngIf="!supportDocUrl && this.selectedDocument !=''" class="">
-                <button
-                  class="btn btn_cls"
-                  data-bs-target="#uploadBankStatement"
-                  data-bs-toggle="modal"
-                >
+                <button class="btn btn_cls" data-bs-target="#uploadBankStatement" data-bs-toggle="modal">
                   Upload {{getSelectedDocumentLabel()}}
                 </button>
               </div>
-              <button
-                *ngIf="supportDocUrl"
-                class="btn_cls_outline"
-                data-bs-target="#uploadBankStatement"
-                data-bs-toggle="modal"
-              >
+              <button *ngIf="supportDocUrl" class="btn_cls_outline" data-bs-target="#uploadBankStatement"
+                data-bs-toggle="modal">
                 Re-Upload Document
               </button>
-              <button
-                *ngIf="supportDocUrl"
-                (click)="redirectToNominee()"
-                class="btn btn_cls"
-              >
+              <button *ngIf="supportDocUrl" (click)="redirectToNominee()" class="btn btn_cls">
                 Proceed
               </button>
             </div>
@@ -155,22 +106,14 @@
       </div>
       <div class="mobile_css">
         <div *ngIf="!supportDocUrl && this.selectedDocument !=''" class="stickybtn ">
-          <button
-            class="btn btn_cls"
-            data-bs-target="#uploadBankStatement"
-            data-bs-toggle="modal"
-          >
+          <button class="btn btn_cls" data-bs-target="#uploadBankStatement" data-bs-toggle="modal">
             Upload {{getSelectedDocumentLabel()}}
           </button>
         </div>
       </div>
       <div class="mobile_css">
         <div *ngIf="supportDocUrl" class="btn_align stickybtn">
-          <button
-            class="btn_cls_outline"
-            data-bs-target="#uploadBankStatement"
-            data-bs-toggle="modal"
-          >
+          <button class="btn_cls_outline" data-bs-target="#uploadBankStatement" data-bs-toggle="modal">
             Re-Upload Document
           </button>
           <button (click)="redirectToNominee()" class="btn btn_cls">
@@ -183,44 +126,21 @@
 </section>
 
 <!-- Upload Bank Statement Modal -->
-<div
-  class="modal fade uploadPan"
-  id="uploadBankStatement"
-  tabindex="-1"
-  aria-labelledby="uploadBankStatementLabel"
-  aria-hidden="true"
->
+<div class="modal fade uploadPan" id="uploadBankStatement" tabindex="-1" aria-labelledby="uploadBankStatementLabel"
+  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div
-        class="modal-header d-block"
-        data-bs-dismiss="modal"
-        aria-label="Close"
-        (click)="removeModal()"
-      >
-        <h1 class="modal-title fs-5" id="uploadBankStatementLabel"></h1>
-        <button
-          type="button"
-          class="btn-horizontal-line"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="removeModal()"
-        ></button>
+      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+        <h2 class="modal-title fs-5" id="uploadBankStatementLabel"></h2>
+        <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
         <h5>Upload Supporting Document</h5>
         <div class="img_upload">
-          <div
-            class="camera_icon"
-            style="position: relative; display: inline-block"
-          >
-            <img
-              src="assets/images/diy/camera_img.png"
-              alt="Upload Image"
-              style="cursor: pointer"
-            />
-            <input
-              style="
+          <div class="camera_icon" style="position: relative; display: inline-block">
+            <img src="assets/images/diy/camera_img.png" alt="Upload Image" style="cursor: pointer" />
+            <input style="
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -228,25 +148,14 @@
                 width: 100%;
                 height: 100%;
                 cursor: pointer;
-              "
-              type="file"
-              capture="environment"
-              accept="image/*"
-              (click)="resetExistingImage()"
-              (change)="fileChangeEvent($event)"
-              (click)="setCaptureEvent('environment')"
-              data-bs-target="#uploadBankStateUpload"
-              data-bs-toggle="modal"
-            />
+              " type="file" capture="environment" accept="image/*" (click)="resetExistingImage()"
+              (change)="fileChangeEvent($event)" (click)="setCaptureEvent('environment')"
+              data-bs-target="#uploadBankStateUpload" data-bs-toggle="modal"
+              aria-label="Take a photo of your document" />
           </div>
           <div style="position: relative; display: inline-block">
-            <img
-              src="assets/images/diy/upload_img.png"
-              alt="Upload Image"
-              style="cursor: pointer"
-            />
-            <input
-              style="
+            <img src="assets/images/diy/upload_img.png" alt="Upload Image" style="cursor: pointer" />
+            <input style="
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -254,29 +163,18 @@
                 width: 100%;
                 height: 100%;
                 cursor: pointer;
-              "
-              type="file"
-              accept="image/*"
-              (click)="resetExistingImage()"
-              (click)="setCaptureEvent('upload')"
-              (change)="fileChangeEvent($event)"
-              data-bs-target="#uploadBankStateUpload"
-              data-bs-toggle="modal"
-            />
+              " type="file" accept="image/*" (click)="resetExistingImage()" (click)="setCaptureEvent('upload')"
+              (change)="fileChangeEvent($event)" data-bs-target="#uploadBankStateUpload" data-bs-toggle="modal"
+              aria-label="Upload a document file" />
           </div>
         </div>
         <div class="file_type_css">
-          <span>Files supported: JPG, JPEG & PNG</span>
+          <span>Files supported: JPG, JPEG &amp; PNG</span>
           <span>Maximum size less than 4 MB</span>
         </div>
       </div>
       <div class="modal-footer p-0 d-none">
-        <button
-          type="button"
-          data-bs-target="#uploadBankStateUpload"
-          data-bs-toggle="modal"
-          class="btn btn_cls"
-        >
+        <button type="button" data-bs-target="#uploadBankStateUpload" data-bs-toggle="modal" class="btn btn_cls">
           Continue
         </button>
       </div>
@@ -285,53 +183,27 @@
 </div>
 
 <!-- Upload Bank Statement Upload Modal -->
-<div
-  class="modal fade uploadPan"
-  id="uploadBankStateUpload"
-  tabindex="-1"
-  aria-labelledby="uploadBankStateUploadLabel"
-  aria-hidden="true"
->
+<div class="modal fade uploadPan" id="uploadBankStateUpload" tabindex="-1" aria-labelledby="uploadBankStateUploadLabel"
+  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div
-        class="modal-header d-block"
-        data-bs-dismiss="modal"
-        aria-label="Close"
-        (click)="removeModal()"
-      >
-        <h1 class="modal-title fs-5" id="uploadBankStateUploadLabel"></h1>
-        <button
-          type="button"
-          class="btn-horizontal-line"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="removeModal()"
-        ></button>
+      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+        <h2 class="modal-title fs-5" id="uploadBankStateUploadLabel"></h2>
+        <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
         <h5>Upload Supporting Document</h5>
         <div *ngIf="FFF" class="file_upload_css">
           <div class="pdf-container">
-            <pdf-viewer
-              [src]="FFF"
-              [rotation]="0"
-              [original-size]="false"
-              [show-all]="true"
-              [fit-to-page]="false"
-              [zoom]="1"
-              [zoom-scale]="'page-width'"
-              [stick-to-page]="false"
-              [render-text]="true"
-              [external-link-target]="'blank'"
-              [autoresize]="true"
-              [show-borders]="false"
-              style="width: 100%; height: 250px"
-            ></pdf-viewer>
+            <pdf-viewer [src]="FFF" [rotation]="0" [original-size]="false" [show-all]="true" [fit-to-page]="false"
+              [zoom]="1" [zoom-scale]="'page-width'" [stick-to-page]="false" [render-text]="true"
+              [external-link-target]="'blank'" [autoresize]="true" [show-borders]="false"
+              style="width: 100%; height: 250px"></pdf-viewer>
           </div>
         </div>
         <div *ngIf="imageChangedEvent" class="file_upload_css">
-      <image-cropper class="image_css" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
+          <image-cropper class="image_css" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
             [(transform)]="transform" [aspectRatio]="4 / 3" format="png" (imageCropped)="imageCropped($event)"
             (imageLoaded)="imageLoaded()"></image-cropper>
         </div>
@@ -349,46 +221,22 @@
           <div class="btn_align">
             <label *ngIf="!imageChangedEvent" class="btn btn_cls_outline p-0">
               Upload File
-              <input
-                type="file"
-                accept="image/*"
-                (change)="fileChangeEvent($event)"
-                style="display: none"
-              />
+              <input type="file" accept="image/*" (change)="fileChangeEvent($event)" style="display: none"
+                aria-label="Upload a document file" />
             </label>
-            <label
-              *ngIf="imageChangedEvent && capture_event !== 'user'"
-              class="btn btn_cls_outline p-0"
-            >
+            <label *ngIf="imageChangedEvent && capture_event !== 'user'" class="btn btn_cls_outline p-0">
               Re-Upload File
-              <input
-                type="file"
-                accept="image/*"
-                (change)="fileChangeEvent($event)"
-                style="display: none"
-              />
+              <input type="file" accept="image/*" (change)="fileChangeEvent($event)" style="display: none"
+                aria-label="Upload a document file" />
             </label>
-            <label
-              *ngIf="imageChangedEvent && capture_event == 'user'"
-              class="btn btn_cls_outline p-0"
-            >
+            <label *ngIf="imageChangedEvent && capture_event == 'user'" class="btn btn_cls_outline p-0">
               Re-Upload File
-              <input
-                type="file"
-                capture="user"
-                accept="image/*"
-                (change)="fileChangeEvent($event)"
-                style="display: none"
-              />
+              <input type="file" capture="user" accept="image/*" (change)="fileChangeEvent($event)"
+                style="display: none" aria-label="Take a photo" />
             </label>
-            <button
-              [disabled]="!imageChangedEvent && !FFF"
-              type="button"
-              class="btn btn_cls"
-              data-bs-target="#uploadBankStateBg"
-              data-bs-toggle="modal"
-              (click)="openId()"
-            >
+            <button [attr.aria-disabled]="!imageChangedEvent && !FFF" [disabled]="!imageChangedEvent && !FFF"
+              type="button" class="btn btn_cls" data-bs-target="#uploadBankStateBg" data-bs-toggle="modal"
+              (click)="openId()">
               Continue
             </button>
           </div>
@@ -399,85 +247,45 @@
 </div>
 
 <!-- Upload Bank Statement File Modal -->
-<div
-  class="modal fade uploadPan"
-  id="uploadBankStateBg"
-  tabindex="-1"
-  aria-labelledby="uploadBankStateBgLabel"
-  aria-hidden="true"
->
+<div class="modal fade uploadPan" id="uploadBankStateBg" tabindex="-1" aria-labelledby="uploadBankStateBgLabel"
+  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div
-        class="modal-header d-block"
-        data-bs-dismiss="modal"
-        aria-label="Close"
-        (click)="removeModal()"
-      >
-        <h1 class="modal-title fs-5" id="uploadBankStateBgLabel"></h1>
-        <button
-          type="button"
-          class="btn-horizontal-line"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="removeModal()"
-        ></button>
+      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+        <h2 class="modal-title fs-5" id="uploadBankStateBgLabel"></h2>
+        <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
         <h5>Upload Supporting Document</h5>
         <div *ngIf="FFF" class="file_upload_css">
           <div id="pdfView" class="pdf-container">
-            <pdf-viewer
-              [src]="FFF"
-              [rotation]="0"
-              [original-size]="false"
-              [show-all]="true"
-              [fit-to-page]="false"
-              [zoom]="1"
-              [zoom-scale]="'page-width'"
-              [stick-to-page]="false"
-              [render-text]="true"
-              [external-link-target]="'blank'"
-              [autoresize]="true"
-              [show-borders]="false"
-              style="width: 100%; height: 250px"
-            ></pdf-viewer>
+            <pdf-viewer [src]="FFF" [rotation]="0" [original-size]="false" [show-all]="true" [fit-to-page]="false"
+              [zoom]="1" [zoom-scale]="'page-width'" [stick-to-page]="false" [render-text]="true"
+              [external-link-target]="'blank'" [autoresize]="true" [show-borders]="false"
+              style="width: 100%; height: 250px"></pdf-viewer>
           </div>
           <div class="file_type_css">
-            <span>Files supported: JPG, JPEG & PNG</span>
+            <span>Files supported: JPG, JPEG &amp; PNG</span>
             <span>Maximum size less than 4MB</span>
           </div>
         </div>
         <div *ngIf="croppedImage" class="file_upload_css my-3">
-          <img
-            *ngIf="croppedImage"
-            [src]="croppedImage"
-            [style.border]="croppedImage ? '1px solid black' : 'none'"
-            alt="Cropped Image Preview"
-            class="img-fluid"
-          />
+          <img *ngIf="croppedImage" [src]="croppedImage" [style.border]="croppedImage ? '1px solid black' : 'none'"
+            alt="Cropped Image Preview" class="img-fluid" />
           <div class="file_type_css">
-            <span>Files supported: JPG, JPEG & PNG</span>
+            <span>Files supported: JPG, JPEG &amp; PNG</span>
             <span>Maximum size less than 4MB</span>
           </div>
         </div>
         <div class="modal-footer p-0">
           <div class="btn_align">
-            <button
-              (click)="changeBankSignatureImage()"
-              data-bs-target="#uploadBankStatement"
-              data-bs-toggle="modal"
-              class="btn btn_cls_outline p-0"
-            >
+            <button (click)="changeBankSignatureImage()" data-bs-target="#uploadBankStatement" data-bs-toggle="modal"
+              class="btn btn_cls_outline p-0">
               Change File
             </button>
-            <button
-              (click)="uploadStatementImg()"
-              class="btn btn_cls"
-              id="confirmedPan"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            >
+            <button (click)="uploadStatementImg()" class="btn btn_cls" id="confirmedPan" data-bs-dismiss="modal"
+              aria-label="Close">
               Yes, Confirm
             </button>
           </div>

@@ -94,7 +94,9 @@ export class FaqNeedHelpComponent {
     } else if (pageName === 'Signature') {
       window.location.href = `uploadSignature`;
     } else if (pageName === 'Bankaccount') {
-      window.location.href = `personalDetailsForm/6`;
+      // window.location.href = `personalDetailsForm/6`;
+      //Bank Stage Changes 07-09-2026
+      window.location.href = `reversePennyDrop/1`;
     } else if (pageName === 'Nominee') {
       window.location.href = `addNominee/1`;
     } else if (pageName === 'Esign') {

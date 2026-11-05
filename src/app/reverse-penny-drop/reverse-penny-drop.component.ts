@@ -129,10 +129,14 @@ export class ReversePennyDropComponent implements OnInit {
   minutes: number = 0;
   seconds: number = 0;
   isMobile: boolean = false;
+  ShowQR: boolean = false;
 
   timeOutStatus: boolean = false;
   apiExecstart: number = 1;
   // url: string = environment.url;
+
+  RPDActiveStatus: boolean = true;
+  PDActiveStatus: boolean = true;
 
   constructor(
     private _http: APIService,
@@ -145,13 +149,14 @@ export class ReversePennyDropComponent implements OnInit {
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
     private navService: NavigationService,
-    private MoengageService: MoengagesdkService
+    private MoengageService: MoengagesdkService,
   ) { }
 
   ngOnInit(): void {
-    this.IsIos = window.sessionStorage.getItem('isIos');
+    this.isIOS();
 
-    this.title.setTitle('Personal Details - Onboarding-DIY-PWA');
+    // this.IsIos = window.sessionStorage.getItem('isIos');
+
     this.meta.updateTag({
       name: 'description',
       content: 'Capturing Personal Details of the customer.',
@@ -165,12 +170,18 @@ export class ReversePennyDropComponent implements OnInit {
     this.utm_campaign =
       this.route.snapshot.queryParams['utm_campaign'] || 'Onboarding-DIY';
 
+    this.detectDevice();
+    this.getBankConfiguration();
     this.route.params.subscribe((params) => {
       const formNumber = params['formNumber'];
       this.setFormVisibility(formNumber);
     });
+    // const bankFailModal = document.getElementById('BankFail');
 
-    this.detectDevice();
+    // if (bankFailModal) {
+    //   const myModal = new bootstrap.Modal(bankFailModal);
+    //   myModal.show();
+    // }
   }
 
   setFormVisibility(formNumber: string) {
@@ -181,7 +192,10 @@ export class ReversePennyDropComponent implements OnInit {
     switch (formNumber) {
       case '1':
         this.RevPennyDropFormOne = true;
-        this.getUPIMasterDetails();
+        console.log("isMobile", this.isMobile)
+        if (this.isMobile) {
+          this.getUPIMasterDetails();
+        }
         break;
       case '2':
         this.RevPennyDropFormTwo = true;
@@ -193,6 +207,27 @@ export class ReversePennyDropComponent implements OnInit {
       default:
         break;
     }
+  }
+  enterManually() {
+    this.spinner.show();
+    console.log('PID');
+    clearInterval(this.rpdWebHookInterval);
+    this.MoengageService.trackEvent('Bank Verification Method', {
+      product_id: window.sessionStorage.getItem('FormNumber') ?? '',
+      Method_used: 'Penny Drop',
+      product_name: 'Onboarding DIY',
+      category: 'Bank Verification',
+    });
+
+    setTimeout(() => {
+      // this.router.navigate(['/PennyDrop', 1]);
+      this.router.navigate(['/PennyDrop', 2]);
+      this.spinner.hide();
+    }, 200);
+  }
+  enterPaymentGateway() {
+    this.ShowQR = true;
+    this.getUPIMasterDetails();
   }
 
   getPennyDropFormTwo() {
@@ -211,7 +246,11 @@ export class ReversePennyDropComponent implements OnInit {
         let response: any = resp.body;
         if (response.status == true) {
           response.data = JSON.parse(
-            this.aesService.decrypt(response.data, this.clientid, this.clientid)
+            this.aesService.decrypt(
+              response.data,
+              this.clientid,
+              this.clientid,
+            ),
           );
 
           if (resp.body.message === 'Data found') {
@@ -240,7 +279,7 @@ export class ReversePennyDropComponent implements OnInit {
 
               this.spinner.hide();
 
-              window.sessionStorage.setItem('mode', 'RevPennyDrop');
+              window.sessionStorage.setItem('mode', 'RPD');
             } else {
               this.enteredIFSCNumber = response.data[0].acc_holder_ifsc;
 
@@ -318,11 +357,17 @@ export class ReversePennyDropComponent implements OnInit {
           response.message != 'Reverse Penny Drop Limit Exceeded'
         ) {
           response = JSON.parse(
-            this.aesService.decrypt(response.data, this.clientid, this.clientid)
+            this.aesService.decrypt(
+              response.data,
+              this.clientid,
+              this.clientid,
+            ),
           );
-          //console.log('DECRYPTED RESP', response);
+          console.log('DECRYPTED RESP', response);
 
           this.indianUPIBanksList = this.filterUPIOptions(response);
+          // this.indianUPIBanksList = this.filterUPIOptions(response);
+
           if (this.indianUPIBanksList.length > 0) {
             this.requestID = this.indianUPIBanksList[0].requestId;
           }
@@ -342,6 +387,7 @@ export class ReversePennyDropComponent implements OnInit {
               //console.log('upiLink- ', this.upiPayLink);
 
               this.getApiStarttime();
+              clearInterval(this.rpdWebHookInterval)
               this.rpdWebHookInterval = setInterval(() => {
                 this.getVerifyBankDetailsStatus('desktop');
               }, 5000);
@@ -443,6 +489,7 @@ export class ReversePennyDropComponent implements OnInit {
     });
 
     sessionStorage.setItem('selectedUPIBank', selectedUPIBank);
+    this.sendVerifyBank();
 
     //console.log('Updated upiURL', this.upiURL);
   }
@@ -588,8 +635,8 @@ export class ReversePennyDropComponent implements OnInit {
               this.aesService.decrypt(
                 response.data,
                 this.clientid,
-                this.clientid
-              )
+                this.clientid,
+              ),
             );
 
             //console.log('Response Decrypted: ', response);
@@ -601,7 +648,7 @@ export class ReversePennyDropComponent implements OnInit {
             if (response.message != 'Name Mismatch-MiddleRange') {
               clearInterval(this.rpdWebHookInterval);
 
-              window.sessionStorage.setItem('mode', 'RevPennyDrop');
+              window.sessionStorage.setItem('mode', 'RPD');
 
               this.enteredIFSCNumber = response.data[0].acc_holder_ifsc;
 
@@ -621,7 +668,7 @@ export class ReversePennyDropComponent implements OnInit {
                   product_name: 'Onboarding DIY',
                   Response: 'Bank Account Verified Successfully',
                   category: 'Bank Verification',
-                }
+                },
               );
 
               window.sessionStorage.setItem('TriggerEvent', 'N');
@@ -634,7 +681,7 @@ export class ReversePennyDropComponent implements OnInit {
             } else if (response.message === 'Name Mismatch-MiddleRange') {
               clearInterval(this.rpdWebHookInterval);
 
-              window.sessionStorage.setItem('mode', 'RevPennyDrop');
+              window.sessionStorage.setItem('mode', 'RPD');
 
               this.enteredIFSCNumber = response.data[0].acc_holder_ifsc;
 
@@ -654,7 +701,7 @@ export class ReversePennyDropComponent implements OnInit {
                   product_name: 'Onboarding DIY',
                   Response: 'Bank Account Verified Successfully',
                   category: 'Bank Verification',
-                }
+                },
               );
 
               window.sessionStorage.setItem('TriggerEvent', 'N');
@@ -680,7 +727,7 @@ export class ReversePennyDropComponent implements OnInit {
                   ErrorMsg: 'Please Try Again',
                   product_name: 'Onboarding DIY',
                   category: 'Bank Verification',
-                }
+                },
               );
 
               this.getUPIMasterDetails();
@@ -703,17 +750,22 @@ export class ReversePennyDropComponent implements OnInit {
                   'Your PAN name and bank details don’t match. Please try adding another bank account.',
                 product_name: 'Onboarding DIY',
                 category: 'Bank Verification',
-              }
+              },
             );
+            const bankFailModal = document.getElementById('BankFail');
 
-            this.toastr.error(
-              'Your PAN name and bank details don’t match. Please try adding another bank account.',
-              '',
-              {
-                positionClass: 'toast-bottom-center',
-                timeOut: 5000,
-              }
-            );
+            if (bankFailModal) {
+              const myModal = new bootstrap.Modal(bankFailModal);
+              myModal.show();
+            }
+            // this.toastr.error(
+            //   'Your PAN name and bank details don’t match. Please try adding another bank account.',
+            //   '',
+            //   {
+            //     positionClass: 'toast-bottom-center',
+            //     timeOut: 5000,
+            //   }
+            // );
 
             this.getUPIMasterDetails();
 
@@ -724,7 +776,7 @@ export class ReversePennyDropComponent implements OnInit {
           ) {
             clearInterval(this.rpdWebHookInterval);
 
-            this.toastr.error(response.message, '', {
+            this.toastr.error("This bank account is already linked in our system. Please try linking a different bank account.", '', {
               positionClass: 'toast-bottom-center',
               timeOut: 5000,
             });
@@ -741,7 +793,7 @@ export class ReversePennyDropComponent implements OnInit {
                 ErrorMsg: response.message,
                 product_name: 'Onboarding DIY',
                 category: 'Bank Verification',
-              }
+              },
             );
 
             this.getUPIMasterDetails();
@@ -768,16 +820,16 @@ export class ReversePennyDropComponent implements OnInit {
                     'Oops! We could not verify the bank account linked with your UPI ID. Please retry again or enter details manually to verify your bank account',
                   product_name: 'Onboarding DIY',
                   category: 'Bank Verification',
-                }
+                },
               );
 
               this.toastr.error(
-                'Oops! We could not verify the bank account linked with your UPI ID. Please retry again or enter details manually to verify your bank account',
+                'Verification timed out. Please retry.',
                 '',
                 {
                   positionClass: 'toast-bottom-center',
                   timeOut: 3000,
-                }
+                },
               );
 
               this.getUPIMasterDetails();
@@ -807,6 +859,42 @@ export class ReversePennyDropComponent implements OnInit {
   //   return true;
 
   // }
+  isIOS() {
+    // let isIos = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+    let isIos = this.detectIOS();
+
+    //console.log('IOS Value', isIos);
+
+    window.sessionStorage.setItem('isIos', isIos.toString());
+    this.IsIos = isIos.toString();
+  }
+  detectIOS(): boolean {
+    const userAgent = navigator.userAgent;
+
+    // Detect iOS/iPadOS by checking for Apple devices in the userAgent or a touch device
+    const isIOS = /iPad|iPhone|iPod/.test(userAgent);
+    //  || (navigator.maxTouchPoints > 1);
+    // Detect if it's a touch device
+
+    // Specific check for iPadOS devices that report as Macintosh
+    // Exclude devices that do not report as iPad, iPhone, or iPod
+    const isMac =
+      /Macintosh/.test(userAgent) &&
+      /AppleWebKit/.test(userAgent) &&
+      !/iPad|iPhone|iPod/.test(userAgent);
+
+    // Return true only if the device is running iOS or iPadOS, excluding MacBooks
+    const isDeviceIOS = isIOS || isMac;
+
+    //console.log('User Agent:', userAgent);
+    //console.log('isIOS:', isIOS);
+    //console.log('isMac:', isMac);
+
+    //console.log('detectIOS result:', isDeviceIOS);
+
+    return isDeviceIOS;
+  }
 
   launchUPILink(upiURL: string): Promise<boolean> {
     const start = Date.now();
@@ -891,30 +979,94 @@ export class ReversePennyDropComponent implements OnInit {
     });
   }
 
-  redirectPlanSelection() {
-    this.spinner.show();
+  // redirectPlanSelection() {
+  //   this.spinner.show();
 
-    if (this.RejectStatus != 'R') {
-      setTimeout(() => {
-        const modalBackdrops = document.querySelectorAll('.modal-backdrop');
-        modalBackdrops.forEach((backdrop) => {
-          if (backdrop instanceof HTMLElement) {
-            backdrop.remove();
+  //   if (this.RejectStatus != 'R') {
+  //     setTimeout(() => {
+  //       const modalBackdrops = document.querySelectorAll('.modal-backdrop');
+  //       modalBackdrops.forEach((backdrop) => {
+  //         if (backdrop instanceof HTMLElement) {
+  //           backdrop.remove();
+  //         }
+  //       });
+  //       this.router.navigate(['/planprocess', 1]);
+  //       this.spinner.hide();
+  //     }, 200);
+  //   } else {
+  //     setTimeout(() => {
+  //       const modalBackdrops = document.querySelectorAll('.modal-backdrop');
+  //       modalBackdrops.forEach((backdrop) => {
+  //         if (backdrop instanceof HTMLElement) {
+  //           backdrop.remove();
+  //         }
+  //       });
+  //       this.navService.navigateToNextStep();
+  //     }, 200);
+  //   }
+  // }
+  
+  redirectPlanSelection() {
+    if ((this.enteredIFSCNumber).toUpperCase().includes('SBIN')) {
+      this.spinner.show();
+      const reqData = {
+        FORMNUMBER: window.sessionStorage.getItem('FormNumber'),
+        CUSTOMER_NUMBER: this.accountNumber,
+        SOURCE_ID: 'SA',
+      };
+      this._http
+        .postRequest('api/v1/BankDetails/GetCustomerEnquiry', reqData)
+        .subscribe((resp) => {
+          const response: any = resp.body;
+          if (response.status == false) {
+            this.spinner.hide();
+            this.toastr.error(response.message, '', {
+              positionClass: 'toast-bottom-center',
+              timeOut: 8000,
+            });
+            setTimeout(() => {
+              window.location.href = 'reversePennyDrop/1';
+            }, 1000);
+            // this.router.navigate(['/reversePennyDrop', 1]);
+            return;
+          }
+          this.spinner.hide();
+          if (this.RejectStatus !== 'R') {
+            setTimeout(() => {
+              document
+                .querySelectorAll('.modal-backdrop')
+                .forEach((backdrop) => backdrop.remove());
+
+              this.router.navigate(['/planprocess', 1]);
+            }, 200);
+          } else {
+            setTimeout(() => {
+              document
+                .querySelectorAll('.modal-backdrop')
+                .forEach((backdrop) => backdrop.remove());
+              this.navService.navigateToNextStep();
+            }, 200);
           }
         });
-        this.router.navigate(['/planprocess', 1]);
-        this.spinner.hide();
-      }, 200);
     } else {
-      setTimeout(() => {
-        const modalBackdrops = document.querySelectorAll('.modal-backdrop');
-        modalBackdrops.forEach((backdrop) => {
-          if (backdrop instanceof HTMLElement) {
-            backdrop.remove();
-          }
-        });
-        this.navService.navigateToNextStep();
-      }, 200);
+      if (this.RejectStatus !== 'R') {
+        setTimeout(() => {
+          document
+            .querySelectorAll('.modal-backdrop')
+            .forEach((backdrop) => backdrop.remove());
+          this.router.navigate(['/planprocess', 1]);
+          this.spinner.hide();
+        }, 200);
+      } else {
+        setTimeout(() => {
+          document
+            .querySelectorAll('.modal-backdrop')
+            .forEach((backdrop) => backdrop.remove());
+
+          this.navService.navigateToNextStep();
+          this.spinner.hide();
+        }, 200);
+      }
     }
   }
 
@@ -945,6 +1097,18 @@ export class ReversePennyDropComponent implements OnInit {
           backdrop.remove();
         }
       });
+    }
+  }
+
+  removeModalBank() {
+    // $('#BankFailClose').modal('hide');
+    const removebankSameNamepopupModel =
+      document.getElementById('BankFailClose');
+    if (removebankSameNamepopupModel) {
+      const myModall = new bootstrap.Modal(removebankSameNamepopupModel);
+      myModall.hide();
+    } else {
+      this.removeModal();
     }
   }
 
@@ -983,6 +1147,7 @@ export class ReversePennyDropComponent implements OnInit {
               'https://diy.sbisecurities.in/open-demat-account/reversePennyDrop/1';
 
             // window.location.href = this.url + 'reversePennyDrop/1';
+            // this.router.navigate(['/reversePennyDrop', 1]);
 
             //this.spinner.hide();
           }, 200);
@@ -1009,12 +1174,80 @@ export class ReversePennyDropComponent implements OnInit {
 
   BackToPersonalSix() {
     clearInterval(this.rpdWebHookInterval);
-
+    console.log("TEST1")
     this.spinner.show();
 
     setTimeout(() => {
-      this.router.navigate(['/personalDetailsForm', 6]);
+      this.router.navigate(['/personalDetailsForm', 5]);
       this.spinner.hide();
+    }, 200);
+    // this.getBankConfiguration();
+  }
+
+  getBankConfiguration() {
+    this.spinner.show();
+    setTimeout(() => {
+      var reqData = {
+        flag: 'GETBANKCONFIG',
+      };
+      this._http
+        .postRequest('api/v1/masters/get', reqData)
+        .subscribe((resp) => {
+          let response: any = resp.body;
+          if (response.status == true) {
+            response = JSON.parse(
+              this.aesService.decrypt(
+                response.data,
+                this.clientid,
+                this.clientid,
+              ),
+            );
+            //console.log('RESPO', response);
+            // console.log('BankConfig',response)
+
+            if (response?.data?.[0]) {
+              var temp_rpd_status = response?.data?.[0]?.IsRPDActiveStatus === 'YES';
+              var temp_pd_status = response?.data?.[0]?.IsPDActiveStatus === 'YES'
+
+              if (temp_rpd_status == true && temp_pd_status == true) {
+                this.spinner.hide();
+
+                return;
+              }
+              else if (temp_rpd_status == true && temp_pd_status == false) {
+                this.PDActiveStatus = false;
+              }
+              else if (temp_rpd_status == false && temp_pd_status == true) {
+                setTimeout(() => {
+                  this.router.navigate(['/PennyDrop', 1]);
+                  this.spinner.hide();
+                }, 200);
+              }
+              else if (temp_rpd_status == false && temp_pd_status == false) {
+                setTimeout(() => {
+                  this.router.navigate(['/personalDetailsForm', 5]);
+                  this.spinner.hide();
+                }, 200);
+              }
+              else {
+                // this.RPDActiveStatus = true;
+                // this.PDActiveStatus = true;
+                setTimeout(() => {
+                  this.router.navigate(['/personalDetailsForm', 5]);
+                  this.spinner.hide();
+                }, 200);
+              }
+
+
+
+            }
+
+            // console.log("this.RPDActiveStatus: ",this.RPDActiveStatus);
+            // console.log("this.PDActiveStatus: ",this.PDActiveStatus);
+          }
+
+          this.spinner.hide();
+        });
     }, 200);
   }
 
@@ -1050,7 +1283,11 @@ export class ReversePennyDropComponent implements OnInit {
         //console.log('RESPONSE------>: ', response);
         if (response.status == true) {
           response.data = JSON.parse(
-            this.aesService.decrypt(response.data, this.clientid, this.clientid)
+            this.aesService.decrypt(
+              response.data,
+              this.clientid,
+              this.clientid,
+            ),
           );
           if (response.message == 'Data found') {
             this.router.navigate(['/reversePennyDrop', 2]);
@@ -1115,7 +1352,7 @@ export class ReversePennyDropComponent implements OnInit {
   faqHelpBtn(stageName: string) {
     const encodedStageName = btoa(stageName);
     window.location.href = `faq?stageName=${encodeURIComponent(
-      encodedStageName
+      this.aesService.encrypt(encodedStageName, '', ''),
     )}`;
   }
 }

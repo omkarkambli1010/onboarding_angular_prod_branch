@@ -70,7 +70,7 @@ const routes: Routes = [
   { path: 'personalDetailsForm/3', component: AnnualIncomeComponent },
   { path: 'personalDetailsForm/4', component: OccupDetailsComponent },
   { path: 'personalDetailsForm/5', component: FatherSpouseNameComponent },
-  { path: 'personalDetailsForm/6', component: LinkBankAccountComponent },
+  // { path: 'personalDetailsForm/6', component: LinkBankAccountComponent },
   { path: 'PennyDrop/:formNumber', component: PennyDropComponent },
   {
     path: 'reversePennyDrop/:formNumber',

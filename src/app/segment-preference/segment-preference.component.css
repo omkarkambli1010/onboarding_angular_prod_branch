@@ -397,7 +397,14 @@ body.modal-open {
   gap: 5px;
 }
 
-.pan_details_form .pan_details_align .upload_css h5 {
+/* .pan_details_form .pan_details_align .upload_css h5 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 0px;
+  color: #2b2b2b;
+} */
+
+.pan_details_form .pan_details_align .upload_css span {
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 0px;
@@ -851,7 +858,15 @@ body.modal-open {
   flex: 1 0 0;
 }
 
-.pan_details_form .plan_selection_section .plan_selected .plan h6 {
+/* .pan_details_form .plan_selection_section .plan_selected .plan h6 {
+  color: #222;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -1px;
+} */
+
+.pan_details_form .plan_selection_section .plan_selected .plan h3 {
   color: #222;
   font-size: 14px;
   font-weight: 600;
@@ -865,6 +880,8 @@ body.modal-open {
   font-weight: 400;
   line-height: normal;
   text-decoration-line: underline;
+  background: unset;
+  border: unset;
 }
 
 
@@ -951,9 +968,7 @@ body.modal-open {
     height: auto;
   }
 
-  .pan_details_form
-    .pan_details_align
-    .form-check-input[type="checkbox"] {
+  .pan_details_form .pan_details_align .form-check-input[type="checkbox"] {
     margin: 0;
   }
 }

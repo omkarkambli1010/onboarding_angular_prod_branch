@@ -142,15 +142,22 @@ export class HomeComponent implements OnInit {
     },
   ];
 
+  // cc_load_policy=1 turns the YouTube caption track on by default (WCAG 1.2.2).
+  // `transcript` backs the text alternative required by 1.2.3; the panel and its
+  // link only render once the transcript copy has been supplied.
   videos: any[] = [
     {
-      url: 'https://www.youtube.com/embed/0cfFB8d_n60?si=Mwd2ApOaaT1SXOhM',
+      url: 'https://www.youtube.com/embed/0cfFB8d_n60?si=Mwd2ApOaaT1SXOhM&cc_load_policy=1',
       caption: 'Invest to your FULL POTENTIAL with the SBI Securities App!',
+      transcriptId: 'transcript-invest-full-potential',
+      transcript: '',
     },
     {
-      url: 'https://www.youtube.com/embed/Rb7IE_P3UcA',
+      url: 'https://www.youtube.com/embed/Rb7IE_P3UcA?cc_load_policy=1',
       caption:
         'E‑Margin (Margin Trading Facility) - Up to 4x Buying Power at 0% Interest for 23 trading days',
+      transcriptId: 'transcript-emargin',
+      transcript: '',
     },
   ];
 
@@ -189,9 +196,51 @@ export class HomeComponent implements OnInit {
     private renderer: Renderer2,
     private MoengageService: MoengagesdkService,
     @Inject(DOCUMENT) private document: Document
-  ) {}
+  ) { }
+
+  ngAfterViewInit(): void {
+    // WCAG 1.3.1 (Issue: carousel content skipped by screen reader).
+    // PrimeNG p-carousel sets aria-hidden="true" on the visible item
+    // wrappers, causing NVDA to skip the testimonial / video content.
+    // Remove aria-hidden from any carousel item that is actually visible,
+    // and keep doing so as PrimeNG re-renders on interaction/resize.
+    const unhideVisibleCarouselItems = () => {
+      const items = this.document.querySelectorAll(
+        '.p-carousel-items-container [aria-hidden="true"]'
+      );
+      items.forEach((el: Element) => {
+        const htmlEl = el as HTMLElement;
+        if (htmlEl.offsetParent !== null) {
+          htmlEl.removeAttribute('aria-hidden');
+        }
+      });
+    };
+    setTimeout(unhideVisibleCarouselItems, 500);
+    setTimeout(unhideVisibleCarouselItems, 1500);
+    window.addEventListener('resize', () =>
+      setTimeout(unhideVisibleCarouselItems, 300)
+    );
+  }
+
+  /**
+   * WCAG 1.2.3 - when the user follows the transcript link, move focus to the
+   * transcript itself rather than just scrolling the page.
+   */
+  focusTranscript(event: Event, transcriptId: string) {
+    event.preventDefault();
+    const target = this.document.getElementById(transcriptId);
+    if (target) {
+      target.scrollIntoView({ behavior: 'auto', block: 'start' });
+      target.focus();
+    }
+  }
+
 
   ngOnInit(): void {
+
+    this.setJourneyBanner();
+
+
     this.getJunkValue();
     this.addFaqStructuredData();
     this.sendOtp.mobile = sessionStorage.getItem('mobile');
@@ -427,6 +476,34 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  desktopBanner =
+    'assets/images/diy/Website-Banner-DIY2-Foreground.webp';
+
+  mobileBanner =
+    'assets/images/diy/Website-Banner-DIY2-Mobile-Foreground.webp';
+
+  private setJourneyBanner(): void {
+    const queryParams = new URLSearchParams(window.location.search);
+
+    const utmSource = queryParams.get('utm_source')?.trim().toLowerCase();
+    // const utmMedium = queryParams.get('utm_medium')?.trim().toLowerCase();
+    // const utmCampaign = queryParams.get('utm_campaign')?.trim().toLowerCase();
+
+    const isRetailSalesJourney =
+      /* utmSource === 'retailsales' &&
+      utmMedium === 'email' &&
+      utmCampaign === 'na';
+ */
+      utmSource === 'retailsales'
+    if (isRetailSalesJourney) {
+      this.desktopBanner =
+        'assets/images/diy/Website-Banner-DIY2-Foreground_RetailSales.webp';
+
+      this.mobileBanner =
+        'assets/images/diy/Website-Banner-DIY2-Mobile-Foreground_RetailSales.webp';
+    }
+  }
+
   onOtpChange(otp: any) {
     this.otp = otp;
   }
@@ -531,16 +608,6 @@ export class HomeComponent implements OnInit {
     this.mobileNoValidation(event, true);
   }
 
-  // updateDisplayedName2(event: any) {
-  //   let input = event.target.value;
-  //   if (input.length > 0) {
-  //     this.panFullNameReqSpace = false;
-  //   } else {
-  //     this.panFullNameReqSpace = true;
-  //   }
-  //   this.updateDisplayedName(event);
-  // }
-
   mobileNoValidation(event: any, showError: boolean) {
     this.mobileDigitReq = false;
     let input = event.target.value;
@@ -587,78 +654,6 @@ export class HomeComponent implements OnInit {
         this.spinner.hide();
       });
   }
-
-  // checkInput(event: any): void {
-  //   let value = event.target.value;
-
-  //   if (/^\s/.test(value)) {
-  //     value = value.trimStart();
-  //   }
-  //   value = value.replace(/\s{2,}/g, ' ');
-  //   value = value.replace(/[^a-zA-Z\s]/g, '');
-  //   value = value.toUpperCase();
-
-  //   const blockedWords: string[] = [
-  //     'GMAILCOM',
-  //     'ABCD',
-  //     'ABABABA',
-  //     'CREDIT',
-  //     'ADHAR',
-  //     'SBI',
-  //     'ATM',
-  //     'PAN',
-  //     'OTP',
-  //     'CARD',
-  //     'JIO',
-  //     'NSDL',
-  //     'TEST',
-  //     'SBIN',
-  //     'GOVT',
-  //     'DEBIT',
-  //     'AADHAAR',
-  //     'STATE',
-  //     'BANK',
-  //     'INDIA',
-  //     'CUSTOMER',
-  //     'UCOBANK',
-  //     'HDFC',
-  //     'BARODA',
-  //     'GRAMIN',
-  //     'SBIBANKOFINDIA',
-  //     'AIRTEL',
-  //     'CENTRAL',
-  //     'SAVINGS',
-  //     'PANCARD',
-  //     'DEBATE',
-  //     'IDENTITYCARD',
-  //     'COMPLETED',
-  //     'HONDA',
-  //     'BIKE',
-  //     'BOLLYWOOD',
-  //     'AAA',
-  //   ];
-
-  //   blockedWords.forEach((word) => {
-  //     const regex = new RegExp(`\\b${word}\\b`, 'gi');
-  //     const words = value.trim().split(/\s+/);
-
-  //     if (words.length > 1) {
-  //       value = value.replace(regex, '');
-  //     }
-  //   });
-
-  //   // Enable/disable button
-  //   if (value === '' || value === null) {
-  //     this.isDisabledLoginBtn = true;
-  //   } else if (value.length >= 3) {
-  //     this.isDisabledLoginBtn = false;
-  //   } else {
-  //     this.isDisabledLoginBtn = true;
-  //   }
-
-  //   event.target.value = value;
-  //   this.sendOtp.fullname = value;
-  // }
 
   checkInput(event: any): void {
     let value = event.target.value;
@@ -726,28 +721,6 @@ export class HomeComponent implements OnInit {
       event.preventDefault();
     }
   }
-
-  // updateDisplayedName(value: string): void {
-  //   let trimmedValue = value.trim();
-  //   trimmedValue = trimmedValue.replace(/\s{2,}/g, ' ');
-  //   const specialCharRegex = /[!@#$%^&*()\-+={}[\]:;"'<>,.?\/|\\]/;
-  //   this.panFullNameReqSpecial = specialCharRegex.test(trimmedValue);
-  //   this.panFullNameReqDigit = /\d/.test(trimmedValue);
-  //   const emojiRegex = /[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu;
-  //   const containsEmoji = emojiRegex.test(trimmedValue);
-  //   if (
-  //     trimmedValue.length > 0 &&
-  //     !this.panFullNameReqSpecial &&
-  //     !this.panFullNameReqDigit &&
-  //     !containsEmoji
-  //   ) {
-  //     this.sendOtp.fullname = trimmedValue.toUpperCase();
-  //     this.panFullNameReqSpace = false;
-  //   } else {
-  //     this.panFullNameReqSpace = true;
-  //   }
-  //   this.validateFormFields();
-  // }
 
   updateDisplayedName(value: any): void {
     if (typeof value !== 'string') {
@@ -864,17 +837,6 @@ export class HomeComponent implements OnInit {
   }
 
   checkIfAllOTPEmailFilled() {
-    // this.isValidEmailBtn = this.otpFieldEmail?.length !== 6;
-    // if (this.otpFieldEmail >= 6) {
-    //   this.isWrongOTP = false;
-    //   this.isRightOTP = false;
-    // } else if (this.otpFieldEmail === 6) {
-    //   this.isValidEmailBtn = false;
-    // } else if (this.otpFieldEmail.length < 6) {
-    //   this.isWrongOTP = false;
-    //   this.isRightOTP = false;
-    // }
-
     const isComplete = this.otpFieldEmail?.length === 6;
     this.isValidEmailBtn = !isComplete;
 
@@ -1111,329 +1073,9 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  // getMobileOtpVerify(isRetry: boolean) {
-  //   this.spinner.show();
-  //   let Fullname = sessionStorage.getItem('NameSubmitted');
-
-  //   let otpFieldMobile = this.otpFieldMobile;
-
-  //   if (otpFieldMobile == '') {
-  //     this.toastr.info('Please enter the OTP', 'Info', {
-  //       positionClass: 'toast-bottom-center',
-  //       timeOut: 2000,
-  //     });
-  //     this.isMobileVerifyBtn = true;
-  //     return;
-  //   }
-  //   this.isWrongOTP = false;
-  //   this.isRightOTP = false;
-  //   this.isMobileVerifyBtn = false;
-
-  //   const reqData = {
-  //     Flag: 'VerifyOTPMobile',
-  //     mobileno: this.sendOtp.mobile,
-  //     emailid: this.sendOtp.email,
-  //     name_submitted: Fullname,
-  //     isRetry: isRetry,
-  //     otp: otpFieldMobile,
-  //     utm_source: this.utm_source,
-  //     utm_medium: this.utm_medium,
-  //     utm_campaign: this.utm_campaign,
-  //     formnumber: window.sessionStorage.getItem('FormNumber'),
-  //   };
-  //   this._http
-  //     .postRequest('api/v1/oauth/service/otp/verify', reqData)
-  //     .subscribe((resp) => {
-  //       let response: any = resp.body;
-  //       this.spinner.hide();
-
-  //       if (response.status == true) {
-  //         response = JSON.parse(
-  //           this.aesService.decrypt(response.data, this.clientid, this.clientid)
-  //         );
-  //       } else {
-  //         response = JSON.parse(
-  //           this.aesService.decrypt(response.data, this.clientid, this.clientid)
-  //         );
-  //       }
-
-  //       window.sessionStorage.setItem('token', response.Table[0].token ?? '');
-
-  //       window.sessionStorage.setItem(
-  //         'clientid',
-  //         response.Table[0].FormNumber ?? ''
-  //       );
-
-  //       this.clientid = window.sessionStorage.getItem('clientid') ?? '';
-
-  //       window.sessionStorage.setItem(
-  //         'UTMSOURCE',
-  //         response.Table[0].UTMSOURCE ?? 'NA'
-  //       );
-
-  //       this.utm_source = window.sessionStorage.getItem('UTMSOURCE') ?? 'NA';
-
-  //       if (
-  //         response.Table[0].PhoneNumberVerify !=
-  //           window.sessionStorage.getItem('mobile') ||
-  //         response.Table[0].VerifyOtp != this.otpFieldMobile
-  //       ) {
-  //         this.isWrongOTP = true;
-  //         this.isRightOTP = false;
-
-  //         this.toastr.error('Unauthorized', 'Error', {
-  //           positionClass: 'toast-bottom-center',
-  //           timeOut: 2000,
-  //         });
-  //       } else {
-  //         if (
-  //           resp.body.message == 'OTP Verify successfully' &&
-  //           resp.body.status == true
-  //         ) {
-  //           //window.sessionStorage.clear();
-  //           //window.sessionStorage.clear();
-
-  //           var ts = this.getNumericTimestamp();
-
-  //           this.MoengageService.setUserAttributes(
-  //             response.Table[0].FormNumber,
-  //             this.sendOtp.mobile,
-  //             '',
-  //             '',
-  //             ''
-  //           );
-
-  //           this.MoengageService.trackEvent('Mobile Verified', {
-  //             product_id: response.Table[0].FormNumber,
-  //             product_name: 'Onboarding DIY',
-  //             category: 'Mobile OTP',
-  //             verificationmethod: 'OTP',
-  //             MobileNumber: this.sendOtp.mobile,
-  //           });
-
-  //           console.log(this.sendOtp.mobile + ts);
-
-  //           // console.log('DSS0-->', response);
-  //           // console.log('DSS1-->', response.Table1);
-  //           // console.log('DSS2-->', response.Table2);
-
-  //           if (
-  //             response.Table1 == '' ||
-  //             response.Table1.length == 0 ||
-  //             response.Table1[0].dsw_StageUrl === '/email'
-  //           ) {
-  //             window.sessionStorage.setItem(
-  //               'FormNumber',
-  //               response.Table[0].FormNumber
-  //             );
-  //             const mobileOtpModal = document.getElementById('mobileotp');
-  //             if (mobileOtpModal) {
-  //               this.isRightOTP = true;
-  //               this.isWrongOTP = false;
-  //               this.clearTimer();
-  //               // mobileOtpModal.classList.remove('show');
-  //               $('#mobileotp').modal('hide');
-  //               this.clearMobileOTPFields();
-  //               this.removeModal();
-  //               this.emailWindowBox();
-  //               // this.mainContent = false;
-  //             }
-  //           } else if (
-  //             response.Table1[0].dsw_StageId != '' &&
-  //             response.Table1[0].dsw_StageId != null &&
-  //             response.Table1[0].dsw_StageId != '24' &&
-  //             response.Table1[0].stagestaus != 'R'
-  //           ) {
-  //             //this.trackApplicationWindow();
-
-  //             //window.sessionStorage.clear();
-  //             //window.sessionStorage.clear();
-  //             window.sessionStorage.setItem(
-  //               'FormNumber',
-  //               response.Table[0].FormNumber
-  //             );
-
-  //             const mobileOtpModal = document.getElementById('mobileotp');
-  //             if (mobileOtpModal) {
-  //               this.isRightOTP = true;
-  //               this.clearTimer();
-  //               // mobileOtpModal.classList.remove('show');
-  //               $('#mobileotp').modal('hide');
-  //               this.clearMobileOTPFields();
-
-  //               this.removeModal();
-
-  //               if (response.Table2.length > 0) {
-  //                 window.sessionStorage.setItem(
-  //                   'mode',
-  //                   response.Table2[0].mode
-  //                 );
-  //               }
-
-  //               if (response.Table3.length > 0) {
-  //                 if (response.Table3[0].nomineeOptOut === 'Yes') {
-  //                   window.sessionStorage.setItem(
-  //                     'NomineeOptOut',
-  //                     'NomineeOptOut'
-  //                   );
-  //                 } else {
-  //                   window.sessionStorage.removeItem('NomineeOptOut');
-  //                 }
-  //               }
-
-  //               this.router.navigate([response.Table1[0].dsw_StageUrl]);
-
-  //               this.dismissTrackApplicationModal2();
-  //             }
-  //           } else if (
-  //             response.Table1[0].dsw_StageId === '24' &&
-  //             response.Table1[0].stagestaus != 'R'
-  //           ) {
-  //             if (
-  //               response.Table4[0].TradingSegment ===
-  //               'Equity & Mutual Fund, Derivative'
-  //             ) {
-  //               //this.trackApplicationWindow();
-
-  //               //window.sessionStorage.clear();
-  //               //window.sessionStorage.clear();
-  //               window.sessionStorage.setItem(
-  //                 'FormNumber',
-  //                 response.Table[0].FormNumber
-  //               );
-
-  //               const mobileOtpModal = document.getElementById('mobileotp');
-  //               if (mobileOtpModal) {
-  //                 this.isRightOTP = true;
-  //                 this.clearTimer();
-  //                 // mobileOtpModal.classList.remove('show');
-  //                 $('#mobileotp').modal('hide');
-  //                 this.clearMobileOTPFields();
-
-  //                 this.removeModal();
-
-  //                 if (response.Table2.length > 0) {
-  //                   window.sessionStorage.setItem(
-  //                     'mode',
-  //                     response.Table2[0].mode
-  //                   );
-  //                 }
-
-  //                 if (response.Table3.length > 0) {
-  //                   if (response.Table3[0].nomineeOptOut === 'Yes') {
-  //                     window.sessionStorage.setItem(
-  //                       'NomineeOptOut',
-  //                       'NomineeOptOut'
-  //                     );
-  //                   } else {
-  //                     window.sessionStorage.removeItem('NomineeOptOut');
-  //                   }
-  //                 }
-
-  //                 this.router.navigate(['/thankyou'], {
-  //                   queryParams: { esign: 'y' },
-  //                 });
-
-  //                 this.dismissTrackApplicationModal2();
-  //               }
-  //             } else {
-  //               this.trackApplicationWindow2();
-
-  //               window.sessionStorage.setItem(
-  //                 'FormNumber',
-  //                 response.Table[0].FormNumber
-  //               );
-  //               const mobileOtpModal = document.getElementById('mobileotp');
-  //               if (mobileOtpModal) {
-  //                 this.isRightOTP = true;
-  //                 this.clearTimer();
-  //                 // mobileOtpModal.classList.remove('show');
-  //                 $('#mobileotp').modal('hide');
-  //                 this.clearMobileOTPFields();
-
-  //                 this.removeModal();
-  //               }
-  //             }
-  //           } else if (response.Table1[0].stagestaus === 'R') {
-  //             //this.trackApplicationWindow();
-  //             //window.sessionStorage.clear();
-  //             //window.sessionStorage.clear();
-  //             window.sessionStorage.setItem(
-  //               'RejectStatus',
-  //               response.Table1[0].stagestaus
-  //             );
-  //             const rejectedRoutes = response.Table1.map(
-  //               (entry: { dsw_StageUrl: any }) => entry.dsw_StageUrl
-  //             );
-  //             this.navService.fetchRejectedRoutes(rejectedRoutes, 'home');
-  //             window.sessionStorage.setItem(
-  //               'FormNumber',
-  //               response.Table[0].FormNumber
-  //             );
-
-  //             const mobileOtpModal = document.getElementById('mobileotp');
-  //             if (mobileOtpModal) {
-  //               this.isRightOTP = true;
-  //               this.clearTimer();
-  //               // mobileOtpModal.classList.remove('show');
-  //               $('#mobileotp').modal('hide');
-  //               this.clearMobileOTPFields();
-
-  //               this.removeModal();
-  //               // this.mainContent = false;
-  //             }
-  //           } else {
-  //             //window.sessionStorage.clear();
-  //             //window.sessionStorage.clear();
-  //             window.sessionStorage.setItem(
-  //               'FormNumber',
-  //               response.Table[0].FormNumber
-  //             );
-  //             const mobileOtpModal = document.getElementById('mobileotp');
-  //             if (mobileOtpModal) {
-  //               this.isRightOTP = true;
-  //               this.clearTimer();
-  //               // mobileOtpModal.classList.remove('show');
-  //               $('#mobileotp').modal('hide');
-  //               this.clearMobileOTPFields();
-  //               this.removeModal();
-  //               this.emailWindowBox();
-  //               // this.mainContent = false;
-  //             }
-  //           }
-  //         } else {
-  //           if (response.Table[0].Msg == 'Internal server error') {
-  //             this.toastr.error(response.Table[0].statusText, 'Error', {
-  //               positionClass: 'toast-bottom-center',
-  //               timeOut: 2000,
-  //             });
-  //           } else if (response.Table[0].Msg == 'OTP Limit Exceeded') {
-  //             this.toastr.warning(response.Table[0].Msg, 'Warning', {
-  //               positionClass: 'toast-bottom-center',
-  //               timeOut: 2000,
-  //             });
-  //           } else if (response.Table[0].Msg == 'Wrong Otp') {
-  //             this.isWrongOTP = true;
-  //             this.isRightOTP = false;
-  //           } else {
-  //             this.clearMobileOTPFields();
-  //             this.toastr.info(response.Table[0].Msg, 'Info', {
-  //               positionClass: 'toast-bottom-center',
-  //               timeOut: 2000,
-  //             });
-  //             this.isWrongOTP = false;
-  //             this.isRightOTP = false;
-  //           }
-  //         }
-  //       }
-  //     });
-  // }
-
   trackApplicationWindow() {
     const timelineStatus = document.getElementById('tracktimeline');
     if (timelineStatus) {
-      // const myTimeLineModal = new bootstrap.Modal(timelineStatus);
-      // myTimeLineModal.show();
       $('#tracktimeline').modal('show');
     } else {
       this.removeModal();
@@ -1523,18 +1165,6 @@ export class HomeComponent implements OnInit {
   }
 
   clearEmailOtpModal() {
-    // const emailModalOtpModal = document.getElementById(
-    //   'emailotp'
-    // ) as HTMLElement;
-    // const emailIDModal = document.getElementById('email2faotp') as HTMLElement;
-    // const mobileOtpModal = document.getElementById('mobileotp') as HTMLElement;
-
-    // mobileOtpModal.classList.add('d-none');
-    // mobileOtpModal.classList.remove('d-block');
-    // emailIDModal.classList.add('d-none');
-    // emailIDModal.classList.remove('d-block');
-    // emailModalOtpModal.classList.add('d-none');
-    // emailModalOtpModal.classList.remove('d-block');
     $('#emailotp').modal('hide');
     $('#email2faotp').modal('hide');
     $('#mobileotp').modal('hide');
@@ -1546,7 +1176,6 @@ export class HomeComponent implements OnInit {
     const emailModalOtpModal = document.getElementById(
       'emailotp'
     ) as HTMLElement;
-    // //console.log("Removing none");
     if (emailModalOtpModal) {
       $('#emailotp').modal('show');
       $('#email2faotp').modal('hide');
@@ -1618,7 +1247,6 @@ export class HomeComponent implements OnInit {
           $('#emailotp').modal('show');
           $('#email2faotp').modal('hide');
 
-          // this.mainContent = false;
         } else if (resp.body.status === false) {
           this.MoengageService.trackEvent('Email OTP Sent Error', {
             product_id: window.sessionStorage.getItem('FormNumber') ?? '',
@@ -1722,16 +1350,6 @@ export class HomeComponent implements OnInit {
   }
 
   getEmailOtpVerify(isRetry: boolean) {
-    // const emailModalOtpModal = document.getElementById(
-    //   'emailotp'
-    // ) as HTMLElement;
-    // if (emailModalOtpModal) {
-    //   $('#emailotp').modal('show');
-    // }
-
-    // emailModalOtpModal.classList.remove('d-none');
-    // emailModalOtpModal.classList.add('d-block');
-
     if (this.responsePayload != null) {
       $('#emailotp').modal('hide');
       $('#email2faotp').modal('hide');
@@ -1804,14 +1422,6 @@ export class HomeComponent implements OnInit {
             $('#emailotp').modal('hide');
 
             this.emailWindowBox();
-            // const panConfirmationDone = document.getElementById('email2faotp');
-            // if (panConfirmationDone) {
-            //   $('#email2faotp').modal('hide');
-            // }
-
-            // emailModalOtpModal.classList.add('d-none');
-            // emailModalOtpModal.classList.remove('d-block');
-
             this.toastr.error(response.message, 'Error', {
               positionClass: 'toast-bottom-center',
               timeOut: 3000,
@@ -1874,18 +1484,6 @@ export class HomeComponent implements OnInit {
             $('#email2faotp').modal('hide');
 
             this.removeModal();
-
-            // const emailModalOtpModal = document.getElementById(
-            //   'emailotp'
-            // ) as HTMLElement;
-            // if (emailModalOtpModal) {
-            //   $('#emailotp').modal('hide');
-            // }
-
-            // const panConfirmationDone = document.getElementById('email2faotp');
-            // if (panConfirmationDone) {
-            //   $('#email2faotp').modal('hide');
-            // }
 
             setTimeout(() => {
               this.router.navigate(['/uploadProcess', 1]);

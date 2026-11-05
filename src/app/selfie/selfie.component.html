@@ -1,28 +1,25 @@
-<section *ngIf="PersonalFormTwo && !PersonalFormThree" class="pan_details_form">
+<h1 class="visually-hidden">Take a selfie</h1>
+<section aria-label="Take a Selfie — Preparation" *ngIf="PersonalFormTwo && !PersonalFormThree" class="pan_details_form">
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-12 m-auto">
         <div class="mobile_css">
           <div class="back_cls">
-            <div *ngIf="this.RejectStatus != 'R'" (click)="redirectPlanProcess()">
-              <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
+            <div *ngIf="this.RejectStatus != 'R'" (click)="redirectPlanProcess()" (keydown.enter)="redirectPlanProcess()" (keydown.space)="redirectPlanProcess()" role="button" tabindex="0" aria-label="Go back">
+              <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
             </div>
 
             <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div>
 
-            <!-- <div class="d-flex flex-column align-items-start gap-2">
-              <h5>Let's take a selfie</h5>
-              <p class="sub_title">Take a clear picture and upload it.</p>
-            </div> -->
             <div class="mobile_header_padding">
               <div class="help_faq_css">
                 <div class="d-flex gap-2">
                   <div class="d-flex flex-column gap-2">
-                    <h5>Let's take a selfie</h5>
+                    <h5 role="heading" aria-level="2">Let's take a selfie</h5>
                   </div>
                 </div>
                 <div>
-                  <div class="help_btn" (click)="faqHelpBtn('Selfie')">
+                  <div class="help_btn" (click)="faqHelpBtn('Selfie')" (keydown.enter)="faqHelpBtn('Selfie')" (keydown.space)="faqHelpBtn('Selfie')" role="button" tabindex="0">
                     Need Help?
                   </div>
                 </div>
@@ -32,30 +29,13 @@
           </div>
         </div>
 
-        <form method="post">
+        <form role="presentation" method="post">
           <div class="">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
-              <!-- <div class="d-flex align-items-start gap-2">
-                <div
-                  *ngIf="this.RejectStatus != 'R'"
-                  (click)="redirectPlanProcess()"
-                >
-                  <span
-                    ><i class="fa fa-long-arrow-left" aria-hidden="true"></i
-                  ></span>
-                </div>
-                <div class="d-flex flex-column align-items-start gap-2">
-                  <h5>Get set for a quick selfie</h5>
-                  <p class="sub_title">
-                    Take a clear picture and upload it. Please ensure your
-                    selfie matches the photo on your Aadhar or Pan card
-                  </p>
-                </div>
-              </div> -->
               <div class="mobile_header_padding">
                 <div class="help_faq_css">
                   <div class="d-flex gap-2">
-                    <div *ngIf="this.RejectStatus != 'R'" (click)="redirectPlanProcess()">
+                    <div *ngIf="this.RejectStatus != 'R'" (click)="redirectPlanProcess()" (keydown.enter)="redirectPlanProcess()" (keydown.space)="redirectPlanProcess()" role="button" tabindex="0" aria-label="Go back">
                       <span>
                         <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <g clip-path="url(#clip0_0_10804)">
@@ -75,7 +55,7 @@
                       </span>
                     </div>
                     <div class="heading">
-                      <h5>Get set for a quick selfie</h5>
+                      <h5 role="heading" aria-level="2">Get set for a quick selfie</h5>
                       <p class="sub_title">
                         Take a clear picture and upload it. Please ensure your
                         selfie matches the photo on your Aadhar or Pan card
@@ -83,7 +63,7 @@
                     </div>
                   </div>
                   <div>
-                    <div class="help_btn" (click)="faqHelpBtn('Selfie')">
+                    <div class="help_btn" (click)="faqHelpBtn('Selfie')" (keydown.enter)="faqHelpBtn('Selfie')" (keydown.space)="faqHelpBtn('Selfie')" role="button" tabindex="0">
                       Need Help?
                     </div>
                   </div>
@@ -91,60 +71,31 @@
               </div>
             </div>
             <hr class="desktop_css" />
-            <!-- <div class="facial_align">
-              <div class="col-lg-6 col-md-6 col-12">
-                <img
-                  class="w-100"
-                  src="assets/images/diy/selfie-banner.png"
-                  alt=""
-                />
-              </div>
-              <div class="col-lg-6 col-md-6 col-12">
-                <h5>Facial Requirements :</h5>
-                <div
-                  class="d-flex justify-content-start align-items-center my-3 gap-3"
-                >
-                  <img src="assets/images/diy/faceimg.png" alt="" />
-                  <p>Good lightning on your face</p>
-                </div>
-                <div
-                  class="d-flex justify-content-start align-items-center my-3 gap-3"
-                >
-                  <img src="assets/images/diy/eyewearimg.png" alt="" />
-                  <p>Ensure you’re not wearing any eyewear</p>
-                </div>
-                <div
-                  class="d-flex justify-content-start align-items-center my-3 gap-3"
-                >
-                  <img src="assets/images/diy/capimg.png" alt="" />
-                  <p>Ensure you’re not wearing a cap</p>
-                </div>
-              </div>
-            </div> -->
             <div class="selfie_new">
               <div class="left_section">
-                <img src="assets/images/diy/selfie_guy.png" alt="" />
+                <img src="assets/images/diy/selfie_guy.png" alt="Selfie guide illustration" />
               </div>
               <div class="right_section">
                 <div class="do_section">
-                  <h6>Do's</h6>
+                  <h3>Do's</h3>
                   <div class="points">
                     <div class="d-flex flex-column gap-1 justify-content-center align-items-center">
                       <div class="img_cls">
-                        <img src="assets/images/diy/good_lightening_icon.png" alt="" />
+                        <img src="assets/images/diy/good_lightening_icon.png" alt=""
+                          aria-hidden="true" />
                       </div>
                       <span>Good lighting</span>
                     </div>
                     <div class="d-flex flex-column gap-1 justify-content-center align-items-center">
                       <div class="img_cls">
-                        <img src="assets/images/diy/white_bg_icon.png" alt="" />
+                        <img src="assets/images/diy/white_bg_icon.png" alt="" aria-hidden="true" />
                       </div>
                       <span>White <br />
                         background</span>
                     </div>
                     <div class="d-flex flex-column gap-1 justify-content-center align-items-center">
                       <div class="img_cls">
-                        <img src="assets/images/diy/align_face_icon.png" alt="" />
+                        <img src="assets/images/diy/align_face_icon.png" alt="" aria-hidden="true" />
                       </div>
                       <span>Align face in the <br />
                         centre</span>
@@ -152,23 +103,23 @@
                   </div>
                 </div>
                 <div class="dont_section">
-                  <h6>Dont's</h6>
+                  <h3>Dont's</h3>
                   <div class="points">
                     <div class="d-flex flex-column gap-1 justify-content-center align-items-center">
                       <div class="img_cls">
-                        <img src="assets/images/diy/no_blurry_pic.png" alt="" />
+                        <img src="assets/images/diy/no_blurry_pic.png" alt="" aria-hidden="true" />
                       </div>
                       <span>No blurry photo</span>
                     </div>
                     <div class="d-flex flex-column gap-1 justify-content-center align-items-center">
                       <div class="img_cls">
-                        <img src="assets/images/diy/no_cap_icon.png" alt="" />
+                        <img src="assets/images/diy/no_cap_icon.png" alt="" aria-hidden="true" />
                       </div>
                       <span>No cap</span>
                     </div>
                     <div class="d-flex flex-column gap-1 justify-content-center align-items-center">
                       <div class="img_cls">
-                        <img src="assets/images/diy/no_eyewear_icon.png" alt="" />
+                        <img src="assets/images/diy/no_eyewear_icon.png" alt="" aria-hidden="true" />
                       </div>
                       <span>No eyewear</span>
                     </div>
@@ -181,7 +132,7 @@
             <div class="mobile_box">
               <p>
                 No webcam? No problem,
-                <a (click)="continueWithMobile()">&nbsp;Continue with mobile</a>&nbsp;&nbsp;<svg width="24" height="24"
+                <a role="button" tabindex="0" (click)="continueWithMobile()" (keydown.enter)="continueWithMobile()" (keydown.space)="continueWithMobile()">&nbsp;Continue with mobile</a>&nbsp;&nbsp;<svg width="24" height="24"
                   viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M19 12H5M19 12L13 18M19 12L13 6" stroke="#280071" stroke-width="1.5" stroke-linecap="round"
                     stroke-linejoin="round" />
@@ -189,8 +140,7 @@
               </p>
             </div>
             <div class="stickybtn_desk desktop_css">
-              <!-- [disabled]="isAccess" -->
-              <button  (click)="redirectToTwo()" class="btn btn_cls">
+              <button (click)="redirectToTwo()" class="btn btn_cls">
                 Capture Now
               </button>
             </div>
@@ -198,7 +148,7 @@
         </form>
       </div>
       <div class="stickybtn mobile_css">
-        <button  (click)="redirectToTwo()" class="btn btn_cls">
+        <button (click)="redirectToTwo()" class="btn btn_cls">
           Capture Now
         </button>
       </div>
@@ -206,17 +156,17 @@
   </div>
 </section>
 
-<section *ngIf="PersonalFormThree && !PersonalFormTwo" class="pan_details_form">
+<section aria-label="Take a Selfie — Capture" *ngIf="PersonalFormThree && !PersonalFormTwo" class="pan_details_form">
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-12 m-auto">
         <div class="mobile_css">
-          <div class="back_cls" (click)="BackToOne()">
+          <div class="back_cls" (click)="BackToOne()" (keydown.enter)="BackToOne()" (keydown.space)="BackToOne()" role="button" tabindex="0" aria-label="Go back">
             <div>
-              <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
+              <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
             </div>
             <div class="d-flex flex-column align-items-start gap-2">
-              <h5>Get set for a quick selfie</h5>
+              <h5 role="heading" aria-level="2">Get set for a quick selfie</h5>
               <p class="sub_title">
                 Take a clear picture and upload it. Please ensure your selfie
                 matches the photo on your Aadhar or Pan card
@@ -225,11 +175,11 @@
           </div>
         </div>
 
-        <form method="post">
+        <form role="presentation" method="post">
           <div class="">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="d-flex align-items-start gap-2">
-                <div (click)="BackToOne()">
+                <div (click)="BackToOne()" (keydown.enter)="BackToOne()" (keydown.space)="BackToOne()" role="button" tabindex="0" aria-label="Go back">
                   <span> <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g clip-path="url(#clip0_0_10804)">
                         <path d="M5 12.5H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
@@ -247,7 +197,7 @@
                     </svg></span>
                 </div>
                 <div class="d-flex flex-column align-items-start gap-2">
-                  <h5>Get set for a quick selfie</h5>
+                  <h5 role="heading" aria-level="2">Get set for a quick selfie</h5>
                   <p class="sub_title">
                     Take a clear picture and upload it. Please ensure your
                     selfie matches the photo on your Aadhar or Pan card
@@ -271,12 +221,13 @@
             </div>
           </div>
           <div class="img_btn mobile_css">
-            <button [disabled]="isPreviewing" (click)="triggerSnapshot()">
+            <button [disabled]="isPreviewing" [attr.aria-disabled]="isPreviewing" (click)="triggerSnapshot()"
+              aria-label="Capture photo">
               <i class="fa fa-camera" aria-hidden="true"></i>
             </button>
           </div>
           <div *ngIf="!imageDataUrl" class="capture_now_btn text-center desktop_css">
-            <button [disabled]="isPreviewing" (click)="triggerSnapshot()">
+            <button [disabled]="isPreviewing" [attr.aria-disabled]="isPreviewing" (click)="triggerSnapshot()">
               Capture Now
             </button>
           </div>
@@ -287,7 +238,8 @@
             <button (click)="captureAgain()" class="btn btn_cls_outline p-0">
               Re - Capture
             </button>
-            <button [disabled]="!imageDataUrl" (click)="uploadSelfieApiCall()" class="btn btn_cls">
+            <button [attr.aria-disabled]="!imageDataUrl" [disabled]="!imageDataUrl" (click)="uploadSelfieApiCall()"
+              class="btn btn_cls">
               Proceed
             </button>
           </div>
@@ -298,7 +250,8 @@
         <button (click)="captureAgain()" class="btn btn_cls_outline p-0">
           Re - Capture
         </button>
-        <button [disabled]="!imageDataUrl" (click)="uploadSelfieApiCall()" class="btn btn_cls">
+        <button [attr.aria-disabled]="!imageDataUrl" [disabled]="!imageDataUrl" (click)="uploadSelfieApiCall()"
+          class="btn btn_cls">
           Proceed
         </button>
       </div>
@@ -311,15 +264,18 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header d-block">
-          <h1 class="modal-title fs-5" id="uploadBankStateUploadLabel"></h1>
+          <h2 class="modal-title fs-5" id="uploadBankStateUploadLabel"></h2>
           <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <h5>{{ "Selfie " }}</h5>
-          <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
+          <h5 role="heading" aria-level="3">{{ "Selfie " }}</h5>
+          <image-cropper cropperFrameAriaLabel="Crop area. Use the arrow keys to move and resize it. Press a number key from 1 to 9 to change how far each key press moves it."
+          imageAltText="Image you uploaded, shown with an adjustable crop area"
+          [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
             [canvasRotation]="canvasRotation" [(transform)]="transform" [aspectRatio]="4 / 3" format="png"
             (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
             (loadImageFailed)="loadImageFailed()"></image-cropper>
+        <p class="cropper_hint">Keyboard users: tab to the crop area, then use the arrow keys to move and resize it.</p>
           <br />
           <!-- <div *ngIf="croppedImage" class="text-center">
         <label class="reupload_css" (click)="rotateRight()">Rotate</label>
@@ -330,7 +286,7 @@
           <div class="btn_align">
             <label class="btn btn_cls_outline">
               Re-Upload Image
-              <input type="file" accept="image/*" (change)="fileChangeEvent($event)" style="display: none" />
+              <input type="file" accept="image/*" (change)="fileChangeEvent($event)" style="display: none" aria-label="Upload a document file" />
             </label>
             <button type="button" class="btn btn_cls" data-bs-target="#uploadBankStateBg" data-bs-toggle="modal">
               Continue
@@ -342,97 +298,55 @@
   </div>
 </section>
 
-<!-- Continue With Mobile Modal -->
-<!-- <div
-  id="continueLink"
-  tabindex="-1"
-  aria-labelledby="continueLinkLabel"
-  aria-hidden="true"
-  class="modal fade contdModal"
->
-  <div class="modal-dialog modal-dialog-scrollable">
-    <div class="modal-content">
-      <div
-        class="modal-header d-block"
-        data-bs-dismiss="modal"
-        aria-label="Close"
-        (click)="removeModal()"
-      >
-        <h1 class="modal-title fs-5" id="continueLinkLabel"></h1>
-        <button
-          #mobilecloseModal
-          type="button"
-          class="btn-horizontal-line"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="removeModal()"
-        ></button>
-      </div>
-      <div class="modal-body py-2 contd_body">
-        <p>
-          Kindly follow the link in the SMS sent to your registered mobile number.
-          <a href="{{ this.continueLink }}" target="_blank">{{ this.continueLink }}</a>
-        </p>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-<div
-  class="modal fade refreshModal"
-  id="refreshPage"
-  tabindex="-1"
-  aria-labelledby="refreshPageLabel"
-  aria-hidden="true"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
->
+<div class="modal fade refreshModal" id="refreshPage" tabindex="-1" aria-labelledby="refreshPageLabel"
+  aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header d-block" (click)="closeModalLocation();">
-        <h1 class="modal-title fs-5" id="refreshPageLabel"></h1>
+      <div class="modal-header d-block" style="border: none;" (click)="closeModalLocation();">
+        <h2 class="modal-title fs-5" id="refreshPageLabel"></h2>
 
-        <button
-          type="button"
-          class="btn-horizontal-line"
-          id="refreshPageClose"
-          (click)="closeModalLocation();"
-        ></button>
+        <button type="button" class="btn-horizontal-line" id="refreshPageClose" aria-label="Close"
+          (click)="closeModalLocation();"></button>
       </div>
 
       <div class="modal-body" style="text-align: center">
-        
-        <img
-          src="assets/images/diy/location_1.png"
-          alt="Enable Camera Permission"
-          class="centered-img"/>
-        <h5 style="padding-top: 10px;"><b>Enable Location Permission</b></h5>
+
+        <img src="assets/images/diy/location_1.png" alt="" aria-hidden="true" class="centered-img" />
+        <h5 role="heading" aria-level="2" style="padding-top: 10px;"><b>Enable Location Permission</b></h5>
         <br />
 
         <!-- Web -->
         <div *ngIf="web" class="steps">
           <p class="intro">Location access is required to proceed with selfie capture.</p>
-          <p style="padding-top: 10px;"><span>Tap the <b>lock icon/site info icon</b> on the left of the address bar.</span></p>
-          <p><span>Go to <b>Site Settings/Permissions</b>.</span></p>
-          <p><span>Set Location permission to <b>Allow</b>.</span></p>
-          <p><span>Once enabled, tap <b>Refresh Now</b> to continue.</span></p>
+          <ol class="steps_list">
+            <li><span>Tap the <b>lock icon/site info icon</b> on the left of the address
+              bar.</span></li>
+            <li><span>Go to <b>Site Settings/Permissions</b>.</span></li>
+            <li><span>Set Location permission to <b>Allow</b>.</span></li>
+            <li><span>Once enabled, tap <b>Refresh Now</b> to continue.</span></li>
+          </ol>
         </div>
 
         <!-- Android -->
         <div *ngIf="android" class="steps">
           <p class="intro">Location access is required to proceed with selfie capture.</p>
-          <p style="padding-top: 10px;"><span>Tap the <b>top-right menu (:)</b> or open <b>browser settings</b>.</span></p>
-          <p><span>Select the ⓘ <b>(information)</b> option.</span></p>
-          <p><span>Set Location permission to <b>Allow</b>.</span></p>
-          <p><span>Once enabled, tap <b>Refresh Now</b> to continue.</span></p>
+          <ol class="steps_list">
+            <li><span>Tap the <b>top-right menu (:)</b> or open <b>browser settings</b>.</span></li>
+            <li><span>Select the ⓘ <b>(information)</b> option.</span></li>
+            <li><span>Set Location permission to <b>Allow</b>.</span></li>
+            <li><span>Once enabled, tap <b>Refresh Now</b> to continue.</span></li>
+          </ol>
         </div>
 
         <!-- iOS -->
         <div *ngIf="ios" class="steps">
           <p class="intro">Location access is required to proceed with selfie capture.</p>
-          <p style="padding-top: 10px;"><span>Open <b>Page Settings</b> in your browser or the SBI Securities App.</span></p>
-          <p><span>Set Location permissions to <b>Allow</b>.</span></p>
-          <p><span>Once enabled, tap <b>Refresh Now</b> to continue.</span></p>
+          <ol class="steps_list">
+            <li><span>Open <b>Page Settings</b> in your browser or the SBI Securities
+              App.</span></li>
+            <li><span>Set Location permissions to <b>Allow</b>.</span></li>
+            <li><span>Once enabled, tap <b>Refresh Now</b> to continue.</span></li>
+          </ol>
         </div>
       </div>
 
@@ -446,66 +360,60 @@
           Refresh Now
         </button>
       </div>
-
+      <!-- "window.location.href = window.location.href;"> -->
     </div>
   </div>
 </div>
 
 
-<div
-  class="modal fade refreshModal"
-  id="refreshPageCamera"
-  tabindex="-1"
-  aria-labelledby="refreshPageCameraLabel"
-  aria-hidden="true"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
->
+<div class="modal fade refreshModal" id="refreshPageCamera" tabindex="-1" aria-labelledby="refreshPageCameraLabel"
+  aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
   <div class="modal-dialog">
     <div class="modal-content">
 
-      <div class="modal-header d-block" (click)="closeModalCamera();">
-        <h1 class="modal-title fs-5" id="refreshPageCameraLabel"></h1>
+      <div class="modal-header d-block" style="border: none;" (click)="closeModalCamera();">
+        <h2 class="modal-title fs-5" id="refreshPageCameraLabel"></h2>
 
-        <button
-          type="button"
-          class="btn-horizontal-line"
-          id="refreshPageCameraClose"
-          (click)="closeModalCamera();"
-        ></button>
+        <button type="button" class="btn-horizontal-line" id="refreshPageCameraClose" aria-label="Close"
+          (click)="closeModalCamera();"></button>
       </div>
 
       <div class="modal-body" style="text-align: center">
 
-        <img
-          src="assets/images/diy/camera_1.png"
-          alt="Enable Camera Permission"
-          class="centered-img"/>
-          <h5 style="padding-top: 10px;"><b>Enable Camera Permission</b></h5>
-          <br>
-  <div *ngIf="web" class="steps">
+        <img src="assets/images/diy/camera_1.png" alt="" aria-hidden="true" class="centered-img" />
+        <h5 role="heading" aria-level="2" style="padding-top: 10px;"><b>Enable Camera Permission</b></h5>
+        <br>
+        <div *ngIf="web" class="steps">
           <p class="intro">Camera access is required to proceed with selfie capture.</p>
-          <p style="padding-top: 10px;"><span>Tap the <b>lock icon/site info icon</b> on the left of the address bar.</span></p>
-          <p><span>Go to <b>Site Settings/Permissions.</b></span></p>
-          <p><span>Set Camera permission to <b>Allow</b>.</span></p>
-          <p><span>Once enabled, tap <b>Refresh Now</b> to continue.</span></p>
+          <ol class="steps_list">
+            <li><span>Tap the <b>lock icon/site info icon</b> on the left of the address
+              bar.</span></li>
+            <li><span>Go to <b>Site Settings/Permissions.</b></span></li>
+            <li><span>Set Camera permission to <b>Allow</b>.</span></li>
+            <li><span>Once enabled, tap <b>Refresh Now</b> to continue.</span></li>
+          </ol>
         </div>
 
         <!-- Android -->
         <div *ngIf="android" class="steps">
           <p class="intro"><span>Camera access is required to proceed with selfie capture.</span></p>
-          <p style="padding-top: 10px;"><span>Tap the <b>top-right menu (:)</b> or open <b>browser settings</b>.</span></p>
-          <p><span>Select the ⓘ <b>(information)</b> option.</span></p>
-          <p><span>Set Camera permission to <b>Allow</b>.</span></p>
-          <p><span>Once enabled, tap <b>Refresh Now</b> to continue.</span></p>
+          <ol class="steps_list">
+            <li><span>Tap the <b>top-right menu (:)</b> or open <b>browser settings</b>.</span></li>
+            <li><span>Select the ⓘ <b>(information)</b> option.</span></li>
+            <li><span>Set Camera permission to <b>Allow</b>.</span></li>
+            <li><span>Once enabled, tap <b>Refresh Now</b> to continue.</span></li>
+          </ol>
         </div>
 
         <!-- iOS -->
         <div *ngIf="ios" class="steps">
           <p class="intro"><span>Camera access is required to proceed with selfie capture.</span></p>
-          <p style="padding-top: 10px;"><span>Open <b>Page Settings</b> in your browser or the SBI Securities App.</span></p>
-          <p><span>Set Camera permission to <b>Allow</b>.</span></p>
-          <p><span>Once enabled, tap <b>Refresh Now</b> to continue.</span></p>
+          <ol class="steps_list">
+            <li><span>Open <b>Page Settings</b> in your browser or the SBI Securities
+              App.</span></li>
+            <li><span>Set Camera permission to <b>Allow</b>.</span></li>
+            <li><span>Once enabled, tap <b>Refresh Now</b> to continue.</span></li>
+          </ol>
         </div>
 
       </div>
@@ -519,6 +427,7 @@
           Refresh Now
         </button>
       </div>
+      <!-- onclick="window.location.href = window.location.href;"> -->
 
     </div>
   </div>
