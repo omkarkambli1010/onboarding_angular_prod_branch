@@ -196,7 +196,7 @@
   text-align: center;
 }
 
-.pan_details_form .track > a {
+.pan_details_form .track>a {
   text-decoration: underline;
   color: #6750a4;
   font-size: 16px;
@@ -213,6 +213,29 @@
 .pan_details_form .nominee_section form .row {
   gap: 20px 0;
   align-items: center;
+}
+
+.pan_details_form .required {
+  color: #d52248;
+}
+
+.pan_details_form .nominee_section form .heading_content {
+  display: flex;
+  justify-content: space-between;
+  gap: auto;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.pan_details_form .nominee_section form .heading_content p {
+  font-size: 16px;
+  font-weight: 600;
+  color: #666666;
+  margin: 0;
+}
+
+.pan_details_form .nominee_section form .heading_content p span {
+  color: #d52248;
 }
 
 .pan_details_form .accordion-item {
@@ -317,11 +340,7 @@
 }
 
 ::ng-deep .p-inputwrapper .p-calendar.p-focus .p-datepicker,
-::ng-deep
-  .p-inputwrapper
-  .p-calendar.p-focus
-  .p-datepicker
-  .p-datepicker-header {
+::ng-deep .p-inputwrapper .p-calendar.p-focus .p-datepicker .p-datepicker-header {
   padding: 0;
 }
 
@@ -332,16 +351,11 @@
   text-align: center;
 }
 
-::ng-deep
-  .p-inputwrapper
-  .p-calendar.p-focus
-  .p-datepicker
-  .p-yearpicker
-  .p-yearpicker-year {
+::ng-deep .p-inputwrapper .p-calendar.p-focus .p-datepicker .p-yearpicker .p-yearpicker-year {
   width: 33.33%;
 }
 
-::ng-deep .p-calendar:not(.p-calendar-disabled).p-focus > .p-inputtext {
+::ng-deep .p-calendar:not(.p-calendar-disabled).p-focus>.p-inputtext {
   box-shadow: unset;
   border: 1px solid #666666;
 }
@@ -438,7 +452,7 @@
     /* margin: 20px 0; */
   }
 
-  .pan_details_form .back_cls > div:nth-child(1) {
+  .pan_details_form .back_cls>div:nth-child(1) {
     font-size: 16px;
     font-weight: 600;
     color: #222;
@@ -562,5 +576,95 @@
 
   .pan_details_form .sub_title {
     font-size: 14px;
+  }
+}
+
+/* Nominee opt-out declaration: renders the clauses as (i), (ii), (iii)
+   instead of the browser default 1. 2. 3. */
+.optout_declaration_list {
+  list-style: none;
+  counter-reset: optout-clause;
+  padding-left: 0;
+  margin-bottom: 1rem;
+}
+
+.optout_declaration_list li {
+  counter-increment: optout-clause;
+  position: relative;
+  padding-left: 36px;
+  margin-bottom: 10px;
+}
+
+.optout_declaration_list li::before {
+  content: '(' counter(optout-clause, lower-roman) ')';
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* Pinned action bar for the opt-out modal. The button must stay reachable
+   while the declaration scrolls, so the footer never shrinks and the button
+   spans the full width instead of Bootstrap's default right alignment. */
+.optout_modal_footer {
+  flex-shrink: 0;
+  justify-content: stretch;
+  padding: 16px;
+  background: #ffffff;
+}
+
+.optout_modal_footer>.btn {
+  flex: 1;
+  margin: 0;
+}
+
+/* ─── Nominee Opt-out Confirmation: close control ────────────────────────────
+   Append to add-nominee.component.css
+   -------------------------------------------------------------------------- */
+
+.optout_modal_close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  /* above the scrolling .modal-body */
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 50%;
+  color: #2b2b2b;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.optout_modal_close:hover {
+  background: #f4f2fb;
+  border-color: #280071;
+  color: #280071;
+}
+
+.optout_modal_close:focus-visible {
+  outline: 2px solid #280071;
+  outline-offset: 2px;
+}
+
+/* The heading has 20px of its own padding; nudge it clear of the button so a
+   long title can't run underneath the cross. */
+#nomineeOptOutConfirmLabel {
+  padding-right: 44px !important;
+}
+
+@media (max-width: 575px) {
+  .optout_modal_close {
+    top: 8px;
+    right: 8px;
+    width: 28px;
+    height: 28px;
   }
 }

@@ -1,9 +1,9 @@
 <div class="desktop_css">
-  <section class="pan_details_form">
+  <section aria-label="Frequently Asked Questions Desktop" class="pan_details_form">
     <div class="container">
       <div class="row">
         <div class="col-lg-10 col-12 m-auto">
-          <form method="post">
+          <form aria-label="FAQ Form Desktop" method="post">
             <div class="">
               <div class="col-lg-12 col-md-12 col-12 desktop_css">
                 <div class="header_padding">
@@ -65,9 +65,6 @@
                   <div>
                     <h4>Step : {{ this.stageName }}</h4>
                   </div>
-                  <!-- <div>
-                    <h6>More FAQs?</h6>
-                  </div> -->
                   <div class="accordion_faq">
                     <div class="accordion" id="accordionFaqExample">
                       <div class="accordion-item" *ngFor="
@@ -91,7 +88,7 @@
                     </div>
                   </div>
                   <div class="help_mail_tel">
-                    <h6>Still need help?</h6>
+                    <h3>Still need help?</h3>
                     <div class="call_align">
                       <div class="call">
                         <div>
@@ -146,7 +143,7 @@
 </div>
 
 <div class="mobile_css">
-  <section class="pan_details_form">
+  <section aria-label="Frequently Asked Questions Mobile" class="pan_details_form">
     <div class="container">
       <div class="row">
         <div class="back_cls">
@@ -159,14 +156,11 @@
           </div>
         </div>
 
-        <form method="post">
+        <form aria-label="FAQ Form Mobile" method="post">
           <div class="faq_section">
             <div>
               <h4>Step : {{ this.stageName }}</h4>
             </div>
-            <!-- <div>
-              <h6>More FAQs?</h6>
-            </div> -->
             <div class="accordion_faq">
               <div class="accordion" id="accordionFaqExample">
                 <div class="accordion-item" *ngFor="let item of filteredFaqResponse; let i = index">

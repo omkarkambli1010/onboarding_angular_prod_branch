@@ -1,14 +1,11 @@
-<section class="pan_details_form">
+<section aria-label="Email ID Verification — choose verification method" class="pan_details_form">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-12 col-12 p-0 p-sm-0 m-auto">
         <div class="mobile_css">
           <div class="back_cls">
-            <!-- <div (click)="homeScreen()">
-                            <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
-                        </div> -->
             <div class="d-flex flex-column align-items-start gap-2">
-              <h5 class="">Email ID Verification</h5>
+              <h2 class="">Email ID Verification</h2>
               <p class="sub_title">
                 All communication related to your account will be sent to this
                 email
@@ -17,32 +14,13 @@
           </div>
         </div>
 
-        <form method="post" class="">
+        <form aria-label="Email Verification" method="post" class="">
           <div class="div">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="header_padding">
                 <div class="help_faq_css">
-                  <!-- <span (click)="homeScreen()">
-                                        <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <g clip-path="url(#clip0_0_10804)">
-                                                <path d="M5 12.5H19" stroke="black" stroke-width="1.5"
-                                                    stroke-linecap="round" stroke-linejoin="round" />
-                                                <path d="M5 12.5L11 18.5" stroke="black" stroke-width="1.5"
-                                                    stroke-linecap="round" stroke-linejoin="round" />
-                                                <path d="M5 12.5L11 6.5" stroke="black" stroke-width="1.5"
-                                                    stroke-linecap="round" stroke-linejoin="round" />
-                                            </g>
-                                            <defs>
-                                                <clipPath id="clip0_0_10804">
-                                                    <rect width="24" height="24" fill="white"
-                                                        transform="translate(0 0.5)" />
-                                                </clipPath>
-                                            </defs>
-                                        </svg>
-                                    </span> -->
                   <div class="d-flex flex-column gap-2">
-                    <h5>Email ID Verification</h5>
+                    <h2>Email ID Verification</h2>
                     <p class="sub_title">
                       All communication related to your account will be sent to
                       this email
@@ -58,36 +36,31 @@
               <div class="mobile_section">
                 <div class="desktop_align">
                   <div class="email_screen">
-                    <!-- *ngIf="googleHideBtn"  -->
-                    <div class="google_btn" (click)="signInWithGoogle()">
+                    <!-- <div class="google_btn" (click)="signInWithGoogle()" (keydown.enter)="signInWithGoogle()" (keydown.space)="signInWithGoogle()" role="button" tabindex="0"> -->
+                    <button type="button" class="google_btn" (click)="signInWithGoogle()"
+                      aria-label="Continue with Google — sign in with your Google account">
                       <span>
-                        <img
-                          src="assets/images/diy/google_icon_mini.png"
-                          alt=""
-                        />
+                        <img src="assets/images/diy/google_icon_mini.png" alt="Google Icon Mini Image"
+                          aria-hidden="true" />
                       </span>
                       <span class="google_txt">Continue with Google</span>
-                    </div>
-                    <!-- *ngIf="googleHideBtn"  -->
+                    </button>
                     <div class="desktop_css">
-                      <img
-                        class=""
-                        src="assets/images/diy/or_sec_img.png"
-                        alt=""
-                      />
+                      <img class="" src="assets/images/diy/or_sec_img.png" alt="" aria-hidden="true" />
                     </div>
                     <div class="mobile_css">
-                      <img
-                        class=""
-                        src="assets/images/diy/or_sec_img_mobile.png"
-                        alt=""
-                      />
+                      <img class="" src="assets/images/diy/or_sec_img_mobile.png" alt="" aria-hidden="true" />
                     </div>
                     <div class="email_text_section">
-                      <h6 (click)="emailTextPage()" style="cursor: pointer">
+                      <h3 role="link" tabindex="0"
+                          (click)="emailTextPage()"
+                          (keydown.enter)="emailTextPage()"
+                          (keydown.space)="$event.preventDefault(); emailTextPage()"
+                          style="cursor: pointer"
+                          aria-label="Use another E-mail ID, requires OTP Verification">
                         Use another E-mail ID
-                      </h6>
-                      <h6>(Require OTP Verification)</h6>
+                      </h3>
+                      <h3 role="presentation">(Require OTP Verification)</h3>
                     </div>
                   </div>
                 </div>

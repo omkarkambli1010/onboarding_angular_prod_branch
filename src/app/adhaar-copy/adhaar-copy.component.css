@@ -161,7 +161,7 @@
     margin: 20px 0 80px 0;
     height: unset;
     overflow: unset;
-
+    padding: 0 15px;
   }
 
   .pan_details_form .desktop_css {
@@ -170,6 +170,7 @@
 
   .pan_details_form .mobile_css {
     display: block;
+    padding: 0 15px;
   }
 
   .pan_details_form .card_cls {
@@ -192,4 +193,8 @@
   .pan_details_form .stickybtn button {
     max-width: 100%;
   }
+}
+/* Promote primary heading h5 -> h2 for correct heading order; preserve original default-h5 size */
+.page-heading-sm {
+  font-size: 1.25rem;
 }

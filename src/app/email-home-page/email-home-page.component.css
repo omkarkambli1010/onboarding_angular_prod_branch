@@ -60,7 +60,7 @@
     flex: 1
 }
 
-.pan_details_form .mobile_section .email_screen .email_form input[type=text] {
+.pan_details_form .mobile_section .email_screen .email_form input {
     border-radius: 8px;
     border: 1px solid #d9d9d9;
     background: #fff;
@@ -75,7 +75,7 @@
     line-height: 20px
 }
 
-.pan_details_form .mobile_section .email_screen .email_form input[type=text]:focus-visible {
+.pan_details_form .mobile_section .email_screen .email_form input:focus-visible {
     outline: unset
 }
 
@@ -121,7 +121,8 @@
 .pan_details_form .help_faq_css {
     display: flex;
     gap: 8px;
-    width: 100%
+    width: 100%;
+    align-items: flex-start;
 }
 
 .pan_details_form .help_faq_css h5 {
@@ -146,6 +147,35 @@
     box-shadow: unset;
 }
 
+.pan_details_form .help_faq_css {
+    display: flex;
+    gap: 8px;
+    width: 100%
+}
+
+/* .pan_details_form .help_faq_css h5 {
+    color: #222;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: normal
+} */
+
+.pan_details_form .help_faq_css h1,
+.pan_details_form .help_faq_css h2 {
+    color: #222;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.pan_details_form .back_cls h1,
+.pan_details_form .back_cls h2 {
+    color: #222;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: normal;
+}
+
 @media screen and (max-width:991px) {
 
     .pan_details_form .back_cls img {
@@ -161,11 +191,34 @@
         padding: 0 16px
     }
 
+    .pan_details_form .back_cls button {
+        width: 100%;
+        text-align: left;
+        display: inline-block;
+        align-items: center;
+    }
+
     .pan_details_form .back_cls h5 {
         color: #2b2b2b;
         font-size: 16px;
         font-weight: 600;
         line-height: normal
+    }
+
+    .pan_details_form .help_faq_css h1,
+    .pan_details_form .help_faq_css h2 {
+        color: #2b2b2b;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: normal;
+    }
+
+    .pan_details_form .back_cls h1,
+    .pan_details_form .back_cls h2 {
+        color: #2b2b2b;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: normal;
     }
 
     .pan_details_form .back_cls>div:nth-child(1) {
@@ -257,7 +310,11 @@
 
     .pan_details_form .mobile_section .email_screen .email_form input[type=text] {
         width: 100%;
-        max-width: 100%
+        max-width: 100%;
+    }
+
+    .pan_details_form .mobile_section .email_screen .email_form input {
+        max-width: 100%;
     }
 
     .pan_details_form .mobile_section .email_screen .email_form>div:nth-child(1),

@@ -1,13 +1,11 @@
-<section class="pan_details_form d-none" *ngIf="EmailPageFlag">
-<!-- <section class="pan_details_form" *ngIf="EmailPageFlag"> -->
+<section aria-label="Email Verification" class="pan_details_form d-none" *ngIf="EmailPageFlag">
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-12 m-auto">
-        <!-- <div class="mobile_css"> -->
         <div class="back_cls">
 
-          <div *ngIf="this.RejectStatus != 'R'" (click)="BackToYonoMobile();  clearEmailOTPFields(); clearTimer()">
-            <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
+          <div *ngIf="this.RejectStatus != 'R'" (click)="BackToYonoMobile();  clearEmailOTPFields(); clearTimer()" (keydown.enter)="BackToYonoMobile();  clearEmailOTPFields(); clearTimer()" (keydown.space)="BackToYonoMobile();  clearEmailOTPFields(); clearTimer()" role="button" tabindex="0">
+            <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
           </div>
 
           <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div>
@@ -20,50 +18,11 @@
             </p>
           </div>
         </div>
-        <!-- <button class="google-btn" (click)="signInWithGoogle()" [disabled]="googlebtn">
-          <img src="assets/images/diy/google_icon_mini.png" alt="" />
-          <p class="m-0">Continue with Google</p>
-        </button>
-
-        <div class="">
-          <img class="or_cls" src="assets/images/diy/or_img.png" alt="" />
-        </div> -->
-
-        <p class="mb-3" style="text-align: center; color: #280071;" (click)="EnterEmailID()">
-          Enter E-mail ID
-        </p>
-
-        <!-- <div class="col-md-12 position-rel">
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        name="Email" placeholder="Email ID" [(ngModel)]="sendOtp.email" (input)="validateEmail()"
-                        (focusout)="focusOutFunction()" />
-                    <span *ngIf="emailFormatVal" class="red_warning">*Please enter a valid Email ID (e.g.
-                        john&#64;outlook.com)</span>
-                    <span *ngIf="sbiemailFormatVal" class="red_warning">*Email addresses containing &#64;sbi
-                        cannot be used</span>
-                    <span *ngIf="emailmultiplesymb" class="red_warning">*Please enter a valid Email ID
-                        containing only one &#64; sign (E.g.
-                        john&#64;outlook.com)
-                    </span>
-
-                    <span *ngIf="emailspecialchars" class="red_warning">*Only (_) , (&#64;) & (.) is allowed in
-                        Email ID
-                    </span>
-                </div>
-
-                <div class="btn_align stickybtn mobile_css">
-                    <button *ngIf="!isEmailDisableBtn" (click)="getEmailOtp(false)" id="emailclosebutton" type="button"
-                        class="btn btn_cls">
-                        Verify your Email ID
-                    </button>
-                </div> -->
+        <p role="button" tabindex="0" (keydown.enter)="EnterEmailID()" (keydown.space)="EnterEmailID()" class="mb-3"
+          style="text-align: center; color: #280071;" (click)="EnterEmailID()" aria-label="Enter Email ID — switch to manual email entry">Enter E-mail ID</p>
         <div class="btn_align stickybtn mobile_css">
           <div class="terms_css">
             By Continuing, I agree to the
-            <!-- <a data-bs-target="#termsandcond" data-bs-toggle="modal"
-                    >Terms & Condition</a
-                  > -->
-
             <a href="https://www.sbisecurities.in/fileserver/regulation/terms-and-conditions.html" target="_blank">Terms
               & Condition</a>
           </div>
@@ -73,15 +32,14 @@
   </div>
 </section>
 
-<section class="pan_details_form d-block d-md-none" *ngIf="EmailPageFlag">
+<section aria-label="Email ID Entry" class="pan_details_form d-block d-md-none" *ngIf="EmailPageFlag">
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-12 m-auto">
-        <!-- <div class="mobile_css"> -->
         <div class="back_cls">
 
-          <div (click)="BackToYonoEmail();  clearEmailOTPFields(); clearTimer()" class="d-none">
-            <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
+          <div (click)="BackToYonoEmail();  clearEmailOTPFields(); clearTimer()" class="d-none" (keydown.enter)="BackToYonoEmail();  clearEmailOTPFields(); clearTimer()" (keydown.space)="BackToYonoEmail();  clearEmailOTPFields(); clearTimer()" role="button" tabindex="0">
+            <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
           </div>
 
           <div class="d-flex flex-column align-items-start gap-2">
@@ -90,18 +48,12 @@
         </div>
 
         <div class="col-md-12 position-rel">
-          <!-- <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        name="Email" placeholder="Email ID" [(ngModel)]="sendOtp.email" (input)="validateEmail()"
-                        (focusout)="focusOutFunction()" /> -->
-
           <div class="form-floating mb-3">
             <div class="mobile__input__wrapper position-relative">
-            <label for="mobileInp" class="mobile_number_label position-absolute">Enter email ID</label>
-            <input type="email"  class="form-control mobile__input" id="floatingInput" placeholder="Email ID" id="exampleInputEmail1"
-              aria-describedby="emailHelp" [(ngModel)]="sendOtp.email" (input)="validateEmail()"
-              (focusout)="focusOutFunction()">
+              <label for="yonoEmailInp" class="mobile_number_label position-absolute">Enter email ID</label>
+              <input aria-label="Email Id" autocomplete="email" type="email" class="form-control mobile__input"
+                id="yonoEmailInp" placeholder="Email ID" id="exampleInputEmail1"                [(ngModel)]="sendOtp.email" (input)="validateEmail()" (focusout)="focusOutFunction()" aria-required="true">
             </div>
-            <!-- <label for="floatingInput">Enter Email ID</label> -->
           </div>
           <span *ngIf="emailFormatVal" class="red_warning">*Please enter a valid Email ID (e.g.
             john&#64;outlook.com)</span>
@@ -118,16 +70,16 @@
         </div>
 
         <div class="btn_align stickybtn mobile_css">
-          <button [disabled]="isEmailDisableBtn" (click)="getEmailOtp(false)" id="emailclosebutton" type="button"
-            class="btn btn_cls">
+          <span id="emailGetOtpHint" class="visually-hidden">Enter a valid email address to enable Get OTP.</span>
+          <button [attr.aria-disabled]="isEmailDisableBtn" [disabled]="isEmailDisableBtn" (click)="getEmailOtp(false)" id="emailclosebutton"
+            type="button" class="btn btn_cls" aria-describedby="emailGetOtpHint">
             GET OTP
           </button>
-          <!-- <div class="btn_align stickybtn mobile_css"> -->
           <div class="terms_css">
             By Continuing, I agree to the
-            <a href="https://www.sbisecurities.in/fileserver/regulation/terms-and-conditions.html" target="_blank">Terms & Condition</a>
+            <a href="https://www.sbisecurities.in/fileserver/regulation/terms-and-conditions.html" target="_blank">Terms
+              & Condition</a>
           </div>
-        <!-- </div> -->
         </div>
 
       </div>
@@ -136,11 +88,11 @@
 
 </section>
 
-<section class="pan_details_form">
+<section aria-label="Email Verification Desktop" class="pan_details_form">
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-12 m-auto d-none d-md-block">
-        <form method="post" class="">
+        <form aria-label="Email Verification" method="post" class="">
           <div class="div">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="d-flex flex-column align-items-start gap-2">
@@ -151,26 +103,31 @@
             <hr class="desktop_css" />
             <div class="col-lg-12 col-md-12 col-12">
               <div class="mb-3 desktop_align">
-                <div><label for="EnterFullNameCard" class="form-label" >Enter Your Email ID</label></div>
+                <div><label for="yonoEmailInpDesk" class="form-label">Enter Your Email ID</label></div>
                 <div>
-                  <input type="email" name="emailHelp"  class="form-control desk__email__inp" placeholder="Email ID"
-                    aria-describedby="emailHelp" [(ngModel)]="sendOtp.email" (input)="validateEmail()"
-                    (focusout)="focusOutFunction()"
-                  >
-                  <span *ngIf="emailFormatVal" class="red_warning">*Please enter a valid Email ID (e.g. john&#64;outlook.com)</span>
-                  <span *ngIf="sbiemailFormatVal" class="red_warning">*Email addresses containing &#64;sbi cannot be used</span>
-                  <span *ngIf="emailmultiplesymb" class="red_warning">*Please enter a valid Email ID containing only one &#64; sign (E.g. john&#64;outlook.com)</span>
-                  <span *ngIf="emailspecialchars" class="red_warning">*Only (_) , (&#64;) & (.) is allowed in Email ID</span>
+                  <input aria-label="Email Id" autocomplete="email" type="email" name="emailHelp" id="yonoEmailInpDesk"
+                    class="form-control desk__email__inp" placeholder="Email ID"                    [(ngModel)]="sendOtp.email" (input)="validateEmail()" (focusout)="focusOutFunction()" aria-required="true">
+                  <span *ngIf="emailFormatVal" class="red_warning">*Please enter a valid Email ID (e.g.
+                    john&#64;outlook.com)</span>
+                  <span *ngIf="sbiemailFormatVal" class="red_warning">*Email addresses containing &#64;sbi cannot be
+                    used</span>
+                  <span *ngIf="emailmultiplesymb" class="red_warning">*Please enter a valid Email ID containing only one
+                    &#64; sign (E.g. john&#64;outlook.com)</span>
+                  <span *ngIf="emailspecialchars" class="red_warning">*Only (_) , (&#64;) & (.) is allowed in Email
+                    ID</span>
                 </div>
               </div>
             </div>
           </div>
           <div class="stickybtn_desk desktop_css">
-            <button class="btn btn_cls email__btn" [disabled]="isEmailDisableBtn" id="completePanVerify" (click)="getEmailOtp(false)">GET OTP</button>
+            <span id="emailGetOtpHintDesk" class="visually-hidden">Enter a valid email address to enable Get OTP.</span>
+            <button class="btn btn_cls email__btn" [attr.aria-disabled]="isEmailDisableBtn" [disabled]="isEmailDisableBtn" id="completePanVerify"
+              (click)="getEmailOtp(false)" aria-describedby="emailGetOtpHintDesk">GET OTP</button>
             <div class="terms_css">
-            By Continuing, I agree to the
-            <a href="https://www.sbisecurities.in/fileserver/regulation/terms-and-conditions.html" target="_blank">Terms & Condition</a>
-          </div>
+              By Continuing, I agree to the
+              <a href="https://www.sbisecurities.in/fileserver/regulation/terms-and-conditions.html"
+                target="_blank">Terms & Condition</a>
+            </div>
           </div>
         </form>
       </div>
@@ -179,141 +136,54 @@
 </section>
 
 <!-- Email OTP Box Modal -->
-<div
-  class="modal fade otpBox"
-  id="emailotp"
-  tabindex="-1"
-  aria-labelledby="otpLabel"
-  aria-hidden="true"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
->
+<div class="modal fade otpBox" id="emailotp" tabindex="-1" aria-labelledby="otpLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-modal="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block">
-        <button
-          #emailclosebutton
-          type="button"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          class="btn-horizontal-line"
-          (click)="clearEmailOtpModal()"
-        ></button>
+        <button #emailclosebutton type="button" data-bs-dismiss="modal" aria-label="Close" class="btn-horizontal-line"
+          (click)="clearEmailOtpModal()"></button>
       </div>
       <div class="modal-body">
-        <p class="title_cls">OTP Verification</p>
+        <p class="title_cls" id="otpLabel">OTP Verification</p>
         <p class="d-flex flex-wrap align-items-center">
           You will receive OTP on
           <span class="fw-bold ms-2">{{ this.sendOtp.email }}</span>
-          <span class="ms-2" (click)="editEmail()"
-            ><img src="assets/images/diy/Edit.png" alt=""
-          /></span>
+          <button type="button" class="ms-2 btn-edit-link" (click)="editEmail()" aria-label="Edit email address">
+            <img src="assets/images/diy/Edit.png" alt="" aria-hidden="true" />
+          </button>
         </p>
-        <!-- [(ngModel)]="this.otpFieldEmail" -->
         <div class="">
-          <ng-otp-input
-            #otpEmailInput
-            (onInputChange)="onOtpChangeEmail($event)"
-            [ngClass]="{ 'is-success': isRightOTP, 'is-error': isWrongOTP }"
-            [config]="config"
-            [autofocus]="true"
-            (keydown.enter)="getEmailOtpVerify(false)"
-          ></ng-otp-input>
+          <ng-otp-input #otpEmailInput (onInputChange)="onOtpChangeEmail($event)"
+            (ngModelChange)="checkIfAllOTPEmailFilled()" [(ngModel)]="this.otpFieldEmail"
+            [ngClass]="{ 'is-success': isRightOTP, 'is-error': isWrongOTP }" [config]="config" [autofocus]="true"
+            (keydown.enter)="getEmailOtpVerify(false)"></ng-otp-input>
         </div>
         <div *ngIf="isWrongOTP" class="mb-2 d-block">
           <div class="otp_cls">
-            <img src="assets/images/diy/invalid_otp.png" alt="" />
-            <span class="alert_msg"
-              >Invalid OTP. Enter the valid 6-digit OTP sent on your Email</span
-            >
+            <img src="assets/images/diy/invalid_otp.png" alt="" aria-hidden="true" />
+            <span class="alert_msg" role="alert">Invalid OTP. Enter the valid 6-digit OTP sent on your Email</span>
           </div>
         </div>
         <div class="otp_align">
           <div>
-            <span style="font-size: 14px">Didn’t receive the OTP?</span>
+            <span style="font-size: 14px">Didn't receive the OTP?</span>
           </div>
           <div>
-            <span style="font-weight: 400; font-size: 14px" *ngIf="timeroff1"
-              >Resend OTP : {{ displayEmail + " sec" }}
+            <span style="font-weight: 400; font-size: 14px" *ngIf="timeroff1">Resend OTP : {{ displayEmail + " sec" }}
             </span>
-            <span
-              class="otp_confirmation"
-              *ngIf="!timeroff1"
-              (click)="getEmailOtp(true)"
-              >Resend OTP
+            <span class="otp_confirmation" *ngIf="!timeroff1" (click)="getEmailOtp(true)" (keydown.enter)="getEmailOtp(true)" (keydown.space)="getEmailOtp(true)" role="button" tabindex="0">Resend OTP
             </span>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button
-          [disabled]="isValidEmailBtn"
-          (click)="getEmailOtpVerify(false)"
-          id="emailclosebutton"
-          type="button"
-          class="btn btn_cls"
-        >
+        <span id="emailModalVerifyHint" class="visually-hidden">Enter the 6 digit OTP to enable verification.</span>
+        <button [disabled]="isValidEmailBtn" [attr.aria-disabled]="isValidEmailBtn" (click)="getEmailOtpVerify(false)" id="emailVerifyButton" type="button"
+          data-bs-dismiss="modal" aria-describedby="emailModalVerifyHint" class="btn btn_cls">
           Verify your Email ID
         </button>
       </div>
     </div>
   </div>
 </div>
-
-
-<!-- <section *ngIf="OTPPageFlag" class="pan_details_form">
-
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-10 col-12 m-auto">
-        <div class="back_cls">
-
-          <div (click)="EnterEmailID();  clearEmailOTPFields(); clearTimer()">
-            <img src="assets/images/diy/ChevronLeft.png" alt="" />
-          </div>
-
-          <div class="d-flex flex-column align-items-start gap-2">
-            <h5><strong>OTP Verification</strong></h5>
-            <p class="sub_title">
-              Enter OTP sent on {{this.sendOtp.email}}
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-      <div class="otpBox mobile__otp__box">
-        <ng-otp-input #otpEmailInput (onInputChange)="onOtpChangeEmail($event)"
-          (ngModelChange)="checkIfAllOTPEmailFilled()" [(ngModel)]="this.otpFieldEmail"
-          [ngClass]="{ 'is-success': isRightOTP, 'is-error': isWrongOTP }" [config]="config" [autofocus]="true"
-          (keydown.enter)="getEmailOtpVerify(false)" name="otp"></ng-otp-input>
-      </div>
-      <div *ngIf="isWrongOTP" class="mb-2 d-block">
-        <div class="otp_cls">
-          <img src="assets/images/diy/invalid_otp.png" alt="" />
-          <span class="alert_msg">Invalid OTP. Enter the valid 6-digit OTP sent on your Email</span>
-        </div>
-      </div>
-      <div class="otp_align mt-4">
-        <div>
-          <span style="font-size: 14px">Didn’t receive the OTP?</span>
-        </div>
-        <div>
-          <span style="font-weight: 400; font-size: 14px" *ngIf="timeroff1">Resend in ({{ displayEmail + " sec" }})
-          </span>
-          <span class="otp_confirmation" *ngIf="!timeroff1" (click)="getEmailOtp(true)">Resend OTP
-          </span>
-        </div>
-      </div>
-
-      <div class="btn_align stickybtn mobile_css">
-        <button [disabled]="isValidEmailBtn" (click)="getEmailOtpVerify(false)" id="emailclosebutton" type="button"
-          class="btn btn_cls">
-          VERIFY OTP
-        </button>
-      </div>
-
-    </div>
-  </div>
-</section> -->

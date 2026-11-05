@@ -1,19 +1,17 @@
-<section class="pan_details_form">
+<h1 class="visually-hidden">Aadhaar Verification</h1>
+<section aria-label="Aadhaar Verification Result" class="pan_details_form">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-12 col-12 p-0 p-sm-0 m-auto">
-        <!-- <div class="back_cls">
-                  <img src="assets/images/diy/ChevronLeft.png" alt="" />
-              </div> -->
         <div class="mobile_css">
           <div class="d-flex flex-column align-items-start gap-2">
-            <h5 *ngIf="!isKraBenefit">Aadhaar Verification Successful!</h5>
+            <h2 class="page-heading-sm" *ngIf="!isKraBenefit">Aadhaar Verification Successful!</h2>
             <div *ngIf="!isKraBenefit">
               <p class="sub_title">
                 Your KYC details have been successfully verified digitally. Please click on 'Proceed' to confirm.
               </p>
             </div>
-            <h5 *ngIf="isKraBenefit">You are KRA Compliant!</h5>
+            <h2 class="page-heading-sm" *ngIf="isKraBenefit">You are KRA Compliant!</h2>
             <div *ngIf="isKraBenefit">
               <p class="sub_title">
                 Below details have been successfully fetched from the KRA. Please review and confirm to proceed ahead.
@@ -22,38 +20,31 @@
           </div>
         </div>
 
-        <form method="post">
+        <form aria-label="Aadhaar Verification Confirmation" method="post">
           <div>
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="d-flex flex-column align-items-start gap-2">
-                <h5 *ngIf="!isKraBenefit">Aadhaar Verification Successful!</h5>
+                <h2 class="page-heading-sm" *ngIf="!isKraBenefit">Aadhaar Verification Successful!</h2>
                 <div *ngIf="!isKraBenefit">
                   <p class="sub_title">
                     Your KYC details have been successfully verified digitally. Please click on 'Proceed' to confirm.
                   </p>
                 </div>
-                <h5 *ngIf="isKraBenefit">You are KRA Compliant!</h5>
+                <h2 class="page-heading-sm" *ngIf="isKraBenefit">You are KRA Compliant!</h2>
                 <div *ngIf="isKraBenefit">
                   <p class="sub_title">
-                    Below details have been successfully fetched from the KRA. Please review and confirm to proceed ahead.
+                    Below details have been successfully fetched from the KRA. Please review and confirm to proceed
+                    ahead.
                   </p>
                 </div>
               </div>
             </div>
             <hr class="desktop_css" />
             <div *ngIf="!isKraBenefit" class="card_cls">
-              <img
-                class="w-100"
-                src="assets/images/diy/aadharheaderimg.png"
-                alt=""
-              />
+              <img class="w-100" src="assets/images/diy/aadharheaderimg.png" alt="Aadhaar verification successful" />
               <div class="main_content">
                 <div class="profile_pic">
-                  <img
-                    *ngIf="aadharResponse?.photo"
-                    [src]="aadharPhotoSrc"
-                    alt="Aadhaar Photo"
-                  />
+                  <img *ngIf="aadharResponse?.photo" [src]="aadharPhotoSrc" alt="Aadhaar Photo" />
                 </div>
                 <div class="details">
                   <p class="heading">{{ aadharResponse?.name }}</p>
@@ -76,24 +67,16 @@
             </div>
           </div>
           <div class="stickybtn_desk desktop_css">
-            <button
-              class="btn btn_cls"
-              (click)="redirecPersonalDetails()"
-              [disabled]="isDigiLockerSuccess"
-            >
-              <!-- Proceed to Personal Details -->
+            <button class="btn btn_cls" (click)="redirecPersonalDetails()" [disabled]="isDigiLockerSuccess"
+              [attr.aria-disabled]="isDigiLockerSuccess">
               Let's add your details quickly
             </button>
           </div>
         </form>
 
         <div class="stickybtn mobile_css">
-          <button
-            class="btn btn_cls"
-            (click)="redirecPersonalDetails()"
-            [disabled]="isDigiLockerSuccess"
-          >
-            <!-- Proceed to Personal Details -->
+          <button class="btn btn_cls" (click)="redirecPersonalDetails()" [disabled]="isDigiLockerSuccess"
+            [attr.aria-disabled]="isDigiLockerSuccess">
             Let's add your details quickly
           </button>
         </div>

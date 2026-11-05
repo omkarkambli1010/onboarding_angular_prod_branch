@@ -36,7 +36,7 @@
   text-align: center;
 }
 
-#documentSelect .group_btn input[type="radio"]:checked + .form-check-label {
+#documentSelect .group_btn input[type="radio"]:checked+.form-check-label {
   background: #6750a4;
 
   color: #fff;
@@ -91,15 +91,18 @@
   flex-wrap: wrap;
   gap: 20px;
 }
+
 .pan_details_form .btn_align {
   display: flex;
   gap: 15px;
   margin: 20px 0;
 }
+
 .pan_details_align .form-check-input:disabled {
   opacity: 1;
   background-color: #a398b3 !important;
 }
+
 .pan_details_align .form-check-input:disabled {
   opacity: 1;
   background-color: #a398b3 !important;
@@ -114,6 +117,7 @@
   align-items: center;
   justify-content: center;
 }
+
 .pan_details_form form {
   background: #fff;
   padding: 24px;
@@ -131,11 +135,13 @@
 .pan_details_form form::-webkit-scrollbar {
   width: 7px;
 }
+
 .pan_details_form form::-webkit-scrollbar-track {
   background: #c3c7ed;
   border-radius: 10px;
   box-shadow: #280071;
 }
+
 .pan_details_form form::-webkit-scrollbar-thumb {
   background: #280071;
   border-radius: 10px;
@@ -144,17 +150,21 @@
 .pan_details_form .sub_title {
   text-align: center;
 }
+
 .pan_details_form input[type="text"].form-control {
   font-weight: 600;
 }
+
 .pan_details_form input[type="text"].form-control:focus {
   border-color: unset;
   box-shadow: unset;
 }
+
 .pan_details_form input[type="text"].form-control.read-only {
   background: #f2f1f6;
   border: 1px solid #3e3f5080;
 }
+
 .pan_details_form .pan_details_align {
   display: flex;
   width: 100%;
@@ -163,11 +173,13 @@
   gap: 24px;
   margin: 20px 0;
 }
+
 .pan_details_form .pan_details_align .upload_css {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
+
 .pan_details_form .pan_details_align .upload_css h5 {
   font-size: 16px;
   font-weight: 600;
@@ -181,6 +193,7 @@
   padding: 16px;
   border-radius: 12px;
 }
+
 .pan_details_form .pan_confirmation span {
   font-weight: 600;
 }
@@ -197,9 +210,11 @@
   max-width: 450px;
   width: 100%;
 }
+
 .pan_details_form .review_section span {
   font-weight: 600;
 }
+
 .pan_details_form .review_section h2 {
   font-weight: 700;
   font-size: 24px;
@@ -211,7 +226,8 @@
   margin: 20px 0;
   text-align: center;
 }
-.pan_details_form .track > a {
+
+.pan_details_form .track>a {
   text-decoration: underline;
   color: #6750a4;
   font-size: 14px;
@@ -227,9 +243,11 @@
 .pan_details_form .accordion-item {
   margin: 10px 0;
 }
+
 .pan_details_form .accordion-button {
   font-weight: 600;
 }
+
 .pan_details_form .accordion-button:not(.collapsed) {
   background-color: #280071;
   color: #fff;
@@ -245,26 +263,32 @@
   gap: 10px;
   cursor: pointer;
 }
+
 .pan_details_form .back_cls {
   display: flex;
   width: 100%;
   justify-content: flex-start;
   /* margin: 20px 0; */
 }
-.pan_details_form .back_cls > div {
+
+.pan_details_form .back_cls>div {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
+
 .pan_details_form .back_cls img {
   width: 20px;
 }
+
 .pan_details_form .nominee_footer img {
   width: 20px;
 }
+
 .desktop_css {
   display: block;
 }
+
 .mobile_css {
   display: none;
 }
@@ -283,18 +307,22 @@
   .camera_icon {
     display: block !important;
   }
+
   .pan_details_form .terms_css {
     margin: 20px 0;
   }
+
   .pan_details_form .terms_css ul {
     padding-left: 0;
   }
+
   .pan_details_form .terms_css ul li {
     position: relative;
     margin: 10px 0;
     padding-left: 30px;
     font-size: 14px;
   }
+
   .pan_details_form .terms_css ul li::before {
     background-image: url("../../assets/images/diy/blue-dot.png");
     background-size: contain;
@@ -368,8 +396,9 @@
   .modal-body .timeline .timeline-content .green-text {
     font-size: 16px;
     font-weight: 600;
-    color: #00ae79;
+    color: #007a55;
   }
+
   .modal-body .timeline .timeline-content .purple-text {
     font-size: 16px;
     font-weight: 600;
@@ -394,14 +423,17 @@
   .desktop_css {
     display: none;
   }
+
   .mobile_css {
     display: block;
   }
+
   .pan_details_form {
     display: block;
     height: auto;
     margin: 20px 0;
   }
+
   .pan_details_form form {
     height: auto;
   }

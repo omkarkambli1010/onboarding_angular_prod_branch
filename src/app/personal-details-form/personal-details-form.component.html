@@ -1,11 +1,11 @@
-<section class="pan_details_form">
+<section aria-label="Marital Status Selection" class="pan_details_form">
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-12 m-auto">
         <div class="mobile_css">
           <div class="back_cls">
-            <div *ngIf="this.RejectStatus != 'R'" (click)="redirectAadhaar()">
-              <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
+            <div role="button" tabindex="0" (keydown.enter)="redirectAadhaar()" (keydown.space)="redirectAadhaar()" *ngIf="this.RejectStatus != 'R'" (click)="redirectAadhaar()">
+              <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
             </div>
 
             <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div>
@@ -17,21 +17,24 @@
           </div>
         </div>
 
-        <form method="post">
+        <form aria-label="Marital Status" method="post">
           <div class="div">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="d-flex align-items-start gap-2">
-                <div
+                <div role="button" tabindex="0"
+                  (keydown.enter)="redirectAadhaar()" (keydown.space)="redirectAadhaar()"
+                  aria-label="Go back"
                   *ngIf="this.RejectStatus != 'R'"
                   (click)="redirectAadhaar()"
                 >
-                  <span>
+                  <span aria-hidden="true">
                     <svg
                       width="24"
                       height="25"
                       viewBox="0 0 24 25"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true" focusable="false"
                     >
                       <g clip-path="url(#clip0_0_10804)">
                         <path
@@ -77,28 +80,22 @@
             </div>
             <hr class="desktop_css" />
           </div>
-          <div class="group_btn">
-            <div
+
+          <div class="group_btn" role="radiogroup" aria-label="Marital Status">
+            <button
               *ngFor="let PersonalData of maritalResponse"
-              class="form-check"
+              type="button"
+              class="form-check pill-btn"
+              [class.selected]="selectedMarital === PersonalData?.maritalStatus"
+              role="radio"
+              [attr.aria-checked]="selectedMarital === PersonalData?.maritalStatus"
+              (click)="
+                selectedMarital = PersonalData?.maritalStatus;
+                PersonalDetailsave('maritial', PersonalData?.maritalStatus)
+              "
             >
-              <input
-                class="form-check-input"
-                type="radio"
-                name="status"
-                id="{{ PersonalData?.maritalStatus }}"
-                [value]="PersonalData?.maritalStatus"
-                [(ngModel)]="selectedMarital"
-                (click)="
-                  PersonalDetailsave('maritial', PersonalData?.maritalStatus)
-                "
-              />
-              <label
-                class="form-check-label"
-                for="{{ PersonalData?.maritalStatus }}"
-                >{{ PersonalData?.maritalStatus || "Unknown" }}</label
-              >
-            </div>
+              {{ PersonalData?.maritalStatus || "Unknown" }}
+            </button>
           </div>
         </form>
       </div>

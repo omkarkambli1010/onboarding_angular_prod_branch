@@ -63,7 +63,14 @@
   width: 100%;
 }
 
-.pan_details_form .mobile_section .mobile_otp_screen .mobile_input h6 {
+/* .pan_details_form .mobile_section .mobile_otp_screen .mobile_input h6 {
+  color: #222;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+} */
+
+.pan_details_form .mobile_section .mobile_otp_screen .mobile_input h3 {
   color: #222;
   font-size: 16px;
   font-weight: 600;
@@ -77,6 +84,13 @@
   line-height: 20px;
 }
 
+.pan_details_form .mobile_section .mobile_otp_screen .mobile_input .edit_btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
 .pan_details_form .mobile_section .mobile_otp_screen .otp_section {
   display: flex;
   flex-direction: column;
@@ -84,23 +98,14 @@
   gap: 24px;
 }
 
-.pan_details_form
-  .mobile_section
-  .mobile_otp_screen
-  .otp_section
-  .otp_input_box {
+.pan_details_form .mobile_section .mobile_otp_screen .otp_section .otp_input_box {
   display: flex;
   flex-direction: column;
   gap: 14px;
   width: 100%;
 }
 
-.pan_details_form
-  .mobile_section
-  .mobile_otp_screen
-  .otp_section
-  .otp_input_box
-  span {
+.pan_details_form .mobile_section .mobile_otp_screen .otp_section .otp_input_box span {
   color: #231f20;
   font-size: 14px;
   font-weight: 400;
@@ -114,24 +119,14 @@
   align-items: flex-start;
 }
 
-.pan_details_form
-  .mobile_section
-  .mobile_otp_screen
-  .otp_section
-  .otp_align
-  span {
+.pan_details_form .mobile_section .mobile_otp_screen .otp_section .otp_align span {
   color: #2b2b2b;
   font-size: 12px;
   font-weight: 400;
   line-height: normal;
 }
 
-.pan_details_form
-  .mobile_section
-  .mobile_otp_screen
-  .otp_section
-  .otp_align
-  .otp_confirmation {
+.pan_details_form .mobile_section .mobile_otp_screen .otp_section .otp_align .otp_confirmation {
   color: #280071;
   font-size: 12px;
   font-weight: 400;
@@ -184,12 +179,21 @@
   width: 100%;
 }
 
-.pan_details_form .help_faq_css h5 {
+/* .pan_details_form .help_faq_css h5 {
+  color: #222;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: normal;
+} */
+
+.pan_details_form .help_faq_css h1,
+.pan_details_form .help_faq_css h2 {
   color: #222;
   font-size: 18px;
   font-weight: 600;
   line-height: normal;
 }
+
 
 .pan_details_form .line_css {
   border-bottom: 0.5px solid #d9d9d9;
@@ -211,7 +215,7 @@
 ::ng-deep .ng-otp-input-wrapper .otp-input {
   width: 50px !important;
   height: 45px !important;
-  border: 1px solid #ccc !important;
+  border: 1px solid #949494 !important;
   border-radius: 4px !important;
   text-align: center !important;
   margin: 0 5px !important;
@@ -237,7 +241,7 @@
 }
 
 .otp_cls .alert_msg {
-  color: #ff2e00;
+  color: #cc2200;
   font-size: 12px;
   font-weight: 400;
 }
@@ -367,7 +371,7 @@
 .modal-body .timeline .timeline-content .green-text {
   font-size: 16px;
   font-weight: 600;
-  color: #00ae79;
+  color: #007a55;
 }
 
 .modal-body .timeline .timeline-content .purple-text {
@@ -379,7 +383,7 @@
 .modal-body .timeline .timeline-content .red-text {
   font-size: 16px;
   font-weight: 600;
-  color: #ff2e00;
+  color: #cc2200;
 }
 
 .modal-body .timeline .timeline-content p {
@@ -411,6 +415,7 @@
 .modal-body .timeline .timeline-item2:last-child::before {
   height: calc(55% - 10px);
 }
+
 .upper {
   text-transform: uppercase;
 }
@@ -429,14 +434,30 @@
     padding: 0 16px;
   }
 
-  .pan_details_form .back_cls h5 {
+  /* .pan_details_form .back_cls h5 {
+    color: #2b2b2b;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: normal;
+  } */
+
+  .pan_details_form .help_faq_css h1,
+  .pan_details_form .help_faq_css h2 {
     color: #2b2b2b;
     font-size: 16px;
     font-weight: 600;
     line-height: normal;
   }
 
-  .pan_details_form .back_cls > div:nth-child(1) {
+  .pan_details_form .back_cls h1,
+  .pan_details_form .back_cls h2 {
+    color: #2b2b2b;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  .pan_details_form .back_cls>div:nth-child(1) {
     font-size: 16px;
     font-weight: 600;
     color: #222;
@@ -500,7 +521,7 @@
     align-items: flex-start;
   }
 
-  .pan_details_form .desktop_align > div:nth-child(1) {
+  .pan_details_form .desktop_align>div:nth-child(1) {
     flex: unset;
   }
 
@@ -522,5 +543,97 @@
 
   ::ng-deep .ng-otp-input-wrapper .otp-input {
     width: 100% !important;
+  }
+}
+
+/* =====================================================================
+   MOBILE ONLY (<=767px) - responsive OTP fix for Android devices.
+   Desktop & tablet styles above are unchanged.
+   ===================================================================== */
+@media screen and (max-width: 767px) {
+  .pan_details_form,
+  .pan_details_form *,
+  .pan_details_form *::before,
+  .pan_details_form *::after {
+    box-sizing: border-box;
+  }
+
+  .pan_details_form .mobile_section {
+    padding: 20px 16px;
+    gap: 20px;
+  }
+
+  .pan_details_form .mobile_section .mobile_otp_screen .mobile_input h3 {
+    margin: 0;
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .pan_details_form .mobile_section .mobile_otp_screen .mobile_input .edit_btn {
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .pan_details_form .mobile_section .mobile_otp_screen .otp_section {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .pan_details_form .mobile_section .mobile_otp_screen .otp_section .otp_input_box,
+  .pan_details_form .mobile_section .mobile_otp_screen .otp_section .otp_field {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .pan_details_form .mobile_section .mobile_otp_screen .otp_section .otp_align {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  ::ng-deep ng-otp-input {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  ::ng-deep .ng-otp-input-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  ::ng-deep .ng-otp-input-wrapper .otp-input {
+    flex: 1 1 0 !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 50px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+}
+
+/* Small Android phones (360px and below) */
+@media screen and (max-width: 380px) {
+  .pan_details_form .mobile_section {
+    padding: 16px 12px;
+  }
+
+  .pan_details_form .mobile_section .mobile_otp_screen .mobile_input h3 {
+    font-size: 14px;
+  }
+
+  ::ng-deep .ng-otp-input-wrapper {
+    gap: 6px;
+  }
+
+  ::ng-deep .ng-otp-input-wrapper .otp-input {
+    height: 40px !important;
+    font-size: 16px !important;
   }
 }

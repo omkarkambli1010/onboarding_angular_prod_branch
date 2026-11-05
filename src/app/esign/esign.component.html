@@ -1,10 +1,12 @@
+<h1 class="visually-hidden">eSign your application</h1>
 <section aria-label="eSign — Final Step" class="pan_details_form">
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-12 m-auto">
         <div class="mobile_css">
           <div class="back_cls">
-            <div *ngIf="this.RejectStatus != 'R'" (click)="redirectAddNominee()">
+            <div *ngIf="this.RejectStatus != 'R'" (click)="redirectAddNominee()" (keydown.enter)="redirectAddNominee()"
+              (keydown.space)="redirectAddNominee()" role="button" tabindex="0">
               <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
 
               <div *ngIf="this.RejectStatus === 'R'" class="back_cls"></div>
@@ -15,11 +17,12 @@
               <div class="help_faq_css">
                 <div class="d-flex gap-2">
                   <div class="d-flex flex-column gap-2">
-                    <h5>Last Step!</h5>
+                    <h2>Last Step!</h2>
                   </div>
                 </div>
                 <div>
-                  <div class="help_btn" (click)="faqHelpBtn('Esign')">Need Help?</div>
+                  <div class="help_btn" (click)="faqHelpBtn('Esign')" (keydown.enter)="faqHelpBtn('Esign')"
+                    (keydown.space)="faqHelpBtn('Esign')" role="button" tabindex="0">Need Help?</div>
                 </div>
               </div>
               <p class="sub_title">
@@ -30,13 +33,15 @@
           </div>
         </div>
 
-        <form aria-label="eSign Form" method="post">
+        <form aria-label="eSign" method="post">
           <div class="">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="mobile_header_padding">
                 <div class="help_faq_css">
                   <div class="d-flex gap-2">
-                    <div *ngIf="this.RejectStatus != 'R'" (click)="redirectAddNominee()">
+                    <div *ngIf="this.RejectStatus != 'R'" (click)="redirectAddNominee()"
+                      (keydown.enter)="redirectAddNominee()" (keydown.space)="redirectAddNominee()" role="button"
+                      tabindex="0">
                       <span>
                         <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <g clip-path="url(#clip0_0_10804)">
@@ -58,7 +63,7 @@
 
 
                     <div class="heading">
-                      <h5>Last Step!</h5>
+                      <h2>Last Step!</h2>
 
                       <p class="sub_title">
                         Just enter your Aadhaar no. and verify it using OTP
@@ -67,18 +72,19 @@
                     </div>
                   </div>
                   <div>
-                    <div class="help_btn" (click)="faqHelpBtn('Esign')">Need Help?</div>
+                    <div class="help_btn" (click)="faqHelpBtn('Esign')" (keydown.enter)="faqHelpBtn('Esign')"
+                      (keydown.space)="faqHelpBtn('Esign')" role="button" tabindex="0">Need Help?</div>
                   </div>
                 </div>
               </div>
             </div>
             <hr class="desktop_css" />
           </div>
-            <p class="mb-3" style="font-size: 14px; color: #666666; font-weight: 400;">
-              By clicking on "Proceed to eSign" you agree to digitally sign the
-              account opening form and you will redirected to the e-Sign service
-              provider website.
-            </p>
+          <p class="mb-3" style="font-size: 14px; color: #666666; font-weight: 400;">
+            By clicking on "Proceed to eSign" you agree to digitally sign the
+            account opening form and you will redirected to the e-Sign service
+            provider website.
+          </p>
           <div *ngIf="isYono == 'YONO'" class="col-lg-12 col-md-12 col-12">
             <div class="mb-3">
 
@@ -104,8 +110,10 @@
                       name="enter_rmcode" placeholder="Enter RM Code" [(ngModel)]="RmCode"
                       (keypress)="onKeyPressRMCode($event)" onselectstart="return false;"
                       onkeypress="return !/^\s$/.test(event.key)" autocomplete="off" appEmojiBlocker
-                      aria-required="true" style="border: 1px solid #D9D9D9;" (input)="toggleDisabled()" maxlength="20"/>
-                    <button id="btn_opt" class="btn_cls_outline w-100" type="submit" [disabled] = "IsRm" (click)="SaveRM()" >
+                      aria-required="true" style="border: 1px solid #D9D9D9;" (input)="toggleDisabled()"
+                      maxlength="20" />
+                    <button id="btn_opt" class="btn_cls_outline w-100" type="submit" [disabled]="IsRm"
+                      (click)="SaveRM()">
                       Submit
                     </button>
                   </div>
@@ -142,74 +150,6 @@
 
             </div>
           </div>
-<!-- -------------------- -->
-          <div *ngIf="isRGB == 'RGB'" class="col-lg-12 col-md-12 col-12">
-            <div class="mb-3">
-
-              <!-- First line: Label + Input (70%) + Button (30%) -->
-              <div class="row">
-
-                <!-- Label -->
-                <div class="col-md-4 ">
-                  <label for="EnterRMCODE" class="form-label mb-0" style="font-size: 16px;">
-                    RM Code <span style="color: #999999;">(Optional)</span>
-                  </label>
-                </div>
-
-                <!-- Grid wrapper for Input + Button -->
-                <!-- <div class="row flex-grow-1 g-2"> -->
-
-
-                <!-- Input: 70% -->
-                <div class="col-md-8">
-                  <div class="field_align">
-
-                    <input aria-label="Enter RM Code" type="text" class="form-control upper" id="rmcode"
-                      name="enter_rmcode" placeholder="Enter RM Code" [(ngModel)]="RGBValue"
-                      (keypress)="onKeyPressRMCode($event)" onselectstart="return false;"
-                      onkeypress="return !/^\s$/.test(event.key)" autocomplete="off" appEmojiBlocker
-                      aria-required="true" style="border: 1px solid #D9D9D9;" (input)="toggleDisabled1()"
-                      maxlength="10" />
-                    <button id="btn_opt" class="btn_cls_outline w-100" type="submit" [disabled]="IsRgbRm"
-                      (click)="SaveRGBRM()">
-                      Submit
-                    </button>
-                  </div>
-                  <!-- <div class="mt-1">
-                    <label *ngIf="IsRm" class="form-label" style="font-size: 14px; color: #222222;">
-                      RM Name - <span style="font-weight: bold; font-size: 14px; color: #222222;">{{ RmName }}</span>
-                    </label>
-                  </div> -->
-
-                </div>
-
-                <!-- Button: 30% -->
-                <!-- <div class="col-md-4">
-          <button
-            id="btn_opt"
-            class="btn_cls_outline w-100"
-            type="submit"
-            [disabled]="IsRm"
-            (click)="SaveRM()">
-            Submit
-          </button>
-        </div> -->
-
-                <!-- </div> -->
-              </div>
-
-              <!-- Second line: RM Name -->
-
-
-              <!-- Validation message -->
-              <!-- <span *ngIf="rmcodenull" class="red_warning">
-      *Please enter correct RM code
-    </span> -->
-
-            </div>
-          </div>
-          <!-- --------------- -->
-
           <div class="esign_front_msg">
             <div class="text-center my-2">
               <img class="" src="assets/images/diy/consent-form.png" alt="Application consent form preview" />

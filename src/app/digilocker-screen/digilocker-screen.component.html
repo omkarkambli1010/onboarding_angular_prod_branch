@@ -1,10 +1,11 @@
-<section class="pan_details_form">
+<section aria-label="DigiLocker Aadhaar and PAN Verification" class="pan_details_form">
+  <h1 class="visually-hidden">DigiLocker Verification</h1>
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-12 col-12 p-0 p-sm-0 m-auto">
         <div class="mobile_css">
           <div class="header_padding">
-            <!-- <div (click)="gotoPan()" class="back_cls">
+            <!-- <div (click)="gotoPan()" class="back_cls" (keydown.enter)="gotoPan()" (keydown.space)="gotoPan()" role="button" tabindex="0">
               <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
             </div> -->
             <div class="help_faq_css">
@@ -12,21 +13,22 @@
               <div>
                 <img
                   src="assets/images/diy/digilocker_img.png"
-                  alt=""
+                  alt="DigiLocker logo"
                   srcset=""
                 />
               </div>
               <div>
-                <div class="help_btn" (click)="faqHelpBtn('Digilocker')">
+                <button type="button" class="help_btn" (click)="faqHelpBtn('Digilocker')"
+                  aria-label="Need Help with DigiLocker — open help">
                   Need Help?
-                </div>
+                </button>
               </div>
             </div>
-            <p class="sub_title">Verify your Aadhaar & PAN via Digilocker</p>
+            <p class="sub_title" role="heading" aria-level="2">Verify your Aadhaar & PAN via Digilocker</p>
           </div>
         </div>
 
-        <form method="post" class="">
+        <form aria-label="DigiLocker Verification" method="post" class="">
           <div class="div">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="header_padding">
@@ -39,76 +41,34 @@
                     />
                   </div>
                   <div>
-                    <div class="help_btn" (click)="faqHelpBtn('Digilocker')">
+                    <div class="help_btn" (click)="faqHelpBtn('Digilocker')" (keydown.enter)="faqHelpBtn('Digilocker')" (keydown.space)="faqHelpBtn('Digilocker')" role="button" tabindex="0">
                       Need Help?
                     </div>
                   </div>
                 </div>
+                <h2 class="visually-hidden">DigiLocker Verification</h2>
                 <p class="sub_title">
                   Verify your Aadhaar & PAN via Digilocker
                 </p> -->
 
                 <div class="help_faq_css">
-                  <!-- <span (click)="gotoPan()">
-                    <svg
-                      width="24"
-                      height="25"
-                      viewBox="0 0 24 25"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g clip-path="url(#clip0_0_10804)">
-                        <path
-                          d="M5 12.5H19"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M5 12.5L11 18.5"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M5 12.5L11 6.5"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_0_10804">
-                          <rect
-                            width="24"
-                            height="24"
-                            fill="white"
-                            transform="translate(0 0.5)"
-                          />
-                        </clipPath>
-                      </defs>
-                    </svg>
-                  </span> -->
                   <div class="desktop_align_header">
                     <div>
                       <div>
                         <img
                           src="assets/images/diy/digilocker_img.png"
-                          alt=""
-                          srcset=""
+                          alt="DigiLocker logo" srcset=""
                         />
                       </div>
-                      <p class="sub_title">
+                      <p class="sub_title" role="heading" aria-level="2">
                         Verify your Aadhaar & PAN via Digilocker
                       </p>
                     </div>
                     <div>
-                      <div class="help_btn" (click)="faqHelpBtn('Digilocker')">
+                      <button type="button" class="help_btn" (click)="faqHelpBtn('Digilocker')"
+                        aria-label="Need Help with DigiLocker — open help">
                         Need Help?
-                      </div>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -120,15 +80,14 @@
             <div class="col-lg-12 col-md-12 col-12">
               <div class="mobile_section">
                 <div class="desktop_align">
-                  <div class="main_heading">
+                  <h2 class="main_heading" aria-level="3">
                     Enter Aadhaar number for <span style="text-transform: capitalize;">‘{{this.nameSubmitted}}’</span>
-                  </div>
+                  </h2>
 
                   <div>
                     <img
                       src="assets/images/diy/aadhar_card_sample_img.png"
-                      alt=""
-                      draggable="false"
+                      alt="Sample Aadhaar card" draggable="false"
                     />
                   </div>
                   <p class="sub_heading">
@@ -141,12 +100,30 @@
                     <p class="header">
                       Select <span>Aadhaar and PAN</span> on the next screen
                     </p>
-                    <div>
+                    <div class="gif_wrapper">
                       <img
+                        #digilockerGif
+                        [hidden]="gifPaused"
                         src="assets/images/diy/digilocker_toogle_video.gif"
-                        alt=""
+                        alt="Animation showing the Aadhaar and PAN documents being selected on the DigiLocker consent screen"
                         draggable="false"
+                        crossorigin="anonymous"
                       />
+                      <canvas
+                        #digilockerGifFrame
+                        [hidden]="!gifPaused"
+                        role="img"
+                        aria-label="Paused animation showing the Aadhaar and PAN documents being selected on the DigiLocker consent screen"
+                      ></canvas>
+                      <button
+                        type="button"
+                        class="gif_toggle_btn"
+                        (click)="toggleGif()"
+                        [attr.aria-pressed]="gifPaused"
+                      >
+                        {{ gifPaused ? 'Play animation' : 'Pause animation' }}
+                      </button>
+                      <span class="visually-hidden" role="status" aria-live="polite">{{ gifStatusMsg }}</span>
                     </div>
                     <p class="bottom_text">
                       Create a 6-digit M-PIN (for new DigiLocker users)

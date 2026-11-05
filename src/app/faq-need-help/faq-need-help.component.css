@@ -4,6 +4,7 @@ body.modal-open {
   position: fixed !important;
   width: 100% !important;
 }
+
 .declaration-box {
   display: flex;
   align-items: center;
@@ -38,6 +39,7 @@ body.modal-open {
 .desktop_css {
   display: block;
 }
+
 .mobile_css {
   display: none;
 }
@@ -63,14 +65,17 @@ body.modal-open {
   justify-content: space-between;
   gap: 20px;
 }
+
 .pan_details_form form::-webkit-scrollbar {
   width: 7px;
 }
+
 .pan_details_form form::-webkit-scrollbar-track {
   background: #c3c7ed;
   border-radius: 10px;
   box-shadow: #280071;
 }
+
 .pan_details_form form::-webkit-scrollbar-thumb {
   background: #280071;
   border-radius: 10px;
@@ -94,11 +99,13 @@ body.modal-open {
 .pan_details_form .risk_info::-webkit-scrollbar {
   width: 7px;
 }
+
 .pan_details_form .risk_info::-webkit-scrollbar-track {
   background: #c3c7ed;
   border-radius: 10px;
   box-shadow: #280071;
 }
+
 .pan_details_form .risk_info::-webkit-scrollbar-thumb {
   background: #280071;
   border-radius: 10px;
@@ -174,7 +181,7 @@ body.modal-open {
   font-size: 14px;
 }
 
-.uploadPan .group_btn input[type="radio"]:checked + .form-check-label {
+.uploadPan .group_btn input[type="radio"]:checked+.form-check-label {
   background: #6750a4;
   color: #fff;
 }
@@ -199,7 +206,7 @@ body.modal-open {
   width: 100%;
 }
 
-.view_details > a {
+.view_details>a {
   text-decoration: underline;
   color: #280071;
   font-weight: 600;
@@ -234,7 +241,7 @@ body.modal-open {
   text-align: center;
 }
 
-.pan_details_form .group_btn input[type="radio"]:checked + .form-check-label {
+.pan_details_form .group_btn input[type="radio"]:checked+.form-check-label {
   background: #6750a4;
   color: #fff;
 }
@@ -276,6 +283,7 @@ body.modal-open {
   gap: 20px;
   /* margin: 20px 0px; */
 }
+
 .pan_details_form .back_cls img {
   width: 20px;
 }
@@ -328,6 +336,7 @@ body.modal-open {
 .pan_details_form .line_css {
   border-bottom: 0.5px solid #d9d9d9;
 }
+
 .pan_details_form .header_padding {
   padding: 24px;
   display: flex;
@@ -428,7 +437,7 @@ body.modal-open {
   margin: 20px 0;
 }
 
-.pan_details_form .or_css > img {
+.pan_details_form .or_css>img {
   object-fit: cover;
   width: 100%;
   height: 100%;
@@ -440,7 +449,7 @@ body.modal-open {
   gap: 30px;
 }
 
-.pan_details_form .checkbox_align > label {
+.pan_details_form .checkbox_align>label {
   font-weight: 600;
 }
 
@@ -548,7 +557,7 @@ body.modal-open {
   max-height: 200px;
 }
 
-.uploadPan .modal-body .file_loading_css > img {
+.uploadPan .modal-body .file_loading_css>img {
   object-fit: scale-down;
   width: 100%;
   height: 100%;
@@ -558,7 +567,7 @@ body.modal-open {
   margin: 20px 0;
 }
 
-.uploadPan .modal-body .img_preview > img {
+.uploadPan .modal-body .img_preview>img {
   object-fit: contain;
   width: 100%;
   height: 200px;
@@ -686,7 +695,7 @@ body.modal-open {
   gap: 20px;
 }
 
-.uploadPan .modal-body .other_plan_details > span {
+.uploadPan .modal-body .other_plan_details>span {
   padding: 6px 12px;
   border-radius: 16px;
   font-size: 14px;
@@ -695,7 +704,7 @@ body.modal-open {
   border: 1px solid #d9d9d9;
 }
 
-.uploadPan .modal-body .other_plan_details > span.active {
+.uploadPan .modal-body .other_plan_details>span.active {
   background: #694d9c;
   color: #fff;
 }
@@ -713,6 +722,7 @@ body.modal-open {
   max-height: 400px;
   overflow: auto;
 }
+
 /* 
 .uploadPan ::ng-deep.modal-body .plan_details_dot {
   margin: 20px 0;
@@ -760,23 +770,11 @@ body.modal-open {
   gap: 10px;
 }
 
-.uploadPan
-  .modal-body
-  .trading_qna
-  .trading_qna_align
-  .pan_details_align
-  .group_btn
-  input[type="radio"] {
+.uploadPan .modal-body .trading_qna .trading_qna_align .pan_details_align .group_btn input[type="radio"] {
   display: none;
 }
 
-.uploadPan
-  .modal-body
-  .trading_qna
-  .trading_qna_align
-  .pan_details_align
-  .group_btn
-  .form-check-label {
+.uploadPan .modal-body .trading_qna .trading_qna_align .pan_details_align .group_btn .form-check-label {
   display: inline-block;
   padding: 10px 20px;
   background: unset;
@@ -787,24 +785,12 @@ body.modal-open {
   text-align: center;
 }
 
-.uploadPan
-  .modal-body
-  .trading_qna
-  .trading_qna_align
-  .pan_details_align
-  .group_btn
-  input[type="radio"]:checked
-  + .form-check-label {
+.uploadPan .modal-body .trading_qna .trading_qna_align .pan_details_align .group_btn input[type="radio"]:checked+.form-check-label {
   background: #6750a4;
   color: #fff;
 }
 
-.uploadPan
-  .modal-body
-  .trading_qna
-  .trading_qna_align
-  .pan_details_align
-  input[type="radio"] {
+.uploadPan .modal-body .trading_qna .trading_qna_align .pan_details_align input[type="radio"] {
   appearance: none;
   width: 20px;
   height: 20px;
@@ -817,12 +803,7 @@ body.modal-open {
   top: 0;
 }
 
-.uploadPan
-  .modal-body
-  .trading_qna
-  .trading_qna_align
-  .pan_details_align
-  input[type="radio"]:before {
+.uploadPan .modal-body .trading_qna .trading_qna_align .pan_details_align input[type="radio"]:before {
   content: "";
   display: block;
   width: 60%;
@@ -831,12 +812,7 @@ body.modal-open {
   border-radius: 50%;
 }
 
-.uploadPan
-  .modal-body
-  .trading_qna
-  .trading_qna_align
-  .pan_details_align
-  input[type="radio"]:checked:before {
+.uploadPan .modal-body .trading_qna .trading_qna_align .pan_details_align input[type="radio"]:checked:before {
   background: #694d9c;
 }
 
@@ -851,6 +827,7 @@ body.modal-open {
   font-weight: 600;
   color: #2b2b2b;
 }
+
 .pan_details_form .faq_section {
   display: flex;
   padding: 24px;
@@ -892,11 +869,7 @@ body.modal-open {
   border-bottom: unset;
 }
 
-.pan_details_form
-  .faq_section
-  .accordion_faq
-  .accordion-header
-  .accordion-button {
+.pan_details_form .faq_section .accordion_faq .accordion-header .accordion-button {
   box-shadow: unset;
   padding: 16px 0;
   gap: 10px;
@@ -906,11 +879,7 @@ body.modal-open {
   line-height: normal;
 }
 
-.pan_details_form
-  .faq_section
-  .accordion_faq
-  .accordion-header
-  .accordion-button:not(.collapsed) {
+.pan_details_form .faq_section .accordion_faq .accordion-header .accordion-button:not(.collapsed) {
   background: unset;
   box-shadow: unset;
 }
@@ -922,7 +891,7 @@ body.modal-open {
   padding: 0 0 16px 0;
 }
 
-.pan_details_form .faq_section .accordion_faq .accordion-body ::ng-deep ul{
+.pan_details_form .faq_section .accordion_faq .accordion-body ::ng-deep ul {
   padding-left: 20px;
 }
 
@@ -938,7 +907,13 @@ body.modal-open {
   width: 100%;
 }
 
-.pan_details_form .help_mail_tel h6 {
+/* .pan_details_form .help_mail_tel h6 {
+  color: #222;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: normal;
+} */
+.pan_details_form .help_mail_tel h3 {
   color: #222;
   font-size: 14px;
   font-weight: 600;
@@ -988,13 +963,13 @@ body.modal-open {
   line-height: normal;
 }
 
-@media screen and (max-width: 991px) {
-}
+@media screen and (max-width: 991px) {}
 
 @media screen and (max-width: 767px) {
   .desktop_css {
     display: none;
   }
+
   .mobile_css {
     display: block;
   }
@@ -1019,7 +994,7 @@ body.modal-open {
     /* margin: 20px 0; */
   }
 
-  .pan_details_form .back_cls > div:nth-child(1) {
+  .pan_details_form .back_cls>div:nth-child(1) {
     font-size: 16px;
     font-weight: 600;
     color: #222;
@@ -1037,6 +1012,7 @@ body.modal-open {
     height: auto;
     margin: 20px 0;
   }
+
   .pan_details_form form {
     /* height: 100dvh; */
     margin: 20px 0;
@@ -1063,11 +1039,13 @@ body.modal-open {
     border: 1px solid #d9d9d9;
     margin: 10px 0;
   }
+
   .pan_details_form .faq_section {
     height: calc(100vh - 150px);
     max-height: 100%;
     overflow: auto;
   }
+
   .pan_details_form .help_mail_tel .call_align .call,
   .pan_details_form .help_mail_tel .call_align .message {
     padding: 12px 16px;
@@ -1076,9 +1054,11 @@ body.modal-open {
     border: 0.5px solid #d9d9d9;
     background: rgba(241, 241, 246, 0.37);
   }
+
   .pan_details_form .help_mail_tel .call_align span .mail_text {
     display: none;
   }
+
   .pan_details_form .help_mail_tel .call_align span .call_number {
     display: none;
   }

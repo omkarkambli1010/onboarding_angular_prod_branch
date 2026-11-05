@@ -1,11 +1,12 @@
-<section class="pan_details_form">
+<section aria-label="Upload or Draw Signature" class="pan_details_form">
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-12 m-auto">
         <div class="mobile_css">
           <div class="back_cls">
-            <div *ngIf="this.RejectStatus != 'R'" (click)="BackToSelfie()">
-              <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
+            <div *ngIf="this.RejectStatus != 'R'" (click)="BackToSelfie()" (keydown.enter)="BackToSelfie()"
+              (keydown.space)="BackToSelfie()" role="button" tabindex="0">
+              <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
             </div>
 
             <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div>
@@ -18,67 +19,38 @@
                   </div>
                 </div>
                 <div>
-                  <div class="help_btn" (click)="faqHelpBtn('Signature')">Need Help?</div>
+                  <div class="help_btn" (click)="faqHelpBtn('Signature')" (keydown.enter)="faqHelpBtn('Signature')"
+                    (keydown.space)="faqHelpBtn('Signature')" role="button" tabindex="0">Need Help?</div>
                 </div>
               </div>
               <p class="sub_title">
-                Please sign below. Random shapes, lines or dots won’t be
+                Please sign below. Random shapes, lines or dots won't be
                 accepted to be shown.
               </p>
             </div>
           </div>
         </div>
 
-        <!-- <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div> -->
-
-        <form method="post">
+        <form aria-label="Signature" method="post">
           <div class="col-lg-12 col-md-12 col-12 desktop_css">
             <div class="mobile_header_padding">
               <div class="help_faq_css">
                 <div class="d-flex gap-2">
-                  <div
-                    *ngIf="this.RejectStatus != 'R'"
-                    (click)="BackToSelfie()"
-                  >
+                  <div *ngIf="this.RejectStatus != 'R'" (click)="BackToSelfie()" (keydown.enter)="BackToSelfie()"
+                    (keydown.space)="BackToSelfie()" role="button" tabindex="0">
                     <span>
-                      <svg
-                        width="24"
-                        height="25"
-                        viewBox="0 0 24 25"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
+                      <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_0_10804)">
-                          <path
-                            d="M5 12.5H19"
-                            stroke="black"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            d="M5 12.5L11 18.5"
-                            stroke="black"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            d="M5 12.5L11 6.5"
-                            stroke="black"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
+                          <path d="M5 12.5H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                          <path d="M5 12.5L11 18.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                          <path d="M5 12.5L11 6.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
                         </g>
                         <defs>
                           <clipPath id="clip0_0_10804">
-                            <rect
-                              width="24"
-                              height="24"
-                              fill="white"
-                              transform="translate(0 0.5)"
-                            />
+                            <rect width="24" height="24" fill="white" transform="translate(0 0.5)" />
                           </clipPath>
                         </defs>
                       </svg>
@@ -90,7 +62,8 @@
                   </div>
                 </div>
                 <div>
-                  <div class="help_btn" (click)="faqHelpBtn('Signature')">
+                  <div class="help_btn" (click)="faqHelpBtn('Signature')" (keydown.enter)="faqHelpBtn('Signature')"
+                    (keydown.space)="faqHelpBtn('Signature')" role="button" tabindex="0">
                     Need Help?
                   </div>
                 </div>
@@ -99,48 +72,31 @@
             <hr class="desktop_css" />
           </div>
           <div class="signature_box">
-            <canvas #signaturePad></canvas>
-            <img
-              (click)="clearSignature()"
-              class="reset_icon"
-              src="assets/images/diy/signature-reset.png"
-              alt=""
-            />
+            <canvas #signaturePad aria-label="Signature drawing area"></canvas>
+            <button type="button" class="reset_btn" (click)="clearSignature()" aria-label="Clear signature">
+              <img class="reset_icon" src="assets/images/diy/signature-reset.png" alt="" aria-hidden="true" />
+            </button>
           </div>
           <div class="btn_align stickybtn_desk desktop_css">
-            <button
-              [disabled]="isDisableSignaturePicture"
-              data-bs-target="#uploadSignature"
-              data-bs-toggle="modal"
-              class="btn btn_cls_outline p-0"
-              (click)="clearSignature()"
-            >
+            <button [disabled]="isDisableSignaturePicture" [attr.aria-disabled]="isDisableSignaturePicture"
+              data-bs-target="#uploadSignature" data-bs-toggle="modal" class="btn btn_cls_outline p-0"
+              (click)="clearSignature()">
               Upload Signature
             </button>
-            <button
-              [disabled]="isSignaturePicture"
-              (click)="saveSignature()"
-              class="btn btn_cls"
-            >
+            <button [disabled]="isSignaturePicture" [attr.aria-disabled]="isSignaturePicture" (click)="saveSignature()"
+              class="btn btn_cls">
               Proceed
             </button>
           </div>
         </form>
         <div class="btn_align stickybtn mobile_css">
-          <button
-            [disabled]="isDisableSignaturePicture"
-            data-bs-target="#uploadSignature"
-            data-bs-toggle="modal"
-            class="btn btn_cls_outline p-0"
-            (click)="clearSignature()"
-          >
+          <button [disabled]="isDisableSignaturePicture" [attr.aria-disabled]="isDisableSignaturePicture"
+            data-bs-target="#uploadSignature" data-bs-toggle="modal" class="btn btn_cls_outline p-0"
+            (click)="clearSignature()">
             Upload Signature
           </button>
-          <button
-            [disabled]="isSignaturePicture"
-            (click)="saveSignature()"
-            class="btn btn_cls"
-          >
+          <button [disabled]="isSignaturePicture" [attr.aria-disabled]="isSignaturePicture" (click)="saveSignature()"
+            class="btn btn_cls">
             Proceed
           </button>
         </div>
@@ -150,75 +106,40 @@
 </section>
 
 <!-- Selfie Image Preview -->
-<div
-  class="modal fade uploadPan"
-  id="uploadSelfie"
-  tabindex="-1"
-  aria-labelledby="uploadBankStateUploadLabel"
-  aria-hidden="true"
->
+<div class="modal fade uploadPan" id="uploadSelfie" tabindex="-1" aria-labelledby="uploadBankStateUploadLabel"
+  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div
-        class="modal-header d-block"
-        data-bs-dismiss="modal"
-        aria-label="Close"
-        (click)="removeModal()"
-      >
-        <h1 class="modal-title fs-5" id="uploadBankStateUploadLabel"></h1>
-        <button
-          type="button"
-          class="btn-horizontal-line"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="removeModal()"
-        ></button>
+      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+        <h2 class="modal-title fs-5" id="uploadBankStateUploadLabel"></h2>
+        <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
         <h5>{{ "Selfie " }}</h5>
         <image-cropper
-          [imageChangedEvent]="imageChangedEvent"
-          [maintainAspectRatio]="false"
-          [canvasRotation]="canvasRotation"
-          [(transform)]="transform"
-          [aspectRatio]="4 / 3"
-          format="png"
-          (imageCropped)="imageCropped($event)"
-          (imageLoaded)="imageLoaded()"
-          (loadImageFailed)="loadImageFailed()"
-        ></image-cropper>
+          cropperFrameAriaLabel="Crop area. Use the arrow keys to move and resize it. Press a number key from 1 to 9 to change how far each key press moves it."
+          imageAltText="Image you uploaded, shown with an adjustable crop area" [imageChangedEvent]="imageChangedEvent"
+          [maintainAspectRatio]="false" [canvasRotation]="canvasRotation" [(transform)]="transform"
+          [aspectRatio]="4 / 3" format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+          (loadImageFailed)="loadImageFailed()"></image-cropper>
+        <p class="cropper_hint">Keyboard users: tab to the crop area, then use the arrow keys to move and resize it.</p>
         <br />
-        <!-- <div *ngIf="croppedImage" class="text-center">
-          <label class="reupload_css" (click)="rotateRight()">Rotate</label>
-        </div> -->
       </div>
 
       <div class="modal-footer">
         <div class="btn_align">
           <label *ngIf="!imageChangedEvent" class="btn btn_cls_outline">
             Upload Image
-            <input
-              type="file"
-              accept="image/*"
-              (change)="fileChangeEvent($event)"
-              style="display: none"
-            />
+            <input type="file" accept="image/*" (change)="fileChangeEvent($event)" style="display: none"
+              aria-label="Upload a document file" />
           </label>
           <label *ngIf="imageChangedEvent" class="btn btn_cls_outline">
             Re-Upload Image
-            <input
-              type="file"
-              accept="image/*"
-              (change)="fileChangeEvent($event)"
-              style="display: none"
-            />
+            <input type="file" accept="image/*" (change)="fileChangeEvent($event)" style="display: none"
+              aria-label="Upload a document file" />
           </label>
-          <button
-            type="button"
-            class="btn btn_cls"
-            data-bs-target="#uploadBankStateBg"
-            data-bs-toggle="modal"
-          >
+          <button type="button" class="btn btn_cls" data-bs-target="#uploadBankStateBg" data-bs-toggle="modal">
             Continue
           </button>
         </div>
@@ -228,44 +149,21 @@
 </div>
 
 <!-- Upload Signature Modal -->
-<div
-  class="modal fade uploadPan"
-  id="uploadSignature"
-  tabindex="-1"
-  aria-labelledby="uploadSignatureLabel"
-  aria-hidden="true"
->
+<div class="modal fade uploadPan" id="uploadSignature" tabindex="-1" aria-labelledby="uploadSignatureLabel"
+  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div
-        class="modal-header d-block"
-        data-bs-dismiss="modal"
-        aria-label="Close"
-        (click)="removeModal()"
-      >
-        <h1 class="modal-title fs-5" id="uploadSignatureLabel"></h1>
-        <button
-          type="button"
-          class="btn-horizontal-line"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="removeModal()"
-        ></button>
+      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+        <h2 class="modal-title fs-5" id="uploadSignatureLabel"></h2>
+        <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
         <h5>Upload Signature</h5>
         <div class="img_upload">
-          <div
-            class="camera_icon"
-            style="position: relative; display: inline-block"
-          >
-            <img
-              src="assets/images/diy/camera_img.png"
-              alt="Upload Image"
-              style="cursor: pointer"
-            />
-            <input
-              style="
+          <div class="camera_icon" style="position: relative; display: inline-block">
+            <img src="assets/images/diy/camera_img.png" alt="Upload Image" style="cursor: pointer" />
+            <input style="
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -273,25 +171,14 @@
                 width: 100%;
                 height: 100%;
                 cursor: pointer;
-              "
-              type="file"
-              capture="environment"
-              accept="image/*"
-              (click)="resetExistingImage()"
-              (click)="setCaptureEvent('environment')"
-              (change)="fileChangeEvent($event)"
-              data-bs-target="#uploadSignatureUpload"
-              data-bs-toggle="modal"
-            />
+              " type="file" capture="environment" accept="image/*" (click)="resetExistingImage()"
+              (click)="setCaptureEvent('environment')" (change)="fileChangeEvent($event)"
+              data-bs-target="#uploadSignatureUpload" data-bs-toggle="modal"
+              aria-label="Take a photo of your document" />
           </div>
           <div style="position: relative; display: inline-block">
-            <img
-              src="assets/images/diy/upload_img.png"
-              alt="Upload Image"
-              style="cursor: pointer"
-            />
-            <input
-              style="
+            <img src="assets/images/diy/upload_img.png" alt="Upload Image" style="cursor: pointer" />
+            <input style="
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -299,16 +186,9 @@
                 width: 100%;
                 height: 100%;
                 cursor: pointer;
-              "
-              type="file"
-              accept="image/*"
-              (click)="resetExistingImage()"
-              (click)="setCaptureEvent('upload')"
-              (change)="fileChangeEvent($event)"
-              data-bs-target="#uploadSignatureUpload"
-              data-bs-toggle="modal"
-            />
-            <!-- capture="upload" -->
+              " type="file" accept="image/*" (click)="resetExistingImage()" (click)="setCaptureEvent('upload')"
+              (change)="fileChangeEvent($event)" data-bs-target="#uploadSignatureUpload" data-bs-toggle="modal"
+              aria-label="Upload a document file" />
           </div>
         </div>
         <div class="file_type_css">
@@ -317,12 +197,7 @@
         </div>
       </div>
       <div class="modal-footer p-0 d-none">
-        <button
-          type="button"
-          data-bs-target="#uploadSignatureUpload"
-          data-bs-toggle="modal"
-          class="btn btn_cls"
-        >
+        <button type="button" data-bs-target="#uploadSignatureUpload" data-bs-toggle="modal" class="btn btn_cls">
           Continue
         </button>
       </div>
@@ -331,45 +206,24 @@
 </div>
 
 <!-- Upload Signature Upload Modal -->
-<div
-  class="modal fade uploadPan"
-  id="uploadSignatureUpload"
-  tabindex="-1"
-  aria-labelledby="uploadSignatureUploadLabel"
-  aria-hidden="true"
->
+<div class="modal fade uploadPan" id="uploadSignatureUpload" tabindex="-1" aria-labelledby="uploadSignatureUploadLabel"
+  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div
-        class="modal-header d-block"
-        data-bs-dismiss="modal"
-        aria-label="Close"
-        (click)="removeModal()"
-      >
-        <h1 class="modal-title fs-5" id="uploadSignatureUploadLabel"></h1>
-        <button
-          type="button"
-          class="btn-horizontal-line"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="removeModal()"
-        ></button>
+      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+        <h2 class="modal-title fs-5" id="uploadSignatureUploadLabel"></h2>
+        <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
         <h5>Upload Signature</h5>
 
         <div *ngIf="imageChangedEvent" class="file_upload_css">
-          <image-cropper
-            class="image_css"
-            [imageChangedEvent]="imageChangedEvent"
-            [maintainAspectRatio]="false"
-            [(transform)]="transform"
-            [aspectRatio]="4 / 3"
-            format="png"
-            (imageCropped)="imageCropped($event)"
-            (imageLoaded)="imageLoaded()"
-            (loadImageFailed)="loadImageFailed()"
-          ></image-cropper>
+          <image-cropper class="image_css" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
+            [(transform)]="transform" [aspectRatio]="4 / 3" format="png" (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()"></image-cropper>
+          <p class="cropper_hint">Keyboard users: tab to the crop area, then use the arrow keys to move and resize it.
+          </p>
         </div>
         <div *ngIf="imageChangedEvent" class="text-center">
           <label class="reupload_css" (click)="rotateRight()">Rotate</label>
@@ -382,45 +236,21 @@
           <div class="btn_align">
             <label *ngIf="!imageChangedEvent" class="btn btn_cls_outline">
               Upload Image
-              <input
-                type="file"
-                accept="image/*"
-                (change)="fileChangeEvent($event)"
-                style="display: none"
-              />
+              <input type="file" accept="image/*" (change)="fileChangeEvent($event)" style="display: none"
+                aria-label="Upload a document file" />
             </label>
-            <label
-              *ngIf="imageChangedEvent && capture_event !== 'user'"
-              class="btn btn_cls_outline p-0"
-            >
+            <label *ngIf="imageChangedEvent && capture_event !== 'user'" class="btn btn_cls_outline p-0">
               Re-Upload Image
-              <input
-                type="file"
-                accept="image/*"
-                (change)="fileChangeEvent($event)"
-                style="display: none"
-              />
+              <input type="file" accept="image/*" (change)="fileChangeEvent($event)" style="display: none"
+                aria-label="Upload a document file" />
             </label>
-            <label
-              *ngIf="imageChangedEvent && capture_event == 'user'"
-              class="btn btn_cls_outline p-0"
-            >
+            <label *ngIf="imageChangedEvent && capture_event == 'user'" class="btn btn_cls_outline p-0">
               Re-Uploaded Image
-              <input
-                type="file"
-                capture="user"
-                accept="image/*"
-                (change)="fileChangeEvent($event)"
-                style="display: none"
-              />
+              <input type="file" capture="user" accept="image/*" (change)="fileChangeEvent($event)"
+                style="display: none" aria-label="Take a photo" />
             </label>
-            <button
-              [disabled]="!imageChangedEvent"
-              type="button"
-              class="btn btn_cls"
-              data-bs-target="#uploadSignatureBg"
-              data-bs-toggle="modal"
-            >
+            <button [attr.aria-disabled]="!imageChangedEvent" [disabled]="!imageChangedEvent" type="button"
+              class="btn btn_cls" data-bs-target="#uploadSignatureBg" data-bs-toggle="modal">
               Continue
             </button>
           </div>
@@ -431,41 +261,21 @@
 </div>
 
 <!-- Upload Signature File Modal -->
-<div
-  class="modal fade uploadPan"
-  id="uploadSignatureBg"
-  tabindex="-1"
-  aria-labelledby="uploadSignatureBgLabel"
-  aria-hidden="true"
->
+<div class="modal fade uploadPan" id="uploadSignatureBg" tabindex="-1" aria-labelledby="uploadSignatureBgLabel"
+  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div
-        class="modal-header d-block"
-        data-bs-dismiss="modal"
-        aria-label="Close"
-        (click)="removeModal()"
-      >
-        <h1 class="modal-title fs-5" id="uploadSignatureBgLabel"></h1>
-        <button
-          type="button"
-          class="btn-horizontal-line"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="removeModal()"
-        ></button>
+      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+        <h2 class="modal-title fs-5" id="uploadSignatureBgLabel"></h2>
+        <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
         <h5>Upload Signature</h5>
         <div class="file_upload_css">
           <div class="img_preview">
-            <img
-              *ngIf="croppedImage"
-              [src]="croppedImage"
-              [style.border]="croppedImage ? '1px solid black' : 'none'"
-              alt="Cropped Image Preview"
-              class="img-fluid"
-            />
+            <img *ngIf="croppedImage" [src]="croppedImage" [style.border]="croppedImage ? '1px solid black' : 'none'"
+              alt="Cropped Image Preview" class="img-fluid" />
           </div>
         </div>
         <div class="file_type_css">
@@ -474,19 +284,11 @@
         </div>
         <div class="modal-footer p-0">
           <div class="btn_align">
-            <button
-              (click)="changeBankSignatureImage()"
-              data-bs-target="#uploadSignature"
-              data-bs-toggle="modal"
-              class="btn btn_cls_outline p-0"
-            >
+            <button (click)="changeBankSignatureImage()" data-bs-target="#uploadSignature" data-bs-toggle="modal"
+              class="btn btn_cls_outline p-0">
               Change Signature
             </button>
-            <button
-              (click)="uploadSignatureUploadImg()"
-              class="btn btn_cls"
-              id="confirmedPan"
-            >
+            <button (click)="uploadSignatureUploadImg()" class="btn btn_cls" id="confirmedPan">
               Yes, Confirm
             </button>
           </div>

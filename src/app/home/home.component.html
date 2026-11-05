@@ -1,4 +1,4 @@
-<section class="banner">
+<section aria-label="Open Demat and Trading Account" class="banner">
   <div class="container">
     <div class="row banner-img">
       <div
@@ -9,7 +9,7 @@
             <img
               draggable="false"
               src="assets/images/diy/Website-Banner-DIY2-Foreground.webp"
-              alt="Open Demat Account"
+              alt="Trade fast, invest smarter with 0 brokerage on intraday, rupees 20 per order for carry forward trades, and free 1st year AMC"
               srcset=""
               loading="lazy"
             />
@@ -18,7 +18,7 @@
             <img
               draggable="false"
               src="assets/images/diy/Website-Banner-DIY2-Mobile-Foreground.webp"
-              alt="Open Demat Account"
+              alt="Trade fast, invest smarter with 0 brokerage on intraday, rupees 20 per order for carry forward trades, and free 1st year AMC"
               srcset=""
               loading="lazy"
             />
@@ -27,13 +27,16 @@
       </div>
       <div class="col-md-6 col-lg-6 col-12">
         <div class="mobile_form">
-          <form action="" method="post">
-            <h1 class="">Open Your Demat & Trading Account Now</h1>
+          <form action="" method="post" aria-label="Open Demat Account Registration">
+            <h1 class="">Open Your Demat &amp; Trading Account Now</h1>
+            <!-- <p class="required-note">Fields marked with an asterisk (<span aria-hidden="true">*</span>) are required.</p> -->
             <div>
+              <label class="field-label" for="EnterFullNameCard">Full Name as per PAN <span class="req-star" aria-hidden="true">*</span></label>
               <input
                 type="text"
                 class="form-control otp_field"
                 id="EnterFullNameCard"
+                aria-required="true"
                 name="fullname_as_pancard"
                 placeholder="Full Name as per PAN"
                 [(ngModel)]="sendOtp.fullname"
@@ -44,31 +47,36 @@
                 onpaste="return false;"
                 onselectstart="return false;"
                 onkeypress="return !/^\s$/.test(event.key) || event.target.value.length > 0 "
-                autocomplete="off"
+                autocomplete="name"
                 maxlength="100"
                 appEmojiBlocker
                 #mobileInput
+                aria-describedby="fullnameError"
               />
 
-              <span *ngIf="moreThanTwoValues" class="red_warning"
-                >More than 2 characters are allowed</span
-              >
-              <span *ngIf="panFullNameReqSpecial" class="red_warning"
-                >Special characters are not allowed</span
-              >
-              <span *ngIf="panFullNameReqDigit" class="red_warning"
-                >Digits are not allowed</span
-              >
-              <span *ngIf="panFullNameReqSpace" class="red_warning">
-                *Please enter your name as per your PAN</span
-              >
+              <div id="fullnameError" role="alert" aria-live="assertive">
+                <span *ngIf="moreThanTwoValues" class="red_warning"
+                  >More than 2 characters are allowed</span
+                >
+                <span *ngIf="panFullNameReqSpecial" class="red_warning"
+                  >Special characters are not allowed</span
+                >
+                <span *ngIf="panFullNameReqDigit" class="red_warning"
+                  >Digits are not allowed</span
+                >
+                <span *ngIf="panFullNameReqSpace" class="red_warning">
+                  *Please enter your name as per your PAN</span
+                >
+              </div>
             </div>
             <div>
+              <label class="field-label" for="mobile-number">Mobile Number <span class="req-star" aria-hidden="true">*</span></label>
               <input
                 type="text"
                 class="form-control otp_field"
-                aria-describedby="inputMobile"
                 name="MobileNo"
+                id="mobile-number"
+                aria-required="true"
                 pattern="[0-9]*"
                 inputmode="numeric"
                 placeholder="Mobile Number"
@@ -76,32 +84,30 @@
                 [(ngModel)]="sendOtp.mobile"
                 (input)="mobileNoValidation($event, false)"
                 (focusout)="mobileNoValidation2($event)"
+                aria-describedby="mobileError"
               />
-              <span *ngIf="mobileDigitReq" class="red_warning"
-                >*Please enter your valid 10 digit mobile number.</span
-              >
+              <div id="mobileError" role="alert" aria-live="assertive">
+                <span *ngIf="mobileDigitReq" class="red_warning"
+                  >*Please enter your valid 10 digit mobile number.</span
+                >
+              </div>
             </div>
             <div class="btn_align">
+              <span id="getStartedHint" class="visually-hidden">Enter your full name and a 10 digit mobile number to enable Get Started.</span>
               <button
                 type="button"
                 class="btn btn_cls"
                 [disabled]="isDisabledLoginBtn"
+                [attr.aria-disabled]="isDisabledLoginBtn"
                 (click)="getMobileOtp(false)"
+                aria-describedby="getStartedHint"
               >
-                <!-- onclick="messageHandler.postMessage('working');" -->
                 Get Started
               </button>
               <div class="terms_css">
                 By clicking on ‘Get Started’, I agree to the
-                <!-- <a data-bs-target="#termsandcond" data-bs-toggle="modal"
-                  >Terms & Condition</a
-                > -->
-
-                <a
-                  href="https://www.sbisecurities.in/fileserver/regulation/terms-and-conditions.html"
-                  target="_blank"
-                  >Terms & Condition</a
-                >
+                <a href="https://www.sbisecurities.in/fileserver/regulation/terms-and-conditions.html"
+                  target="_blank">Terms &amp; Condition</a>
               </div>
             </div>
           </form>
@@ -111,7 +117,7 @@
   </div>
 </section>
 
-<section class="whyOpenDemat">
+<section aria-label="Why Open Demat Account With SBI Securities" class="whyOpenDemat">
   <div class="container">
     <div class="row">
       <div class="align">
@@ -124,7 +130,7 @@
               <img
                 draggable="false"
                 src="assets/images/diy/trusticon-1.avif"
-                alt="SBI Legacy & Trust"
+                alt="SBI Legacy &amp; Trust"
               />
             </div>
             <div>
@@ -185,7 +191,7 @@
   </div>
 </section>
 
-<section class="ezdemat">
+<section aria-label="Easy Demat Account Opening Process" class="ezdemat">
   <div class="container">
     <div class="row">
       <div class="align">
@@ -200,7 +206,11 @@
             <p>Sign Up</p>
           </div>
           <div class="card_cls_arrow">
-            <img draggable="false" src="assets/images/diy/Line.png" alt="" />
+            <img draggable="false"
+            src="assets/images/diy/Line.png"
+            alt=""
+            aria-hidden="true"
+            role="presentation" />
           </div>
           <div class="card_cls">
             <img
@@ -211,7 +221,11 @@
             <p>Verify Bank A/C</p>
           </div>
           <div class="card_cls_arrow">
-            <img draggable="false" src="assets/images/diy/Line.png" alt="" />
+            <img draggable="false"
+            src="assets/images/diy/Line.png"
+            alt=""
+            aria-hidden="true"
+            role="presentation" />
           </div>
           <div class="card_cls">
             <img
@@ -222,7 +236,11 @@
             <p>Select Plan</p>
           </div>
           <div class="card_cls_arrow">
-            <img draggable="false" src="assets/images/diy/Line.png" alt="" />
+            <img draggable="false"
+              src="assets/images/diy/Line.png"
+              alt=""
+              aria-hidden="true"
+              role="presentation"/>
           </div>
           <div class="card_cls">
             <img
@@ -233,7 +251,11 @@
             <p>Upload Documents</p>
           </div>
           <div class="card_cls_arrow">
-            <img draggable="false" src="assets/images/diy/Line.png" alt="" />
+            <img draggable="false"
+              src="assets/images/diy/Line.png"
+              alt=""
+              aria-hidden="true"
+              role="presentation" />
           </div>
           <div class="card_cls">
             <img
@@ -249,7 +271,7 @@
   </div>
 </section>
 
-<section class="whyOpenDemat">
+<section aria-label="Documents Required for Demat Account" class="whyOpenDemat">
   <div class="container">
     <div class="row">
       <div class="align">
@@ -266,7 +288,7 @@
               />
             </div>
             <div>
-              <h6>Identity Proof</h6>
+              <h3 class="card-subheading">Identity Proof</h3>
               <p>PAN Card</p>
             </div>
           </div>
@@ -279,7 +301,7 @@
               />
             </div>
             <div>
-              <h6>Address Proof</h6>
+              <h3 class="card-subheading">Address Proof</h3>
               <p>Aadhar Card</p>
             </div>
           </div>
@@ -292,7 +314,7 @@
               />
             </div>
             <div>
-              <h6>Nominee Addition</h6>
+              <h3 class="card-subheading">Nominee Addition</h3>
               <p>Nominee's Proof of Identity</p>
             </div>
           </div>
@@ -301,11 +323,11 @@
               <img
                 draggable="false"
                 src="assets/images/diy/signatureicon-1.png"
-                alt="Ass Your Signature"
+                alt="Add Your Signature"
               />
             </div>
             <div>
-              <h6>Signature</h6>
+              <h3 class="card-subheading">Signature</h3>
               <p>Sign on a White paper</p>
             </div>
           </div>
@@ -318,7 +340,7 @@
               />
             </div>
             <div>
-              <h6>Cancelled cheque</h6>
+              <h3 class="card-subheading">Cancelled cheque</h3>
               <p>Only if bank verification fails</p>
             </div>
           </div>
@@ -328,7 +350,7 @@
   </div>
 </section>
 
-<section class="benefits_section">
+<section aria-label="Educational Videos" class="benefits_section">
   <div class="container">
     <div class="trust_css">
       <h2 class="page-heading">Videos</h2>
@@ -347,27 +369,52 @@
                 width="560"
                 height="245"
                 [src]="video.url | safeUrl"
-                title="YouTube video player"
+                [title]="'YouTube video: ' + video.caption"
+                [attr.aria-label]="'YouTube video: ' + video.caption"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowfullscreen
               >
               </iframe>
-              <h6>{{ video.caption }}</h6>
+              <h3>{{ video.caption }}</h3>
+              <!-- 1.2.3 - text alternative for the video. -->
+              <a
+                *ngIf="video.transcript"
+                class="transcript_link"
+                [href]="'#' + video.transcriptId"
+                (click)="focusTranscript($event, video.transcriptId)"
+                >Read the transcript of “{{ video.caption }}”</a
+              >
             </div>
           </div>
         </ng-template>
       </p-carousel>
+
+      <!-- 1.2.3 - the transcripts live in their own section so the links above
+           have somewhere to send focus. -->
+      <div class="video_transcripts">
+        <div
+          *ngFor="let video of videos"
+          class="transcript_block"
+          [id]="video.transcriptId"
+          tabindex="-1"
+        >
+          <ng-container *ngIf="video.transcript">
+            <h3>Transcript: {{ video.caption }}</h3>
+            <p class="transcript_body">{{ video.transcript }}</p>
+          </ng-container>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="trust_section">
+<section aria-label="Customer Testimonials" class="trust_section">
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
         <h2 class="page-heading">Trust Aur Growth, Dono</h2>
-        <h6><span></span>India’s trusted investment partner of choice</h6>
+        <p class="trust-subtitle"><span></span>India’s trusted investment partner of choice</p>
       </div>
       <div class="col-lg-12">
         <p-carousel
@@ -390,7 +437,7 @@
   </div>
 </section>
 
-<section class="demat_section">
+<section aria-label="What is a Demat Account" class="demat_section">
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
@@ -419,7 +466,7 @@
   </div>
 </section>
 
-<section class="faq_section">
+<section aria-label="Frequently Asked Questions" class="faq_section">
   <div class="container">
     <div class="col-md-12">
       <h2 class="text-center pb-5 page-heading">FAQs</h2>
@@ -608,11 +655,12 @@
               >
                 <div class="accordion-body terms_body">
                   <div class="table_cls">
-                    <table border="1">
+                    <table border="1" aria-label="Account Type Comparison — Demat vs Trading Account">
+                      <caption>Comparison of Demat and Trading account types and their features</caption>
                       <tr>
-                        <th>Feature</th>
-                        <th>Trading Account</th>
-                        <th>Demat Account</th>
+                        <th scope="col">Feature</th>
+                        <th scope="col">Trading Account</th>
+                        <th scope="col">Demat Account</th>
                       </tr>
                       <tr>
                         <td>Purpose</td>
@@ -627,15 +675,15 @@
                       <tr>
                         <td>Tradable Assets</td>
                         <td>
-                          Includes ownable assets and contract like futures &
+                          Includes ownable assets and contract like futures &amp;
                           options
                         </td>
                         <td>Ownable assets (equity, ETFs, etc.)</td>
                       </tr>
                       <tr>
                         <td>Standalone Account</td>
-                        <td>Possible (only for futures & options)</td>
-                        <td>Possible (for non-equity investments & IPOs)</td>
+                        <td>Possible (only for futures &amp; options)</td>
+                        <td>Possible (for non-equity investments &amp; IPOs)</td>
                       </tr>
                       <tr>
                         <td>Settlement</td>
@@ -1457,12 +1505,12 @@
   </div>
 </section>
 
-<section class="sixth">
+<section aria-label="Regulatory Information and Footer" class="sixth" role="contentinfo">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
         <div class="pt-2 pb-1 col-md-12 text-center">
-          <h6>SBICAP Securities Limited</h6>
+          <h3>SBICAP Securities Limited</h3>
           <p>AMFI Registered Mutual Fund Distributor</p>
           <p>CIN: U65999MH2005PLC155485</p>
         </div>
@@ -1477,8 +1525,8 @@
             In case of any grievances please write to
             complaints&#64;sbicapsec.com DP related grievance can be sent to:
             dp.grievance&#64;sbicapsec.com | NPS related grievance can be sent
-            to: Npsgrievance&#64;sbicapsec.com | Compliance officer - Mr.Srijith
-            Menon, email - compliance&#64;sbicapsec.com; Tel No.- 022 - 69316510
+            to: Npsgrievance&#64;sbicapsec.com | Compliance officer - Ms.Raksha Shetty, email -
+            compliance&#64;sbicapsec.com; Tel No.- 022 - 69316510
           </p>
           <p>
             SBICAP Securities Limited is authorized by the Insurance Regulatory
@@ -1504,14 +1552,11 @@
             policies, announcing bonus or investment of premiums. Public
             receiving such phone calls are requested to lodge a police
             complaint. To read more, please click here -
-            <a
-              href="https://www.sbisecurities.in/fileserver/pdf/compliance/IRDAI%20Public%20notice.pdf"
-              target="_blank"
-              >IRDAI Public Notice</a
-            >
+            <a href="https://www.sbisecurities.in/fileserver/pdf/compliance/IRDAI%20Public%20notice.pdf"
+              target="_blank">IRDAI Public Notice</a>
           </p>
           <p>
-            Copyright © 2024. All rights Reserved. SBICAP Securities
+            Copyright &copy; 2026. All rights Reserved. SBICAP Securities
             Limited.Site is best viewed in edge browser, Firefox 38+, Chrome 50+
             at 1366x768 pixel resolution. Windows 10 and above
           </p>
@@ -1553,7 +1598,6 @@
           >
             Privacy Policy |</a
           >
-          <!-- <a href="useful-links" class="footer-links"> Partner Links |</a> -->
           <a
             href="https://www.sbisecurities.in/fileserver/pdf/Cookies-Policy.pdf"
             class="footer-links"
@@ -1561,7 +1605,7 @@
             Cookies Policy |</a
           >
           <a href="https://www.sbisecurities.in/terms" class="footer-links">
-            Terms & Conditions |</a
+            Terms &amp; Conditions |</a
           >
           <a
             href="https://www.scores.gov.in/scores/Welcome.html"
@@ -1589,237 +1633,15 @@
   </div>
 </section>
 
-<section class="version">
+<section aria-label="Application Version" class="version">
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
-        <p class="fw-bold">v.3.1.0</p>
+        <p class="fw-bold">v.4.0.0</p>
       </div>
     </div>
   </div>
 </section>
-
-<!-- Mobile OTP Box Modal -->
-<!-- <div id="mobileotp" tabindex="-1" aria-labelledby="otpLabel" aria-hidden="true" class="modal fade otpBox"
-  data-bs-backdrop="static" data-bs-keyboard="false">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close"
-        (click)="clearMobileOTPFields(); clearTimer()">
-        <button #mobilecloseModal type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
-          (click)="clearMobileOTPFields(); clearTimer()"></button>
-      </div>
-      <div class="modal-body">
-        <p class="title_cls">OTP Verification</p>
-        <p>
-          You will receive OTP on
-          <span class="fw-bold">{{ this.sendOtp.mobile }}</span>
-        </p>
-        <div>
-          <ng-otp-input #otpMobileInput (onInputChange)="onOtpChangeMobile($event)"
-            [ngClass]="{ 'is-success': isRightOTP, 'is-error': isWrongOTP }" [config]="config" [autofocus]="true"
-            (keydown.enter)="getMobileOtpVerify(false)"></ng-otp-input>
-        </div>
-        <div *ngIf="isWrongOTP" class="mb-2 d-block">
-          <div class="otp_cls">
-            <img src="assets/images/diy/invalid_otp.png" alt="" />
-            <span class="alert_msg">Please enter the valid 6 digit OTP sent to your registered mobile
-              number.</span>
-          </div>
-        </div>
-        <div class="otp_align">
-          <div>
-            <span style="font-size: 14px">Didn't receive the OTP?</span>
-          </div>
-          <div>
-            <span style="font-weight: 400; font-size: 14px" *ngIf="timeroff">
-              Resend OTP : {{ displayMobile + " sec" }}
-            </span>
-            <span class="otp_confirmation" *ngIf="!timeroff" (click)="getMobileOtp(true)">
-              Resend OTP
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button [disabled]="isMobileVerifyBtn" (click)="getMobileOtpVerify(false)" type="button" class="btn btn_cls">
-          Verify
-        </button>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-<!-- Email 2 FA Modal -->
-<div
-  class="modal fade otpBox"
-  id="email2faotp"
-  tabindex="-1"
-  aria-labelledby="otpLabel"
-  aria-hidden="true"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header d-block d-lg-none d-md-block d-sm-block">
-        <button
-          #emailclosebutton
-          type="button"
-          class="btn-horizontal-line"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <p class="title_cls">Email ID Verification</p>
-        <p *ngIf="googleHideBtn">
-          <!-- Verification to keep your account safe, Google wants to make sure it's
-          really you trying to sign in -->
-          <!-- Your email helps us keep you informed. No spam - only important
-          updates will be shared. -->
-          All communication related to your account will be sent to this email
-        </p>
-        <div *ngIf="googleHideBtn" class="">
-          <button
-            class="google-btn"
-            (click)="signInWithGoogle()"
-            [disabled]="googlebtn"
-          >
-            <img src="assets/images/diy/google_icon_mini.png" alt="" />
-            <p class="m-0">Continue with Google</p>
-          </button>
-        </div>
-        <div *ngIf="googleHideBtn" class="">
-          <img class="or_cls" src="assets/images/diy/or_img.png" alt="" />
-        </div>
-        <p class="mobile_cls">
-          <strong>Enter your Email ID</strong>
-        </p>
-        <div class="col-md-12 position-rel">
-          <input
-            type="text"
-            class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            name="Email"
-            placeholder="example@gmail.com"
-            [(ngModel)]="sendOtp.email"
-            (input)="validateEmail()"
-            (focusout)="focusOutFunction()"
-          />
-          <!-- <span *ngIf="emailReq" class="red_warning">*Email ID Required</span> -->
-          <span *ngIf="emailFormatVal" class="red_warning"
-            >*Please enter a valid Email ID (e.g. example&#64;gmail.com)</span
-          >
-          <span *ngIf="sbiemailFormatVal" class="red_warning"
-            >*Email addresses containing &#64;sbi cannot be used</span
-          >
-          <span *ngIf="emailmultiplesymb" class="red_warning"
-            >*Please enter a valid Email ID containing only one &#64; sign (E.g.
-            example&#64;gmail.com)
-          </span>
-
-          <span *ngIf="emailspecialchars" class="red_warning"
-            >*Only (_) , (&#64;) & (.) is allowed in Email ID
-          </span>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button
-          *ngIf="!isEmailDisableBtn"
-          (click)="getEmailOtp(false)"
-          id="emailclosebutton"
-          type="button"
-          class="btn btn_cls"
-        >
-          Verify your Email ID
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Email OTP Box Modal -->
-<div
-  class="modal fade otpBox"
-  id="emailotp"
-  tabindex="-1"
-  aria-labelledby="otpLabel"
-  aria-hidden="true"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header d-block">
-        <button
-          #emailclosebutton
-          type="button"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          class="btn-horizontal-line"
-          (click)="clearEmailOtpModal()"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <p class="title_cls">OTP Verification</p>
-        <p class="d-flex flex-wrap align-items-center">
-          You will receive OTP on
-          <span class="fw-bold ms-2">{{ this.sendOtp.email }}</span>
-          <span class="ms-2" (click)="editEmail()"
-            ><img src="assets/images/diy/Edit.png" alt=""
-          /></span>
-        </p>
-        <div class="">
-          <!-- (ngModelChange)="checkIfAllOTPEmailFilled()" -->
-          <!-- [(ngModel)]="this.otpFieldEmail" -->
-          <ng-otp-input
-            #otpEmailInput
-            (onInputChange)="onOtpChangeEmail($event)"
-            [ngClass]="{ 'is-success': isRightOTP, 'is-error': isWrongOTP }"
-            [config]="config"
-            [autofocus]="true"
-            (keydown.enter)="getEmailOtpVerify(false)"
-          ></ng-otp-input>
-        </div>
-        <div *ngIf="isWrongOTP" class="mb-2 d-block">
-          <div class="otp_cls">
-            <img src="assets/images/diy/invalid_otp.png" alt="" />
-            <span class="alert_msg"
-              >Invalid OTP. Enter the valid 6-digit OTP sent on your Email</span
-            >
-          </div>
-        </div>
-        <div class="otp_align">
-          <div>
-            <span style="font-size: 14px">Didn’t receive the OTP?</span>
-          </div>
-          <div>
-            <span style="font-weight: 400; font-size: 14px" *ngIf="timeroff1"
-              >Resend OTP : {{ displayEmail + " sec" }}
-            </span>
-            <span
-              class="otp_confirmation"
-              *ngIf="!timeroff1"
-              (click)="getEmailOtp(true)"
-              >Resend OTP
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button
-          [disabled]="isValidEmailBtn"
-          (click)="getEmailOtpVerify(false)"
-          id="emailclosebutton"
-          type="button"
-          class="btn btn_cls"
-        >
-          Verify your Email ID
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- Resume /Timeline application status -->
 <div
@@ -1828,6 +1650,8 @@
   tabindex="-1"
   aria-labelledby="tracktimelineLabel"
   aria-hidden="true"
+  role="dialog"
+  aria-modal="true"
 >
   <div class="modal-dialog">
     <div class="modal-content">
@@ -1846,6 +1670,7 @@
         ></button>
       </div>
       <div class="modal-body">
+        <h2 id="tracktimelineLabel" class="visually-hidden">Application status timeline</h2>
         <div class="timeline">
           <div class="timeline-item2">
             <div class="timeline-marker"></div>
@@ -1873,9 +1698,12 @@
         </div>
       </div>
       <div class="modal-footer">
+        <span id="loginDisabledHint" class="visually-hidden">Login becomes available after your application is verified.</span>
         <button
           type="button"
           disabled
+          aria-disabled="true"
+          aria-describedby="loginDisabledHint"
           class="btn btn_cls"
           data-bs-target="#tracktimeline2"
           data-bs-toggle="modal"
@@ -1887,23 +1715,3 @@
   </div>
 </div>
 
-<script>
-  const button = document.getElementById("get_started");
-  button.addEventListener("click", (event) => {
-    if ("messageHandler" in window) {
-      messageHandler.postMessage(input.value);
-    }
-    window.parent.postMessage(input.value, "*");
-  });
-
-  if ("messageHandler" in window) {
-    messageHandler.addEventListener("message", (event) => {
-      alert(event.data);
-    });
-  }
-
-  window.parent.addEventListener("message", (event) => {
-    //console.log(event);
-    alert(event.data);
-  });
-</script>

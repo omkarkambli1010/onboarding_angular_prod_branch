@@ -805,7 +805,8 @@ export class DeclarationComponent implements OnInit {
           this.router.navigate(['/PennyDrop', 2]);
           this.spinner.hide();
         }, 200);
-      } else if (mode === 'RevPennyDrop') {
+      //Bank Stage UI Changes 07-09-2026
+      } else if (mode === 'RPD') {
         this.spinner.show();
         setTimeout(() => {
           const modalBackdrops = document.querySelectorAll('.modal-backdrop');
@@ -826,7 +827,10 @@ export class DeclarationComponent implements OnInit {
               backdrop.remove();
             }
           });
-          this.router.navigate(['/personalDetailsForm', 6]);
+
+          // this.router.navigate(['/personalDetailsForm', 6]);
+          //Bank Stage UI Changes 07-09-2026
+          this.router.navigate(['/reversePennyDrop', 1]);
           this.spinner.hide();
         }, 200);
       }

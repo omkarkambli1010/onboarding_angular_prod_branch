@@ -1,26 +1,30 @@
-<section class="pan_details_form">
+<section aria-label="Email ID Verification — enter your email address" class="pan_details_form">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-12 col-12 p-0 p-sm-0 m-auto">
                 <div class="mobile_css">
                     <div class="back_cls">
-                        <div (click)="emailScreen()">
-                            <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
-                        </div>
+                        <button type="button" class="back-link-btn" (click)="emailScreen()"
+                            aria-label="Go back to previous screen"
+                            style="background:none;border:none;padding:0;cursor:pointer;">
+                            <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
+                        </button>
                         <div class="d-flex flex-column align-items-start gap-2">
-                            <h5 class="">Email ID Verification</h5>
+                            <h2 class="">Email ID Verification</h2>
                             <p class="sub_title">All communication related to your account will be sent to this email
                             </p>
                         </div>
                     </div>
                 </div>
 
-                <form method="post" class="">
+                <form aria-label="Email ID Entry" method="post" class="">
                     <div class="div">
                         <div class="col-lg-12 col-md-12 col-12 desktop_css">
                             <div class="header_padding">
                                 <div class="help_faq_css">
-                                    <span (click)="emailScreen()" style="cursor: pointer;">
+                                    <button type="button" class="back-link-btn" (click)="emailScreen()"
+                                        aria-label="Go back to previous screen"
+                                        style="background:none;border:none;padding:0;cursor:pointer;">
                                         <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <g clip-path="url(#clip0_0_10804)">
@@ -38,9 +42,9 @@
                                                 </clipPath>
                                             </defs>
                                         </svg>
-                                    </span>
+                                    </button>
                                     <div class="d-flex flex-column gap-2">
-                                        <h5>Email ID Verification</h5>
+                                        <h2>Email ID Verification</h2>
                                         <p class="sub_title">
                                             All communication related to your account will be sent to this email
                                         </p>
@@ -55,21 +59,29 @@
                             <div class="mobile_section">
                                 <div class="desktop_align">
                                     <div class="email_screen">
-                                        <form action="" method="post" class="email_form_css">
+                                        <div class="email_form_css">
+                                            <!-- <p class="required-note">Fields marked with an asterisk (<span
+                                                    aria-hidden="true">*</span>) are required.</p> -->
                                             <div class="email_form">
-                                                <div>Email ID</div>
+                                                <div><label for="emailEntryInp">Email ID <span class="req-star"
+                                                            aria-hidden="true">*</span></label></div>
                                                 <div>
-                                                    <input type="text" name="email" placeholder="example@gmail.com"
-                                                        [(ngModel)]="sendEmailOtp.email" (input)="validateEmail()"
-                                                        (keydown.enter)="getEmailOtp(false)">
+                                                    <input id="emailEntryInp" type="text" autocomplete="email"
+                                                        type="email" name="email"
+                                                        placeholder="example@gmail.com" [(ngModel)]="sendEmailOtp.email"
+                                                        (input)="validateEmail()" (keydown.enter)="getEmailOtp(false)"
+                                                        aria-required="true">
                                                 </div>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="stickybtn_desk desktop_css">
+                                    <span id="emailSendOtpHintDesk" class="visually-hidden">Enter a valid email address
+                                        to enable Send OTP.</span>
                                     <button class="btn btn_cls" (click)="getEmailOtp(false)"
-                                        [disabled]="isEmailDisableBtn">
+                                        [attr.aria-disabled]="isEmailDisableBtn" [disabled]="isEmailDisableBtn"
+                                        aria-describedby="emailSendOtpHintDesk">
                                         Send OTP
                                     </button>
                                 </div>
@@ -78,7 +90,10 @@
                     </div>
                 </form>
                 <div class="stickybtn mobile_css">
-                    <button class="btn btn_cls" (click)="getEmailOtp(false)" [disabled]="isEmailDisableBtn">
+                    <span id="emailSendOtpHintMob" class="visually-hidden">Enter a valid email address to enable Send
+                        OTP.</span>
+                    <button class="btn btn_cls" (click)="getEmailOtp(false)" [attr.aria-disabled]="isEmailDisableBtn"
+                        [disabled]="isEmailDisableBtn" aria-describedby="emailSendOtpHintMob">
                         Send OTP
                     </button>
                 </div>

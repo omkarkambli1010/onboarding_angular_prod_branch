@@ -1,8 +1,8 @@
-<section class="pan_details_form">
+<section aria-label="PAN Card Details Entry" class="pan_details_form">
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-12 m-auto">
-        <!-- <div (click)="redirect()" class="back_cls">
+        <!-- <div (click)="redirect()" class="back_cls" (keydown.enter)="redirect()" (keydown.space)="redirect()" role="button" tabindex="0">
           <img src="assets/images/diy/ChevronLeft.png" alt="" />
         </div> -->
         <div class="mobile_css">
@@ -12,16 +12,17 @@
                 <h5>Enter PAN Card Details</h5>
               </div>
               <div>
-                <div class="help_btn" (click)="faqHelpBtn('Pan')">
+                <button type="button" class="help_btn" (click)="faqHelpBtn('Pan')"
+                  aria-label="Need Help with PAN entry — open help">
                   Need Help?
-                </div>
+                </button>
               </div>
             </div>
             <p class="sub_title">Enter details exactly as per your PAN</p>
           </div>
         </div>
 
-        <form method="post" class="">
+        <form aria-label="PAN Card Details" method="post" class="">
           <div class="div">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="header_padding">
@@ -30,9 +31,10 @@
                     <h5>Enter PAN Card Details</h5>
                   </div>
                   <div>
-                    <div class="help_btn" (click)="faqHelpBtn('Pan')">
+                    <button type="button" class="help_btn" (click)="faqHelpBtn('Pan')"
+                      aria-label="Need Help with PAN entry — open help">
                       Need Help?
-                    </div>
+                    </button>
                   </div>
                 </div>
                 <p class="sub_title">Enter details exactly as per your PAN</p>
@@ -46,67 +48,34 @@
                 </div>
                 <div class="d-flex flex-column gap-2">
                   <div class="pan_field">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="EnterPanNo"
-                      name="pannumber"
-                      placeholder="e.g AAAAA1234A"
-                      (input)="onInput($event)"
-                      (focusout)="onInput($event, true)"
-                      [attr.inputmode]="getInputMode()"
-                      maxlength="10"
-                      [(ngModel)]="panDetailsManual.pannumber"
-                      onpaste="return false;"
-                      onselectstart="return false;"
-                      onkeypress="return /[A-Za-z0-9]/i.test(event.key)"
-                      (change)="validateForm()"
-                      appEmojiBlocker
-                    />
-                    <span *ngIf="panValidation" class="red_warning"
-                      >*Please enter a valid PAN</span
-                    >
-                    <span *ngIf="fourthCharValidation" class="red_warning"
-                      >We accept Personal PanCard Numbers Only</span
-                    >
-                    <span *ngIf="specialCharValidation" class="red_warning"
-                      >Special Characters are not allow</span
-                    >
+                    <input aria-label="PAN Number" type="text" class="form-control" id="EnterPanNo" name="pannumber"
+                      placeholder="e.g AAAAA1234A" (input)="onInput($event)" (focusout)="onInput($event, true)"
+                      [attr.inputmode]="getInputMode()" maxlength="10" [(ngModel)]="panDetailsManual.pannumber"
+                      onpaste="return false;" onselectstart="return false;"
+                      onkeypress="return /[A-Za-z0-9]/i.test(event.key)" (change)="validateForm()" appEmojiBlocker
+                      aria-required="true" />
+                    <span *ngIf="panValidation" class="red_warning">*Please enter a valid PAN</span>
+                    <span *ngIf="fourthCharValidation" class="red_warning">We accept Personal PanCard Numbers
+                      Only</span>
+                    <span *ngIf="specialCharValidation" class="red_warning">Special Characters are not allow</span>
                   </div>
                   <div class="accordion_cls">
                     <div class="accordion" id="accordionExample">
                       <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                          <button
-                            class="accordion-button collapsed"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#collapseOne"
-                            aria-expanded="false"
-                            aria-controls="collapseOne"
-                          >
+                        <h3 class="accordion-header" id="headingOne">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                             Sample PAN
                           </button>
-                        </h2>
-                        <div
-                          id="collapseOne"
-                          class="accordion-collapse collapse"
-                          aria-labelledby="headingOne"
-                          data-bs-parent="#accordionExample"
-                        >
+                        </h3>
+                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                          data-bs-parent="#accordionExample">
                           <div class="accordion-body">
                             <div class="splide">
                               <div class="splide__track">
                                 <ul class="splide__list">
-                                  <li
-                                    *ngFor="let slide of banners_list"
-                                    class="splide__slide"
-                                  >
-                                    <img
-                                      [src]="slide.bgImage"
-                                      alt="Slide Image"
-                                      class="img-fluid"
-                                    />
+                                  <li *ngFor="let slide of banners_list" class="splide__slide">
+                                    <img [src]="slide.bgImage" alt="Sample PAN card" class="img-fluid" />
                                   </li>
                                 </ul>
                               </div>
@@ -125,221 +94,112 @@
                   <label for="EnterDOB" class="form-label">Date of Birth</label>
                 </div>
                 <div class="calendar_field">
-                  <!-- <p-calendar
-                  (input)="onDateInput($event)"
-                    maxlength="10"
-                    placeholder="DD/MM/YYYY"
-                    [(ngModel)]="panDetailsManual.dob"
-                    [minDate]="minDate"
-                    [maxDate]="maxDate"
-                    dateFormat="dd/mm/yy"
-                    [id]="dateOfBirthId"
-                    [name]="dateOfBirthId"
-                    (onSelect)="validateForm()"
-                    [iconDisplay]="'input'"
-                    [showIcon]="true"
-                    inputId="icondisplay"
-                    (ngModelChange)="checkPANDOBAge()"
-                  >
-                  </p-calendar> -->
-
-                  <p-calendar
-                    [touchUI]="true"
-                    [(ngModel)]="panDetailsManual.dob"
-                    (onInput)="handleDateInput($event)"
-                    (keydown)="handleKeyDown($event)"
-                    [showIcon]="true"
-                    [iconDisplay]="'input'"
-                    inputId="icondisplay"
-                    [showOnFocus]="false"
-                    dateFormat="dd/mm/yy"
-                    placeholder="DD/MM/YYYY"
-                    (ngModelChange)="checkPANDOBAge()"
-                    (onSelect)="validateForm()"
-                    [id]="dateOfBirthId"
-                    [name]="dateOfBirthId"
-                    [minDate]="minDate"
-                    [maxDate]="maxDate"
-                  ></p-calendar>
-                  <span *ngIf="dateValidation" class="red_warning"
-                    >Please enter Date</span
-                  >
+                  <p-calendar [touchUI]="true" [(ngModel)]="panDetailsManual.dob" (onInput)="handleDateInput($event)"
+                    (keydown)="handleKeyDown($event)" [showIcon]="true" [iconDisplay]="'input'" inputId="icondisplay"
+                    [showOnFocus]="false" dateFormat="dd/mm/yy" placeholder="DD/MM/YYYY"
+                    (ngModelChange)="checkPANDOBAge()" (onSelect)="validateForm()" [id]="dateOfBirthId"
+                    [name]="dateOfBirthId" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
+                  <span *ngIf="dateValidation" class="red_warning">Please enter Date</span>
                 </div>
               </div>
             </div>
             <div class="col-lg-12 col-md-12 col-12">
               <div class="desktop_align">
                 <div>
-                  <label for="EnterFullNameCard" class="form-label"
-                    >Full Name</label
-                  >
+                  <label for="EnterFullNameCard" class="form-label">Full Name</label>
                 </div>
                 <div class="fullname_field">
-                  <input
-                    type="text"
-                    class="form-control upper"
-                    id="EnterFullNameCard"
-                    name="fullname_as_pancard"
-                    (input)="checkInput($event)"
-                    placeholder="Enter full name"
-                    [(ngModel)]="panDetailsManual.fullname_as_pancard"
-                    (ngModelChange)="
+                  <input aria-label="Enter Full Name" type="text" class="form-control" id="EnterFullNameCard"
+                    name="fullname_as_pancard" placeholder="Enter full name"
+                    [(ngModel)]="panDetailsManual.fullname_as_pancard" (ngModelChange)="
                       updateDisplayedName(
                         panDetailsManual.fullname_as_pancard,
                         'change'
                       )
-                    "
-                    (focusout)="
+                    " (focusout)="
                       updateDisplayedName(
                         panDetailsManual.fullname_as_pancard,
                         'fout'
                       )
-                    "
-                    onpaste="return false;"
-                    onselectstart="return false;"
-                    (keypress)="onKeyPress($event)"
-                    onkeypress="return !/^\s$/.test(event.key) || event.target.value.length > 0 "
-                    autocomplete="off"
-                    appEmojiBlocker
-                  />
+                    " onpaste="return false;" onselectstart="return false;" (keypress)="onKeyPress($event)"
+                    onkeypress="return !/^\s$/.test(event.key) || event.target.value.length > 0 " autocomplete="off"
+                    appEmojiBlocker aria-required="true" />
 
-                  <span *ngIf="panFullNameReqSpecial" class="red_warning"
-                    >Special characters are not allowed</span
-                  >
-                  <span *ngIf="panFullNameReqDigit" class="red_warning"
-                    >Digits are not allowed</span
-                  >
+                  <span *ngIf="panFullNameReqSpecial" class="red_warning">Special characters are not allowed</span>
+                  <span *ngIf="panFullNameReqDigit" class="red_warning">Digits are not allowed</span>
                   <span *ngIf="panFullNameReqSpace" class="red_warning">
-                    *Please enter your name as per your PAN</span
-                  >
+                    *Please enter your name as per your PAN</span>
                 </div>
               </div>
             </div>
-            <div
-              *ngIf="utm_source == 'Retailbroking'"
-              class="col-lg-12 col-md-12 col-12"
-            >
+            <div *ngIf="utm_source == 'Retailbroking'" class="col-lg-12 col-md-12 col-12">
               <div class="mb-3 desktop_align">
                 <div>
-                  <label for="EnterRMCODE" class="form-label"
-                    >Are you assisted by RM</label
-                  >
+                  <label for="rmcodeRB" class="form-label">Are you assisted by RM</label>
                 </div>
                 <div>
-                  <input
-                    type="text"
-                    class="form-control upper"
-                    id="rmcode"
-                    name="enter_rmcode"
-                    placeholder="Enter RM Code"
-                    [(ngModel)]="panDetailsManual.rmcode"
-                    onselectstart="return false;"
-                    (keypress)="onKeyPressRMCode($event)"
-                    onkeypress="return !/^\s$/.test(event.key)"
-                    (focusout)="rmcodecheck($event)"
-                    autocomplete="off"
-                    appEmojiBlocker
-                  />
+                  <input aria-label="Enter RM Code" type="text" class="form-control upper" id="rmcodeRB"
+                    name="enter_rmcode" placeholder="Enter RM Code" [(ngModel)]="panDetailsManual.rmcode"
+                    onselectstart="return false;" (keypress)="onKeyPressRMCode($event)"
+                    onkeypress="return !/^\s$/.test(event.key)" (focusout)="rmcodecheck($event)" autocomplete="off"
+                    appEmojiBlocker aria-required="true" />
 
                   <span *ngIf="rmcodenull" class="red_warning">
-                    *Please enter correct RM code</span
-                  >
+                    *Please enter correct RM code</span>
                 </div>
               </div>
             </div>
-            <div
-              *ngIf="utm_source == 'Retailsales'"
-              class="col-lg-12 col-md-12 col-12"
-            >
+            <div *ngIf="utm_source == 'Retailsales'" class="col-lg-12 col-md-12 col-12">
               <div class="mb-3 desktop_align">
                 <div>
-                  <label for="EnterRMCODE" class="form-label"
-                    >Are you assisted by RM</label
-                  >
+                  <label for="rmcodeRS" class="form-label">Are you assisted by RM</label>
                 </div>
                 <div class="fullname_field">
-                  <input
-                    type="text"
-                    class="form-control upper"
-                    id="rmcode"
-                    name="enter_rmcode"
-                    placeholder="Enter RM Code"
-                    [(ngModel)]="panDetailsManual.rmcode"
-                    onselectstart="return false;"
-                    (keypress)="onKeyPressRMCode($event)"
-                    onkeypress="return !/^\s$/.test(event.key)"
-                    (focusout)="rmcodecheck($event)"
-                    autocomplete="off"
-                    appEmojiBlocker
-                  />
+                  <input aria-label="Enter RM Code" type="text" class="form-control upper" id="rmcodeRS"
+                    name="enter_rmcode" placeholder="Enter RM Code" [(ngModel)]="panDetailsManual.rmcode"
+                    onselectstart="return false;" (keypress)="onKeyPressRMCode($event)"
+                    onkeypress="return !/^\s$/.test(event.key)" (focusout)="rmcodecheck($event)" autocomplete="off"
+                    appEmojiBlocker aria-required="true" />
                 </div>
               </div>
             </div>
-            <div
-              *ngIf="utm_source == 'ISMART_GI'"
-              class="col-lg-12 col-md-12 col-12"
-            >
+            <div *ngIf="utm_source == 'ISMART_GI' || utm_source == 'RSRMApp'" class="col-lg-12 col-md-12 col-12">
               <div class="mb-3 desktop_align">
                 <div>
-                  <label for="rmcodePS" class="form-label"
-                    >Are you assisted by RM</label
-                  >
+                  <label for="rmcodePS" class="form-label">Are you assisted by RM</label>
                 </div>
                 <div class="fullname_field">
-                  <input
-                    aria-label="Enter RM Code"
-                    type="text"
-                    class="form-control upper"
-                    id="rmcodePS"
-                    name="enter_rmcode"
-                    placeholder="Enter RM Code"
-                    [(ngModel)]="panDetailsManual.rmcode"
-                    onselectstart="return false;"
-                    (keypress)="onKeyPressRMCode($event)"
-                    onkeypress="return !/^\s$/.test(event.key)"
-                    (focusout)="rmcodecheck($event)"
-                    autocomplete="off"
-                    maxlength="15"
-                    [pattern]="'^(?:[A-Za-z0-9]{1,15})?$'"
-                    appEmojiBlocker
-                    aria-required="true"
-                    [disabled]="isGeneralIncRmDisabled"
-                  />
+                  <input aria-label="Enter RM Code" type="text" class="form-control upper" id="rmcodePS"
+                    name="enter_rmcode" placeholder="Enter RM Code" [(ngModel)]="panDetailsManual.rmcode"
+                    onselectstart="return false;" (keypress)="onKeyPressRMCode($event)"
+                    onkeypress="return !/^\s$/.test(event.key)" (focusout)="rmcodecheck($event)" autocomplete="off"
+                    maxlength="15" [pattern]="'^(?:[A-Za-z0-9]{1,15})?$'" appEmojiBlocker aria-required="true"
+                    [disabled]="isGeneralIncRmDisabled" />
                 </div>
               </div>
             </div>
-            <div
-              *ngIf="utm_source == 'PAISALO'"
-              class="col-lg-12 col-md-12 col-12"
-            >
+            <div *ngIf="utm_source == 'PAISALO'" class="col-lg-12 col-md-12 col-12">
               <div class="mb-3 desktop_align">
                 <div>
-                  <label for="EnterRMCODE" class="form-label"
-                    >Are you assisted by RM</label
-                  >
+                  <label for="rmcodePS" class="form-label">Are you assisted by RM</label>
                 </div>
                 <div class="fullname_field">
-                  <input
-                    type="text"
-                    class="form-control upper"
-                    id="rmcode"
-                    name="enter_rmcode"
-                    placeholder="Enter RM Code"
-                    [(ngModel)]="panDetailsManual.rmcode"
-                    onselectstart="return false;"
-                    (keypress)="onKeyPressRMCode($event)"
-                    onkeypress="return !/^\s$/.test(event.key)"
-                    (focusout)="rmcodecheck($event)"
-                    autocomplete="off"
-                    maxlength="15"
-                    [pattern]="'^(?:[A-Za-z0-9]{1,15})?$'"
-                    appEmojiBlocker
-                  />
+                  <input aria-label="Enter RM Code" type="text" class="form-control upper" id="rmcodePS"
+                    name="enter_rmcode" placeholder="Enter RM Code" [(ngModel)]="panDetailsManual.rmcode"
+                    onselectstart="return false;" (keypress)="onKeyPressRMCode($event)"
+                    onkeypress="return !/^\s$/.test(event.key)" (focusout)="rmcodecheck($event)" autocomplete="off"
+                    maxlength="15" [pattern]="'^(?:[A-Za-z0-9]{1,15})?$'" appEmojiBlocker aria-required="true" />
                 </div>
               </div>
+            </div>
+            <div class="pan_confirmation">
+              <p>
+                I hereby confirm that I am not a person with disability as defined under the Rights of Persons with
+                Disabilities Act, 2016.
+              </p>
             </div>
             <div class="pan_caption">
-              <img src="assets/images/diy/Shield_img.png" alt="" />
+              <img src="assets/images/diy/Shield_img.png" alt="" aria-hidden="true" />
               <span>Your PAN details are safe and secure with us</span>
             </div>
             <!-- <div
@@ -354,25 +214,22 @@
                 Once confirmed, PAN details cannot be changed later
               </p>
             </div> -->
+
           </div>
           <div class="stickybtn_desk desktop_css">
-            <button
-              [disabled]="isVerifyPanBtn"
-              class="btn btn_cls"
-              id="completePanVerify"
-              (click)="completeVerifyPan()"
-            >
+            <span id="verifyPanHintDesk" class="visually-hidden">Fill PAN, Date of Birth and Full Name correctly to
+              enable Verify PAN.</span>
+            <button [attr.aria-disabled]="isVerifyPanBtn" [disabled]="isVerifyPanBtn" class="btn btn_cls"
+              id="completePanVerify" (click)="completeVerifyPan()" aria-describedby="verifyPanHintDesk">
               Verify PAN
             </button>
           </div>
         </form>
         <div class="stickybtn mobile_css">
-          <button
-            [disabled]="isVerifyPanBtn"
-            class="btn btn_cls"
-            id="completePanVerify"
-            (click)="completeVerifyPan()"
-          >
+          <span id="verifyPanHintMob" class="visually-hidden">Fill PAN, Date of Birth and Full Name correctly to enable
+            Verify PAN.</span>
+          <button [attr.aria-disabled]="isVerifyPanBtn" [disabled]="isVerifyPanBtn" class="btn btn_cls"
+            id="completePanVerifyMob" (click)="completeVerifyPan()" aria-describedby="verifyPanHintMob">
             Verify PAN
           </button>
         </div>
@@ -382,35 +239,18 @@
 </section>
 
 <!-- Upload tPan Modal -->
-<div
-  class="modal fade uploadPan"
-  id="completePan"
-  tabindex="-1"
-  aria-labelledby="completePanLabel"
-  aria-hidden="true"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
->
+<div class="modal fade uploadPan" id="completePan" tabindex="-1" aria-labelledby="completePanLabel" role="dialog"
+  aria-modal="true" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div
-        class="modal-header d-block"
-        data-bs-dismiss="modal"
-        aria-label="Close"
-        (click)="removeModal()"
-      >
-        <h1 class="modal-title fs-5" id="completePanLabel"></h1>
-        <button
-          type="button"
-          class="btn-horizontal-line"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="removeModal()"
-        ></button>
+      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+        <h2 class="modal-title fs-5 visually-hidden" id="completePanLabel">Verifying PAN details</h2>
+        <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
         <div class="file_loading_css">
-          <img src="assets/images/diy/loading.gif" alt="" />
+          <img src="assets/images/diy/loading.gif" alt="Loading" aria-hidden="true" />
         </div>
         <h5>Verifying your PAN details</h5>
         <p class="text-center">This usually takes less than a minute.</p>
@@ -420,30 +260,17 @@
 </div>
 
 <!-- Upload Pan Loading Manual Modal -->
-<div
-  class="modal fade uploadPan"
-  id="completePanManual"
-  tabindex="-1"
-  aria-labelledby="completePanManualLabel"
-  aria-hidden="true"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
->
+<div class="modal fade uploadPan" id="completePanManual" tabindex="-1" aria-labelledby="completePanManualLabel"
+  role="dialog" aria-modal="true" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block">
-        <h1 class="modal-title fs-5" id="completePanManualLabel"></h1>
-        <!-- data-bs-dismiss="modal"
-        aria-label="Close" -->
-        <button
-          type="button"
-          class="btn-horizontal-line"
-          id="successCloseLoad"
-        ></button>
+        <h2 class="modal-title fs-5 visually-hidden" id="completePanManualLabel">Verifying PAN details</h2>
+        <button type="button" class="btn-horizontal-line" id="successCloseLoad"></button>
       </div>
       <div class="modal-body">
         <div class="file_loading_css">
-          <img src="assets/images/diy/loading.gif" alt="" />
+          <img src="assets/images/diy/loading.gif" alt="Verifying" aria-hidden="true" />
         </div>
         <h5 class="text-center">Verifying your PAN details</h5>
         <p class="text-center">This usually takes less than a minute.</p>
@@ -453,15 +280,8 @@
 </div>
 
 <!-- Upload Pan Manual Complete Modal -->
-<div
-  class="modal fade uploadPan"
-  id="completePanVerifyDone"
-  tabindex="-1"
-  aria-labelledby="completePanVerifyDoneLabel"
-  aria-hidden="true"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
->
+<div class="modal fade uploadPan" id="completePanVerifyDone" tabindex="-1" aria-labelledby="completePanVerifyDoneLabel"
+  role="dialog" aria-modal="true" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
   <!-- data-bs-backdrop="static" data-bs-keyboard="false" -->
   <div class="modal-dialog">
     <div class="modal-content">
@@ -469,19 +289,15 @@
         <!-- (click)="removeModal()"
       data-bs-dismiss="modal"
       aria-label="Close" -->
-        <h1 class="modal-title fs-5" id="completePanVerifyDoneLabel"></h1>
-        <button
-          type="button"
-          class="btn-horizontal-line"
-          id="successClose"
-        ></button>
+        <h2 class="modal-title fs-5 visually-hidden" id="completePanVerifyDoneLabel">PAN verified successfully</h2>
+        <button type="button" class="btn-horizontal-line" id="successClose"></button>
         <!-- data-bs-dismiss="modal"
         aria-label="Close"
         (click)="dismissLoadingModal()" -->
       </div>
       <div class="modal-body">
         <div class="pan_modal_heading">
-          <img src="assets/images/diy/Featured_tick.png" alt="" />
+          <img src="assets/images/diy/Featured_tick.png" alt="Verified" aria-hidden="true" />
           <h5 class="mb-0">
             Your PAN details have been saved securely with us
           </h5>
@@ -525,36 +341,20 @@
 </div>
 
 <!-- Upload Pan Manual Invalid Modal -->
-<div
-  class="modal fade uploadPan"
-  id="completePanVerifyError"
-  tabindex="-1"
-  aria-labelledby="completePanVerifyErrorLabel"
-  aria-hidden="true"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
->
+<div class="modal fade uploadPan" id="completePanVerifyError" tabindex="-1"
+  aria-labelledby="completePanVerifyErrorLabel" role="dialog" aria-modal="true" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="false">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div
-        class="modal-header d-block"
-        (click)="dismissModal(); removeModal()"
-        data-bs-dismiss="modal"
-        aria-label="Close"
-      >
-        <h1 class="modal-title fs-5" id="completePanVerifyErrorLabel"></h1>
-        <button
-          type="button"
-          class="btn-horizontal-line"
-          id="failureClose"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="removeModal()"
-        ></button>
+      <div class="modal-header d-block" (click)="dismissModal(); removeModal()" data-bs-dismiss="modal"
+        aria-label="Close">
+        <h2 class="modal-title fs-5 visually-hidden" id="completePanVerifyErrorLabel">PAN verification failed</h2>
+        <button type="button" class="btn-horizontal-line" id="failureClose" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
         <div class="pan_modal_heading">
-          <img src="assets/images/diy/invalid_icon.png" alt="" />
+          <img src="assets/images/diy/invalid_icon.png" alt="Not Verified" aria-hidden="true" />
           <h5 class="mb-0">Your PAN has not been verified with us</h5>
         </div>
         <p class="">
@@ -564,9 +364,9 @@
         </p>
         <div class="modal-footer p-0">
           <div class="btn_align">
-            <a (click)="redirectDigi()" class="btn btn_cls">
+            <button type="button" (click)="redirectDigi()" class="btn btn_cls">
               Proceed to Digilocker for KYC
-            </a>
+            </button>
           </div>
         </div>
       </div>

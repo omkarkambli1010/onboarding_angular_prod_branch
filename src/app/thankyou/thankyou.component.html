@@ -1,11 +1,14 @@
-<section *ngIf="PersonalFormOne" class="pan_details_form">
+<!-- 4.1.3 - the success message is only rendered visually; this live region
+     makes it announce itself once the page settles. -->
+<div class="visually-hidden" role="status" aria-live="polite">{{ submissionStatusMsg }}</div>
+<section aria-label="Application Submitted — Thank You" *ngIf="PersonalFormOne" class="pan_details_form">
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-12 m-auto">
         <div class="mobile_css">
           <div class="back_cls">
             <div>
-              <h5>Thank You</h5>
+              <h2 class="page-heading-sm" role="heading" aria-level="1">Thank You</h2>
               <!-- <p class="sub_title">
                 You can download or track your application status.
               </p> -->
@@ -13,17 +16,17 @@
           </div>
         </div>
 
-        <form method="post">
+        <form aria-label="Thank You" method="post">
           <div class="div">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="d-flex flex-column align-items-start gap-2" *ngIf="!IsFno">
-                <h5>Thank You</h5>
+                <h2 class="page-heading-sm" role="heading" aria-level="1">Thank You</h2>
                 <!-- <p class="sub_title">
                   You can download or track your application status.
                 </p> -->
               </div>
               <div class="d-flex flex-column align-items-start gap-2" *ngIf="IsFno">
-                <h5>Just one last step!</h5>
+                <h2 class="page-heading-sm" role="heading" aria-level="1">Just one last step!</h2>
                 <p>Activate Derivatives</p>
                 <!-- <p class="sub_title">
                   You can download or track your application status.
@@ -32,21 +35,22 @@
             </div>
             <hr class="desktop_css" />
             <div class="text-center" *ngIf="!IsFno">
-              <img src="assets/images/diy/Featured_tick.png" alt="" />
+              <img src="assets/images/diy/Featured_tick.png" alt="Verified successfully" />
               <p class="my-2">
-                Your application is successfully submitted for verification
+                <!-- Your application is successfully submitted for verification -->
                 <!-- Your application is successfully submitted.<br>
                 We are Verifying your PAN, KYC, and bank details. -->
+                Your trading journey is almost here!
               </p>
               <div class="text-center my-4">
                 <div>
                   <p>{{this.paidPlanTextCheck[0].Paidplantextshow}}</p>
                 </div>
-                <img src="assets/images/diy/thank-you-screen.png" alt="" />
+                <img src="assets/images/diy/thank-you-screen.png" alt="Application submitted" />
                 <div class="review_section">
                   <div class="d-flex text-center flex-column gap-1">
-                    <h5>Your Application No. is</h5>
-                    <!-- <h5>Save your Application No.-</h5> -->
+                    <h3 class="page-heading-sm">Your Application No. is</h3>
+                    <!-- <h5 role="heading" aria-level="3">Save your Application No.-</h5> -->
                     <h2>{{ this.personalFormNumber }}</h2>
                   </div>
                 </div>
@@ -54,12 +58,13 @@
             </div>
           </div>
           <p class="text-center" *ngIf="!IsFno">
-            Your account will be activated within 48 hours
+            <!-- Your account will be activated within 48 hours -->
             <!-- Your account will be activated within 24-48 hours after successful verification. -->
+             Your application is under verification. We'll activate your account as soon as the verification is completed.
           </p>
           <div class="text-center" *ngIf="IsFno">
-            <img src="assets/images/diy/CheckCircle.png" alt="" />
-            <h5 style="padding-top: 10px;">Thank You </h5>
+            <img src="assets/images/diy/CheckCircle.png" alt="Completed" />
+            <h2 class="page-heading-sm" style="padding-top: 10px;">Thank You </h2>
 
             <p class="text-center" style="padding-top: 30px;">
               To activate derivatives segment you are just a few steps away. Click on activate derivatives to proceed.
@@ -79,14 +84,14 @@
   </div>
 </section>
 
-<section *ngIf="PersonalFormTwo" class="pan_details_form">
+<section aria-label="Application Error" *ngIf="PersonalFormTwo" class="pan_details_form">
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-12 m-auto">
-        <h5 class="text-center my-3">Thank you</h5>
-        <form method="post">
+        <h2 class="page-heading-sm text-center my-3">Thank you</h2>
+        <form aria-label="Error" method="post">
           <div class="text-center">
-            <img src="assets/images/diy/invalid_icon.png" alt="" />
+            <img src="assets/images/diy/invalid_icon.png" alt="Error" />
             <p class="my-2">
               {{ this.errorValue }}
             </p>
@@ -94,7 +99,7 @@
         </form>
       </div>
       <div class="btn_align">
-        <a class="btn_cls" (click)="redirectesign()">Back to E-Sign</a>
+        <button type="button" class="btn_cls" (click)="redirectesign()">Back to E-Sign</button>
       </div>
     </div>
   </div>
@@ -109,14 +114,14 @@
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close"
         (click)="dismissModal(); removeModal()">
 
-        <h1 class="modal-title fs-5" id="AggregatorCallLabel"></h1>
-        <img src="assets/images/diy/Bank.png" alt="" style="align-self:left;" />
+        <h2 class="modal-title fs-5" id="AggregatorCallLabel"></h2>
+        <img src="assets/images/diy/Bank.png" alt="Bank verification" style="align-self:left;" />
 
         <button type="button" class="btn-horizontal-line" id="AggregatorCallClose" data-bs-dismiss="modal"
           aria-label="Close" (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
-        <h5>Fetch Bank Statement</h5>
+        <h5 role="heading" aria-level="3">Fetch Bank Statement</h5>
         <br>
         <p>
           Complete this simple step to activate your Derivative segment account seamlessly.<br><br>
@@ -145,12 +150,12 @@
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close"
         (click)="dismissModal(); removeModal()">
-        <h1 class="modal-title fs-5" id="documentSelectLabel"></h1>
+        <h2 class="modal-title fs-5" id="documentSelectLabel"></h2>
         <button type="button" class="btn-horizontal-line" id="documentSelectClose" data-bs-dismiss="modal"
           aria-label="Close" (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
-        <h5>Select the documents required to upload</h5>
+        <h5 role="heading" aria-level="3">Select the documents required to upload</h5>
         <p class="mb-3">
           As per latest guidelines by SEBI & Exchange, you need to upload your
           income proof to trade in Future & Options.
@@ -170,8 +175,8 @@
         </div>
       </div>
       <div class="modal-footer p-0">
-        <button [disabled]="!planprocessButton" type="button" class="btn btn_cls" data-bs-toggle="modal"
-          (click)="saveSelection()">
+        <button [attr.aria-disabled]="!planprocessButton" [disabled]="!planprocessButton" type="button"
+          class="btn btn_cls" data-bs-toggle="modal" (click)="saveSelection()">
           I understand and acknowledge
         </button>
       </div>
@@ -187,12 +192,12 @@
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close"
         (click)="dismissModal(); removeModal()">
-        <h1 class="modal-title fs-5" id="uploadBankStatementLabel"></h1>
+        <h2 class="modal-title fs-5" id="uploadBankStatementLabel"></h2>
         <button type="button" class="btn-horizontal-line" id="bankUploadClose" data-bs-dismiss="modal"
           aria-label="Close" (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
-        <h5>{{ "Upload " + selectedDocumentLabel }}</h5>
+        <h5 role="heading" aria-level="3">{{ "Upload " + selectedDocumentLabel }}</h5>
         <div class="img_upload">
           <div class="camera_icon" style="position: relative; display: inline-block">
             <img src="assets/images/diy/camera_img.png" alt="Upload Image" style="cursor: pointer" />
@@ -206,7 +211,7 @@
                 cursor: pointer;
               " type="file" capture="environment" accept="image/*" (change)="fileChangeEvent($event)"
               (click)="setCaptureEvent('environment')" (click)="resetExistingImage()"
-              data-bs-target="#uploadBankStateUpload" data-bs-toggle="modal" />
+              data-bs-target="#uploadBankStateUpload" data-bs-toggle="modal"  aria-label="Take a photo of your document" />
           </div>
           <div style="position: relative; display: inline-block">
             <img src="assets/images/diy/upload_img.png" alt="Upload Image" style="cursor: pointer" />
@@ -220,7 +225,7 @@
                 cursor: pointer;
               " type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)"
               (click)="setCaptureEvent('upload')" (click)="resetExistingImage()" data-bs-target="#uploadBankStateUpload"
-              data-bs-toggle="modal" />
+              data-bs-toggle="modal"  aria-label="Upload a document file" />
           </div>
         </div>
         <div class="file_type_css">
@@ -243,12 +248,12 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-        <h1 class="modal-title fs-5" id="uploadBankStateUploadLabel"></h1>
+        <h2 class="modal-title fs-5" id="uploadBankStateUploadLabel"></h2>
         <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
           (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
-        <h5>{{ "Upload " + selectedDocumentLabel }}</h5>
+        <h5 role="heading" aria-level="3">{{ "Upload " + selectedDocumentLabel }}</h5>
         <!-- <div *ngIf="!FFF" class="my-3"></div>
         <div *ngIf="!imageChangedEvent" class="my-3"></div> -->
         <div *ngIf="FFF" class="file_upload_css">
@@ -281,18 +286,18 @@
         <div class="btn_align">
           <label *ngIf="!imageChangedEvent" class="btn btn_cls_outline">
             Upload Image
-            <input type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)" style="display: none" />
+            <input type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)" style="display: none"  aria-label="Upload a document file" />
           </label>
           <label *ngIf="imageChangedEvent && capture_event !== 'user'" class="btn btn_cls_outline">
             Re-Upload Image
-            <input type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)" style="display: none" />
+            <input type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)" style="display: none"  aria-label="Upload a document file" />
           </label>
           <label *ngIf="imageChangedEvent && capture_event == 'user'" class="btn btn_cls_outline">
             Re-Upload Image
             <input type="file" capture="user" accept="image/*,.pdf" (change)="fileChangeEvent($event)"
-              style="display: none" />
+              style="display: none"  aria-label="Take a photo" />
           </label>
-          <button [disabled]="!imageChangedEvent && !FFF" type="button" class="btn btn_cls"
+          <button [attr.aria-disabled]="!imageChangedEvent && !FFF" [disabled]="!imageChangedEvent && !FFF" type="button" class="btn btn_cls"
             data-bs-target="#uploadBankStateBg" data-bs-toggle="modal" (click)="openId()">
             Continue
           </button>
@@ -308,12 +313,12 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-        <h1 class="modal-title fs-5" id="uploadBankStateUploadLabel"></h1>
+        <h2 class="modal-title fs-5" id="uploadBankStateUploadLabel"></h2>
         <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
           (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
-        <h5>{{ "Upload " + selectedDocumentLabel }}</h5>
+        <h5 role="heading" aria-level="3">{{ "Upload " + selectedDocumentLabel }}</h5>
         <!-- <div *ngIf="!FFF" class="my-3"></div>
         <div *ngIf="!imageChangedEvent" class="my-3"></div> -->
         <div *ngIf="FFF" class="file_upload_css">
@@ -346,18 +351,18 @@
         <div class="btn_align">
           <label *ngIf="!imageChangedEvent" class="btn btn_cls_outline">
             Upload Image
-            <input type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)" style="display: none" />
+            <input type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)" style="display: none"  aria-label="Upload a document file" />
           </label>
           <label *ngIf="imageChangedEvent && capture_event !== 'user'" class="btn btn_cls_outline">
             Re-Upload Image
-            <input type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)" style="display: none" />
+            <input type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)" style="display: none"  aria-label="Upload a document file" />
           </label>
           <label *ngIf="imageChangedEvent && capture_event == 'user'" class="btn btn_cls_outline">
             Re-Upload Image
             <input type="file" capture="user" accept="image/*,.pdf" (change)="fileChangeEvent($event)"
-              style="display: none" />
+              style="display: none"  aria-label="Take a photo" />
           </label>
-          <button [disabled]="!imageChangedEvent && !FFF" type="button" class="btn btn_cls"
+          <button [attr.aria-disabled]="!imageChangedEvent && !FFF" [disabled]="!imageChangedEvent && !FFF" type="button" class="btn btn_cls"
             data-bs-target="#uploadBankStateBg" data-bs-toggle="modal" (click)="openId()">
             Continue
           </button>
@@ -373,12 +378,12 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-        <h1 class="modal-title fs-5" id="uploadBankStateBgLabel"></h1>
+        <h2 class="modal-title fs-5" id="uploadBankStateBgLabel"></h2>
         <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
           (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
-        <h5>{{ "Upload " + selectedDocumentLabel }}</h5>
+        <h5 role="heading" aria-level="3">{{ "Upload " + selectedDocumentLabel }}</h5>
         <!-- <div *ngIf="!FFF" class="my-3"></div>
         <div *ngIf="!croppedImage" class="my-3"></div> -->
         <div *ngIf="FFF">
@@ -431,15 +436,15 @@
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close"
         (click)="dismissModal(); removeModal()">
 
-        <h1 class="modal-title fs-5" id="AggFailLabel"></h1>
+        <h2 class="modal-title fs-5" id="AggFailLabel"></h2>
 
         <button type="button" class="btn-horizontal-line" id="AggFailClose" data-bs-dismiss="modal" aria-label="Close"
           (click)="dismissModal(); removeModal()"></button>
       </div>
       <div class="modal-body" style="text-align:center;">
-        <img src="assets/images/diy/unsuccessful-tick.png" alt="" />
+        <img src="assets/images/diy/unsuccessful-tick.png" alt="Verification" />
 
-        <h5>Unable to fetch bank statement</h5>
+        <h5 role="heading" aria-level="3">Unable to fetch bank statement</h5>
         <br>
         <p>
           We apologise for the inconvenience. We request you to upload any one income proof to trade in Derivative which

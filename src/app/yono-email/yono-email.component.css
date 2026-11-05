@@ -52,6 +52,12 @@
   width: 100%;
 }
 
+.otpBox .btn-edit-link{
+    background: unset;
+    border: unset;
+    padding: 0px;
+}
+
 .pan_details_form .ng-otp-input-wrapper {
   display: flex;
   justify-content: space-between;
@@ -588,7 +594,7 @@ h5 {
 }
 
 .desk__email__inp::placeholder {
-  color: #999999;
+  color: #737373;
   font-weight: 500;
   font-size: 14px;
 }
@@ -598,7 +604,7 @@ h5 {
 }
 
 .otp_cls .alert_msg {
-  color: #ff2e00;
+  color: #cc2200;
   font-size: 12px;
   font-weight: 400;
 }

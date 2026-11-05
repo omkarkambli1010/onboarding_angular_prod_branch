@@ -1,73 +1,49 @@
-<section class="pan_details_form">
+<section aria-label="KYC Details — Father or Spouse Name" class="pan_details_form">
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-12 m-auto">
         <div class="mobile_css">
           <div class="back_cls">
-            <div *ngIf="this.RejectStatus != 'R'" (click)="BackToFour()">
-              <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
+            <div role="button" tabindex="0" (keydown.enter)="BackToFour()" (keydown.space)="BackToFour()"
+              *ngIf="this.RejectStatus != 'R'" (click)="BackToFour()" aria-label="Go back">
+              <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
             </div>
 
             <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div>
 
             <div class="d-flex flex-column align-items-start gap-2">
-              <h5>Details required to finish KYC</h5>
+              <h2 class="page-heading-sm" role="heading" aria-level="1">Details required to finish KYC</h2>
               <p class="sub_title">It's a mandatory requirement</p>
             </div>
           </div>
         </div>
 
-        <form method="post">
+        <form aria-label="Father or Spouse Name" method="post">
           <div class="div">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="d-flex align-items-start gap-2">
-                <div *ngIf="this.RejectStatus != 'R'" (click)="BackToFour()">
-                  <span>
-                     <svg
-                      width="24"
-                      height="25"
-                      viewBox="0 0 24 25"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+                <div role="button" tabindex="0" (keydown.enter)="BackToFour()" (keydown.space)="BackToFour()"
+                  *ngIf="this.RejectStatus != 'R'" (click)="BackToFour()" aria-label="Go back">
+                  <span aria-hidden="true">
+                    <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                       <g clip-path="url(#clip0_0_10804)">
-                        <path
-                          d="M5 12.5H19"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M5 12.5L11 18.5"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M5 12.5L11 6.5"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
+                        <path d="M5 12.5H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                        <path d="M5 12.5L11 18.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                        <path d="M5 12.5L11 6.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
                       </g>
                       <defs>
                         <clipPath id="clip0_0_10804">
-                          <rect
-                            width="24"
-                            height="24"
-                            fill="white"
-                            transform="translate(0 0.5)"
-                          />
+                          <rect width="24" height="24" fill="white" transform="translate(0 0.5)" />
                         </clipPath>
                       </defs>
                     </svg>
                   </span>
                 </div>
                 <div class="d-flex flex-column align-items-start gap-2">
-                  <h5>Details required to finish KYC</h5>
+                  <h2 class="page-heading-sm" role="heading" aria-level="1">Details required to finish KYC</h2>
                   <p class="sub_title">It's a mandatory requirement</p>
                 </div>
               </div>
@@ -77,32 +53,18 @@
               <div class="col-lg-12 col-md-12 col-12">
                 <div class="py-3 desktop_align">
                   <div>
-                    <label for="Father" class="form-label"
-                      >Father/Spouse (Husband or Wife) Name </label
-                    >
+                    <label for="Father" class="form-label">Father/Spouse (Husband or Wife) Name </label>
                   </div>
                   <div>
-                    <input
-                      type="text"
-                      class="form-control upper"
-                      id="Father"
-                      name="Father"
-                      placeholder="Enter Father/Spouse Name"
-                      [(ngModel)]="kycParents.fatherName"
-                      (input)="checkInput($event)"
-                      (ngModelChange)="
+                    <input type="text" class="form-control upper" id="Father" aria-label="Enter Father or Spouse Name"
+                      aria-required="true" autocomplete="off" name="Father" placeholder="Enter Father/Spouse Name"
+                      [(ngModel)]="kycParents.fatherName" (input)="checkInput($event)" (ngModelChange)="
                         updateFatherName(kycParents.fatherName, 'change')
-                      "
-                      (focusout)="
+                      " (focusout)="
                         updateFatherName(kycParents.fatherName, 'fout')
-                      "
-                      onpaste="return false;"
-                      onselectstart="return false;"
-                      maxlength="100"
+                      " onpaste="return false;" onselectstart="return false;" maxlength="100"
                       (keypress)="onKeyPress($event)"
-                      onkeypress="return !/^\s$/.test(event.key) || event.target.value.length > 0 "
-                      appEmojiBlocker
-                    />
+                      onkeypress="return !/^\s$/.test(event.key) || event.target.value.length > 0 " appEmojiBlocker />
                     <span *ngIf="showEmptyWarning" class="red_warning">
                       *Please enter Father/Spouse Name
                     </span>
@@ -121,21 +83,15 @@
             </div>
           </div>
           <div class="stickybtn_desk desktop_css">
-            <button
-              [disabled]="isPersonalForm"
-              class="btn btn_cls"
-              (click)="PersonalDetailsave('nameMF', '')"
-            >
+            <span id="proceedFatherHintDesk" class="visually-hidden">Enter Father or Spouse name to enable Proceed.</span>
+            <button [attr.aria-disabled]="isPersonalForm" [disabled]="isPersonalForm" class="btn btn_cls" (click)="PersonalDetailsave('nameMF', '')" aria-describedby="proceedFatherHintDesk">
               Proceed
             </button>
           </div>
         </form>
         <div class="stickybtn mobile_css">
-          <button
-            [disabled]="isPersonalForm"
-            (click)="PersonalDetailsave('nameMF', '')"
-            class="btn btn_cls"
-          >
+          <span id="proceedFatherHintMob" class="visually-hidden">Enter Father or Spouse name to enable Proceed.</span>
+          <button [attr.aria-disabled]="isPersonalForm" [disabled]="isPersonalForm" (click)="PersonalDetailsave('nameMF', '')" class="btn btn_cls" aria-describedby="proceedFatherHintMob">
             Proceed
           </button>
         </div>

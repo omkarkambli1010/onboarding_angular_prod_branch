@@ -43,6 +43,7 @@ export class ThankyouComponent implements OnInit {
 
   personalFormNumber: any;
   PersonalFormOne: boolean = false;
+  submissionStatusMsg: string = '';
   PersonalFormTwo: boolean = false;
   errorValue: any;
   IsFno: any;
@@ -128,7 +129,13 @@ export class ThankyouComponent implements OnInit {
   ngOnInit(): void {
     this.spinner.show();
 
-    this.title.setTitle('Thank You - Onboarding-DIY-PWA');
+    // WCAG 4.1.3 - the live region has to exist before its content changes,
+    // otherwise the announcement is swallowed.
+    setTimeout(() => {
+      this.submissionStatusMsg =
+        'Your application is successfully submitted for verification.';
+    }, 800);
+
     this.personalFormNumber = window.sessionStorage.getItem('FormNumber');
 
     this.meta.updateTag({

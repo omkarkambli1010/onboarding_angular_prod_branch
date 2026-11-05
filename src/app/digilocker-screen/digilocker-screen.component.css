@@ -338,3 +338,34 @@ body.modal-open {
     padding: 0px 16px;
   }
 }
+
+/* WCAG 2.2.2 - pause control for the looping DigiLocker guide animation. */
+.digilocker_video_section .gif_wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.digilocker_video_section .gif_wrapper canvas {
+  max-width: 100%;
+  height: auto;
+   max-width: 358px;
+}
+
+.digilocker_video_section .gif_toggle_btn {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #280071;
+  background: #fff;
+  border: 1px solid #280071;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.digilocker_video_section .gif_toggle_btn:focus-visible {
+  outline: 3px solid #005fcc;
+  outline-offset: 2px;
+}

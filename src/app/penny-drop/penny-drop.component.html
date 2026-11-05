@@ -1,24 +1,25 @@
-<section *ngIf="PennyDropFormOne" class="pan_details_form">
+<section aria-label="Choose Bank Account" *ngIf="PennyDropFormOne" class="pan_details_form">
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-12 m-auto">
         <div class="mobile_css">
-          <div (click)="BackToSix()" class="back_cls">
+          <div role="button" tabindex="0" (keydown.enter)="BackToSix()" (keydown.space)="BackToSix()"
+            *ngIf="this.RejectStatus != 'R'" (click)="BackToSix()" class="back_cls" aria-label="Go back">
             <div>
-              <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
+              <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
             </div>
 
             <div class="mobile_header_padding">
               <div class="help_faq_css">
                 <div class="d-flex gap-2">
                   <div class="d-flex flex-column gap-2">
-                    <h5>Choose Bank Account</h5>
+                    <h5 id="penny-drop">Choose Bank Account</h5>
                   </div>
                 </div>
                 <div>
-                  <!-- <button (click)="faqHelpBtn('Bankaccount')">
-                    Need Help?
-                  </button> -->
+                  <button type="button" class="help_btn" (click)="faqHelpBtn('Bankaccount')" aria-label="Need Help with bank account linking — open help">
+                    Need Help?  
+                  </button>
                 </div>
               </div>
               <p class="sub_title">
@@ -28,72 +29,33 @@
           </div>
         </div>
 
-        <form method="post">
+        <form method="post" aria-label="Penny Drop Page">
           <div class="">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
-              <!-- <div class="d-flex align-items-start gap-2">
-                <div (click)="BackToSix()">
-                  <span
-                    ><i class="fa fa-long-arrow-left" aria-hidden="true"></i
-                  ></span>
-                </div>
-                <div class="d-flex flex-column align-items-start gap-2">
-                  <h5>Choose bank account</h5>
-                  <p class="sub_title">
-                    Make your fund transfer easy by just verifying your account!
-                  </p>
-                </div>
-              </div> -->
               <div class="mobile_header_padding">
                 <div class="help_faq_css">
                   <div class="d-flex gap-2">
-                    <div (click)="BackToSix()">
-                      <span>
-                        <svg
-                          width="24"
-                          height="25"
-                          viewBox="0 0 24 25"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
+                    <button class="back-link-btn" type="button" aria-label="Go back" *ngIf="this.RejectStatus != 'R'" (click)="BackToSix()"  style="background:none;border:none;padding:0;cursor:pointer;">
+                      <span aria-hidden="true">
+                        <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                           <g clip-path="url(#clip0_0_10804)">
-                            <path
-                              d="M5 12.5H19"
-                              stroke="black"
-                              stroke-width="1.5"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              d="M5 12.5L11 18.5"
-                              stroke="black"
-                              stroke-width="1.5"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              d="M5 12.5L11 6.5"
-                              stroke="black"
-                              stroke-width="1.5"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
+                            <path d="M5 12.5H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                              stroke-linejoin="round" />
+                            <path d="M5 12.5L11 18.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                              stroke-linejoin="round" />
+                            <path d="M5 12.5L11 6.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                              stroke-linejoin="round" />
                           </g>
                           <defs>
                             <clipPath id="clip0_0_10804">
-                              <rect
-                                width="24"
-                                height="24"
-                                fill="white"
-                                transform="translate(0 0.5)"
-                              />
+                              <rect width="24" height="24" fill="white" transform="translate(0 0.5)" />
                             </clipPath>
                           </defs>
                         </svg>
                       </span>
-                    </div>
+                    </button>
                     <div class="heading">
-                      <h5>Choose Bank Account</h5>
+                      <h5 id="penny-drop-desk">Choose Bank Account</h5>
                       <p class="sub_title">
                         Make your fund transfer easy by just verifying your
                         Account!
@@ -111,44 +73,28 @@
             <hr class="desktop_css" />
             <div class="search_box">
               <div>
-                <h6>Search Bank Name</h6>
+                <label for="searchBank" id="penny-drop-search-bank-name" class="form-label">Search Bank Name</label>
               </div>
               <div class="">
-                <input
-                  type="text"
-                  class="form-control bank_search"
-                  id="searchBank"
-                  name="searchBank"
-                  placeholder="Enter bank name"
-                  [(ngModel)]="searchQuery"
-                  (input)="filterBanks()"
-                />
+                <input type="text" class="form-control bank_search" aria-label="Search Bank Name" id="searchBank"
+                  name="searchBank" placeholder="Search Bank" [(ngModel)]="searchQuery" (input)="filterBanks()"
+                  aria-required="true" />
                 <i class="ti-search"></i>
               </div>
             </div>
-            <h5 class="my-3">Popular Banks</h5>
+            <h5 class="my-3" id="penny-drop-popular-banks">Popular Banks</h5>
             <div class="bank_scroll row" *ngIf="filteredBanks.length > 0">
-              <div
-                *ngFor="let bankList of filteredBanks.slice(0, 4)"
-                class="col-md-6 col-12"
-              >
-                <div
-                  class="bank_box"
-                  [ngClass]="{
+              <div *ngFor="let bankList of filteredBanks.slice(0, 4)" class="col-md-6 col-12">
+                <div class="bank_box" [ngClass]="{
                     highlight: bankList.selected,
                     deselected: !bankList.selected
-                  }"
-                  (click)="redirectToFillDetails(bankList)"
-                >
-                  <img src="{{ bankList.BankLogo }}" alt="LOGO" />
+                  }" (click)="redirectToFillDetails(bankList)" (keydown.enter)="redirectToFillDetails(bankList)" (keydown.space)="redirectToFillDetails(bankList)" role="button" tabindex="0">
+                  <img src="{{ bankList.BankLogo }}" alt="bank-logo" />
                   <p>{{ bankList.BankName }}</p>
                 </div>
               </div>
             </div>
-            <div
-              *ngIf="filteredBanks.length === 0 && searchQuery != ''"
-              class="bank_box"
-            >
+            <div *ngIf="filteredBanks.length === 0 && searchQuery != ''" class="bank_box">
               <p>
                 Oops! We could not find the entered bank. Please check the bank
                 name once again. For more support, please contact us
@@ -156,94 +102,71 @@
             </div>
           </div>
         </form>
+        <br>
+        <br>
       </div>
     </div>
   </div>
 </section>
 
-<section *ngIf="PennyDropFormTwo" class="pan_details_form">
+<section aria-label="Enter Bank Account Details" *ngIf="PennyDropFormTwo" class="pan_details_form">
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-12 m-auto">
         <div class="mobile_css">
           <div class="back_cls">
-            <div (click)="BackToPennyDropOne()">
-              <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
+            <div role="button" tabindex="0" (keydown.enter)="BackToPennyDropOne()"
+              (keydown.space)="BackToPennyDropOne()" (click)="BackToPennyDropOne()">
+              <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
             </div>
             <div class="mobile_header_padding">
               <div class="help_faq_css">
                 <div class="d-flex gap-2">
                   <div class="d-flex flex-column gap-2">
-                    <h5>Enter your Bank Account details</h5>
+                    <h5>Add Your Bank Details Manually</h5>
                   </div>
                 </div>
                 <div>
-                  <!-- <button (click)="faqHelpBtn('Bankaccount')">
-                    Need Help?
-                  </button> -->
+                  <button type="button" class="help_btn" (click)="faqHelpBtn('Bankaccount')" aria-label="Need Help with bank account linking — open help">
+                    Need Help?  
+                  </button>
                 </div>
               </div>
-              <p class="sub_title">
-                We need these details only to verify that this Bank Account
-                belongs to you
+              <p class="sub_title" style="font-size: 11px;">
+                Enter bank account number and IFSC for bank verification
               </p>
             </div>
           </div>
         </div>
 
-        <form method="post">
+        <form aria-label="Choose Bank Account" method="post">
           <div class="div">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="mobile_header_padding">
                 <div class="help_faq_css">
                   <div class="d-flex gap-2">
-                    <div (click)="BackToPennyDropOne()">
+                    <div role="button" tabindex="0" (keydown.enter)="BackToPennyDropOne()"
+                      (keydown.space)="BackToPennyDropOne()" (click)="BackToPennyDropOne()">
                       <span>
-                        <svg
-                          width="24"
-                          height="25"
-                          viewBox="0 0 24 25"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
+                        <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <g clip-path="url(#clip0_0_10804)">
-                            <path
-                              d="M5 12.5H19"
-                              stroke="black"
-                              stroke-width="1.5"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              d="M5 12.5L11 18.5"
-                              stroke="black"
-                              stroke-width="1.5"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              d="M5 12.5L11 6.5"
-                              stroke="black"
-                              stroke-width="1.5"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
+                            <path d="M5 12.5H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                              stroke-linejoin="round" />
+                            <path d="M5 12.5L11 18.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                              stroke-linejoin="round" />
+                            <path d="M5 12.5L11 6.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                              stroke-linejoin="round" />
                           </g>
                           <defs>
                             <clipPath id="clip0_0_10804">
-                              <rect
-                                width="24"
-                                height="24"
-                                fill="white"
-                                transform="translate(0 0.5)"
-                              />
+                              <rect width="24" height="24" fill="white" transform="translate(0 0.5)" />
                             </clipPath>
                           </defs>
                         </svg>
                       </span>
                     </div>
                     <div class="heading">
-                      <h5>Enter your Bank Account details</h5>
+                      <h5 id="enter-bank-account">Enter Your Bank Account Details</h5>
                       <p class="sub_title">
                         We need these details only to verify that this Bank
                         Account belongs to you
@@ -261,135 +184,127 @@
             <hr class="desktop_css" />
             <div class="bank_column">
               <div>
-                <div
-                  *ngIf="selectedBankName && selectedBankLogo"
-                  class="col-md-12 col-12"
-                >
+                <h5 class="enter-bank-account-mobile" style="font-size: 15px; font-weight: bold;">Enter Your Bank Account Details</h5>
+
+                <!-- <div *ngIf="selectedBankName && selectedBankLogo" class="col-md-12 col-12">
                   <div class="bank_box highlight">
-                    <img [src]="selectedBankLogo" alt="Selected Bank Logo" />
+                    <img [src]="selectedBankLogo" alt="" />
                     <p>{{ selectedBankName }}</p>
                   </div>
-                </div>
+                </div> -->
                 <div class="col-lg-12 col-md-12 col-12">
                   <div class="bank_field">
                     <div *ngIf="!isIfsc">
-                      <label for="ifsccode" class="form-label"
-                        >Enter IFSC Code</label
-                      >
+                      <label for="ifsccode" class="form-label">Enter IFSC Code</label>
                     </div>
                     <div *ngIf="!isIfsc">
                       <div class="position-relative">
-                        <!-- <input
-                          type="text"
-                          class="form-control ifsc_textbox"
-                          id="ifsccode"
-                          name="ifsccode"
-                          placeholder=""
-                          (input)="accountIfsc($event); validateAccountForm(); searchIfsc();"
-                          (focusout)="accountIfsc2($event)"
-                          maxlength="11"
-                          [(ngModel)]="enteredIFSCNumber"
-                          onpaste="return false;"
-                          onselectstart="return false;"
-                          onkeypress="return /[0-9a-zA-Z]/i.test(event.key)"
-                        /> -->
-                        <p-autoComplete
-                          class="autocomplete_field"
-                          id="ifsccode"
-                          name="ifsccode"
-                          placeholder="Search by IFSC or Locality"
-                          onpaste="return false;"
-                          [(ngModel)]="enteredIFSCNumber"
-                          maxlength="20"
-                          [suggestions]="filteredIfsc"
-                          (input)="
+                        <p-autoComplete class="autocomplete_field" id="ifsccode"
+                          name="ifsccode" placeholder="Search by IFSC or Locality" onpaste="return false;"
+                          [(ngModel)]="enteredIFSCNumber" maxlength="20" [suggestions]="filteredIfsc" (input)="
                             accountIfsc($event);
                             validateAccountForm();
                             searchIfsc($event)
-                          "
-                          (focusout)="accountIfsc2($event)"
-                          [forceSelection]="false"
-                          [dropdown]="true"
-                          onselectstart="return false;"
-                          onkeypress="return /[0-9a-zA-Z ]/i.test(event.key)"
-                          p-autocomplete-loader="false"
-                          [disabled]="isIfscDisabled"
-                        >
+                          " (focusout)="accountIfsc2($event)" [forceSelection]="false" [dropdown]="true"
+                          onselectstart="return false;" onkeypress="return /[0-9a-zA-Z ]/i.test(event.key)"
+                          p-autocomplete-loader="false" [attr.aria-disabled]="isIfscDisabled"
+                          [disabled]="isIfscDisabled">
                         </p-autoComplete>
                       </div>
                       <!-- <span *ngIf="ifscBankValidation" class="red_warning"
                         >Please enter correct IFSC code or contact our customer
                         service team</span
                       > -->
-                      <span *ngIf="ifscBankValidation" class="red_warning"
-                        >The Entered IFSC does not match with the selected Bank Name.</span
-                      >
-                      <span
-                        *ngIf="ifscBankValidationSpecial"
-                        class="red_warning"
-                        >Special characters are not allowed</span
-                      >
-                      <span *ngIf="ifscBankValidationSpace" class="red_warning"
-                        >Blank space not allowed</span
-                      >
+                      <span *ngIf="ifscBankValidation" class="red_warning">Enter Valid IFSC Code</span>
+                      <span *ngIf="ifscBankValidationSpecial" class="red_warning">Special characters are not
+                        allowed</span>
+                      <span *ngIf="ifscBankValidationSpace" class="red_warning">Blank space not allowed</span>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf = "showMicrAndAccountType">
+                  <div class="col-lg-12 col-md-12 col-12">
+                    <div class="bank_field">
+                      <div>
+                        <label for="micrCode" class="form-label">
+                          Select MICR
+                        </label>
+                      </div>
+
+                      <div class="field-width">
+                        <select id="micrCode" name="micrCode" class="form-select" [(ngModel)]="selectedMICR"
+                          (change)="onMICRChange()">
+                          <option value="">Select MICR</option>
+
+                          <option *ngFor="let micr of micrList" [value]="micr">
+                            {{ micr }}
+                          </option>
+                        </select>
+
+                        <span *ngIf="micrValidation" class="red_warning">
+                          Please select MICR
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-12">
+                    <div class="bank_field">
+                      <div>
+                        <label for="accountType" class="form-label">
+                          Account Type
+                        </label>
+                      </div>
+
+                      <div class="field-width">
+                        <select id="accountType" name="accountType" class="form-select"
+                          [(ngModel)]="selectedAccountType" (change)="onAccountTypeChange()">
+                          <option value="">Select Account Type</option>
+
+                          <option *ngFor="let type of accountTypes" [value]="type">
+                            {{ type }}
+                          </option>
+                        </select>
+
+                        <span *ngIf="accountTypeValidation" class="red_warning">
+                          Please select Account Type
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-12">
                   <div class="position-relative bank_field">
                     <div>
-                      <label for="accountNo" class="form-label"
-                        >Enter your Account no.</label
-                      >
+                      <label for="accountNo" class="form-label" aria-hidden="true">Enter your Account no.</label>
                     </div>
                     <div>
                       <div class="eye_field">
-                        <input
-                          [(ngModel)]="accountNumber"
-                          [type]="fieldTextType ? 'text' : 'password'"
-                          class="form-control"
-                          id="accountNo"
-                          name="accountNo"
-                          inputmode="numeric"
-                          maxlength="25"
-                          placeholder=""
-                          autocomplete="false"
-                          (input)="
+                        <input [(ngModel)]="accountNumber" [type]="fieldTextType ? 'text' : 'password'"
+                          class="form-control" id="accountNo" aria-label="Account Number" name="accountNo"
+                          inputmode="numeric" maxlength="25" placeholder="" autocomplete="false" (input)="
                             accountNumberValidation($event);
                             validateAccountForm();
                             accountNumberReValidation($event)
-                          "
-                          (focusout)="
+                          " (focusout)="
                             accountNumberValidation2($event);
                             accountNumberReValidation2($event, 'enter')
-                          "
-                          onpaste="return false;"
-                          onselectstart="return false;"
-                          onkeypress="return /[0-9]/i.test(event.key)"
-                        />
-                        <span
-                          class="fa eye_icon"
-                          [ngClass]="{
+                          " onpaste="return false;" onselectstart="return false;"
+                          onkeypress="return /[0-9]/i.test(event.key)" />
+                        <span class="fa eye_icon" [ngClass]="{
                             'fa-eye-slash': !fieldTextType,
-                            'fa-eye': fieldTextType
-                          }"
-                          id="togglePassword"
-                          (click)="toggleFieldTextType()"
-                        ></span>
+                            'fa-eye': fieldTextType,
+                          }" id="togglePassword" aria-label="Toggle account number visibility"
+                          (click)="toggleFieldTextType()" (keydown.enter)="toggleFieldTextType()"
+                          (keydown.space)="toggleFieldTextType()" role="button" tabindex="0"></span>
                       </div>
 
-                      <span *ngIf="ACbankValidation" class="red_warning"
-                        >Please enter a valid Account number consisting of only
-                        numeric characters</span
-                      >
-                      <span *ngIf="ACbankValiSpecial" class="red_warning"
-                        >Special characters are not allowed</span
-                      >
-                      <span *ngIf="ACbankValiSpace" class="red_warning"
-                        >Blank space not allowed</span
-                      >
-                      <span *ngIf="SBILengthWarning" class="red_warning"
-                        >Please enter valid 11 digit number of your bank account
+                      <span *ngIf="ACbankValidation" class="red_warning">Please enter a valid Account number consisting
+                        of only
+                        numeric characters</span>
+                      <span *ngIf="ACbankValiSpecial" class="red_warning">Special characters are not allowed</span>
+                      <span *ngIf="ACbankValiSpace" class="red_warning">Blank space not allowed</span>
+                      <span *ngIf="SBILengthWarning" class="red_warning">Please enter valid 11 digit number of your bank
+                        account
                         with State Bank of India
                       </span>
                     </div>
@@ -398,52 +313,30 @@
                 <div class="col-lg-12 col-md-12 col-12">
                   <div class="bank_field">
                     <div>
-                      <label for="renteraccountNo" class="form-label"
-                        >Re-enter your Account no.</label
-                      >
+                      <label for="renteraccountNo" class="form-label" aria-hidden="true">Re-enter your Account
+                        no.</label>
                     </div>
                     <div>
-                      <input
-                        [(ngModel)]="reenteredAccountNumber"
-                        type="text"
-                        class="form-control"
-                        id="renteraccountNo"
-                        name="renteraccountNo"
-                        inputmode="numeric"
-                        maxlength="25"
-                        placeholder=""
-                        (input)="
+                      <input [(ngModel)]="reenteredAccountNumber" aria-label="Re-enter Account Number" type="text"
+                        class="form-control" id="renteraccountNo" name="renteraccountNo" inputmode="numeric"
+                        maxlength="25" placeholder="" (input)="
                           accountNumberReValidation($event);
                           validateAccountForm()
-                        "
-                        onpaste="return false;"
-                        onselectstart="return false;"
-                        (focusout)="
+                        " onpaste="return false;" onselectstart="return false;" (focusout)="
                           accountNumberValidation2($event);
                           accountNumberReValidation2($event, 'reenter')
-                        "
-                        onkeypress="return /[0-9]/i.test(event.key)"
-                      />
+                        " onkeypress="return /[0-9]/i.test(event.key)" aria-required="true" />
 
-                      <span *ngIf="ReenterACBankValidation" class="red_warning"
-                        >Please enter a valid Account number consisting of only
-                        numeric characters</span
-                      >
-                      <span *ngIf="ReenterBankWarning" class="red_warning"
-                        >Please check the entered Account number. It should
+                      <span *ngIf="ReenterACBankValidation" class="red_warning">Please enter a valid Account number
+                        consisting of only
+                        numeric characters</span>
+                      <span *ngIf="ReenterBankWarning" class="red_warning">Please check the entered Account number. It
+                        should
                         exactly match with the account number entered in the
-                        above field</span
-                      >
-                      <span
-                        *ngIf="ReenterACBankValidationSpecial"
-                        class="red_warning"
-                        >Special characters are not allowed</span
-                      >
-                      <span
-                        *ngIf="ReenterACBankValidationSpace"
-                        class="red_warning"
-                        >Blank space not allowed</span
-                      >
+                        above field</span>
+                      <span *ngIf="ReenterACBankValidationSpecial" class="red_warning">Special characters are not
+                        allowed</span>
+                      <span *ngIf="ReenterACBankValidationSpace" class="red_warning">Blank space not allowed</span>
                     </div>
                   </div>
                 </div>
@@ -451,18 +344,17 @@
               <div class="sbi_note">
                 <p>
                   {{
-                    (selectedBankName == null ? " " : selectedBankName + ", ") +
-                      IFSCResponse[0].BBM_LOCATION
+                  (selectedBankName == null ? " " : selectedBankName + ", ") +
+                  IFSCResponse[0].BBM_LOCATION
                   }}
                 </p>
               </div>
               <div class="stickybtn_desk desktop_css">
-                <button
-                  [disabled]="isBankAccountForm"
-                  (click)="verifyBankModal()"
-                  class="btn btn_cls"
-                  id="verify"
-                >
+                <span id="verifyBankHintDesk" class="visually-hidden">Enter Account Number, IFSC, and re-enter Account
+                  Number to enable Verify.</span>
+                <p *ngIf="enteredIFSCNumber?.toUpperCase()?.includes('SBIN')" class="sub_title_cls">I authorize SBI Securities to verify my SBI bank account details with SBI.</p>
+                <button [attr.aria-disabled]="isBankAccountForm" [disabled]="isBankAccountForm"
+                  (click)="verifyBankModal()" class="btn btn_cls" id="verifyDesk" aria-describedby="verifyBankHintDesk">
                   Verify
                 </button>
               </div>
@@ -472,18 +364,18 @@
       </div>
 
       <div class="stickybtn mobile_css">
-        <button
-          [disabled]="isBankAccountForm"
-          (click)="verifyBankModal()"
-          class="btn btn_cls"
-          id="verify"
-        >
+        <span id="verifyBankHintMob" class="visually-hidden">Enter Account Number, IFSC, and re-enter Account Number to
+          enable Verify.</span>
+        <p *ngIf="enteredIFSCNumber?.toUpperCase()?.includes('SBIN')" class="sub_title_cls">I authorize SBI Securities to verify my SBI bank account details with SBI.</p>
+        <button [attr.aria-disabled]="isBankAccountForm" [disabled]="isBankAccountForm" (click)="verifyBankModal()"
+          class="btn btn_cls" id="verifyMob" aria-describedby="verifyBankHintMob">
           Verify
         </button>
       </div>
     </div>
   </div>
 </section>
+
 
 <script>
   $("#invalidbankdetails").modal({
@@ -492,59 +384,32 @@
   });
 </script>
 <!-- Invalid Bank Details -->
-<div
-  class="modal fade"
-  id="invalidbankdetails"
-  tabindex="-1"
-  aria-labelledby="invalidbankdetailsLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="invalidbankdetails" role="dialog" aria-modal="true" tabindex="-1"
+  aria-labelledby="invalidbankdetailsLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div
-        class="modal-header d-block"
-        data-bs-dismiss="modal"
-        aria-label="Close"
-        (click)="removeModal()"
-      >
-        <h1 class="modal-title fs-5" id="invalidbankdetailsLabel"></h1>
-        <button
-          type="button"
-          class="btn-horizontal-line"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="removeModal()"
-        ></button>
+      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+        <h2 class="modal-title fs-5 visually-hidden" id="invalidbankdetailsLabel">Invalid Bank Details</h2>
+        <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
       </div>
       <div *ngIf="this.utm_source != 'PROPRIETOR'" class="modal-body">
         <div class="img_preview text-center">
-          <img src="assets/images/diy/invalid-details.png" alt="" />
+          <img src="assets/images/diy/invalid-details.png" alt="" role="status" />
         </div>
         <h5 class="text-center my-3">Something went wrong...</h5>
         <div class="text-center my-3">
-          <span
-            >We are unable to proceed with the bank details that are
-            provided</span
-          >
+          <span>We are unable to proceed with the bank details that are
+            provided</span>
         </div>
       </div>
       <div *ngIf="this.utm_source == 'PROPRIETOR'" class="modal-footer">
-        <button
-          type="button"
-          class="btn btn_cls"
-          data-bs-target="#uploadBankStatement"
-          data-bs-toggle="modal"
-        >
+        <button type="button" class="btn btn_cls" data-bs-target="#uploadBankStatement" data-bs-toggle="modal">
           Please upload a certified bank authorisation letter that includes the PAN of the account holder
         </button>
       </div>
       <div *ngIf="this.utm_source != 'PROPRIETOR'" class="modal-footer">
-        <button
-          type="button"
-          class="btn btn_cls"
-          data-bs-target="#uploadBankStatement"
-          data-bs-toggle="modal"
-        >
+        <button type="button" class="btn btn_cls" data-bs-target="#uploadBankStatement" data-bs-toggle="modal">
           Try Uploading Cheque/Bank Proof
         </button>
       </div>
@@ -552,59 +417,31 @@
   </div>
 </div>
 
-<div
-  class="modal fade uploadPan"
-  id="myModal"
-  tabindex="-1"
-  aria-labelledby="myModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade uploadPan" id="myModal" role="dialog" aria-modal="true" tabindex="-1"
+  aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div
-        class="modal-header d-block"
-        data-bs-dismiss="modal"
-        aria-label="Close"
-        (click)="removeModal()"
-      >
-        <h1 class="modal-title fs-5" id="myModalLabel"></h1>
-        <button
-          type="button"
-          class="btn-horizontal-line"
-          id="successClose"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="removeModal()"
-        ></button>
+      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+        <h2 class="modal-title fs-5 visually-hidden" id="myModalLabel">Bank Verification Status</h2>
+        <button type="button" class="btn-horizontal-line" id="myModalClose" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
         <div class="img_preview text-center">
-          <img class="" src="assets/images/diy/invalid-details.png" alt="" />
+          <img class="" src="assets/images/diy/invalid-details.png" alt="Invalid-Details" role="status" />
         </div>
         <div class="text-center">
           <span class="textfont_css">Oops!</span><br />
 
-          <span
-            >This bank account seems to belonging to someone else as per bank
-            record. Do you still want to continue?</span
-          >
+          <span>This bank account seems to belonging to someone else as per bank
+            record. Do you still want to continue?</span>
         </div>
       </div>
       <div class="modal-footer flex-nowrap">
-        <button
-          type="button"
-          class="btn btn_cls"
-          data-bs-dismiss="modal"
-          (click)="openSameNamePopupDismissModal()"
-        >
+        <button type="button" class="btn btn_cls" data-bs-dismiss="modal" (click)="openSameNamePopupDismissModal()">
           No
         </button>
-        <button
-          type="button"
-          class="btn btn_cls"
-          data-bs-dismiss="modal"
-          (click)="redirectPlanSelection()"
-        >
+        <button type="button" class="btn btn_cls" data-bs-dismiss="modal" (click)="redirectPlanSelection()">
           Yes
         </button>
       </div>
@@ -613,53 +450,26 @@
 </div>
 
 <!-- Verification Successful Modal -->
-<div
-  class="modal fade uploadPan"
-  id="verifysuccess"
-  tabindex="-1"
-  aria-labelledby="verifysuccessLabel"
-  aria-hidden="true"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
->
+<div class="modal fade uploadPan" id="verifysuccess" role="dialog" aria-modal="true" tabindex="-1"
+  aria-labelledby="verifysuccessLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div
-        class="modal-header d-block"
-
-        aria-label="Close"
-
-      >
-        <h1 class="modal-title fs-5" id="verifysuccessLabel"></h1>
-        <button
-          type="button"
-          class="btn-horizontal-line"
-          id="successClose"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="removeModal()"
-        ></button>
+      <div class="modal-header d-block" aria-label="Close">
+        <h2 class="modal-title fs-5 visually-hidden" id="verifysuccessLabel">Bank Account Verified</h2>
+        <button type="button" class="btn-horizontal-line" id="verifySuccessClose" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
         <div class="img_preview text-center">
-          <img
-            class=""
-            src="assets/images/diy/successfulverification.png"
-            alt=""
-          />
+          <img style = "width: 100px; height: auto; object-fit: contain;"class="" src="assets/images/diy/successfulverification.png" alt="Bank account verified successfully"
+            role="status" />
         </div>
         <div class="text-center">
-          <!-- <span>Your Bank details has been added successfully.</span> -->
           <span>Bank account verified successfully!</span>
         </div>
       </div>
       <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn_cls"
-          data-bs-dismiss="modal"
-          (click)="redirectPlanSelection()"
-        >
+        <button type="button" class="btn btn_cls" data-bs-dismiss="modal" (click)="redirectPlanSelection()">
           Proceed
         </button>
       </div>
@@ -668,49 +478,26 @@
 </div>
 
 <!-- Upload Bank Statement Modal -->
-<div
-  class="modal fade uploadPan"
-  id="uploadBankStatement"
-  tabindex="-1"
-  aria-labelledby="uploadBankStatementLabel"
-  aria-hidden="true"
->
+<div class="modal fade uploadPan" id="uploadBankStatement" tabindex="-1" aria-labelledby="uploadBankStatementLabel"
+  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div
-        class="modal-header d-block"
-        data-bs-dismiss="modal"
-        aria-label="Close"
-        (click)="removeModal()"
-      >
-        <h1 class="modal-title fs-5" id="uploadBankStatementLabel"></h1>
-        <button
-          type="button"
-          class="btn-horizontal-line"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="removeModal()"
-        ></button>
+      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+        <h2 class="modal-title fs-5 visually-hidden" id="uploadBankStatementLabel">Upload Bank Statement</h2>
+        <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
-        <h5 *ngIf="this.utm_source != 'PROPRIETOR'" class="text-center my-3">
+        <h5 *ngIf="this.utm_source != 'PROPRIETOR'" class="text-center my-3" id="uploadBankProofMain">
           Upload Cheque/Bank Proof
         </h5>
-        <h5 *ngIf="this.utm_source == 'PROPRIETOR'" class="text-center my-3">
+        <h5 *ngIf="this.utm_source == 'PROPRIETOR'" class="text-center my-3" id="uploadCertificateMain">
           Please upload a certified bank authorisation letter that includes the PAN of the account holder
         </h5>
         <div class="img_upload">
-          <div
-            class="camera_icon"
-            style="position: relative; display: inline-block"
-          >
-            <img
-              src="assets/images/diy/camera_img.png"
-              alt="Upload Image"
-              style="cursor: pointer"
-            />
-            <input
-              style="
+          <div class="camera_icon" style="position: relative; display: inline-block">
+            <img src="assets/images/diy/camera_img.png" alt="Upload Image" style="cursor: pointer" role="img" />
+            <input style="
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -718,25 +505,13 @@
                 width: 100%;
                 height: 100%;
                 cursor: pointer;
-              "
-              type="file"
-              capture="environment"
-              accept="image/*"
-              (change)="fileChangeEvent($event)"
-              (click)="setCaptureEvent('environment')"
-              data-bs-target="#uploadBankStateUpload"
-              (click)="resetExistingImage()"
-              data-bs-toggle="modal"
-            />
+              " type="file" capture="environment" accept="image/*" (change)="fileChangeEvent($event)"
+              (click)="setCaptureEvent('environment')" data-bs-target="#uploadBankStateUpload"
+              (click)="resetExistingImage()" data-bs-toggle="modal" aria-required="true" aria-label="Take a photo of your document" />
           </div>
           <div style="position: relative; display: inline-block">
-            <img
-              src="assets/images/diy/upload_img.png"
-              alt="Upload Image"
-              style="cursor: pointer"
-            />
-            <input
-              style="
+            <img src="assets/images/diy/upload_img.png" alt="Upload Image" style="cursor: pointer" role="img" />
+            <input style="
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -744,15 +519,9 @@
                 width: 100%;
                 height: 100%;
                 cursor: pointer;
-              "
-              type="file"
-              accept="image/*"
-              (change)="fileChangeEvent($event)"
-              (click)="setCaptureEvent('upload')"
-              data-bs-target="#uploadBankStateUpload"
-              (click)="resetExistingImage()"
-              data-bs-toggle="modal"
-            />
+              " type="file" accept="image/*" (change)="fileChangeEvent($event)" (click)="setCaptureEvent('upload')"
+              data-bs-target="#uploadBankStateUpload" (click)="resetExistingImage()" data-bs-toggle="modal"
+              aria-required="true" aria-label="Upload a document file" />
           </div>
         </div>
         <div class="file_type_css">
@@ -761,12 +530,7 @@
         </div>
       </div>
       <div class="modal-footer d-none">
-        <button
-          type="button"
-          data-bs-target="#uploadBankStateUpload"
-          data-bs-toggle="modal"
-          class="btn btn_cls"
-        >
+        <button type="button" data-bs-target="#uploadBankStateUpload" data-bs-toggle="modal" class="btn btn_cls">
           Continue
         </button>
       </div>
@@ -775,69 +539,35 @@
 </div>
 
 <!-- Upload Bank Statement Upload Modal -->
-<div
-  class="modal fade uploadPan"
-  id="uploadBankStateUpload"
-  tabindex="-1"
-  aria-labelledby="uploadBankStateUploadLabel"
-  aria-hidden="true"
->
+<div class="modal fade uploadPan" id="uploadBankStateUpload" tabindex="-1" aria-labelledby="uploadBankStateUploadLabel"
+  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div
-        class="modal-header d-block"
-        data-bs-dismiss="modal"
-        aria-label="Close"
-        (click)="removeModal()"
-      >
-        <h1 class="modal-title fs-5" id="uploadBankStateUploadLabel"></h1>
-        <button
-          type="button"
-          class="btn-horizontal-line"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="removeModal()"
-        ></button>
+      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+        <h2 class="modal-title fs-5 visually-hidden" id="uploadBankStateUploadLabel">Upload bank statement preview</h2>
+        <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
-        <h5 *ngIf="this.utm_source != 'PROPRIETOR'" class="text-center my-3">
+        <h5 *ngIf="this.utm_source != 'PROPRIETOR'" class="text-center my-3" id="uploadBankProofPreview">
           Upload Cheque/Bank Proof
         </h5>
-        <h5 *ngIf="this.utm_source == 'PROPRIETOR'" class="text-center my-3">
+        <h5 *ngIf="this.utm_source == 'PROPRIETOR'" class="text-center my-3" id="uploadBankCertificate">
           Please upload a certified bank authorisation letter that includes the PAN of the account holder
         </h5>
         <div *ngIf="FFF" class="file_upload_css">
           <div class="pdf-container">
-            <pdf-viewer
-              [src]="FFF"
-              [rotation]="0"
-              [original-size]="false"
-              [show-all]="true"
-              [fit-to-page]="false"
-              [zoom]="1"
-              [zoom-scale]="'page-width'"
-              [stick-to-page]="false"
-              [render-text]="true"
-              [external-link-target]="'blank'"
-              [autoresize]="true"
-              [show-borders]="false"
-              style="width: 100%; height: 250px"
-            ></pdf-viewer>
+            <pdf-viewer [src]="FFF" [rotation]="0" [original-size]="false" [show-all]="true" [fit-to-page]="false"
+              [zoom]="1" [zoom-scale]="'page-width'" [stick-to-page]="false" [render-text]="true"
+              [external-link-target]="'blank'" [autoresize]="true" [show-borders]="false"
+              style="width: 100%; height: 250px"></pdf-viewer>
           </div>
         </div>
         <div *ngIf="imageChangedEvent" class="file_upload_css">
-          <image-cropper
-            class="image_css"
-            [imageChangedEvent]="imageChangedEvent"
-            [maintainAspectRatio]="false"
-            [canvasRotation]="canvasRotation"
-            [(transform)]="transform"
-            [aspectRatio]="4 / 3"
-            format="png"
-            (imageCropped)="imageCropped($event)"
-            (imageLoaded)="imageLoaded()"
-            (loadImageFailed)="loadImageFailed()"
-          ></image-cropper>
+          <image-cropper class="image_css" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
+            [canvasRotation]="canvasRotation" [(transform)]="transform" [aspectRatio]="4 / 3" format="png"
+            (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+            (loadImageFailed)="loadImageFailed()"></image-cropper>
         </div>
         <div *ngIf="imageChangedEvent" class="text-center">
           <label class="reupload_css" (click)="rotateRight()">Rotate</label>
@@ -851,48 +581,26 @@
       </div>
       <div class="modal-footer">
         <div class="btn_align">
-          <label *ngIf="!imageChangedEvent" class="btn btn_cls_outline p-0">
+          <label *ngIf="!imageChangedEvent" class="btn btn_cls_outline p-0" for="uploadImageFile" aria-hidden="true">
             Upload Image
-            <input
-              type="file"
-              accept="image/*"
-              (change)="fileChangeEvent($event)"
-              style="display: none"
-            />
+            <input type="file" accept="image/*" (change)="fileChangeEvent($event)" style="display: none"
+              id="uploadImageFile" aria-describedby="uploadImageFile" aria-label="Upload a document file" />
           </label>
-          <label
-            *ngIf="imageChangedEvent && capture_event !== 'user'"
-            class="btn btn_cls_outline p-0"
-          >
+          <label *ngIf="imageChangedEvent && capture_event !== 'user'" class="btn btn_cls_outline p-0"
+            for="captureEvent" aria-hidden="true">
             Re-Upload Image
-            <input
-              type="file"
-              accept="image/*"
-              (change)="fileChangeEvent($event)"
-              style="display: none"
-            />
+            <input type="file" accept="image/*" (change)="fileChangeEvent($event)" style="display: none"
+              aria-label="Upload a document file" />
           </label>
-          <label
-            *ngIf="imageChangedEvent && capture_event == 'user'"
-            class="btn btn_cls_outline p-0"
-          >
+          <label *ngIf="imageChangedEvent && capture_event == 'user'" class="btn btn_cls_outline p-0"
+            for="ImageChangeEvent" aria-hidden="true">
             Re-Upload Image
-            <input
-              type="file"
-              capture="user"
-              accept="image/*"
-              (change)="fileChangeEvent($event)"
-              style="display: none"
-            />
+            <input type="file" capture="user" accept="image/*" (change)="fileChangeEvent($event)" style="display: none"
+              id="ImageChangeEvent" aria-label="Take a photo" />
           </label>
-          <button
-            [disabled]="!imageChangedEvent && !FFF"
-            type="button"
-            class="btn btn_cls"
-            data-bs-target="#uploadBankStateBg"
-            data-bs-toggle="modal"
-            (click)="openId()"
-          >
+          <button [attr.aria-disabled]="!imageChangedEvent && !FFF" [disabled]="!imageChangedEvent && !FFF"
+            type="button" class="btn btn_cls" data-bs-target="#uploadBankStateBg" data-bs-toggle="modal"
+            (click)="openId()">
             Continue
           </button>
         </div>
@@ -902,55 +610,29 @@
 </div>
 
 <!-- Upload Bank Statement File Modal -->
-<div
-  class="modal fade uploadPan"
-  id="uploadBankStateBg"
-  tabindex="-1"
-  aria-labelledby="uploadBankStateBgLabel"
-  aria-hidden="true"
->
+<div class="modal fade uploadPan" id="uploadBankStateBg" tabindex="-1" aria-labelledby="uploadBankStateBgLabel"
+  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div
-        class="modal-header d-block"
-        data-bs-dismiss="modal"
-        aria-label="Close"
-        (click)="removeModal()"
-      >
-        <h1 class="modal-title fs-5" id="uploadBankStateBgLabel"></h1>
-        <button
-          type="button"
-          class="btn-horizontal-line"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="removeModal()"
-        ></button>
+      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+        <h2 class="modal-title fs-5 visually-hidden" id="uploadBankStateBgLabel">Confirm bank statement</h2>
+        <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
         <!-- <h5 class="text-center my-3">Upload Cheque/Bank Proof</h5> -->
-        <h5 *ngIf="this.utm_source != 'PROPRIETOR'" class="text-center my-3">
+        <h5 *ngIf="this.utm_source != 'PROPRIETOR'" class="text-center my-3" id="uploadBankProofConfirm">
           Upload Cheque/Bank Proof
         </h5>
-        <h5 *ngIf="this.utm_source == 'PROPRIETOR'" class="text-center my-3">
+        <h5 *ngIf="this.utm_source == 'PROPRIETOR'" class="text-center my-3" id="uploadCertificateConfirm">
           Please upload a certified bank authorisation letter that includes the PAN of the account holder
         </h5>
         <div *ngIf="FFF" class="file_upload_css">
           <div id="pdfView" class="pdf-container">
-            <pdf-viewer
-              [src]="FFF"
-              [rotation]="0"
-              [original-size]="false"
-              [show-all]="true"
-              [fit-to-page]="false"
-              [zoom]="1"
-              [zoom-scale]="'page-width'"
-              [stick-to-page]="false"
-              [render-text]="true"
-              [external-link-target]="'blank'"
-              [autoresize]="true"
-              [show-borders]="false"
-              style="width: 100%; height: 250px"
-            ></pdf-viewer>
+            <pdf-viewer [src]="FFF" [rotation]="0" [original-size]="false" [show-all]="true" [fit-to-page]="false"
+              [zoom]="1" [zoom-scale]="'page-width'" [stick-to-page]="false" [render-text]="true"
+              [external-link-target]="'blank'" [autoresize]="true" [show-borders]="false"
+              style="width: 100%; height: 250px"></pdf-viewer>
           </div>
           <div class="file_type_css">
             <span>Files supported: JPG, PNG </span>
@@ -958,13 +640,8 @@
           </div>
         </div>
         <div *ngIf="croppedImage" class="file_upload_css my-3">
-          <img
-            *ngIf="croppedImage"
-            [src]="croppedImage"
-            [style.border]="croppedImage ? '1px solid black' : 'none'"
-            alt="Cropped Image Preview"
-            class="img-fluid"
-          />
+          <img *ngIf="croppedImage" [src]="croppedImage" [style.border]="croppedImage ? '1px solid black' : 'none'"
+            alt="Preview of uploaded bank statement" class="img-fluid" />
           <div class="file_type_css">
             <span>Files supported: JPG, PNG</span>
             <span>Maximum size less than 4MB</span>
@@ -972,26 +649,53 @@
         </div>
         <div class="modal-footer">
           <div class="btn_align">
-            <button
-              (click)="changeBankSignatureImage()"
-              data-bs-target="#uploadBankStatement"
-              data-bs-toggle="modal"
-              class="btn btn_cls_outline p-0"
-            >
+            <button (click)="changeBankSignatureImage()" data-bs-target="#uploadBankStatement" data-bs-toggle="modal"
+              class="btn btn_cls_outline p-0" aria-label="Close">
               Change BankProof
             </button>
-            <button
-              (click)="uploadStatementImg()"
-              class="btn btn_cls"
-              id="confirmedPan"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            >
+            <button (click)="uploadStatementImg()" class="btn btn_cls" id="confirmedPan" data-bs-dismiss="modal"
+              aria-label="Close">
               Yes, Confirm
             </button>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade uploadPan" id="BankFail" tabindex="-1" aria-labelledby="BankFailLabel" aria-hidden="true"
+  data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- <div class="modal-header d-block">
+        <h2 class="modal-title fs-5" id="BankFailLabel"></h2>
+
+        <button type="button" class="btn-horizontal-line" id="BankFailClose" data-bs-dismiss="modal">
+</button>
+      </div> -->
+      <div class="modal-body" style="text-align: center">
+        <img style="max-width: 20%; padding-bottom: 10px;"  src="assets/images/diy/bank_fail.png" alt="Verification unsuccessful" />
+
+        <h5>Bank Account Name Mismatch</h5>
+        <br />
+        <p>
+          Your PAN Name and linked bank name don’t match. Please try adding another bank account.
+        </p>
+        <div>
+          <!-- <div [innerHTML]="riskDisclosureData"></div> -->
+        </div>
+        <button style="margin-top: 30px;" type="button" class="btn btn_cls" data-bs-target="#documentSelect" data-bs-toggle="modal">
+          Add new bank
+        </button>
+      </div>
+      <!-- (click)="declarationAcc()" -->
+      <!-- data-bs-target="#documentSelect" -->
+      <!-- (click)="BankFail()" -->
+      <!-- <div class="modal-footer">
+
+      </div> -->
     </div>
   </div>
 </div>
