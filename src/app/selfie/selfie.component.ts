@@ -6,6 +6,7 @@ import {
   EventEmitter,
   Output,
   OnInit,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -33,6 +34,7 @@ import { MoengagesdkService } from '../moengagesdk.service';
     selector: 'app-selfie',
     templateUrl: './selfie.component.html',
     styleUrls: ['./selfie.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class SelfieComponent implements OnDestroy, OnInit {

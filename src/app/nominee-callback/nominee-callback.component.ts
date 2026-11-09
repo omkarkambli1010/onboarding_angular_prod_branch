@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Meta, Title, DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -24,6 +24,7 @@ import { NavigationService } from '../navigation.service';
     selector: 'app-nominee-callback',
     templateUrl: './nominee-callback.component.html',
     styleUrls: ['./nominee-callback.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class NomineeCallbackComponent {

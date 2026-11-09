@@ -6,6 +6,7 @@ import {
   EventEmitter,
   Output,
   AfterViewChecked,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -37,6 +38,7 @@ import { MoengagesdkService } from '../moengagesdk.service';
     selector: 'app-upload-signature',
     templateUrl: './upload-signature.component.html',
     styleUrls: ['./upload-signature.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class UploadSignatureComponent implements AfterViewChecked, OnDestroy {

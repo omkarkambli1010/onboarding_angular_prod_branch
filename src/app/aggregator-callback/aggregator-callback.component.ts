@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Meta, Title, DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -24,6 +24,7 @@ import { NavigationService } from '../navigation.service';
     selector: 'app-aggregator-callback',
     templateUrl: './aggregator-callback.component.html',
     styleUrls: ['./aggregator-callback.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AggregatorCallbackComponent {

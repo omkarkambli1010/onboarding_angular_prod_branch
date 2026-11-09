@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -19,6 +19,7 @@ import { MoengagesdkService } from '../moengagesdk.service';
     selector: 'app-link-bank-account',
     templateUrl: './link-bank-account.component.html',
     styleUrls: ['./link-bank-account.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class LinkBankAccountComponent implements OnInit {

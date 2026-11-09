@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -20,6 +20,7 @@ import { MoengagesdkService } from '../moengagesdk.service';
     selector: 'app-trading-exp',
     templateUrl: './trading-exp.component.html',
     styleUrls: ['./trading-exp.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class TradingExpComponent implements OnInit {

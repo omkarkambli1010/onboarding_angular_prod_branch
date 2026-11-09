@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -23,6 +23,7 @@ import { MoengagesdkService } from '../moengagesdk.service';
     selector: 'app-penny-drop',
     templateUrl: './penny-drop.component.html',
     styleUrls: ['./penny-drop.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PennyDropComponent implements OnInit {

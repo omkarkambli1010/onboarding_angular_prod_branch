@@ -1,6 +1,7 @@
 import {
   Component,
   OnInit,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -26,6 +27,7 @@ import heic2any from 'heic2any';
     selector: 'app-upload-additional',
     templateUrl: './upload-additional.component.html',
     styleUrls: ['./upload-additional.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class UploadAdditionalComponent {

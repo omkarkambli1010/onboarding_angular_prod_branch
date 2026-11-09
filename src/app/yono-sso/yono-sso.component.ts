@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { APIService } from '../api.service';
 import { AesService } from '../aes.service';
@@ -12,6 +12,7 @@ import { MoengagesdkService } from '../moengagesdk.service';
     selector: 'app-yono-sso',
     templateUrl: './yono-sso.component.html',
     styleUrls: ['./yono-sso.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class YonoSsoComponent implements OnInit {

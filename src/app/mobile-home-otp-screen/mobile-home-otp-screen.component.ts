@@ -6,6 +6,7 @@ import {
   NgZone,
   Renderer2,
   ViewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { NgOtpInputConfig } from 'ng-otp-input';
@@ -23,6 +24,7 @@ declare let $: any;
     selector: 'app-mobile-home-otp-screen',
     templateUrl: './mobile-home-otp-screen.component.html',
     styleUrls: ['./mobile-home-otp-screen.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class MobileHomeOtpScreenComponent {

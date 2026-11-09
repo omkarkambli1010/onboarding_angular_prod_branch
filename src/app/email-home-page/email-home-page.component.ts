@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgZone, ViewChild } from '@angular/core';
+import { Component, ElementRef, NgZone, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { APIService } from '../api.service';
 import { NgModel } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,6 +14,7 @@ import { NavigationService } from '../navigation.service';
     selector: 'app-email-home-page',
     templateUrl: './email-home-page.component.html',
     styleUrls: ['./email-home-page.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class EmailHomePageComponent {

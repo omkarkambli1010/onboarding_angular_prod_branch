@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -11,6 +11,7 @@ declare let $: any;
     selector: 'app-faq-need-help',
     templateUrl: './faq-need-help.component.html',
     styleUrls: ['./faq-need-help.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class FaqNeedHelpComponent {

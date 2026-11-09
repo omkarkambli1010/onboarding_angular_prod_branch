@@ -4,6 +4,7 @@ import {
   ElementRef,
   OnInit,
   ViewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -30,6 +31,7 @@ declare let $: any;
     selector: 'app-plan-preference',
     templateUrl: './plan-preference.component.html',
     styleUrls: ['./plan-preference.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PlanPreferenceComponent implements OnInit {

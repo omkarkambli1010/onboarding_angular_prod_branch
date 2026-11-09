@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -13,6 +13,7 @@ import { MoengagesdkService } from '../moengagesdk.service';
     selector: 'app-adhaar-copy',
     templateUrl: './adhaar-copy.component.html',
     styleUrls: ['./adhaar-copy.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AdhaarCopyComponent {

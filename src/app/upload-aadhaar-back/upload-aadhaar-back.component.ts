@@ -6,6 +6,7 @@ import {
   EventEmitter,
   Output,
   OnInit,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -31,6 +32,7 @@ import { ExtensionService } from '../extension.service';
     selector: 'app-upload-aadhaar-back',
     templateUrl: './upload-aadhaar-back.component.html',
     styleUrls: ['./upload-aadhaar-back.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class UploadAadhaarBackComponent {

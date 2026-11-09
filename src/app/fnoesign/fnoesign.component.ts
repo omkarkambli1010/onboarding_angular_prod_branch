@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { APIService } from '../api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
     selector: 'app-fnoesign',
     templateUrl: './fnoesign.component.html',
     styleUrls: ['./fnoesign.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class FnoesignComponent {

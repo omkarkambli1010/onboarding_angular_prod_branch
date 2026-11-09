@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Title, Meta, DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -12,6 +12,7 @@ import { NavigationService } from '../navigation.service';
     selector: 'app-yonotab-sso',
     templateUrl: './yonotab-sso.component.html',
     styleUrls: ['./yonotab-sso.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class YonotabSsoComponent {

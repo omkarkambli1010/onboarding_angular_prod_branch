@@ -5,6 +5,7 @@ import {
   NgZone,
   ViewChild,
   ChangeDetectorRef,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -25,6 +26,7 @@ declare let $: any;
     selector: 'app-yono-email',
     templateUrl: './yono-email.component.html',
     styleUrls: ['./yono-email.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class YonoEmailComponent implements OnInit {

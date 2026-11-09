@@ -221,7 +221,7 @@
                             <h3>Lifetime Benefits Include:</h3>
                           </div>
                           <div class="benefit_list" role="list">
-                            @if (plans?.INTRADAY !== null) {
+                            @if ($safeNavigationMigration(plans?.INTRADAY) !== null) {
                               <div role="listitem">
                                 <span>
                                   <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
@@ -234,7 +234,7 @@
                                 </span>
                               </div>
                             }
-                            @if (plans?.DELIVERY !== null) {
+                            @if ($safeNavigationMigration(plans?.DELIVERY) !== null) {
                               <div role="listitem">
                                 <span>
                                   <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
@@ -247,7 +247,7 @@
                                 </span>
                               </div>
                             }
-                            @if (plans?.EMARGIN !== null) {
+                            @if ($safeNavigationMigration(plans?.EMARGIN) !== null) {
                               <div role="listitem">
                                 <span>
                                   <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
@@ -408,7 +408,7 @@
                                 <h3 class="plan-heading">Lifetime Benefits Include:</h3>
                               </div>
                               <div class="benefit_list" role="list">
-                                @if (plans?.INTRADAY !== null) {
+                                @if ($safeNavigationMigration(plans?.INTRADAY) !== null) {
                                   <div role="listitem">
                                     <span>
                                       <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
@@ -421,7 +421,7 @@
                                     </span>
                                   </div>
                                 }
-                                @if (plans?.DELIVERY !== null) {
+                                @if ($safeNavigationMigration(plans?.DELIVERY) !== null) {
                                   <div role="listitem">
                                     <span>
                                       <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
@@ -434,7 +434,7 @@
                                     </span>
                                   </div>
                                 }
-                                @if (plans?.EMARGIN !== null) {
+                                @if ($safeNavigationMigration(plans?.EMARGIN) !== null) {
                                   <div role="listitem">
                                     <span>
                                       <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
@@ -870,7 +870,7 @@
                           <h3>Lifetime Benefits Include:</h3>
                         </div>
                         <div class="benefit_list" role="list">
-                          @if (plans?.INTRADAY !== null) {
+                          @if ($safeNavigationMigration(plans?.INTRADAY) !== null) {
                             <div role="listitem">
                               <span>
                                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
@@ -883,7 +883,7 @@
                               </span>
                             </div>
                           }
-                          @if (plans?.DELIVERY !== null) {
+                          @if ($safeNavigationMigration(plans?.DELIVERY) !== null) {
                             <div role="listitem">
                               <span>
                                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
@@ -896,7 +896,7 @@
                               </span>
                             </div>
                           }
-                          @if (plans?.EMARGIN !== null) {
+                          @if ($safeNavigationMigration(plans?.EMARGIN) !== null) {
                             <div role="listitem">
                               <span>
                                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
@@ -1057,7 +1057,7 @@
                           <h3>Lifetime Benefits Include:</h3>
                         </div>
                         <div class="benefit_list" role="list">
-                          @if (plans?.INTRADAY !== null) {
+                          @if ($safeNavigationMigration(plans?.INTRADAY) !== null) {
                             <div role="listitem">
                               <span>
                                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
@@ -1070,7 +1070,7 @@
                               </span>
                             </div>
                           }
-                          @if (plans?.DELIVERY !== null) {
+                          @if ($safeNavigationMigration(plans?.DELIVERY) !== null) {
                             <div role="listitem">
                               <span>
                                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
@@ -1083,7 +1083,7 @@
                               </span>
                             </div>
                           }
-                          @if (plans?.EMARGIN !== null) {
+                          @if ($safeNavigationMigration(plans?.EMARGIN) !== null) {
                             <div role="listitem">
                               <span>
                                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
@@ -1248,42 +1248,42 @@
             </div>
             <div class="plan_details">
               <ul>
-                @if (selectedPlan?.DELIVERY !== null) {
+                @if ($safeNavigationMigration(selectedPlan?.DELIVERY) !== null) {
                   <li>
                     {{ selectedPlan?.DELIVERY }} Delivery
                   </li>
                 }
-                @if (selectedPlan?.EMARGIN !== null) {
+                @if ($safeNavigationMigration(selectedPlan?.EMARGIN) !== null) {
                   <li>
                     {{ selectedPlan?.EMARGIN }} E-Margin
                   </li>
                 }
-                @if (selectedPlan?.INTRADAY !== null) {
+                @if ($safeNavigationMigration(selectedPlan?.INTRADAY) !== null) {
                   <li>
                     {{ selectedPlan?.INTRADAY }} Intraday
                   </li>
                 }
-                @if (selectedPlan?.FUTURES !== null) {
+                @if ($safeNavigationMigration(selectedPlan?.FUTURES) !== null) {
                   <li>
                     {{ selectedPlan?.FUTURES }} Futures
                   </li>
                 }
-                @if (selectedPlan?.OPTIONS !== null) {
+                @if ($safeNavigationMigration(selectedPlan?.OPTIONS) !== null) {
                   <li>
                     {{ selectedPlan?.OPTIONS }} Options
                   </li>
                 }
-                @if (selectedPlan?.CURRENCYDERIVATIVES !== null) {
+                @if ($safeNavigationMigration(selectedPlan?.CURRENCYDERIVATIVES) !== null) {
                   <li>
                     {{ selectedPlan?.CURRENCYDERIVATIVES }} Currency
                   </li>
                 }
-                @if (selectedPlan?.ETF !== null) {
+                @if ($safeNavigationMigration(selectedPlan?.ETF) !== null) {
                   <li>
                     {{ selectedPlan?.ETF }} ETF ^
                   </li>
                 }
-                @if (selectedPlan?.SchemeTenure !== null) {
+                @if ($safeNavigationMigration(selectedPlan?.SchemeTenure) !== null) {
                   <li>
                     {{ selectedPlan?.SchemeTenure }}
                     {{ selectedPlan?.SchemeTenure }}
@@ -1352,7 +1352,7 @@
                 </div>
                 <div class="plan_details">
                   <ul>
-                    @if (plan?.DELIVERY !== null) {
+                    @if ($safeNavigationMigration(plan?.DELIVERY) !== null) {
                       <li>
                         <span>
                           <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1366,7 +1366,7 @@
                         </span>
                       </li>
                     }
-                    @if (plan?.EMARGIN !== null) {
+                    @if ($safeNavigationMigration(plan?.EMARGIN) !== null) {
                       <li>
                         <span>
                           <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1380,7 +1380,7 @@
                         </span>
                       </li>
                     }
-                    @if (plan?.INTRADAY !== null) {
+                    @if ($safeNavigationMigration(plan?.INTRADAY) !== null) {
                       <li>
                         <span>
                           <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1394,7 +1394,7 @@
                         </span>
                       </li>
                     }
-                    @if (plan?.FUTURES !== null) {
+                    @if ($safeNavigationMigration(plan?.FUTURES) !== null) {
                       <li>
                         <span>
                           <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1408,7 +1408,7 @@
                         </span>
                       </li>
                     }
-                    @if (plan?.OPTIONS !== null) {
+                    @if ($safeNavigationMigration(plan?.OPTIONS) !== null) {
                       <li>
                         <span>
                           <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1422,7 +1422,7 @@
                         </span>
                       </li>
                     }
-                    @if (plan?.CURRENCYDERIVATIVES !== null) {
+                    @if ($safeNavigationMigration(plan?.CURRENCYDERIVATIVES) !== null) {
                       <li>
                         <span>
                           <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1436,7 +1436,7 @@
                         </span>
                       </li>
                     }
-                    @if (plan?.ETF !== null) {
+                    @if ($safeNavigationMigration(plan?.ETF) !== null) {
                       <li>
                         <span>
                           <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1450,7 +1450,7 @@
                         </span>
                       </li>
                     }
-                    @if (plan?.SchemeTenure !== null) {
+                    @if ($safeNavigationMigration(plan?.SchemeTenure) !== null) {
                       <li>
                         <span>
                           <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">

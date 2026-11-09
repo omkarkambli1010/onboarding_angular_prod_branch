@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgZone, ViewChild } from '@angular/core';
+import { Component, ElementRef, NgZone, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { APIService } from '../api.service';
 import { NgModel } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,6 +16,7 @@ declare const google: any;
     selector: 'app-email-home-screen',
     templateUrl: './email-home-screen.component.html',
     styleUrls: ['./email-home-screen.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class EmailHomeScreenComponent {

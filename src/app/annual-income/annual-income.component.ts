@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -20,6 +20,7 @@ import { MoengagesdkService } from '../moengagesdk.service';
     selector: 'app-annual-income',
     templateUrl: './annual-income.component.html',
     styleUrls: ['./annual-income.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AnnualIncomeComponent implements OnInit {

@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { UploadProcessComponent } from './upload-process/upload-process.component';
 import { HeaderComponent } from './header/header.component';
 import { FormsModule } from '@angular/forms';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PersonalDetailsFormComponent } from './personal-details-form/personal-details-form.component';
 import { PlanPreferenceComponent } from './plan-preference/plan-preference.component';
@@ -149,5 +149,5 @@ import { YonotabSsoComponent } from './yonotab-sso/yonotab-sso.component';
         CarouselModule,
         BackButtonDisableModule.forRoot({
             preserveScroll: true
-        })], providers: [DatePipe, NavigationService, APIService, { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }, MoengagesdkService, AuthService, ExtensionService, provideHttpClient(withInterceptorsFromDi())] })
+        })], providers: [DatePipe, NavigationService, APIService, { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }, MoengagesdkService, AuthService, ExtensionService, provideHttpClient(withXhr(), withInterceptorsFromDi())] })
 export class AppModule { }

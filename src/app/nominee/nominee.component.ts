@@ -4,6 +4,7 @@ import {
   ChangeDetectorRef,
   ViewChild,
   OnInit,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import {
   AbstractControl,
@@ -33,6 +34,7 @@ declare let $: any;
     selector: 'app-nominee',
     templateUrl: './nominee.component.html',
     styleUrls: ['./nominee.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class NomineeComponent {

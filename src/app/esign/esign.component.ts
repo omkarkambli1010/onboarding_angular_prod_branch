@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { APIService } from '../api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -11,6 +11,7 @@ import { MoengagesdkService } from '../moengagesdk.service';
     selector: 'app-esign',
     templateUrl: './esign.component.html',
     styleUrls: ['./esign.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class EsignComponent {

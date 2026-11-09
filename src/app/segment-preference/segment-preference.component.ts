@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -25,6 +25,7 @@ import { MoengagesdkService } from '../moengagesdk.service';
     selector: 'app-segment-preference',
     templateUrl: './segment-preference.component.html',
     styleUrls: ['./segment-preference.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class SegmentPreferenceComponent implements OnInit {

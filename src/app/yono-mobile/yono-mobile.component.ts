@@ -4,6 +4,7 @@ import {
   NgZone,
   OnInit,
   ViewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { Title, Meta, DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -22,6 +23,7 @@ declare let $: any;
     selector: 'app-yono-mobile',
     templateUrl: './yono-mobile.component.html',
     styleUrls: ['./yono-mobile.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class YonoMobileComponent implements OnInit {

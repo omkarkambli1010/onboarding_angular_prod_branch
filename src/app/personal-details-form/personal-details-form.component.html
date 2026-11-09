@@ -96,7 +96,7 @@
                 [attr.aria-checked]="selectedMarital === PersonalData?.maritalStatus"
               (click)="
                 selectedMarital = PersonalData?.maritalStatus;
-                PersonalDetailsave('maritial', PersonalData?.maritalStatus)
+                PersonalDetailsave('maritial', $safeNavigationMigration(PersonalData?.maritalStatus))
               "
                 >
                 {{ PersonalData?.maritalStatus || "Unknown" }}

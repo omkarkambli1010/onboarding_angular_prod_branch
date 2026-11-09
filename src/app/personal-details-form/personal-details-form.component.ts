@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -20,6 +20,7 @@ import { MoengagesdkService } from '../moengagesdk.service';
   selector: 'app-personal-details-form',
   templateUrl: './personal-details-form.component.html',
   styleUrls: ['./personal-details-form.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class PersonalDetailsFormComponent {

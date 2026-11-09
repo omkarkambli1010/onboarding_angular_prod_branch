@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { APIService } from '../api.service';
@@ -12,6 +12,7 @@ import * as bootstrap from 'bootstrap';
     selector: 'app-digilocker-screen',
     templateUrl: './digilocker-screen.component.html',
     styleUrls: ['./digilocker-screen.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class DigilockerScreenComponent {

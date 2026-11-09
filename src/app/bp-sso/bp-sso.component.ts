@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, NgZone, ChangeDetectorRef } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, NgZone, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as bootstrap from 'bootstrap';
@@ -18,6 +18,7 @@ declare let $: any;
     selector: 'app-bp-sso',
     templateUrl: './bp-sso.component.html',
     styleUrls: ['./bp-sso.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class BpSsoComponent implements OnInit{
