@@ -7,6 +7,7 @@ import {
   OnInit,
   Renderer2,
   ViewChild,
+  DOCUMENT
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { APIService } from '../api.service';
@@ -20,7 +21,7 @@ import { NgOtpInputConfig } from 'ng-otp-input';
 import { CookieService } from 'ngx-cookie-service';
 declare let $: any;
 import * as bootstrap from 'bootstrap';
-import { DOCUMENT } from '@angular/common';
+
 import { MoengagesdkService } from '../moengagesdk.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { delay } from 'rxjs';

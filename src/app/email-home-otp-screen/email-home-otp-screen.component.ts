@@ -6,12 +6,13 @@ import {
   NgZone,
   Renderer2,
   ViewChild,
+  DOCUMENT
 } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { NgOtpInputConfig } from 'ng-otp-input';
 import { CookieService } from 'ngx-cookie-service';
 import { MoengagesdkService } from '../moengagesdk.service';
-import { DOCUMENT } from '@angular/common';
+
 import { NavigationService } from '../navigation.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { APIService } from '../api.service';
