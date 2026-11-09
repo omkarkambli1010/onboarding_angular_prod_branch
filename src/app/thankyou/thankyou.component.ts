@@ -20,9 +20,10 @@ import { Observable, Observer } from 'rxjs';
 import { NavigationService } from '../navigation.service';
 
 @Component({
-  selector: 'app-thankyou',
-  templateUrl: './thankyou.component.html',
-  styleUrls: ['./thankyou.component.css'],
+    selector: 'app-thankyou',
+    templateUrl: './thankyou.component.html',
+    styleUrls: ['./thankyou.component.css'],
+    standalone: false
 })
 export class ThankyouComponent implements OnInit {
   public capture_event: any;

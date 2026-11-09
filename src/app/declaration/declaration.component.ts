@@ -20,9 +20,10 @@ import { MoengagesdkService } from '../moengagesdk.service';
 
 declare var $: any;
 @Component({
-  selector: 'app-declaration',
-  templateUrl: './declaration.component.html',
-  styleUrls: ['./declaration.component.css'],
+    selector: 'app-declaration',
+    templateUrl: './declaration.component.html',
+    styleUrls: ['./declaration.component.css'],
+    standalone: false
 })
 export class DeclarationComponent implements OnInit {
   // utm_source: string = 'search-engine';

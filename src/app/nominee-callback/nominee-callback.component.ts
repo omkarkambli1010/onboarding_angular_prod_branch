@@ -21,9 +21,10 @@ import { NavigationService } from '../navigation.service';
 
 
 @Component({
-  selector: 'app-nominee-callback',
-  templateUrl: './nominee-callback.component.html',
-  styleUrls: ['./nominee-callback.component.css']
+    selector: 'app-nominee-callback',
+    templateUrl: './nominee-callback.component.html',
+    styleUrls: ['./nominee-callback.component.css'],
+    standalone: false
 })
 export class NomineeCallbackComponent {
   public capture_event: any;

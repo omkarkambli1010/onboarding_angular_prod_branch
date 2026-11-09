@@ -30,9 +30,10 @@ import { ExtensionService } from '../extension.service';
 import { MoengagesdkService } from '../moengagesdk.service';
 
 @Component({
-  selector: 'app-selfie',
-  templateUrl: './selfie.component.html',
-  styleUrls: ['./selfie.component.css'],
+    selector: 'app-selfie',
+    templateUrl: './selfie.component.html',
+    styleUrls: ['./selfie.component.css'],
+    standalone: false
 })
 export class SelfieComponent implements OnDestroy, OnInit {
   @Output()

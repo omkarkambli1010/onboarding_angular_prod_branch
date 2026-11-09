@@ -17,9 +17,10 @@ import { NavigationService } from '../navigation.service';
 import { MoengagesdkService } from '../moengagesdk.service';
 
 @Component({
-  selector: 'app-trading-exp',
-  templateUrl: './trading-exp.component.html',
-  styleUrls: ['./trading-exp.component.css'],
+    selector: 'app-trading-exp',
+    templateUrl: './trading-exp.component.html',
+    styleUrls: ['./trading-exp.component.css'],
+    standalone: false
 })
 export class TradingExpComponent implements OnInit {
   selectedTrading: any;

@@ -30,9 +30,10 @@ import { ExtensionService } from '../extension.service';
 import { MoengagesdkService } from '../moengagesdk.service';
 
 @Component({
-  selector: 'app-nominee-optout',
-  templateUrl: './nominee-optout.component.html',
-  styleUrls: ['./nominee-optout.component.css']
+    selector: 'app-nominee-optout',
+    templateUrl: './nominee-optout.component.html',
+    styleUrls: ['./nominee-optout.component.css'],
+    standalone: false
 })
 export class NomineeOptoutComponent  implements OnDestroy, OnInit {
   @Output()

@@ -9,9 +9,10 @@ import { MoengagesdkService } from '../moengagesdk.service';
 
 
 @Component({
-  selector: 'app-fnothankyou',
-  templateUrl: './fnothankyou.component.html',
-  styleUrls: ['./fnothankyou.component.css']
+    selector: 'app-fnothankyou',
+    templateUrl: './fnothankyou.component.html',
+    styleUrls: ['./fnothankyou.component.css'],
+    standalone: false
 })
 export class FnothankyouComponent {
   // utm_source: string = 'search-engine';

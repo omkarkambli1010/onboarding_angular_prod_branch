@@ -10,9 +10,10 @@ import { NavigationService } from '../navigation.service';
 import { MoengagesdkService } from '../moengagesdk.service';
 
 @Component({
-  selector: 'app-adhaar-copy',
-  templateUrl: './adhaar-copy.component.html',
-  styleUrls: ['./adhaar-copy.component.css'],
+    selector: 'app-adhaar-copy',
+    templateUrl: './adhaar-copy.component.html',
+    styleUrls: ['./adhaar-copy.component.css'],
+    standalone: false
 })
 export class AdhaarCopyComponent {
   clientid: any;

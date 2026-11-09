@@ -9,9 +9,10 @@ import { NavigationService } from '../navigation.service';
 import { MoengagesdkService } from '../moengagesdk.service';
 
 @Component({
-  selector: 'app-msf-sso',
-  templateUrl: './msf-sso.component.html',
-  styleUrls: ['./msf-sso.component.css'],
+    selector: 'app-msf-sso',
+    templateUrl: './msf-sso.component.html',
+    styleUrls: ['./msf-sso.component.css'],
+    standalone: false
 })
 export class MsfSsoComponent implements OnInit {
   clientid: string = '';

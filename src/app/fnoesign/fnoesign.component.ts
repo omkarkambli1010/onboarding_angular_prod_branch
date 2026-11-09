@@ -7,9 +7,10 @@ import { AesService } from '../aes.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-fnoesign',
-  templateUrl: './fnoesign.component.html',
-  styleUrls: ['./fnoesign.component.css']
+    selector: 'app-fnoesign',
+    templateUrl: './fnoesign.component.html',
+    styleUrls: ['./fnoesign.component.css'],
+    standalone: false
 })
 export class FnoesignComponent {
   PersonalFormOne: boolean = true;

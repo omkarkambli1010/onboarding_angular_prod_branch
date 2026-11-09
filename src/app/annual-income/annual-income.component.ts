@@ -17,9 +17,10 @@ import { NavigationService } from '../navigation.service';
 import { MoengagesdkService } from '../moengagesdk.service';
 
 @Component({
-  selector: 'app-annual-income',
-  templateUrl: './annual-income.component.html',
-  styleUrls: ['./annual-income.component.css'],
+    selector: 'app-annual-income',
+    templateUrl: './annual-income.component.html',
+    styleUrls: ['./annual-income.component.css'],
+    standalone: false
 })
 export class AnnualIncomeComponent implements OnInit {
   clientid: any;

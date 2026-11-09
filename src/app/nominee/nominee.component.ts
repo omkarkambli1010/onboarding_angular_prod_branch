@@ -30,9 +30,10 @@ import { DatePipe } from '@angular/common';
 declare let $: any;
 
 @Component({
-  selector: 'app-nominee',
-  templateUrl: './nominee.component.html',
-  styleUrls: ['./nominee.component.css'],
+    selector: 'app-nominee',
+    templateUrl: './nominee.component.html',
+    styleUrls: ['./nominee.component.css'],
+    standalone: false
 })
 export class NomineeComponent {
   RejectStatus = window.sessionStorage.getItem('RejectStatus');

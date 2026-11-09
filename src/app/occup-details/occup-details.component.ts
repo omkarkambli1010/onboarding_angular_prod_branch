@@ -17,9 +17,10 @@ import { NavigationService } from '../navigation.service';
 import { MoengagesdkService } from '../moengagesdk.service';
 
 @Component({
-  selector: 'app-occup-details',
-  templateUrl: './occup-details.component.html',
-  styleUrls: ['./occup-details.component.css'],
+    selector: 'app-occup-details',
+    templateUrl: './occup-details.component.html',
+    styleUrls: ['./occup-details.component.css'],
+    standalone: false
 })
 export class OccupDetailsComponent implements OnInit {
   clientid: any;

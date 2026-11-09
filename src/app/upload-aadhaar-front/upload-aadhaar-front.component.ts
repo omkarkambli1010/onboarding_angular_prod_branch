@@ -28,9 +28,10 @@ import { NgxImageCompressService } from 'ngx-image-compress';
 import { ExtensionService } from '../extension.service';
 
 @Component({
-  selector: 'app-upload-aadhaar-front',
-  templateUrl: './upload-aadhaar-front.component.html',
-  styleUrls: ['./upload-aadhaar-front.component.css']
+    selector: 'app-upload-aadhaar-front',
+    templateUrl: './upload-aadhaar-front.component.html',
+    styleUrls: ['./upload-aadhaar-front.component.css'],
+    standalone: false
 })
 export class UploadAadhaarFrontComponent {
   PersonalFormTwo: boolean = false;

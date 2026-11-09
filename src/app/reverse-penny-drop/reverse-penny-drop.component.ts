@@ -19,9 +19,10 @@ import { MoengagesdkService } from '../moengagesdk.service';
 
 declare var $: any;
 @Component({
-  selector: 'app-reverse-penny-drop',
-  templateUrl: './reverse-penny-drop.component.html',
-  styleUrls: ['./reverse-penny-drop.component.css'],
+    selector: 'app-reverse-penny-drop',
+    templateUrl: './reverse-penny-drop.component.html',
+    styleUrls: ['./reverse-penny-drop.component.css'],
+    standalone: false
 })
 export class ReversePennyDropComponent implements OnInit {
   clientid: any;

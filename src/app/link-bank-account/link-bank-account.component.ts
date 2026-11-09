@@ -16,9 +16,10 @@ import { Observable, Observer } from 'rxjs';
 import { MoengagesdkService } from '../moengagesdk.service';
 
 @Component({
-  selector: 'app-link-bank-account',
-  templateUrl: './link-bank-account.component.html',
-  styleUrls: ['./link-bank-account.component.css'],
+    selector: 'app-link-bank-account',
+    templateUrl: './link-bank-account.component.html',
+    styleUrls: ['./link-bank-account.component.css'],
+    standalone: false
 })
 export class LinkBankAccountComponent implements OnInit {
   clientid: any;

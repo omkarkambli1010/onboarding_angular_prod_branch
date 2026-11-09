@@ -9,9 +9,10 @@ import { DatePipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import * as bootstrap from 'bootstrap';
 @Component({
-  selector: 'app-digilocker-screen',
-  templateUrl: './digilocker-screen.component.html',
-  styleUrls: ['./digilocker-screen.component.css'],
+    selector: 'app-digilocker-screen',
+    templateUrl: './digilocker-screen.component.html',
+    styleUrls: ['./digilocker-screen.component.css'],
+    standalone: false
 })
 export class DigilockerScreenComponent {
   @ViewChild('digilockerGif') digilockerGif!: ElementRef<HTMLImageElement>;

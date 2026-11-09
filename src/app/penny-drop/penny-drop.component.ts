@@ -20,9 +20,10 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { MoengagesdkService } from '../moengagesdk.service';
 
 @Component({
-  selector: 'app-penny-drop',
-  templateUrl: './penny-drop.component.html',
-  styleUrls: ['./penny-drop.component.css'],
+    selector: 'app-penny-drop',
+    templateUrl: './penny-drop.component.html',
+    styleUrls: ['./penny-drop.component.css'],
+    standalone: false
 })
 export class PennyDropComponent implements OnInit {
   // utm_source: string = 'search-engine';

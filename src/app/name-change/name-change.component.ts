@@ -23,9 +23,10 @@ import heic2any from 'heic2any';
 
 
 @Component({
-  selector: 'app-name-change',
-  templateUrl: './name-change.component.html',
-  styleUrls: ['./name-change.component.css']
+    selector: 'app-name-change',
+    templateUrl: './name-change.component.html',
+    styleUrls: ['./name-change.component.css'],
+    standalone: false
 })
 export class NameChangeComponent {
   // utm_source: string = 'search-engine';

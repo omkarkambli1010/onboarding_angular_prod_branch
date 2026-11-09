@@ -22,9 +22,10 @@ import { ExtensionService } from '../extension.service';
 import { MoengagesdkService } from '../moengagesdk.service';
 
 @Component({
-  selector: 'app-segment-preference',
-  templateUrl: './segment-preference.component.html',
-  styleUrls: ['./segment-preference.component.css'],
+    selector: 'app-segment-preference',
+    templateUrl: './segment-preference.component.html',
+    styleUrls: ['./segment-preference.component.css'],
+    standalone: false
 })
 export class SegmentPreferenceComponent implements OnInit {
   public capture_event: any;

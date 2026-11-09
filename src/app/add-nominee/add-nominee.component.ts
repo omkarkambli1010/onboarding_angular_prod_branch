@@ -12,9 +12,10 @@ import { Action } from 'rxjs/internal/scheduler/Action';
 import * as bootstrap from 'bootstrap';
 declare var $: any;
 @Component({
-  selector: 'app-add-nominee',
-  templateUrl: './add-nominee.component.html',
-  styleUrls: ['./add-nominee.component.css'],
+    selector: 'app-add-nominee',
+    templateUrl: './add-nominee.component.html',
+    styleUrls: ['./add-nominee.component.css'],
+    standalone: false
 })
 export class AddNomineeComponent {
   RejectStatus = window.sessionStorage.getItem('RejectStatus');

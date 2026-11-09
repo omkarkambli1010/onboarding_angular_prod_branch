@@ -9,9 +9,10 @@ import { MoengagesdkService } from '../moengagesdk.service';
 import { NavigationService } from '../navigation.service';
 
 @Component({
-  selector: 'app-yonotab-sso',
-  templateUrl: './yonotab-sso.component.html',
-  styleUrls: ['./yonotab-sso.component.css'],
+    selector: 'app-yonotab-sso',
+    templateUrl: './yonotab-sso.component.html',
+    styleUrls: ['./yonotab-sso.component.css'],
+    standalone: false
 })
 export class YonotabSsoComponent {
   clientid: string = '';

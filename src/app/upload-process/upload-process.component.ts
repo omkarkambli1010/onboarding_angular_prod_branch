@@ -11,9 +11,10 @@ import { MoengagesdkService } from '../moengagesdk.service';
 import Splide from '@splidejs/splide';
 
 @Component({
-  selector: 'app-upload-process',
-  templateUrl: './upload-process.component.html',
-  styleUrls: ['./upload-process.component.css'],
+    selector: 'app-upload-process',
+    templateUrl: './upload-process.component.html',
+    styleUrls: ['./upload-process.component.css'],
+    standalone: false
 })
 export class UploadProcessComponent {
   @ViewChild('splideEl', { static: false }) splideEl!: ElementRef;

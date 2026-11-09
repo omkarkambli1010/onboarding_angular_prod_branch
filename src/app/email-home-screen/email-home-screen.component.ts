@@ -13,9 +13,10 @@ import { NavigationService } from '../navigation.service';
 declare const google: any;
 
 @Component({
-  selector: 'app-email-home-screen',
-  templateUrl: './email-home-screen.component.html',
-  styleUrls: ['./email-home-screen.component.css'],
+    selector: 'app-email-home-screen',
+    templateUrl: './email-home-screen.component.html',
+    styleUrls: ['./email-home-screen.component.css'],
+    standalone: false
 })
 export class EmailHomeScreenComponent {
   clientid: any;

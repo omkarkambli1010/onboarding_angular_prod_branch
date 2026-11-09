@@ -1,7 +1,8 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[appEmojiBlocker]'
+    selector: '[appEmojiBlocker]',
+    standalone: false
 })
 export class EmojiBlockerDirective {
 

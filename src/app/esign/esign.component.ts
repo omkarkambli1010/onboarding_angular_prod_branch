@@ -8,9 +8,10 @@ import { ToastrService } from 'ngx-toastr';
 import { MoengagesdkService } from '../moengagesdk.service';
 
 @Component({
-  selector: 'app-esign',
-  templateUrl: './esign.component.html',
-  styleUrls: ['./esign.component.css'],
+    selector: 'app-esign',
+    templateUrl: './esign.component.html',
+    styleUrls: ['./esign.component.css'],
+    standalone: false
 })
 export class EsignComponent {
   PersonalFormOne: boolean = true;

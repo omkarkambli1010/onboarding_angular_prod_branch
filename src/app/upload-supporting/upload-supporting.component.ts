@@ -22,9 +22,10 @@ import { NgxImageCompressService } from 'ngx-image-compress';
 import heic2any from 'heic2any';
 
 @Component({
-  selector: 'app-upload-supporting',
-  templateUrl: './upload-supporting.component.html',
-  styleUrls: ['./upload-supporting.component.css']
+    selector: 'app-upload-supporting',
+    templateUrl: './upload-supporting.component.html',
+    styleUrls: ['./upload-supporting.component.css'],
+    standalone: false
 })
 export class UploadSupportingComponent {
   // utm_source: string = 'search-engine';

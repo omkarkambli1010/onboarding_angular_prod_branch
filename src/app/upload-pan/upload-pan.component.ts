@@ -28,9 +28,10 @@ import { NgxImageCompressService } from 'ngx-image-compress';
 import { ExtensionService } from '../extension.service';
 
 @Component({
-  selector: 'app-upload-pan',
-  templateUrl: './upload-pan.component.html',
-  styleUrls: ['./upload-pan.component.css'],
+    selector: 'app-upload-pan',
+    templateUrl: './upload-pan.component.html',
+    styleUrls: ['./upload-pan.component.css'],
+    standalone: false
 })
 export class UploadPanComponent {
   PersonalFormTwo: boolean = false;

@@ -11,9 +11,10 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { NavigationService } from '../navigation.service';
 
 @Component({
-  selector: 'app-email-home-page',
-  templateUrl: './email-home-page.component.html',
-  styleUrls: ['./email-home-page.component.css'],
+    selector: 'app-email-home-page',
+    templateUrl: './email-home-page.component.html',
+    styleUrls: ['./email-home-page.component.css'],
+    standalone: false
 })
 export class EmailHomePageComponent {
   emailOTPResponse: any;

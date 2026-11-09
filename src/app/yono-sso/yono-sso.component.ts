@@ -9,9 +9,10 @@ import { NavigationService } from '../navigation.service';
 import { MoengagesdkService } from '../moengagesdk.service';
 
 @Component({
-  selector: 'app-yono-sso',
-  templateUrl: './yono-sso.component.html',
-  styleUrls: ['./yono-sso.component.css'],
+    selector: 'app-yono-sso',
+    templateUrl: './yono-sso.component.html',
+    styleUrls: ['./yono-sso.component.css'],
+    standalone: false
 })
 export class YonoSsoComponent implements OnInit {
   clientid: string = '';

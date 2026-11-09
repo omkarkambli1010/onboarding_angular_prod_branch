@@ -15,9 +15,10 @@ import { NavigationService } from '../navigation.service';
 declare let $: any;
 
 @Component({
-  selector: 'app-bp-sso',
-  templateUrl: './bp-sso.component.html',
-  styleUrls: ['./bp-sso.component.css']
+    selector: 'app-bp-sso',
+    templateUrl: './bp-sso.component.html',
+    styleUrls: ['./bp-sso.component.css'],
+    standalone: false
 })
 export class BpSsoComponent implements OnInit{
     @ViewChild('mobilecloseModal') mobilecloseModal: any;

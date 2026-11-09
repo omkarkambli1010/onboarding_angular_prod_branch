@@ -27,9 +27,10 @@ import { MoengagesdkService } from '../moengagesdk.service';
 declare let $: any;
 
 @Component({
-  selector: 'app-plan-preference',
-  templateUrl: './plan-preference.component.html',
-  styleUrls: ['./plan-preference.component.css'],
+    selector: 'app-plan-preference',
+    templateUrl: './plan-preference.component.html',
+    styleUrls: ['./plan-preference.component.css'],
+    standalone: false
 })
 export class PlanPreferenceComponent implements OnInit {
   @ViewChild('carousel') carousel: Carousel | any;

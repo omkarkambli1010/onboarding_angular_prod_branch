@@ -17,9 +17,10 @@ import { NavigationService } from '../navigation.service';
 import { MoengagesdkService } from '../moengagesdk.service';
 
 @Component({
-  selector: 'app-father-spouse-name',
-  templateUrl: './father-spouse-name.component.html',
-  styleUrls: ['./father-spouse-name.component.css'],
+    selector: 'app-father-spouse-name',
+    templateUrl: './father-spouse-name.component.html',
+    styleUrls: ['./father-spouse-name.component.css'],
+    standalone: false
 })
 export class FatherSpouseNameComponent implements OnInit {
   clientid: any;

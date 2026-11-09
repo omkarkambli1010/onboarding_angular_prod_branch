@@ -22,9 +22,10 @@ declare const google: any;
 declare let $: any;
 
 @Component({
-  selector: 'app-yono-email',
-  templateUrl: './yono-email.component.html',
-  styleUrls: ['./yono-email.component.css'],
+    selector: 'app-yono-email',
+    templateUrl: './yono-email.component.html',
+    styleUrls: ['./yono-email.component.css'],
+    standalone: false
 })
 export class YonoEmailComponent implements OnInit {
   @ViewChild('otpEmailInput') otpEmailInput: any | NgModel;

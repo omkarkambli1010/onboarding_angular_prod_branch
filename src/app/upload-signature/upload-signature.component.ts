@@ -34,9 +34,10 @@ import heic2any from 'heic2any';
 import { MoengagesdkService } from '../moengagesdk.service';
 
 @Component({
-  selector: 'app-upload-signature',
-  templateUrl: './upload-signature.component.html',
-  styleUrls: ['./upload-signature.component.css'],
+    selector: 'app-upload-signature',
+    templateUrl: './upload-signature.component.html',
+    styleUrls: ['./upload-signature.component.css'],
+    standalone: false
 })
 export class UploadSignatureComponent implements AfterViewChecked, OnDestroy {
   @Output()

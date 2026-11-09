@@ -20,9 +20,10 @@ import { AesService } from '../aes.service';
 import { ToastrService } from 'ngx-toastr';
 declare let $: any;
 @Component({
-  selector: 'app-mobile-home-otp-screen',
-  templateUrl: './mobile-home-otp-screen.component.html',
-  styleUrls: ['./mobile-home-otp-screen.component.css'],
+    selector: 'app-mobile-home-otp-screen',
+    templateUrl: './mobile-home-otp-screen.component.html',
+    styleUrls: ['./mobile-home-otp-screen.component.css'],
+    standalone: false
 })
 export class MobileHomeOtpScreenComponent {
   @ViewChild('otpMobileInput') otpMobileInput: any | NgModel;

@@ -22,9 +22,10 @@ import { ToastrService } from 'ngx-toastr';
 declare let $: any;
 
 @Component({
-  selector: 'app-email-home-otp-screen',
-  templateUrl: './email-home-otp-screen.component.html',
-  styleUrls: ['./email-home-otp-screen.component.css'],
+    selector: 'app-email-home-otp-screen',
+    templateUrl: './email-home-otp-screen.component.html',
+    styleUrls: ['./email-home-otp-screen.component.css'],
+    standalone: false
 })
 export class EmailHomeOtpScreenComponent {
   @ViewChild('otpEmailInput') otpEmailInput: any | NgModel;

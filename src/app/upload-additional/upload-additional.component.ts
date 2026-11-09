@@ -23,9 +23,10 @@ import heic2any from 'heic2any';
 
 
 @Component({
-  selector: 'app-upload-additional',
-  templateUrl: './upload-additional.component.html',
-  styleUrls: ['./upload-additional.component.css']
+    selector: 'app-upload-additional',
+    templateUrl: './upload-additional.component.html',
+    styleUrls: ['./upload-additional.component.css'],
+    standalone: false
 })
 export class UploadAdditionalComponent {
   // utm_source: string = 'search-engine';

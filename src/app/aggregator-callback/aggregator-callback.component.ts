@@ -21,9 +21,10 @@ import { NavigationService } from '../navigation.service';
 
 
 @Component({
-  selector: 'app-aggregator-callback',
-  templateUrl: './aggregator-callback.component.html',
-  styleUrls: ['./aggregator-callback.component.css']
+    selector: 'app-aggregator-callback',
+    templateUrl: './aggregator-callback.component.html',
+    styleUrls: ['./aggregator-callback.component.css'],
+    standalone: false
 })
 export class AggregatorCallbackComponent {
   public capture_event: any;

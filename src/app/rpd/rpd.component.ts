@@ -11,9 +11,10 @@ import * as bootstrap from 'bootstrap';
 declare var $ : any;
 
 @Component({
-  selector: 'app-rpd',
-  templateUrl: './rpd.component.html',
-  styleUrls: ['./rpd.component.css'],
+    selector: 'app-rpd',
+    templateUrl: './rpd.component.html',
+    styleUrls: ['./rpd.component.css'],
+    standalone: false
 })
 export class RpdComponent {
   personalFormNumber: any;

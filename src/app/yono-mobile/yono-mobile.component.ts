@@ -19,9 +19,10 @@ import { MoengagesdkService } from '../moengagesdk.service';
 declare let $: any;
 
 @Component({
-  selector: 'app-yono-mobile',
-  templateUrl: './yono-mobile.component.html',
-  styleUrls: ['./yono-mobile.component.css'],
+    selector: 'app-yono-mobile',
+    templateUrl: './yono-mobile.component.html',
+    styleUrls: ['./yono-mobile.component.css'],
+    standalone: false
 })
 export class YonoMobileComponent implements OnInit {
   @ViewChild('mobilecloseModal') mobilecloseModal: any;

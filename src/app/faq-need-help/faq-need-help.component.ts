@@ -8,9 +8,10 @@ import { Location } from '@angular/common';
 declare let $: any;
 
 @Component({
-  selector: 'app-faq-need-help',
-  templateUrl: './faq-need-help.component.html',
-  styleUrls: ['./faq-need-help.component.css'],
+    selector: 'app-faq-need-help',
+    templateUrl: './faq-need-help.component.html',
+    styleUrls: ['./faq-need-help.component.css'],
+    standalone: false
 })
 export class FaqNeedHelpComponent {
   stageName: any;
