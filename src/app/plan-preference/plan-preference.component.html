@@ -9,28 +9,32 @@
                 <div class="header_align">
                   <div>
                     <div class="d-flex align-items-start gap-2">
-                      <div role="button" tabindex="0" (keydown.enter)="BackFormOne()" (keydown.space)="BackFormOne()"
-                        aria-label="Go back" *ngIf="this.RejectStatus != 'R'" (click)="BackFormOne()">
-                        <span>
-                          <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_0_10804)">
-                              <path d="M5 12.5H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                              <path d="M5 12.5L11 18.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                              <path d="M5 12.5L11 6.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                            </g>
-                            <defs>
-                              <clipPath id="clip0_0_10804">
-                                <rect width="24" height="24" fill="white" transform="translate(0 0.5)" />
-                              </clipPath>
-                            </defs>
-                          </svg>
-                        </span>
-                      </div>
-                      <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div>
+                      @if (this.RejectStatus != 'R') {
+                        <div role="button" tabindex="0" (keydown.enter)="BackFormOne()" (keydown.space)="BackFormOne()"
+                          aria-label="Go back" (click)="BackFormOne()">
+                          <span>
+                            <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <g clip-path="url(#clip0_0_10804)">
+                                <path d="M5 12.5H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round" />
+                                <path d="M5 12.5L11 18.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round" />
+                                <path d="M5 12.5L11 6.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round" />
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_0_10804">
+                                  <rect width="24" height="24" fill="white" transform="translate(0 0.5)" />
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          </span>
+                        </div>
+                      }
+                      @if (this.RejectStatus === 'R') {
+                        <div class="back_cls2"></div>
+                      }
                       <h5 role="heading" aria-level="1" id="plan-sel-heading">Plan Selection</h5>
                     </div>
                   </div>
@@ -68,220 +72,36 @@
                 </div>
               </div>
               <hr class="desktop_css" />
-              <div *ngIf="
-                  planSelectionResponse &&
-                  utmSourcePlanPreference?.toUpperCase() !== 'RETAILSALES' &&
-                  utmSourcePlanPreference?.toUpperCase() !== 'PAISALO' &&
-                  utmSourcePlanPreference?.toUpperCase() !== 'RETAILBROKING'
-                " class="plan_process_align">
-                <div *ngFor="let plans of planSelectionResponse; let i = index" class="plan_cards" [ngClass]="{
+              @if (
+                planSelectionResponse &&
+                utmSourcePlanPreference?.toUpperCase() !== 'RETAILSALES' &&
+                utmSourcePlanPreference?.toUpperCase() !== 'PAISALO' &&
+                utmSourcePlanPreference?.toUpperCase() !== 'RETAILBROKING'
+                ) {
+                <div class="plan_process_align">
+                  @for (plans of planSelectionResponse; track plans; let i = $index) {
+<div class="plan_cards" [ngClass]="{
                     'selected-plan': plans.TCSSchemeCode == 'AOS14DIY99',
                   }">
-                  <div class="body">
-                    <div class="first_section">
-                      <div>
-                        <div *ngIf="plans.IsWoman !== 'Y'" class="logo-id">
-                          <!-- <img [src]="this.routeurl + plans.schemeTypeLogo" alt="{{ plans.schemeType }}" /> -->
-                          <img [src]="'https://diy.sbisecurities.in/' + plans.schemeTypeLogo"
-                            alt="{{ plans.schemeType }}" />
-                          <h3 class="plan-heading">{{ plans.schemeType }}</h3>
-                        </div>
-                        <div *ngIf="plans.IsWoman == 'Y'" class="logo-id">
-                          <img class="women_img" src="assets/images/diy/womens_day_img.svg"
-                            alt="Women's Day special plan badge" />
-                        </div>
-                        <div *ngIf="plans.PlanID == this.selectedPlanTag">
-                          <div class="selected-tag">
-                            <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M8 2C6.71442 2 5.45772 2.38122 4.3888 3.09545C3.31988 3.80968 2.48676 4.82484 1.99479 6.01256C1.50282 7.20028 1.37409 8.50721 1.6249 9.76809C1.8757 11.029 2.49477 12.1872 3.40381 13.0962C4.31285 14.0052 5.47104 14.6243 6.73192 14.8751C7.99279 15.1259 9.29973 14.9972 10.4874 14.5052C11.6752 14.0132 12.6903 13.1801 13.4046 12.1112C14.1188 11.0423 14.5 9.78558 14.5 8.5C14.4982 6.77665 13.8128 5.12441 12.5942 3.90582C11.3756 2.68722 9.72335 2.00182 8 2ZM10.8538 7.35375L7.35375 10.8538C7.30732 10.9002 7.25217 10.9371 7.19147 10.9623C7.13077 10.9874 7.06571 11.0004 7 11.0004C6.9343 11.0004 6.86923 10.9874 6.80853 10.9623C6.74783 10.9371 6.69269 10.9002 6.64625 10.8538L5.14625 9.35375C5.05243 9.25993 4.99972 9.13268 4.99972 9C4.99972 8.86732 5.05243 8.74007 5.14625 8.64625C5.24007 8.55243 5.36732 8.49972 5.5 8.49972C5.63268 8.49972 5.75993 8.55243 5.85375 8.64625L7 9.79313L10.1463 6.64625C10.1927 6.59979 10.2479 6.56294 10.3086 6.5378C10.3693 6.51266 10.4343 6.49972 10.5 6.49972C10.5657 6.49972 10.6308 6.51266 10.6915 6.5378C10.7521 6.56294 10.8073 6.59979 10.8538 6.64625C10.9002 6.6927 10.9371 6.74786 10.9622 6.80855C10.9873 6.86925 11.0003 6.9343 11.0003 7C11.0003 7.0657 10.9873 7.13075 10.9622 7.19145C10.9371 7.25214 10.9002 7.3073 10.8538 7.35375Z"
-                                fill="#9D76FF" />
-                            </svg>
-                            Selected
-                          </div>
-                        </div>
-                      </div>
-
-                      <div *ngIf="plans.IsWoman !== 'Y'" class="pricing_amt">
-                        <div>
-                          <span>₹</span>
-                          <p>{{ plans.Charges | number: "1.0-0" }}</p>
-                          <p class="exe_msg">{{ plans.Price_PostMsg }}</p>
-                        </div>
-                        <div class="pricing_desc">
-                          {{ plans.schemePriceDesc }}
-                        </div>
-                      </div>
-                      <div *ngIf="plans.IsWoman == 'Y'" class="pricing_amt"></div>
-                    </div>
-                    <div class="second_section">
-                      <img src="assets/images/diy/linesvg.svg" alt="" srcset="" aria-hidden="true" />
-
-                      <div class="brokerage" *ngIf="
-                          utmSourcePlanPreference?.toUpperCase() !==
-                          'PROPRIETOR'
-                        ">
-                        <div>
-                          <h3 *ngIf="
-                              plans.brokerageText != 'Y' &&
-                              (plans.schemeBrokrageAmtDesc === '0' ||
-                                plans.schemeBrokrageAmtDesc.toLowerCase()) ===
-                                'zero'
-                            ">
-                            {{ plans.schemeBrokrageAmtDesc }} Brokerage
-                          </h3>
-                          <h3 *ngIf="
-                              plans.brokerageText != 'Y' &&
-                              (plans.schemeBrokrageAmtDesc === '0' ||
-                                plans.schemeBrokrageAmtDesc.toLowerCase()) !==
-                                'zero'
-                            ">
-                            <span
-                              *ngIf="!(plans?.TCSSchemeCode === 'AOS5PLAN499' || plans?.TCSSchemeCode === 'AOS26PLAN499')">
-                              ₹ {{ plans?.schemeBrokrageAmtDesc }}</span>
-                            <span
-                              *ngIf="(plans.TCSSchemeCode == 'AOS5PLAN499' || plans.TCSSchemeCode == 'AOS26PLAN499')"></span>
-
-                          </h3>
-                          <h3 *ngIf="plans.brokerageText == 'Y'">
-                            {{ plans.schemeBrokrageAmtDesc }}
-                          </h3>
-                        </div>
-                        <div>
-                          <span>{{ plans.schemeBrokrageDesc }}</span>
-                        </div>
-                      </div>
-                      <div class="brokerage" *ngIf="
-                          utmSourcePlanPreference?.toUpperCase() ===
-                          'PROPRIETOR'
-                        ">
-                        <div>
-                          <h3 *ngIf="
-                              plans.brokerageText != 'Y' &&
-                              (plans.schemeBrokrageAmtDesc === '0' ||
-                                plans.schemeBrokrageAmtDesc.toLowerCase()) ===
-                                'zero'
-                            ">
-                            {{ plans.schemeBrokrageAmtDesc }} Brokerage
-                          </h3>
-                          <h3 *ngIf="
-                              plans.brokerageText != 'Y' &&
-                              (plans.schemeBrokrageAmtDesc === '0' ||
-                                plans.schemeBrokrageAmtDesc.toLowerCase()) !==
-                                'zero'
-                            ">
-                            <span
-                              *ngIf="!(plans?.TCSSchemeCode === 'AOS5PLAN499' || plans?.TCSSchemeCode === 'AOS26PLAN499')">
-                              ₹ {{ plans?.schemeBrokrageAmtDesc }}</span>
-                            <span
-                              *ngIf="(plans.TCSSchemeCode == 'AOS5PLAN499' || plans.TCSSchemeCode == 'AOS26PLAN499')"></span>
-
-                          </h3>
-                        </div>
-                      </div>
-
-                      <img src="assets/images/diy/linesvg.svg" alt="" srcset="" aria-hidden="true" />
-                    </div>
-                    <div class="third_section">
-                      <div>
-                        <h3>Lifetime Benefits Include:</h3>
-                      </div>
-                      <div class="benefit_list" role="list">
-                        <div role="listitem" *ngIf="plans?.INTRADAY !== null">
-                          <span>
-                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
-                                fill="#9D76FF" />
-                            </svg>
-                            <p>{{ plans.INTRADAY }} Intraday Trades</p>
-                          </span>
-                        </div>
-                        <div role="listitem" *ngIf="plans?.DELIVERY !== null">
-                          <span>
-                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
-                                fill="#9D76FF" />
-                            </svg>
-                            <p>{{ plans.DELIVERY }} on Delivery Trade</p>
-                          </span>
-                        </div>
-                        <div role="listitem" *ngIf="plans?.EMARGIN !== null">
-                          <span>
-                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
-                                fill="#9D76FF" />
-                            </svg>
-                            <p>{{ plans.EMARGIN }} on E-Margin</p>
-                          </span>
-                        </div>
-                        <div role="listitem" *ngIf="plans?.TCSSchemeCode != 'SSLEMP'">
-                          <span>
-                            <p class="highlight_imp">
-                              *0% interest for 23 trading days
-                            </p>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="footer">
-                    <div class="proceed_btn">
-                      <button [id]="plans.schemeType" [attr.aria-label]="'Proceed with ' + plans.schemeType + ' plan'"
-                        (click)="
-                          selectPlan(plans);
-                          savePlanScheme(
-                            plans.PlanID,
-                            plans.schemeType,
-                            plans.schemeTypeLogo
-                          )
-                        " class="btn btn_cls">
-                        Proceed
-                      </button>
-                    </div>
-                    <button type="button" (click)="openModal(plans.PlanID)"
-                      [attr.aria-label]="'Know more about ' + plans.schemeType + ' plan'" class="know-more-btn"
-                      style="background:none;border:none;padding:0;cursor:pointer;text-align:left;">
-                      <span>Know More</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <form role="presentation" method="post" *ngIf="
-                  (planSelectionResponse &&
-                    utmSourcePlanPreference?.toUpperCase() === 'RETAILSALES') ||
-                  utmSourcePlanPreference?.toUpperCase() === 'PAISALO' ||
-                  utmSourcePlanPreference?.toUpperCase() === 'RETAILBROKING'
-                " style="padding: 50px 0; height: unset">
-                <p-carousel #carousel [page]="carouselPage" [value]="planSelectionResponse" [numVisible]="3"
-                  [numScroll]="1" [circular]="false" [autoplayInterval]="false" [responsiveOptions]="responsiveOptions"
-                  styleClass="custom-carousel">
-                  <ng-template let-plans pTemplate="item">
-                    <div class="plan_process_align">
-                      <div class="plan_cards" [ngClass]="{
-                          'selected-plan': plans.TCSSchemeCode == 'AOS14DIY99',
-                        }">
-                        <div class="body">
-                          <div class="first_section">
-                            <div>
-                              <div *ngIf="plans.IsWoman !== 'Y'" class="logo-id">
+                      <div class="body">
+                        <div class="first_section">
+                          <div>
+                            @if (plans.IsWoman !== 'Y') {
+                              <div class="logo-id">
                                 <!-- <img [src]="this.routeurl + plans.schemeTypeLogo" alt="{{ plans.schemeType }}" /> -->
                                 <img [src]="'https://diy.sbisecurities.in/' + plans.schemeTypeLogo"
                                   alt="{{ plans.schemeType }}" />
-                                <h3>{{ plans.schemeType }}</h3>
+                                <h3 class="plan-heading">{{ plans.schemeType }}</h3>
                               </div>
-                              <div *ngIf="plans.IsWoman == 'Y'" class="logo-id">
+                            }
+                            @if (plans.IsWoman == 'Y') {
+                              <div class="logo-id">
                                 <img class="women_img" src="assets/images/diy/womens_day_img.svg"
                                   alt="Women's Day special plan badge" />
                               </div>
-                              <div *ngIf="plans.PlanID == this.selectedPlanTag">
+                            }
+                            @if (plans.PlanID == this.selectedPlanTag) {
+                              <div>
                                 <div class="selected-tag">
                                   <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -292,8 +112,10 @@
                                   Selected
                                 </div>
                               </div>
-                            </div>
-                            <div *ngIf="plans.IsWoman !== 'Y'" class="pricing_amt">
+                            }
+                          </div>
+                          @if (plans.IsWoman !== 'Y') {
+                            <div class="pricing_amt">
                               <div>
                                 <span>₹</span>
                                 <p>{{ plans.Charges | number: "1.0-0" }}</p>
@@ -303,50 +125,104 @@
                                 {{ plans.schemePriceDesc }}
                               </div>
                             </div>
-                            <div *ngIf="plans.IsWoman == 'Y'" class="pricing_amt"></div>
-                          </div>
-                          <div class="second_section">
-                            <img src="assets/images/diy/linesvg.svg" alt="" srcset="" aria-hidden="true" />
+                          }
+                          @if (plans.IsWoman == 'Y') {
+                            <div class="pricing_amt"></div>
+                          }
+                        </div>
+                        <div class="second_section">
+                          <img src="assets/images/diy/linesvg.svg" alt="" srcset="" aria-hidden="true" />
+                          @if (
+                            utmSourcePlanPreference?.toUpperCase() !==
+                            'PROPRIETOR'
+                            ) {
                             <div class="brokerage">
                               <div>
-                                <h3 *ngIf="
-                                    plans.brokerageText != 'Y' &&
-                                    (plans.schemeBrokrageAmtDesc === '0' ||
-                                      plans.schemeBrokrageAmtDesc.toLowerCase()) ===
-                                      'zero'
-                                  ">
-                                  {{ plans.schemeBrokrageAmtDesc }} Brokerage
-                                </h3>
-                                <h3 *ngIf="
-                                    plans.brokerageText != 'Y' &&
-                                    (plans.schemeBrokrageAmtDesc === '0' ||
-                                      plans.schemeBrokrageAmtDesc.toLowerCase()) !==
-                                      'zero'
-                                  ">
-                                  <span
-                                    *ngIf="!(plans?.TCSSchemeCode === 'AOS5PLAN499' || plans?.TCSSchemeCode === 'AOS26PLAN499')">
-                                    ₹ {{ plans?.schemeBrokrageAmtDesc }}</span>
-                                  <span
-                                    *ngIf="(plans.TCSSchemeCode == 'AOS5PLAN499' || plans.TCSSchemeCode == 'AOS26PLAN499')"></span>
-
-                                </h3>
-                                <h3 *ngIf="plans.brokerageText == 'Y'">
-                                  {{ plans.schemeBrokrageAmtDesc }}
-                                </h3>
+                                @if (
+                                  plans.brokerageText != 'Y' &&
+                                  (plans.schemeBrokrageAmtDesc === '0' ||
+                                  plans.schemeBrokrageAmtDesc.toLowerCase()) ===
+                                  'zero'
+                                  ) {
+                                  <h3>
+                                    {{ plans.schemeBrokrageAmtDesc }} Brokerage
+                                  </h3>
+                                }
+                                @if (
+                                  plans.brokerageText != 'Y' &&
+                                  (plans.schemeBrokrageAmtDesc === '0' ||
+                                  plans.schemeBrokrageAmtDesc.toLowerCase()) !==
+                                  'zero'
+                                  ) {
+                                  <h3>
+                                    @if (!(plans?.TCSSchemeCode === 'AOS5PLAN499' || plans?.TCSSchemeCode === 'AOS26PLAN499')) {
+                                      <span
+                                        >
+                                      ₹ {{ plans?.schemeBrokrageAmtDesc }}</span>
+                                    }
+                                    @if ((plans.TCSSchemeCode == 'AOS5PLAN499' || plans.TCSSchemeCode == 'AOS26PLAN499')) {
+                                      <span
+                                      ></span>
+                                    }
+                                  </h3>
+                                }
+                                @if (plans.brokerageText == 'Y') {
+                                  <h3>
+                                    {{ plans.schemeBrokrageAmtDesc }}
+                                  </h3>
+                                }
                               </div>
                               <div>
                                 <span>{{ plans.schemeBrokrageDesc }}</span>
                               </div>
                             </div>
-
-                            <img src="assets/images/diy/linesvg.svg" alt="Line svg" aria-hidden="true" />
-                          </div>
-                          <div class="third_section">
-                            <div>
-                              <h3 class="plan-heading">Lifetime Benefits Include:</h3>
+                          }
+                          @if (
+                            utmSourcePlanPreference?.toUpperCase() ===
+                            'PROPRIETOR'
+                            ) {
+                            <div class="brokerage">
+                              <div>
+                                @if (
+                                  plans.brokerageText != 'Y' &&
+                                  (plans.schemeBrokrageAmtDesc === '0' ||
+                                  plans.schemeBrokrageAmtDesc.toLowerCase()) ===
+                                  'zero'
+                                  ) {
+                                  <h3>
+                                    {{ plans.schemeBrokrageAmtDesc }} Brokerage
+                                  </h3>
+                                }
+                                @if (
+                                  plans.brokerageText != 'Y' &&
+                                  (plans.schemeBrokrageAmtDesc === '0' ||
+                                  plans.schemeBrokrageAmtDesc.toLowerCase()) !==
+                                  'zero'
+                                  ) {
+                                  <h3>
+                                    @if (!(plans?.TCSSchemeCode === 'AOS5PLAN499' || plans?.TCSSchemeCode === 'AOS26PLAN499')) {
+                                      <span
+                                        >
+                                      ₹ {{ plans?.schemeBrokrageAmtDesc }}</span>
+                                    }
+                                    @if ((plans.TCSSchemeCode == 'AOS5PLAN499' || plans.TCSSchemeCode == 'AOS26PLAN499')) {
+                                      <span
+                                      ></span>
+                                    }
+                                  </h3>
+                                }
+                              </div>
                             </div>
-                            <div class="benefit_list" role="list">
-                              <div role="listitem" *ngIf="plans?.INTRADAY !== null">
+                          }
+                          <img src="assets/images/diy/linesvg.svg" alt="" srcset="" aria-hidden="true" />
+                        </div>
+                        <div class="third_section">
+                          <div>
+                            <h3>Lifetime Benefits Include:</h3>
+                          </div>
+                          <div class="benefit_list" role="list">
+                            @if (plans?.INTRADAY !== null) {
+                              <div role="listitem">
                                 <span>
                                   <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -357,7 +233,9 @@
                                   <p>{{ plans.INTRADAY }} Intraday Trades</p>
                                 </span>
                               </div>
-                              <div role="listitem" *ngIf="plans?.DELIVERY !== null">
+                            }
+                            @if (plans?.DELIVERY !== null) {
+                              <div role="listitem">
                                 <span>
                                   <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -368,7 +246,9 @@
                                   <p>{{ plans.DELIVERY }} on Delivery Trade</p>
                                 </span>
                               </div>
-                              <div role="listitem" *ngIf="plans?.EMARGIN !== null">
+                            }
+                            @if (plans?.EMARGIN !== null) {
+                              <div role="listitem">
                                 <span>
                                   <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -379,37 +259,228 @@
                                   <p>{{ plans.EMARGIN }} on E-Margin</p>
                                 </span>
                               </div>
-                              <div role="listitem" *ngIf="plans?.TCSSchemeCode != 'SSLEMP'">
+                            }
+                            @if (plans?.TCSSchemeCode != 'SSLEMP') {
+                              <div role="listitem">
                                 <span>
                                   <p class="highlight_imp">
                                     *0% interest for 23 trading days
                                   </p>
                                 </span>
                               </div>
-                            </div>
+                            }
                           </div>
                         </div>
-                        <div class="footer">
-                          <div class="proceed_btn">
-                            <button [id]="plans.schemeType"
+                      </div>
+                      <div class="footer">
+                        <div class="proceed_btn">
+                          <button [id]="plans.schemeType" [attr.aria-label]="'Proceed with ' + plans.schemeType + ' plan'"
+                        (click)="
+                          selectPlan(plans);
+                          savePlanScheme(
+                            plans.PlanID,
+                            plans.schemeType,
+                            plans.schemeTypeLogo
+                          )
+                        " class="btn btn_cls">
+                            Proceed
+                          </button>
+                        </div>
+                        <button type="button" (click)="openModal(plans.PlanID)"
+                          [attr.aria-label]="'Know more about ' + plans.schemeType + ' plan'" class="know-more-btn"
+                          style="background:none;border:none;padding:0;cursor:pointer;text-align:left;">
+                          <span>Know More</span>
+                        </button>
+                      </div>
+                    </div>
+                  }
+                </div>
+              }
+
+              @if (
+                (planSelectionResponse &&
+                utmSourcePlanPreference?.toUpperCase() === 'RETAILSALES') ||
+                utmSourcePlanPreference?.toUpperCase() === 'PAISALO' ||
+                utmSourcePlanPreference?.toUpperCase() === 'RETAILBROKING'
+                ) {
+                <form role="presentation" method="post" style="padding: 50px 0; height: unset">
+                  <p-carousel #carousel [page]="carouselPage" [value]="planSelectionResponse" [numVisible]="3"
+                    [numScroll]="1" [circular]="false" [autoplayInterval]="false" [responsiveOptions]="responsiveOptions"
+                    styleClass="custom-carousel">
+                    <ng-template let-plans pTemplate="item">
+                      <div class="plan_process_align">
+                      <div class="plan_cards" [ngClass]="{
+                          'selected-plan': plans.TCSSchemeCode == 'AOS14DIY99',
+                        }">
+                          <div class="body">
+                            <div class="first_section">
+                              <div>
+                                @if (plans.IsWoman !== 'Y') {
+                                  <div class="logo-id">
+                                    <!-- <img [src]="this.routeurl + plans.schemeTypeLogo" alt="{{ plans.schemeType }}" /> -->
+                                    <img [src]="'https://diy.sbisecurities.in/' + plans.schemeTypeLogo"
+                                      alt="{{ plans.schemeType }}" />
+                                    <h3>{{ plans.schemeType }}</h3>
+                                  </div>
+                                }
+                                @if (plans.IsWoman == 'Y') {
+                                  <div class="logo-id">
+                                    <img class="women_img" src="assets/images/diy/womens_day_img.svg"
+                                      alt="Women's Day special plan badge" />
+                                  </div>
+                                }
+                                @if (plans.PlanID == this.selectedPlanTag) {
+                                  <div>
+                                    <div class="selected-tag">
+                                      <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                          d="M8 2C6.71442 2 5.45772 2.38122 4.3888 3.09545C3.31988 3.80968 2.48676 4.82484 1.99479 6.01256C1.50282 7.20028 1.37409 8.50721 1.6249 9.76809C1.8757 11.029 2.49477 12.1872 3.40381 13.0962C4.31285 14.0052 5.47104 14.6243 6.73192 14.8751C7.99279 15.1259 9.29973 14.9972 10.4874 14.5052C11.6752 14.0132 12.6903 13.1801 13.4046 12.1112C14.1188 11.0423 14.5 9.78558 14.5 8.5C14.4982 6.77665 13.8128 5.12441 12.5942 3.90582C11.3756 2.68722 9.72335 2.00182 8 2ZM10.8538 7.35375L7.35375 10.8538C7.30732 10.9002 7.25217 10.9371 7.19147 10.9623C7.13077 10.9874 7.06571 11.0004 7 11.0004C6.9343 11.0004 6.86923 10.9874 6.80853 10.9623C6.74783 10.9371 6.69269 10.9002 6.64625 10.8538L5.14625 9.35375C5.05243 9.25993 4.99972 9.13268 4.99972 9C4.99972 8.86732 5.05243 8.74007 5.14625 8.64625C5.24007 8.55243 5.36732 8.49972 5.5 8.49972C5.63268 8.49972 5.75993 8.55243 5.85375 8.64625L7 9.79313L10.1463 6.64625C10.1927 6.59979 10.2479 6.56294 10.3086 6.5378C10.3693 6.51266 10.4343 6.49972 10.5 6.49972C10.5657 6.49972 10.6308 6.51266 10.6915 6.5378C10.7521 6.56294 10.8073 6.59979 10.8538 6.64625C10.9002 6.6927 10.9371 6.74786 10.9622 6.80855C10.9873 6.86925 11.0003 6.9343 11.0003 7C11.0003 7.0657 10.9873 7.13075 10.9622 7.19145C10.9371 7.25214 10.9002 7.3073 10.8538 7.35375Z"
+                                          fill="#9D76FF" />
+                                      </svg>
+                                      Selected
+                                    </div>
+                                  </div>
+                                }
+                              </div>
+                              @if (plans.IsWoman !== 'Y') {
+                                <div class="pricing_amt">
+                                  <div>
+                                    <span>₹</span>
+                                    <p>{{ plans.Charges | number: "1.0-0" }}</p>
+                                    <p class="exe_msg">{{ plans.Price_PostMsg }}</p>
+                                  </div>
+                                  <div class="pricing_desc">
+                                    {{ plans.schemePriceDesc }}
+                                  </div>
+                                </div>
+                              }
+                              @if (plans.IsWoman == 'Y') {
+                                <div class="pricing_amt"></div>
+                              }
+                            </div>
+                            <div class="second_section">
+                              <img src="assets/images/diy/linesvg.svg" alt="" srcset="" aria-hidden="true" />
+                              <div class="brokerage">
+                                <div>
+                                  @if (
+                                    plans.brokerageText != 'Y' &&
+                                    (plans.schemeBrokrageAmtDesc === '0' ||
+                                    plans.schemeBrokrageAmtDesc.toLowerCase()) ===
+                                    'zero'
+                                    ) {
+                                    <h3>
+                                      {{ plans.schemeBrokrageAmtDesc }} Brokerage
+                                    </h3>
+                                  }
+                                  @if (
+                                    plans.brokerageText != 'Y' &&
+                                    (plans.schemeBrokrageAmtDesc === '0' ||
+                                    plans.schemeBrokrageAmtDesc.toLowerCase()) !==
+                                    'zero'
+                                    ) {
+                                    <h3>
+                                      @if (!(plans?.TCSSchemeCode === 'AOS5PLAN499' || plans?.TCSSchemeCode === 'AOS26PLAN499')) {
+                                        <span
+                                          >
+                                        ₹ {{ plans?.schemeBrokrageAmtDesc }}</span>
+                                      }
+                                      @if ((plans.TCSSchemeCode == 'AOS5PLAN499' || plans.TCSSchemeCode == 'AOS26PLAN499')) {
+                                        <span
+                                        ></span>
+                                      }
+                                    </h3>
+                                  }
+                                  @if (plans.brokerageText == 'Y') {
+                                    <h3>
+                                      {{ plans.schemeBrokrageAmtDesc }}
+                                    </h3>
+                                  }
+                                </div>
+                                <div>
+                                  <span>{{ plans.schemeBrokrageDesc }}</span>
+                                </div>
+                              </div>
+                              <img src="assets/images/diy/linesvg.svg" alt="Line svg" aria-hidden="true" />
+                            </div>
+                            <div class="third_section">
+                              <div>
+                                <h3 class="plan-heading">Lifetime Benefits Include:</h3>
+                              </div>
+                              <div class="benefit_list" role="list">
+                                @if (plans?.INTRADAY !== null) {
+                                  <div role="listitem">
+                                    <span>
+                                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                          d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
+                                          fill="#9D76FF" />
+                                      </svg>
+                                      <p>{{ plans.INTRADAY }} Intraday Trades</p>
+                                    </span>
+                                  </div>
+                                }
+                                @if (plans?.DELIVERY !== null) {
+                                  <div role="listitem">
+                                    <span>
+                                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                          d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
+                                          fill="#9D76FF" />
+                                      </svg>
+                                      <p>{{ plans.DELIVERY }} on Delivery Trade</p>
+                                    </span>
+                                  </div>
+                                }
+                                @if (plans?.EMARGIN !== null) {
+                                  <div role="listitem">
+                                    <span>
+                                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                          d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
+                                          fill="#9D76FF" />
+                                      </svg>
+                                      <p>{{ plans.EMARGIN }} on E-Margin</p>
+                                    </span>
+                                  </div>
+                                }
+                                @if (plans?.TCSSchemeCode != 'SSLEMP') {
+                                  <div role="listitem">
+                                    <span>
+                                      <p class="highlight_imp">
+                                        *0% interest for 23 trading days
+                                      </p>
+                                    </span>
+                                  </div>
+                                }
+                              </div>
+                            </div>
+                          </div>
+                          <div class="footer">
+                            <div class="proceed_btn">
+                              <button [id]="plans.schemeType"
                               [attr.aria-label]="'Proceed with ' + plans.schemeType + ' plan'" (click)="
                                 selectPlan(plans); savePlanScheme(plans.PlanID)
                               " class="btn btn_cls">
-                              Proceed
-                            </button>
-                          </div>
+                                Proceed
+                              </button>
+                            </div>
                           <button type="button" (click)="openModal(plans.PlanID)" [attr.aria-label]="
                               'Know more about ' + plans.schemeType + ' plan'
                             " class="know-more-btn"
-                            style="background:none;border:none;padding:0;cursor:pointer;text-align:left;">
-                            <span>Know More</span>
-                          </button>
+                              style="background:none;border:none;padding:0;cursor:pointer;text-align:left;">
+                              <span>Know More</span>
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </ng-template>
-                </p-carousel>
-              </form>
+                    </ng-template>
+                  </p-carousel>
+                </form>
+              }
             </div>
           </form>
         </div>
@@ -423,12 +494,16 @@
     <div class="container">
       <div class="row">
         <div class="back_cls">
-          <div role="button" tabindex="0" (keydown.enter)="BackFormOne()" (keydown.space)="BackFormOne()"
-            *ngIf="this.RejectStatus != 'R'" (click)="BackFormOne()" aria-label="Go back" class="back-btn">
-            <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
-          </div>
+          @if (this.RejectStatus != 'R') {
+            <div role="button" tabindex="0" (keydown.enter)="BackFormOne()" (keydown.space)="BackFormOne()"
+              (click)="BackFormOne()" aria-label="Go back" class="back-btn">
+              <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
+            </div>
+          }
 
-          <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div>
+          @if (this.RejectStatus === 'R') {
+            <div class="back_cls2"></div>
+          }
 
           <div class="dp_tariff_cls">
             <div class="" style="flex: 2; display: flex; flex-direction: column; gap: 5px">
@@ -470,53 +545,73 @@
 
         <!-- 3 - 2 Card Brokerage UI Mobile -->
 
-        <form role="presentation" method="post" *ngIf="
-            planSelectionResponse?.length > 1 &&
-            utmSourcePlanPreference?.toUpperCase() != 'RETAILSALES' &&
-            utmSourcePlanPreference?.toUpperCase() != 'PAISALO' &&
-            utmSourcePlanPreference?.toUpperCase() != 'RETAILBROKING'
-          ">
-          <div class="upper_section">
-            <div class="first_section_mobile">
-              <div *ngFor="let plan of planSelectionResponse; let i = index" [ngClass]="{
+        @if (
+          planSelectionResponse?.length > 1 &&
+          utmSourcePlanPreference?.toUpperCase() != 'RETAILSALES' &&
+          utmSourcePlanPreference?.toUpperCase() != 'PAISALO' &&
+          utmSourcePlanPreference?.toUpperCase() != 'RETAILBROKING'
+          ) {
+          <form role="presentation" method="post">
+            <div class="upper_section">
+              <div class="first_section_mobile">
+                @for (plan of planSelectionResponse; track plan; let i = $index) {
+<div [ngClass]="{
                   'selected-plan': plan.PlanID == selectedPlanTag,
                   'highlighted-plan': plan.TCSSchemeCode == 'AOS14DIY99',
                 }" class="card_row">
-                <div class="upper_header_section">
-                  <div>
-                    <!-- <img [src]="this.routeurl + plan.schemeTypeLogo" alt="{{ plan.schemeType }}" /> -->
-                    <img [src]="'https://diy.sbisecurities.in/' + plan.schemeTypeLogo" alt="{{ plan.schemeType }}" />
-                  </div>
-                  <div class="description">
-                    <p *ngIf="plan.IsWoman !== 'Y'">{{ plan.schemeType }}</p>
-                    <p *ngIf="plan.IsWoman == 'Y'" style="font-size: 18px; text-align: center">
-                      {{ plan.schemeType }}
-                    </p>
-
-                    <span *ngIf="plan.IsWoman !== 'Y'" class="price_algn">
-                      <p *ngIf="plan.SchemeCharges == 0" class="price">Zero</p>
-                      <p *ngIf="plan.SchemeCharges != 0" class="price">
-                        {{ plan.SchemeCharges }}
-                        <span class="gst_css">{{ plan.Price_PostMsg }}</span>
-                      </p>
-                      <span *ngIf="plan.SchemeCharges == 0" class="ex_gst_cls">Zero fees</span>
-                      <span *ngIf="plan.SchemeCharges != 0" class="ex_gst_cls">One-time fees</span>
-                    </span>
-                    <span *ngIf="plan.IsWoman == 'Y'" class="price_algn"></span>
-                  </div>
-                </div>
-                <div class="select_btn">
-                  <button (click)="
+                    <div class="upper_header_section">
+                      <div>
+                        <!-- <img [src]="this.routeurl + plan.schemeTypeLogo" alt="{{ plan.schemeType }}" /> -->
+                        <img [src]="'https://diy.sbisecurities.in/' + plan.schemeTypeLogo" alt="{{ plan.schemeType }}" />
+                      </div>
+                      <div class="description">
+                        @if (plan.IsWoman !== 'Y') {
+                          <p>{{ plan.schemeType }}</p>
+                        }
+                        @if (plan.IsWoman == 'Y') {
+                          <p style="font-size: 18px; text-align: center">
+                            {{ plan.schemeType }}
+                          </p>
+                        }
+                        @if (plan.IsWoman !== 'Y') {
+                          <span class="price_algn">
+                            @if (plan.SchemeCharges == 0) {
+                              <p class="price">Zero</p>
+                            }
+                            @if (plan.SchemeCharges != 0) {
+                              <p class="price">
+                                {{ plan.SchemeCharges }}
+                                <span class="gst_css">{{ plan.Price_PostMsg }}</span>
+                              </p>
+                            }
+                            @if (plan.SchemeCharges == 0) {
+                              <span class="ex_gst_cls">Zero fees</span>
+                            }
+                            @if (plan.SchemeCharges != 0) {
+                              <span class="ex_gst_cls">One-time fees</span>
+                            }
+                          </span>
+                        }
+                        @if (plan.IsWoman == 'Y') {
+                          <span class="price_algn"></span>
+                        }
+                      </div>
+                    </div>
+                    <div class="select_btn">
+                      @if (plan.PlanID == selectedPlanTag) {
+<button (click)="
                       selectPlan(plan);
                       savePlanScheme(
                         plan.PlanID,
                         plan.schemeType,
                         plan.schemeTypeLogo
                       )
-                    " *ngIf="plan.PlanID == selectedPlanTag" class="btn_cls_selected">
-                    Selected
-                  </button>
-                  <button *ngIf="plan.PlanID != selectedPlanTag" (click)="
+                    " class="btn_cls_selected">
+                          Selected
+                        </button>
+                      }
+                      @if (plan.PlanID != selectedPlanTag) {
+<button (click)="
                       selectPlan(plan);
                       savePlanScheme(
                         plan.PlanID,
@@ -524,470 +619,549 @@
                         plan.schemeTypeLogo
                       )
                     " class="btn_cls">
-                    Select
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div *ngIf="!isWomenCheck" class="notice_highlight">
-              <p><span>ZERO</span> Interest for 23 days for Margin Trading</p>
-              <p>and <span>FREE</span> AMC for 1 year</p>
-            </div>
-            <div *ngIf="isWomenCheck" class="notice_highlight">
-              <p><span>ZERO</span> Interest for 23 days for Margin Trading</p>
-            </div>
-          </div>
-          <div class="overflow_section">
-            <div class="equity_heading">
-              <span>Equity</span>
-            </div>
-
-            <div class="plan-features">
-              <div class="section" [ngClass]="{
-                  'selected-plan': plan.PlanID == selectedPlanTag,
-                  'highlighted-plan': plan.TCSSchemeCode == 'AOS14DIY99',
-                }" *ngFor="let plan of planSelectionResponse; let i = index">
-                <div class="plans-grid">
-                  <div class="text_align">
-                    <div class="plan-name">{{ plan.INTRADAY }}</div>
-                    <div class="plan-value">on Intraday</div>
-                  </div>
-                  <div class="text_align">
-                    <div class="plan-name">{{ plan.DELIVERY }}</div>
-                    <div class="plan-value">
-                      {{
-                      plan.schemeType === "Premium"
-                      ? "on Delivery*"
-                      : "on Delivery"
-                      }}
+                          Select
+                        </button>
+                      }
                     </div>
                   </div>
-                  <div class="text_align">
-                    <div class="plan-name">{{ plan.ETF }}</div>
-                    <div class="plan-value">on ETF</div>
-                  </div>
-                  <div class="text_align">
-                    <div class="plan-name">{{ plan.EMARGIN }}</div>
-                    <div class="plan-value">on E-margin</div>
-                  </div>
-                </div>
+                }
               </div>
+              @if (!isWomenCheck) {
+                <div class="notice_highlight">
+                  <p><span>ZERO</span> Interest for 23 days for Margin Trading</p>
+                  <p>and <span>FREE</span> AMC for 1 year</p>
+                </div>
+              }
+              @if (isWomenCheck) {
+                <div class="notice_highlight">
+                  <p><span>ZERO</span> Interest for 23 days for Margin Trading</p>
+                </div>
+              }
             </div>
-
-            <div class="derivates_heading">
-              <span>Derivatives (F&O)</span>
-            </div>
-
-            <div class="plan-features">
-              <div class="section" [ngClass]="{
+            <div class="overflow_section">
+              <div class="equity_heading">
+                <span>Equity</span>
+              </div>
+              <div class="plan-features">
+                @for (plan of planSelectionResponse; track plan; let i = $index) {
+<div class="section" [ngClass]="{
+                  'selected-plan': plan.PlanID == selectedPlanTag,
+                  'highlighted-plan': plan.TCSSchemeCode == 'AOS14DIY99',
+                }">
+                    <div class="plans-grid">
+                      <div class="text_align">
+                        <div class="plan-name">{{ plan.INTRADAY }}</div>
+                        <div class="plan-value">on Intraday</div>
+                      </div>
+                      <div class="text_align">
+                        <div class="plan-name">{{ plan.DELIVERY }}</div>
+                        <div class="plan-value">
+                          {{
+                          plan.schemeType === "Premium"
+                          ? "on Delivery*"
+                          : "on Delivery"
+                          }}
+                        </div>
+                      </div>
+                      <div class="text_align">
+                        <div class="plan-name">{{ plan.ETF }}</div>
+                        <div class="plan-value">on ETF</div>
+                      </div>
+                      <div class="text_align">
+                        <div class="plan-name">{{ plan.EMARGIN }}</div>
+                        <div class="plan-value">on E-margin</div>
+                      </div>
+                    </div>
+                  </div>
+                }
+              </div>
+              <div class="derivates_heading">
+                <span>Derivatives (F&O)</span>
+              </div>
+              <div class="plan-features">
+                @for (plan of planSelectionResponse; track plan; let i = $index) {
+<div class="section" [ngClass]="{
                   'selected-plan': plan.PlanID == selectedPlanTag,
                   'highlighted-plan': plan.TCSSchemeCode == 'AOS14DIY99',}"
-                *ngFor="let plan of planSelectionResponse; let i = index">
-                <div class="plans-grid">
-                  <div class="text_align">
-                    <div class="plan-name">{{ plan.INTRADAY }}</div>
-                    <div class="plan-value">on Intraday</div>
+                    >
+                    <div class="plans-grid">
+                      <div class="text_align">
+                        <div class="plan-name">{{ plan.INTRADAY }}</div>
+                        <div class="plan-value">on Intraday</div>
+                      </div>
+                      <div class="text_align">
+                        <div class="plan-name">{{ plan.FUTURES }}</div>
+                        <div class="plan-value">on Futures</div>
+                      </div>
+                      <div class="text_align">
+                        <div class="plan-name">{{ plan.OPTIONS }}</div>
+                        <div class="plan-value">on Options</div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="text_align">
-                    <div class="plan-name">{{ plan.FUTURES }}</div>
-                    <div class="plan-value">on Futures</div>
-                  </div>
-                  <div class="text_align">
-                    <div class="plan-name">{{ plan.OPTIONS }}</div>
-                    <div class="plan-value">on Options</div>
-                  </div>
+                }
+              </div>
+              @for (plan of planSelectionResponse; track plan; let i = $index) {
+                <div>
+                  @if (plan?.schemeType === 'Premium') {
+                    <div class="derivates_heading_text">
+                      <span>*Zero Brokerage on Delivery till 75 lakh Delivery Trade
+                      Volume for Premium Plan</span>
+                    </div>
+                  }
                 </div>
-              </div>
+              }
             </div>
-
-            <div *ngFor="let plan of planSelectionResponse; let i = index">
-              <div *ngIf="plan?.schemeType === 'Premium'" class="derivates_heading_text">
-                <span>*Zero Brokerage on Delivery till 75 lakh Delivery Trade
-                  Volume for Premium Plan</span>
-              </div>
-            </div>
-          </div>
-        </form>
+          </form>
+        }
 
         <!-- Single Card Brokerage UI Mobile -->
 
-        <form role="presentation" method="post" *ngIf="
-            planSelectionResponse?.length == 1 &&
-            (utmSourcePlanPreference?.toUpperCase() != 'RETAILSALES' ||
-              utmSourcePlanPreference?.toUpperCase() != 'PAISALO' ||
-              utmSourcePlanPreference?.toUpperCase() != 'RETAILBROKING')
-          " style="padding: 50px 0; height: unset">
-          <p-carousel #carousel [page]="carouselPage" [value]="planSelectionResponse" [numVisible]="1" [numScroll]="1"
-            [circular]="false" [autoplayInterval]="false" [responsiveOptions]="responsiveOptions"
-            styleClass="custom-carousel">
-            <ng-template let-plans pTemplate="item">
-              <div class="plan_process_align">
+        @if (
+          planSelectionResponse?.length == 1 &&
+          (utmSourcePlanPreference?.toUpperCase() != 'RETAILSALES' ||
+          utmSourcePlanPreference?.toUpperCase() != 'PAISALO' ||
+          utmSourcePlanPreference?.toUpperCase() != 'RETAILBROKING')
+          ) {
+          <form role="presentation" method="post" style="padding: 50px 0; height: unset">
+            <p-carousel #carousel [page]="carouselPage" [value]="planSelectionResponse" [numVisible]="1" [numScroll]="1"
+              [circular]="false" [autoplayInterval]="false" [responsiveOptions]="responsiveOptions"
+              styleClass="custom-carousel">
+              <ng-template let-plans pTemplate="item">
+                <div class="plan_process_align">
                 <div class="plan_cards" [ngClass]="{
                     'selected-plan': plans.TCSSchemeCode == 'AOS14DIY99',
                   }">
-                  <div class="body">
-                    <div class="first_section">
-                      <div>
-                        <div *ngIf="plans.IsWoman !== 'Y'" class="logo-id">
-                          <!-- <img [src]="this.routeurl + plans.schemeTypeLogo" alt="{{ plans.schemeType }}" /> -->
-                          <img [src]="'https://diy.sbisecurities.in/' + plans.schemeTypeLogo"
-                            alt="{{ plans.schemeType }}" />
-                          <h3 class="plan-heading">{{ plans.schemeType }}</h3>
-                        </div>
-                        <div *ngIf="plans.IsWoman == 'Y'" class="logo-id">
-                          <img class="women_img" src="assets/images/diy/womens_day_img.svg"
-                            alt="Women's Day special plan badge" />
-                        </div>
-                        <div *ngIf="plans.PlanID == this.selectedPlanTag">
-                          <div class="selected-tag">
-                            <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M8 2C6.71442 2 5.45772 2.38122 4.3888 3.09545C3.31988 3.80968 2.48676 4.82484 1.99479 6.01256C1.50282 7.20028 1.37409 8.50721 1.6249 9.76809C1.8757 11.029 2.49477 12.1872 3.40381 13.0962C4.31285 14.0052 5.47104 14.6243 6.73192 14.8751C7.99279 15.1259 9.29973 14.9972 10.4874 14.5052C11.6752 14.0132 12.6903 13.1801 13.4046 12.1112C14.1188 11.0423 14.5 9.78558 14.5 8.5C14.4982 6.77665 13.8128 5.12441 12.5942 3.90582C11.3756 2.68722 9.72335 2.00182 8 2ZM10.8538 7.35375L7.35375 10.8538C7.30732 10.9002 7.25217 10.9371 7.19147 10.9623C7.13077 10.9874 7.06571 11.0004 7 11.0004C6.9343 11.0004 6.86923 10.9874 6.80853 10.9623C6.74783 10.9371 6.69269 10.9002 6.64625 10.8538L5.14625 9.35375C5.05243 9.25993 4.99972 9.13268 4.99972 9C4.99972 8.86732 5.05243 8.74007 5.14625 8.64625C5.24007 8.55243 5.36732 8.49972 5.5 8.49972C5.63268 8.49972 5.75993 8.55243 5.85375 8.64625L7 9.79313L10.1463 6.64625C10.1927 6.59979 10.2479 6.56294 10.3086 6.5378C10.3693 6.51266 10.4343 6.49972 10.5 6.49972C10.5657 6.49972 10.6308 6.51266 10.6915 6.5378C10.7521 6.56294 10.8073 6.59979 10.8538 6.64625C10.9002 6.6927 10.9371 6.74786 10.9622 6.80855C10.9873 6.86925 11.0003 6.9343 11.0003 7C11.0003 7.0657 10.9873 7.13075 10.9622 7.19145C10.9371 7.25214 10.9002 7.3073 10.8538 7.35375Z"
-                                fill="#9D76FF" />
-                            </svg>
-                            Selected
-                          </div>
-                        </div>
-                      </div>
-                      <div *ngIf="plans.IsWoman !== 'Y'" class="pricing_amt">
+                    <div class="body">
+                      <div class="first_section">
                         <div>
-                          <span>₹</span>
-                          <p>{{ plans.Charges | number: "1.0-0" }}</p>
-                          <p class="exe_msg">{{ plans.Price_PostMsg }}</p>
+                          @if (plans.IsWoman !== 'Y') {
+                            <div class="logo-id">
+                              <!-- <img [src]="this.routeurl + plans.schemeTypeLogo" alt="{{ plans.schemeType }}" /> -->
+                              <img [src]="'https://diy.sbisecurities.in/' + plans.schemeTypeLogo"
+                                alt="{{ plans.schemeType }}" />
+                              <h3 class="plan-heading">{{ plans.schemeType }}</h3>
+                            </div>
+                          }
+                          @if (plans.IsWoman == 'Y') {
+                            <div class="logo-id">
+                              <img class="women_img" src="assets/images/diy/womens_day_img.svg"
+                                alt="Women's Day special plan badge" />
+                            </div>
+                          }
+                          @if (plans.PlanID == this.selectedPlanTag) {
+                            <div>
+                              <div class="selected-tag">
+                                <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M8 2C6.71442 2 5.45772 2.38122 4.3888 3.09545C3.31988 3.80968 2.48676 4.82484 1.99479 6.01256C1.50282 7.20028 1.37409 8.50721 1.6249 9.76809C1.8757 11.029 2.49477 12.1872 3.40381 13.0962C4.31285 14.0052 5.47104 14.6243 6.73192 14.8751C7.99279 15.1259 9.29973 14.9972 10.4874 14.5052C11.6752 14.0132 12.6903 13.1801 13.4046 12.1112C14.1188 11.0423 14.5 9.78558 14.5 8.5C14.4982 6.77665 13.8128 5.12441 12.5942 3.90582C11.3756 2.68722 9.72335 2.00182 8 2ZM10.8538 7.35375L7.35375 10.8538C7.30732 10.9002 7.25217 10.9371 7.19147 10.9623C7.13077 10.9874 7.06571 11.0004 7 11.0004C6.9343 11.0004 6.86923 10.9874 6.80853 10.9623C6.74783 10.9371 6.69269 10.9002 6.64625 10.8538L5.14625 9.35375C5.05243 9.25993 4.99972 9.13268 4.99972 9C4.99972 8.86732 5.05243 8.74007 5.14625 8.64625C5.24007 8.55243 5.36732 8.49972 5.5 8.49972C5.63268 8.49972 5.75993 8.55243 5.85375 8.64625L7 9.79313L10.1463 6.64625C10.1927 6.59979 10.2479 6.56294 10.3086 6.5378C10.3693 6.51266 10.4343 6.49972 10.5 6.49972C10.5657 6.49972 10.6308 6.51266 10.6915 6.5378C10.7521 6.56294 10.8073 6.59979 10.8538 6.64625C10.9002 6.6927 10.9371 6.74786 10.9622 6.80855C10.9873 6.86925 11.0003 6.9343 11.0003 7C11.0003 7.0657 10.9873 7.13075 10.9622 7.19145C10.9371 7.25214 10.9002 7.3073 10.8538 7.35375Z"
+                                    fill="#9D76FF" />
+                                </svg>
+                                Selected
+                              </div>
+                            </div>
+                          }
                         </div>
-                        <div class="pricing_desc">
-                          {{ plans.schemePriceDesc }}
-                        </div>
+                        @if (plans.IsWoman !== 'Y') {
+                          <div class="pricing_amt">
+                            <div>
+                              <span>₹</span>
+                              <p>{{ plans.Charges | number: "1.0-0" }}</p>
+                              <p class="exe_msg">{{ plans.Price_PostMsg }}</p>
+                            </div>
+                            <div class="pricing_desc">
+                              {{ plans.schemePriceDesc }}
+                            </div>
+                          </div>
+                        }
+                        @if (plans.IsWoman == 'Y') {
+                          <div class="pricing_amt"></div>
+                        }
                       </div>
-                      <div *ngIf="plans.IsWoman == 'Y'" class="pricing_amt"></div>
-                    </div>
-                    <div class="second_section">
-                      <img src="assets/images/diy/linesvg.svg" alt="" srcset="" aria-hidden="true" />
-                      <div class="brokerage" *ngIf="
+                      <div class="second_section">
+                        <img src="assets/images/diy/linesvg.svg" alt="" srcset="" aria-hidden="true" />
+                        @if (
                           utmSourcePlanPreference?.toUpperCase() !==
                           'PROPRIETOR'
-                        ">
-                        <div>
-                          <h3 *ngIf="
-                              plans.brokerageText != 'Y' &&
-                              (plans.schemeBrokrageAmtDesc === '0' ||
+                          ) {
+                          <div class="brokerage">
+                            <div>
+                              @if (
+                                plans.brokerageText != 'Y' &&
+                                (plans.schemeBrokrageAmtDesc === '0' ||
                                 plans.schemeBrokrageAmtDesc.toLowerCase()) ===
                                 'zero'
-                            ">
-                            {{ plans.schemeBrokrageAmtDesc }} Brokerage
-                          </h3>
-                          <h3 *ngIf="
-                              plans.brokerageText != 'Y' &&
-                              (plans.schemeBrokrageAmtDesc === '0' ||
+                                ) {
+                                <h3>
+                                  {{ plans.schemeBrokrageAmtDesc }} Brokerage
+                                </h3>
+                              }
+                              @if (
+                                plans.brokerageText != 'Y' &&
+                                (plans.schemeBrokrageAmtDesc === '0' ||
                                 plans.schemeBrokrageAmtDesc.toLowerCase()) !==
                                 'zero'
-                            ">
-                            <span
-                              *ngIf="!(plans?.TCSSchemeCode === 'AOS5PLAN499' || plans?.TCSSchemeCode === 'AOS26PLAN499')">
-                              ₹ {{ plans?.schemeBrokrageAmtDesc }}</span>
-                            <span
-                              *ngIf="(plans.TCSSchemeCode == 'AOS5PLAN499' || plans.TCSSchemeCode == 'AOS26PLAN499')"></span>
-                          </h3>
-                          <h3 class="plan-heading" *ngIf="plans.brokerageText == 'Y'">
-                            {{ plans.schemeBrokrageAmtDesc }}
-                          </h3>
-                        </div>
-                        <div>
-                          <span>{{ plans.schemeBrokrageDesc }}</span>
-                        </div>
-                      </div>
-                      <div class="brokerage" *ngIf="
+                                ) {
+                                <h3>
+                                  @if (!(plans?.TCSSchemeCode === 'AOS5PLAN499' || plans?.TCSSchemeCode === 'AOS26PLAN499')) {
+                                    <span
+                                      >
+                                    ₹ {{ plans?.schemeBrokrageAmtDesc }}</span>
+                                  }
+                                  @if ((plans.TCSSchemeCode == 'AOS5PLAN499' || plans.TCSSchemeCode == 'AOS26PLAN499')) {
+                                    <span
+                                    ></span>
+                                  }
+                                </h3>
+                              }
+                              @if (plans.brokerageText == 'Y') {
+                                <h3 class="plan-heading">
+                                  {{ plans.schemeBrokrageAmtDesc }}
+                                </h3>
+                              }
+                            </div>
+                            <div>
+                              <span>{{ plans.schemeBrokrageDesc }}</span>
+                            </div>
+                          </div>
+                        }
+                        @if (
                           utmSourcePlanPreference?.toUpperCase() ===
                           'PROPRIETOR'
-                        ">
-                        <div>
-                          <h3 class="plan-heading" *ngIf="
-                              plans.brokerageText != 'Y' &&
-                              (plans.schemeBrokrageAmtDesc === '0' ||
+                          ) {
+                          <div class="brokerage">
+                            <div>
+                              @if (
+                                plans.brokerageText != 'Y' &&
+                                (plans.schemeBrokrageAmtDesc === '0' ||
                                 plans.schemeBrokrageAmtDesc.toLowerCase()) ===
                                 'zero'
-                            ">
-                            {{ plans.schemeBrokrageAmtDesc }} Brokerage
-                          </h3>
-                          <h3 class="plan-heading" *ngIf="
-                              plans.brokerageText != 'Y' &&
-                              (plans.schemeBrokrageAmtDesc === '0' ||
+                                ) {
+                                <h3 class="plan-heading">
+                                  {{ plans.schemeBrokrageAmtDesc }} Brokerage
+                                </h3>
+                              }
+                              @if (
+                                plans.brokerageText != 'Y' &&
+                                (plans.schemeBrokrageAmtDesc === '0' ||
                                 plans.schemeBrokrageAmtDesc.toLowerCase()) !==
                                 'zero'
-                            ">
-                            <span
-                              *ngIf="!(plans?.TCSSchemeCode === 'AOS5PLAN499' || plans?.TCSSchemeCode === 'AOS26PLAN499')">
-                              ₹ {{ plans?.schemeBrokrageAmtDesc }}</span>
-                            <span
-                              *ngIf="(plans.TCSSchemeCode == 'AOS5PLAN499' || plans.TCSSchemeCode == 'AOS26PLAN499')"></span>
-
-                          </h3>
+                                ) {
+                                <h3 class="plan-heading">
+                                  @if (!(plans?.TCSSchemeCode === 'AOS5PLAN499' || plans?.TCSSchemeCode === 'AOS26PLAN499')) {
+                                    <span
+                                      >
+                                    ₹ {{ plans?.schemeBrokrageAmtDesc }}</span>
+                                  }
+                                  @if ((plans.TCSSchemeCode == 'AOS5PLAN499' || plans.TCSSchemeCode == 'AOS26PLAN499')) {
+                                    <span
+                                    ></span>
+                                  }
+                                </h3>
+                              }
+                            </div>
+                          </div>
+                        }
+                        <img src="assets/images/diy/linesvg.svg" alt="Line svg" aria-hidden="true" />
+                      </div>
+                      <div class="third_section">
+                        <div>
+                          <h3>Lifetime Benefits Include:</h3>
+                        </div>
+                        <div class="benefit_list" role="list">
+                          @if (plans?.INTRADAY !== null) {
+                            <div role="listitem">
+                              <span>
+                                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
+                                    fill="#9D76FF" />
+                                </svg>
+                                <p>{{ plans.INTRADAY }} Intraday Trades</p>
+                              </span>
+                            </div>
+                          }
+                          @if (plans?.DELIVERY !== null) {
+                            <div role="listitem">
+                              <span>
+                                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
+                                    fill="#9D76FF" />
+                                </svg>
+                                <p>{{ plans.DELIVERY }} on Delivery Trade</p>
+                              </span>
+                            </div>
+                          }
+                          @if (plans?.EMARGIN !== null) {
+                            <div role="listitem">
+                              <span>
+                                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
+                                    fill="#9D76FF" />
+                                </svg>
+                                <p>{{ plans.EMARGIN }} on E-Margin</p>
+                              </span>
+                            </div>
+                          }
+                          @if (plans?.TCSSchemeCode != 'SSLEMP') {
+                            <div role="listitem">
+                              <span>
+                                <p class="highlight_imp">
+                                  *0% interest for 23 trading days
+                                </p>
+                              </span>
+                            </div>
+                          }
                         </div>
                       </div>
-
-                      <img src="assets/images/diy/linesvg.svg" alt="Line svg" aria-hidden="true" />
                     </div>
-                    <div class="third_section">
-                      <div>
-                        <h3>Lifetime Benefits Include:</h3>
-                      </div>
-                      <div class="benefit_list" role="list">
-                        <div role="listitem" *ngIf="plans?.INTRADAY !== null">
-                          <span>
-                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
-                                fill="#9D76FF" />
-                            </svg>
-                            <p>{{ plans.INTRADAY }} Intraday Trades</p>
-                          </span>
-                        </div>
-                        <div role="listitem" *ngIf="plans?.DELIVERY !== null">
-                          <span>
-                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
-                                fill="#9D76FF" />
-                            </svg>
-                            <p>{{ plans.DELIVERY }} on Delivery Trade</p>
-                          </span>
-                        </div>
-                        <div role="listitem" *ngIf="plans?.EMARGIN !== null">
-                          <span>
-                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
-                                fill="#9D76FF" />
-                            </svg>
-                            <p>{{ plans.EMARGIN }} on E-Margin</p>
-                          </span>
-                        </div>
-                        <div role="listitem" *ngIf="plans?.TCSSchemeCode != 'SSLEMP'">
-                          <span>
-                            <p class="highlight_imp">
-                              *0% interest for 23 trading days
-                            </p>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="footer">
-                    <div class="proceed_btn">
-                      <button [id]="plans.schemeType" [attr.aria-label]="'Proceed with ' + plans.schemeType + ' plan'"
+                    <div class="footer">
+                      <div class="proceed_btn">
+                        <button [id]="plans.schemeType" [attr.aria-label]="'Proceed with ' + plans.schemeType + ' plan'"
                         (click)="
                           selectPlan(plans); savePlanScheme(plans.PlanID)
                         " class="btn btn_cls">
-                        Proceed
-                      </button>
-                    </div>
+                          Proceed
+                        </button>
+                      </div>
                     <button type="button" (click)="openModal(plans.PlanID)" [attr.aria-label]="
                         'Know more about ' + plans.schemeType + ' plan'
                       " class="know-more-btn"
-                      style="background:none;border:none;padding:0;cursor:pointer;text-align:left;">
-                      <span>Know More</span>
-                    </button>
+                        style="background:none;border:none;padding:0;cursor:pointer;text-align:left;">
+                        <span>Know More</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </ng-template>
-          </p-carousel>
-        </form>
+              </ng-template>
+            </p-carousel>
+          </form>
+        }
 
         <!-- Single Card Brokerage UI Mobile UTM RETAILSALES-->
 
-        <form role="presentation" method="post" *ngIf="
-            (planSelectionResponse &&
-              utmSourcePlanPreference?.toUpperCase() === 'RETAILSALES') ||
-            utmSourcePlanPreference?.toUpperCase() === 'PAISALO' ||
-            utmSourcePlanPreference?.toUpperCase() === 'RETAILBROKING'
-          " style="padding: 50px 0; height: unset">
-          <p-carousel #carousel [page]="carouselPage" [value]="planSelectionResponse" [numVisible]="3" [numScroll]="1"
-            [circular]="false" [autoplayInterval]="false" [responsiveOptions]="responsiveOptions"
-            styleClass="custom-carousel">
-            <ng-template let-plans pTemplate="item">
-              <div class="plan_process_align">
+        @if (
+          (planSelectionResponse &&
+          utmSourcePlanPreference?.toUpperCase() === 'RETAILSALES') ||
+          utmSourcePlanPreference?.toUpperCase() === 'PAISALO' ||
+          utmSourcePlanPreference?.toUpperCase() === 'RETAILBROKING'
+          ) {
+          <form role="presentation" method="post" style="padding: 50px 0; height: unset">
+            <p-carousel #carousel [page]="carouselPage" [value]="planSelectionResponse" [numVisible]="3" [numScroll]="1"
+              [circular]="false" [autoplayInterval]="false" [responsiveOptions]="responsiveOptions"
+              styleClass="custom-carousel">
+              <ng-template let-plans pTemplate="item">
+                <div class="plan_process_align">
                 <div class="plan_cards" [ngClass]="{
                     'selected-plan': plans.TCSSchemeCode == 'AOS14DIY99',
                   }">
-                  <div class="body">
-                    <div class="first_section">
-                      <div>
-                        <div *ngIf="plans.IsWoman !== 'Y'" class="logo-id">
-                          <!-- <img [src]="this.routeurl + plans.schemeTypeLogo" alt="{{ plans.schemeType }}" /> -->
-                          <img [src]="'https://diy.sbisecurities.in/' + plans.schemeTypeLogo"
-                            alt="{{ plans.schemeType }}" />
-                          <h3 class="plan-heading">{{ plans.schemeType }}</h3>
+                    <div class="body">
+                      <div class="first_section">
+                        <div>
+                          @if (plans.IsWoman !== 'Y') {
+                            <div class="logo-id">
+                              <!-- <img [src]="this.routeurl + plans.schemeTypeLogo" alt="{{ plans.schemeType }}" /> -->
+                              <img [src]="'https://diy.sbisecurities.in/' + plans.schemeTypeLogo"
+                                alt="{{ plans.schemeType }}" />
+                              <h3 class="plan-heading">{{ plans.schemeType }}</h3>
+                            </div>
+                          }
+                          @if (plans.IsWoman == 'Y') {
+                            <div class="logo-id">
+                              <img class="women_img" src="assets/images/diy/womens_day_img.svg"
+                                alt="Women's Day special plan badge" />
+                            </div>
+                          }
+                          @if (plans.PlanID == this.selectedPlanTag) {
+                            <div>
+                              <div class="selected-tag">
+                                <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M8 2C6.71442 2 5.45772 2.38122 4.3888 3.09545C3.31988 3.80968 2.48676 4.82484 1.99479 6.01256C1.50282 7.20028 1.37409 8.50721 1.6249 9.76809C1.8757 11.029 2.49477 12.1872 3.40381 13.0962C4.31285 14.0052 5.47104 14.6243 6.73192 14.8751C7.99279 15.1259 9.29973 14.9972 10.4874 14.5052C11.6752 14.0132 12.6903 13.1801 13.4046 12.1112C14.1188 11.0423 14.5 9.78558 14.5 8.5C14.4982 6.77665 13.8128 5.12441 12.5942 3.90582C11.3756 2.68722 9.72335 2.00182 8 2ZM10.8538 7.35375L7.35375 10.8538C7.30732 10.9002 7.25217 10.9371 7.19147 10.9623C7.13077 10.9874 7.06571 11.0004 7 11.0004C6.9343 11.0004 6.86923 10.9874 6.80853 10.9623C6.74783 10.9371 6.69269 10.9002 6.64625 10.8538L5.14625 9.35375C5.05243 9.25993 4.99972 9.13268 4.99972 9C4.99972 8.86732 5.05243 8.74007 5.14625 8.64625C5.24007 8.55243 5.36732 8.49972 5.5 8.49972C5.63268 8.49972 5.75993 8.55243 5.85375 8.64625L7 9.79313L10.1463 6.64625C10.1927 6.59979 10.2479 6.56294 10.3086 6.5378C10.3693 6.51266 10.4343 6.49972 10.5 6.49972C10.5657 6.49972 10.6308 6.51266 10.6915 6.5378C10.7521 6.56294 10.8073 6.59979 10.8538 6.64625C10.9002 6.6927 10.9371 6.74786 10.9622 6.80855C10.9873 6.86925 11.0003 6.9343 11.0003 7C11.0003 7.0657 10.9873 7.13075 10.9622 7.19145C10.9371 7.25214 10.9002 7.3073 10.8538 7.35375Z"
+                                    fill="#9D76FF" />
+                                </svg>
+                                Selected
+                              </div>
+                            </div>
+                          }
                         </div>
-                        <div *ngIf="plans.IsWoman == 'Y'" class="logo-id">
-                          <img class="women_img" src="assets/images/diy/womens_day_img.svg"
-                            alt="Women's Day special plan badge" />
-                        </div>
-                        <div *ngIf="plans.PlanID == this.selectedPlanTag">
-                          <div class="selected-tag">
-                            <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M8 2C6.71442 2 5.45772 2.38122 4.3888 3.09545C3.31988 3.80968 2.48676 4.82484 1.99479 6.01256C1.50282 7.20028 1.37409 8.50721 1.6249 9.76809C1.8757 11.029 2.49477 12.1872 3.40381 13.0962C4.31285 14.0052 5.47104 14.6243 6.73192 14.8751C7.99279 15.1259 9.29973 14.9972 10.4874 14.5052C11.6752 14.0132 12.6903 13.1801 13.4046 12.1112C14.1188 11.0423 14.5 9.78558 14.5 8.5C14.4982 6.77665 13.8128 5.12441 12.5942 3.90582C11.3756 2.68722 9.72335 2.00182 8 2ZM10.8538 7.35375L7.35375 10.8538C7.30732 10.9002 7.25217 10.9371 7.19147 10.9623C7.13077 10.9874 7.06571 11.0004 7 11.0004C6.9343 11.0004 6.86923 10.9874 6.80853 10.9623C6.74783 10.9371 6.69269 10.9002 6.64625 10.8538L5.14625 9.35375C5.05243 9.25993 4.99972 9.13268 4.99972 9C4.99972 8.86732 5.05243 8.74007 5.14625 8.64625C5.24007 8.55243 5.36732 8.49972 5.5 8.49972C5.63268 8.49972 5.75993 8.55243 5.85375 8.64625L7 9.79313L10.1463 6.64625C10.1927 6.59979 10.2479 6.56294 10.3086 6.5378C10.3693 6.51266 10.4343 6.49972 10.5 6.49972C10.5657 6.49972 10.6308 6.51266 10.6915 6.5378C10.7521 6.56294 10.8073 6.59979 10.8538 6.64625C10.9002 6.6927 10.9371 6.74786 10.9622 6.80855C10.9873 6.86925 11.0003 6.9343 11.0003 7C11.0003 7.0657 10.9873 7.13075 10.9622 7.19145C10.9371 7.25214 10.9002 7.3073 10.8538 7.35375Z"
-                                fill="#9D76FF" />
-                            </svg>
-                            Selected
+                        @if (plans.IsWoman !== 'Y') {
+                          <div class="pricing_amt">
+                            <div>
+                              <span>₹</span>
+                              <p>{{ plans.Charges | number: "1.0-0" }}</p>
+                              <p class="exe_msg">{{ plans.Price_PostMsg }}</p>
+                            </div>
+                            <div class="pricing_desc">
+                              {{ plans.schemePriceDesc }}
+                            </div>
+                          </div>
+                        }
+                        @if (plans.IsWoman == 'Y') {
+                          <div class="pricing_amt"></div>
+                        }
+                      </div>
+                      <div class="second_section">
+                        <img src="assets/images/diy/linesvg.svg" alt="Line svg" />
+                        <div class="brokerage">
+                          <div>
+                            @if (
+                              plans.brokerageText != 'Y' &&
+                              (plans.schemeBrokrageAmtDesc === '0' ||
+                              plans.schemeBrokrageAmtDesc.toLowerCase()) ===
+                              'zero'
+                              ) {
+                              <h3>
+                                {{ plans.schemeBrokrageAmtDesc }} Brokerage
+                              </h3>
+                            }
+                            @if (
+                              plans.brokerageText != 'Y' &&
+                              (plans.schemeBrokrageAmtDesc === '0' ||
+                              plans.schemeBrokrageAmtDesc.toLowerCase()) !==
+                              'zero'
+                              ) {
+                              <h3>
+                                @if (!(plans?.TCSSchemeCode === 'AOS5PLAN499' || plans?.TCSSchemeCode === 'AOS26PLAN499')) {
+                                  <span
+                                    >
+                                  ₹ {{ plans?.schemeBrokrageAmtDesc }}</span>
+                                }
+                                @if ((plans.TCSSchemeCode == 'AOS5PLAN499' || plans.TCSSchemeCode == 'AOS26PLAN499')) {
+                                  <span
+                                  ></span>
+                                }
+                              </h3>
+                            }
+                            @if (plans.brokerageText == 'Y') {
+                              <h3 class="plan-heading">
+                                {{ plans.schemeBrokrageAmtDesc }}
+                              </h3>
+                            }
+                          </div>
+                          <div>
+                            <span>{{ plans.schemeBrokrageDesc }}</span>
                           </div>
                         </div>
+                        <img src="assets/images/diy/linesvg.svg" alt="Line svg" aria-hidden="true" />
                       </div>
-                      <div *ngIf="plans.IsWoman !== 'Y'" class="pricing_amt">
+                      <div class="third_section">
                         <div>
-                          <span>₹</span>
-                          <p>{{ plans.Charges | number: "1.0-0" }}</p>
-                          <p class="exe_msg">{{ plans.Price_PostMsg }}</p>
+                          <h3>Lifetime Benefits Include:</h3>
                         </div>
-                        <div class="pricing_desc">
-                          {{ plans.schemePriceDesc }}
-                        </div>
-                      </div>
-                      <div *ngIf="plans.IsWoman == 'Y'" class="pricing_amt"></div>
-                    </div>
-                    <div class="second_section">
-                      <img src="assets/images/diy/linesvg.svg" alt="Line svg" />
-                      <div class="brokerage">
-                        <div>
-                          <h3 *ngIf="
-                              plans.brokerageText != 'Y' &&
-                              (plans.schemeBrokrageAmtDesc === '0' ||
-                                plans.schemeBrokrageAmtDesc.toLowerCase()) ===
-                                'zero'
-                            ">
-                            {{ plans.schemeBrokrageAmtDesc }} Brokerage
-                          </h3>
-                          <h3 *ngIf="
-                              plans.brokerageText != 'Y' &&
-                              (plans.schemeBrokrageAmtDesc === '0' ||
-                                plans.schemeBrokrageAmtDesc.toLowerCase()) !==
-                                'zero'
-                            ">
-                            <span
-                              *ngIf="!(plans?.TCSSchemeCode === 'AOS5PLAN499' || plans?.TCSSchemeCode === 'AOS26PLAN499')">
-                              ₹ {{ plans?.schemeBrokrageAmtDesc }}</span>
-                            <span
-                              *ngIf="(plans.TCSSchemeCode == 'AOS5PLAN499' || plans.TCSSchemeCode == 'AOS26PLAN499')"></span>
-
-                          </h3>
-                          <h3 class="plan-heading" *ngIf="plans.brokerageText == 'Y'">
-                            {{ plans.schemeBrokrageAmtDesc }}
-                          </h3>
-                        </div>
-                        <div>
-                          <span>{{ plans.schemeBrokrageDesc }}</span>
-                        </div>
-                      </div>
-
-                      <img src="assets/images/diy/linesvg.svg" alt="Line svg" aria-hidden="true" />
-                    </div>
-                    <div class="third_section">
-                      <div>
-                        <h3>Lifetime Benefits Include:</h3>
-                      </div>
-                      <div class="benefit_list" role="list">
-                        <div role="listitem" *ngIf="plans?.INTRADAY !== null">
-                          <span>
-                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
-                                fill="#9D76FF" />
-                            </svg>
-                            <p>{{ plans.INTRADAY }} Intraday Trades</p>
-                          </span>
-                        </div>
-                        <div role="listitem" *ngIf="plans?.DELIVERY !== null">
-                          <span>
-                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
-                                fill="#9D76FF" />
-                            </svg>
-                            <p>{{ plans.DELIVERY }} on Delivery Trade</p>
-                          </span>
-                        </div>
-                        <div role="listitem" *ngIf="plans?.EMARGIN !== null">
-                          <span>
-                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
-                                fill="#9D76FF" />
-                            </svg>
-                            <p>{{ plans.EMARGIN }} on E-Margin</p>
-                          </span>
-                        </div>
-                        <div role="listitem" *ngIf="plans?.TCSSchemeCode != 'SSLEMP'">
-                          <span>
-                            <p class="highlight_imp">
-                              *0% interest for 23 trading days
-                            </p>
-                          </span>
+                        <div class="benefit_list" role="list">
+                          @if (plans?.INTRADAY !== null) {
+                            <div role="listitem">
+                              <span>
+                                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
+                                    fill="#9D76FF" />
+                                </svg>
+                                <p>{{ plans.INTRADAY }} Intraday Trades</p>
+                              </span>
+                            </div>
+                          }
+                          @if (plans?.DELIVERY !== null) {
+                            <div role="listitem">
+                              <span>
+                                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
+                                    fill="#9D76FF" />
+                                </svg>
+                                <p>{{ plans.DELIVERY }} on Delivery Trade</p>
+                              </span>
+                            </div>
+                          }
+                          @if (plans?.EMARGIN !== null) {
+                            <div role="listitem">
+                              <span>
+                                <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
+                                    fill="#9D76FF" />
+                                </svg>
+                                <p>{{ plans.EMARGIN }} on E-Margin</p>
+                              </span>
+                            </div>
+                          }
+                          @if (plans?.TCSSchemeCode != 'SSLEMP') {
+                            <div role="listitem">
+                              <span>
+                                <p class="highlight_imp">
+                                  *0% interest for 23 trading days
+                                </p>
+                              </span>
+                            </div>
+                          }
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="footer">
-                    <div class="proceed_btn">
-                      <button [id]="plans.schemeType" [attr.aria-label]="'Proceed with ' + plans.schemeType + ' plan'"
+                    <div class="footer">
+                      <div class="proceed_btn">
+                        <button [id]="plans.schemeType" [attr.aria-label]="'Proceed with ' + plans.schemeType + ' plan'"
                         (click)="
                           selectPlan(plans); savePlanScheme(plans.PlanID)
                         " class="btn btn_cls">
-                        Proceed
-                      </button>
-                    </div>
+                          Proceed
+                        </button>
+                      </div>
                     <button type="button" (click)="openModal(plans.PlanID)" [attr.aria-label]="
                         'Know more about ' + plans.schemeType + ' plan'
                       " class="know-more-btn"
-                      style="background:none;border:none;padding:0;cursor:pointer;text-align:left;">
-                      <span>Know More</span>
-                    </button>
+                        style="background:none;border:none;padding:0;cursor:pointer;text-align:left;">
+                        <span>Know More</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </ng-template>
-          </p-carousel>
-        </form>
+              </ng-template>
+            </p-carousel>
+          </form>
+        }
 
         <!-- New Card UI (Temp) -->
 
         <!-- <div class="card_section">
-            <div class="card_header_cls">
-               <p class="plan-offers-label"><strong>Each plan offers:</strong></p>
-              <div class="card_header_pointers"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                    viewBox="0 0 16 16" fill="none">
-                    <g clip-path="url(#clip0_71_3604)">
-                      <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M8.00195 0C3.59122 0 0 3.59122 0 8.00195C0 12.4127 3.59122 16 8.00195 16C12.4127 16 16 12.4127 16 8.00195C16 3.59122 12.4127 0 8.00195 0ZM8.00195 1.33344C11.692 1.33344 14.6666 4.31186 14.6666 8.00195C14.6666 11.692 11.692 14.6666 8.00195 14.6666C4.31186 14.6666 1.33344 11.692 1.33344 8.00195C1.33344 4.31186 4.31186 1.33344 8.00195 1.33344ZM11.3199 4.78815C11.232 4.79456 11.1462 4.81834 11.0675 4.85813C10.9888 4.89792 10.9188 4.95291 10.8616 5.01993L6.94848 9.56197L5.1137 7.66728C5.05234 7.6044 4.97916 7.55426 4.89836 7.51975C4.81756 7.48525 4.73074 7.46705 4.64289 7.4662C4.55503 7.46536 4.46788 7.48189 4.38644 7.51484C4.30499 7.54779 4.23086 7.59652 4.16831 7.65821C4.04272 7.78177 3.97113 7.95001 3.9692 8.12617C3.96726 8.30234 4.03513 8.47211 4.15798 8.5984L6.49671 11.014C6.56115 11.0805 6.63877 11.133 6.72461 11.1679C6.81045 11.2028 6.90263 11.2194 6.99526 11.2168C7.08789 11.2141 7.17894 11.1921 7.2626 11.1522C7.34626 11.1124 7.4207 11.0555 7.48117 10.9853L11.8708 5.88593C11.9863 5.75209 12.0439 5.57786 12.031 5.40156C12.0181 5.22525 11.9356 5.0613 11.8018 4.94575C11.6682 4.83185 11.495 4.77518 11.3199 4.78815Z"
-                        fill="#9D76FF" />
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_71_3604">
-                        <rect width="16" height="16" fill="white" />
-                      </clipPath>
-                    </defs>
-                  </svg></span><span><b>FREE</b> AMC for 1 year</span></div>
-              <div class="card_header_pointers"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                    viewBox="0 0 16 16" fill="none">
-                    <g clip-path="url(#clip0_71_3604)">
-                      <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M8.00195 0C3.59122 0 0 3.59122 0 8.00195C0 12.4127 3.59122 16 8.00195 16C12.4127 16 16 12.4127 16 8.00195C16 3.59122 12.4127 0 8.00195 0ZM8.00195 1.33344C11.692 1.33344 14.6666 4.31186 14.6666 8.00195C14.6666 11.692 11.692 14.6666 8.00195 14.6666C4.31186 14.6666 1.33344 11.692 1.33344 8.00195C1.33344 4.31186 4.31186 1.33344 8.00195 1.33344ZM11.3199 4.78815C11.232 4.79456 11.1462 4.81834 11.0675 4.85813C10.9888 4.89792 10.9188 4.95291 10.8616 5.01993L6.94848 9.56197L5.1137 7.66728C5.05234 7.6044 4.97916 7.55426 4.89836 7.51975C4.81756 7.48525 4.73074 7.46705 4.64289 7.4662C4.55503 7.46536 4.46788 7.48189 4.38644 7.51484C4.30499 7.54779 4.23086 7.59652 4.16831 7.65821C4.04272 7.78177 3.97113 7.95001 3.9692 8.12617C3.96726 8.30234 4.03513 8.47211 4.15798 8.5984L6.49671 11.014C6.56115 11.0805 6.63877 11.133 6.72461 11.1679C6.81045 11.2028 6.90263 11.2194 6.99526 11.2168C7.08789 11.2141 7.17894 11.1921 7.2626 11.1522C7.34626 11.1124 7.4207 11.0555 7.48117 10.9853L11.8708 5.88593C11.9863 5.75209 12.0439 5.57786 12.031 5.40156C12.0181 5.22525 11.9356 5.0613 11.8018 4.94575C11.6682 4.83185 11.495 4.77518 11.3199 4.78815Z"
-                        fill="#9D76FF" />
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_71_3604">
-                        <rect width="16" height="16" fill="white" />
-                      </clipPath>
-                    </defs>
-                  </svg></span> <span><b>ZERO</b> Interest for 30 days for Margin Trading</span></div>
+        <div class="card_header_cls">
+          <p class="plan-offers-label"><strong>Each plan offers:</strong></p>
+          <div class="card_header_pointers"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+            viewBox="0 0 16 16" fill="none">
+            <g clip-path="url(#clip0_71_3604)">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M8.00195 0C3.59122 0 0 3.59122 0 8.00195C0 12.4127 3.59122 16 8.00195 16C12.4127 16 16 12.4127 16 8.00195C16 3.59122 12.4127 0 8.00195 0ZM8.00195 1.33344C11.692 1.33344 14.6666 4.31186 14.6666 8.00195C14.6666 11.692 11.692 14.6666 8.00195 14.6666C4.31186 14.6666 1.33344 11.692 1.33344 8.00195C1.33344 4.31186 4.31186 1.33344 8.00195 1.33344ZM11.3199 4.78815C11.232 4.79456 11.1462 4.81834 11.0675 4.85813C10.9888 4.89792 10.9188 4.95291 10.8616 5.01993L6.94848 9.56197L5.1137 7.66728C5.05234 7.6044 4.97916 7.55426 4.89836 7.51975C4.81756 7.48525 4.73074 7.46705 4.64289 7.4662C4.55503 7.46536 4.46788 7.48189 4.38644 7.51484C4.30499 7.54779 4.23086 7.59652 4.16831 7.65821C4.04272 7.78177 3.97113 7.95001 3.9692 8.12617C3.96726 8.30234 4.03513 8.47211 4.15798 8.5984L6.49671 11.014C6.56115 11.0805 6.63877 11.133 6.72461 11.1679C6.81045 11.2028 6.90263 11.2194 6.99526 11.2168C7.08789 11.2141 7.17894 11.1921 7.2626 11.1522C7.34626 11.1124 7.4207 11.0555 7.48117 10.9853L11.8708 5.88593C11.9863 5.75209 12.0439 5.57786 12.031 5.40156C12.0181 5.22525 11.9356 5.0613 11.8018 4.94575C11.6682 4.83185 11.495 4.77518 11.3199 4.78815Z"
+                fill="#9D76FF" />
+            </g>
+            <defs>
+              <clipPath id="clip0_71_3604">
+                <rect width="16" height="16" fill="white" />
+              </clipPath>
+            </defs>
+            </svg></span><span><b>FREE</b> AMC for 1 year</span></div>
+            <div class="card_header_pointers"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+              viewBox="0 0 16 16" fill="none">
+              <g clip-path="url(#clip0_71_3604)">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M8.00195 0C3.59122 0 0 3.59122 0 8.00195C0 12.4127 3.59122 16 8.00195 16C12.4127 16 16 12.4127 16 8.00195C16 3.59122 12.4127 0 8.00195 0ZM8.00195 1.33344C11.692 1.33344 14.6666 4.31186 14.6666 8.00195C14.6666 11.692 11.692 14.6666 8.00195 14.6666C4.31186 14.6666 1.33344 11.692 1.33344 8.00195C1.33344 4.31186 4.31186 1.33344 8.00195 1.33344ZM11.3199 4.78815C11.232 4.79456 11.1462 4.81834 11.0675 4.85813C10.9888 4.89792 10.9188 4.95291 10.8616 5.01993L6.94848 9.56197L5.1137 7.66728C5.05234 7.6044 4.97916 7.55426 4.89836 7.51975C4.81756 7.48525 4.73074 7.46705 4.64289 7.4662C4.55503 7.46536 4.46788 7.48189 4.38644 7.51484C4.30499 7.54779 4.23086 7.59652 4.16831 7.65821C4.04272 7.78177 3.97113 7.95001 3.9692 8.12617C3.96726 8.30234 4.03513 8.47211 4.15798 8.5984L6.49671 11.014C6.56115 11.0805 6.63877 11.133 6.72461 11.1679C6.81045 11.2028 6.90263 11.2194 6.99526 11.2168C7.08789 11.2141 7.17894 11.1921 7.2626 11.1522C7.34626 11.1124 7.4207 11.0555 7.48117 10.9853L11.8708 5.88593C11.9863 5.75209 12.0439 5.57786 12.031 5.40156C12.0181 5.22525 11.9356 5.0613 11.8018 4.94575C11.6682 4.83185 11.495 4.77518 11.3199 4.78815Z"
+                  fill="#9D76FF" />
+              </g>
+              <defs>
+                <clipPath id="clip0_71_3604">
+                  <rect width="16" height="16" fill="white" />
+                </clipPath>
+              </defs>
+              </svg></span> <span><b>ZERO</b> Interest for 30 days for Margin Trading</span></div>
             </div>
 
             <div *ngFor="let plan of planSelectionResponse; let i = index" class="card_div_body" [ngClass]="{
@@ -1038,7 +1212,7 @@
                 </div>
               </div>
               <div class="card_bottom">
-               <button type="button" class="link-style-btn" (click)="openModal(plan.PlanID)" style="background:none;border:none;padding:0;color:inherit;text-decoration:underline;cursor:pointer;font-weight:600;">View Details</button>
+                <button type="button" class="link-style-btn" (click)="openModal(plan.PlanID)" style="background:none;border:none;padding:0;color:inherit;text-decoration:underline;cursor:pointer;font-weight:600;">View Details</button>
                 <button class="btn_cls">
                   {{ plan.PlanID == selectedPlanTag ? 'Selected Plan' : 'Select' }}
                 </button>
@@ -1046,221 +1220,263 @@
               </div>
             </div>
           </div> -->
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Plan details Modal -->
-  <div class="modal fade uploadPan" id="plandetails" tabindex="-1" role="dialog" aria-modal="true"
-    aria-labelledby="plandetailsLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-          <h2 class="modal-title fs-5 visually-hidden" id="plandetailsLabel">Plan details</h2>
-          <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+    <!-- Plan details Modal -->
+    <div class="modal fade uploadPan" id="plandetails" tabindex="-1" role="dialog" aria-modal="true"
+      aria-labelledby="plandetailsLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+            <h2 class="modal-title fs-5 visually-hidden" id="plandetailsLabel">Plan details</h2>
+            <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
             (click)="removeModal()"></button>
-        </div>
-        <div class="modal-body">
-          <div class="plan_align">
-            <div class="">
-              <h5 role="heading" aria-level="3">Plan details</h5>
-              <h3 class="plan-heading">{{ selectedPlan?.SCHEMECODE }}</h3>
-            </div>
-            <div>
-              <button (click)="ViewPDF()" class="pdf_button">
-                <img src="assets/images/diy/PDF.png" alt="" />DP Tariff
-              </button>
-            </div>
           </div>
-          <div class="plan_details">
-            <ul>
-              <li *ngIf="selectedPlan?.DELIVERY !== null">
-                {{ selectedPlan?.DELIVERY }} Delivery
-              </li>
-              <li *ngIf="selectedPlan?.EMARGIN !== null">
-                {{ selectedPlan?.EMARGIN }} E-Margin
-              </li>
-              <li *ngIf="selectedPlan?.INTRADAY !== null">
-                {{ selectedPlan?.INTRADAY }} Intraday
-              </li>
-              <li *ngIf="selectedPlan?.FUTURES !== null">
-                {{ selectedPlan?.FUTURES }} Futures
-              </li>
-              <li *ngIf="selectedPlan?.OPTIONS !== null">
-                {{ selectedPlan?.OPTIONS }} Options
-              </li>
-              <li *ngIf="selectedPlan?.CURRENCYDERIVATIVES !== null">
-                {{ selectedPlan?.CURRENCYDERIVATIVES }} Currency
-              </li>
-              <li *ngIf="selectedPlan?.ETF !== null">
-                {{ selectedPlan?.ETF }} ETF ^
-              </li>
-              <li *ngIf="selectedPlan?.SchemeTenure !== null">
-                {{ selectedPlan?.SchemeTenure }}
-                {{ selectedPlan?.SchemeTenure }}
-              </li>
-            </ul>
-          </div>
-          <hr />
-          <h5 role="heading" aria-level="3">View other plans:</h5>
-          <div class="other_plan_details">
-            <button type="button" *ngFor="let plans of planSelectionResponse"
-              [ngClass]="{ active: isRadioSelected(plans) }" (click)="selectRadioPlan(plans)"
-              [attr.aria-pressed]="isRadioSelected(plans) ? 'true' : 'false'">{{ plans.SCHEMECODE
-              }}</button>
+          <div class="modal-body">
+            <div class="plan_align">
+              <div class="">
+                <h5 role="heading" aria-level="3">Plan details</h5>
+                <h3 class="plan-heading">{{ selectedPlan?.SCHEMECODE }}</h3>
+              </div>
+              <div>
+                <button (click)="ViewPDF()" class="pdf_button">
+                  <img src="assets/images/diy/PDF.png" alt="" />DP Tariff
+                </button>
+              </div>
+            </div>
+            <div class="plan_details">
+              <ul>
+                @if (selectedPlan?.DELIVERY !== null) {
+                  <li>
+                    {{ selectedPlan?.DELIVERY }} Delivery
+                  </li>
+                }
+                @if (selectedPlan?.EMARGIN !== null) {
+                  <li>
+                    {{ selectedPlan?.EMARGIN }} E-Margin
+                  </li>
+                }
+                @if (selectedPlan?.INTRADAY !== null) {
+                  <li>
+                    {{ selectedPlan?.INTRADAY }} Intraday
+                  </li>
+                }
+                @if (selectedPlan?.FUTURES !== null) {
+                  <li>
+                    {{ selectedPlan?.FUTURES }} Futures
+                  </li>
+                }
+                @if (selectedPlan?.OPTIONS !== null) {
+                  <li>
+                    {{ selectedPlan?.OPTIONS }} Options
+                  </li>
+                }
+                @if (selectedPlan?.CURRENCYDERIVATIVES !== null) {
+                  <li>
+                    {{ selectedPlan?.CURRENCYDERIVATIVES }} Currency
+                  </li>
+                }
+                @if (selectedPlan?.ETF !== null) {
+                  <li>
+                    {{ selectedPlan?.ETF }} ETF ^
+                  </li>
+                }
+                @if (selectedPlan?.SchemeTenure !== null) {
+                  <li>
+                    {{ selectedPlan?.SchemeTenure }}
+                    {{ selectedPlan?.SchemeTenure }}
+                  </li>
+                }
+              </ul>
+            </div>
+            <hr />
+            <h5 role="heading" aria-level="3">View other plans:</h5>
+            <div class="other_plan_details">
+              @for (plans of planSelectionResponse; track plans) {
+                <button type="button"
+                  [ngClass]="{ active: isRadioSelected(plans) }" (click)="selectRadioPlan(plans)"
+                  [attr.aria-pressed]="isRadioSelected(plans) ? 'true' : 'false'">{{ plans.SCHEMECODE
+                }}</button>
+              }
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Modals -->
-<div *ngFor="let plan of planSelectionResponse">
-  <div role="dialog" aria-modal="true" class="modal fade knowmore" [id]="'knowMoreModal' + plan.PlanID" tabindex="-1"
-    aria-label="Plan details" aria-hidden="true" *ngIf="selectedPlan === plan.PlanID">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()">
-          <div class="mobile_css">
-            <span style="display: block; width: 100%; text-align: center">
-              <svg width="100" height="24" viewBox="0 0 100 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M33.5 13.25C33.5 12.7196 33.7107 12.2109 34.0858 11.8358C34.4609 11.4607 34.9696 11.25 35.5 11.25H63.5C64.0304 11.25 64.5391 11.4607 64.9142 11.8358C65.2893 12.2109 65.5 12.7196 65.5 13.25C65.5 13.7804 65.2893 14.2891 64.9142 14.6642C64.5391 15.0393 64.0304 15.25 63.5 15.25H35.5C34.9696 15.25 34.4609 15.0393 34.0858 14.6642C33.7107 14.2891 33.5 13.7804 33.5 13.25Z"
-                  fill="#999999" />
-              </svg>
-            </span>
+  <!-- Modals -->
+  @for (plan of planSelectionResponse; track plan) {
+    <div>
+      @if (selectedPlan === plan.PlanID) {
+        <div role="dialog" aria-modal="true" class="modal fade knowmore" [id]="'knowMoreModal' + plan.PlanID" tabindex="-1"
+          aria-label="Plan details" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()">
+                <div class="mobile_css">
+                  <span style="display: block; width: 100%; text-align: center">
+                    <svg width="100" height="24" viewBox="0 0 100 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M33.5 13.25C33.5 12.7196 33.7107 12.2109 34.0858 11.8358C34.4609 11.4607 34.9696 11.25 35.5 11.25H63.5C64.0304 11.25 64.5391 11.4607 64.9142 11.8358C65.2893 12.2109 65.5 12.7196 65.5 13.25C65.5 13.7804 65.2893 14.2891 64.9142 14.6642C64.5391 15.0393 64.0304 15.25 63.5 15.25H35.5C34.9696 15.25 34.4609 15.0393 34.0858 14.6642C33.7107 14.2891 33.5 13.7804 33.5 13.25Z"
+                        fill="#999999" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+              <div class="modal-body">
+                <div class="desktop_css">
+                  <button type="button" (click)="closeModal()" data-bs-dismiss="modal" aria-label="Close"
+                    style="background:none;border:none;padding:0;cursor:pointer;">
+                    <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g clip-path="url(#clip0_0_10804)">
+                        <path d="M5 12.5H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                        <path d="M5 12.5L11 18.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                        <path d="M5 12.5L11 6.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_0_10804">
+                          <rect width="24" height="24" fill="white" transform="translate(0 0.5)" />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </button>
+                </div>
+                <div>
+                  <h3 class="plan-heading">{{ plan.schemeType }} Plan Details</h3>
+                </div>
+                <div class="plan_details">
+                  <ul>
+                    @if (plan?.DELIVERY !== null) {
+                      <li>
+                        <span>
+                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
+                              fill="#9D76FF" />
+                          </svg>
+                          <p>
+                            <b>{{ plan.DELIVERY }}</b> on Delivery Trade
+                          </p>
+                        </span>
+                      </li>
+                    }
+                    @if (plan?.EMARGIN !== null) {
+                      <li>
+                        <span>
+                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
+                              fill="#9D76FF" />
+                          </svg>
+                          <p>
+                            <b>{{ plan.EMARGIN }}</b> on E-Margin
+                          </p>
+                        </span>
+                      </li>
+                    }
+                    @if (plan?.INTRADAY !== null) {
+                      <li>
+                        <span>
+                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
+                              fill="#9D76FF" />
+                          </svg>
+                          <p>
+                            <b>{{ plan.INTRADAY }}</b> on Intraday
+                          </p>
+                        </span>
+                      </li>
+                    }
+                    @if (plan?.FUTURES !== null) {
+                      <li>
+                        <span>
+                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
+                              fill="#9D76FF" />
+                          </svg>
+                          <p>
+                            <b>{{ plan.FUTURES }}</b> on Futures
+                          </p>
+                        </span>
+                      </li>
+                    }
+                    @if (plan?.OPTIONS !== null) {
+                      <li>
+                        <span>
+                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
+                              fill="#9D76FF" />
+                          </svg>
+                          <p>
+                            <b>{{ plan.OPTIONS }}</b> on Options
+                          </p>
+                        </span>
+                      </li>
+                    }
+                    @if (plan?.CURRENCYDERIVATIVES !== null) {
+                      <li>
+                        <span>
+                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
+                              fill="#9D76FF" />
+                          </svg>
+                          <p>
+                            <b>{{ plan.CURRENCYDERIVATIVES }}</b> on Currency
+                          </p>
+                        </span>
+                      </li>
+                    }
+                    @if (plan?.ETF !== null) {
+                      <li>
+                        <span>
+                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
+                              fill="#9D76FF" />
+                          </svg>
+                          <p>
+                            <b>{{ plan.ETF }}</b> on ETF
+                          </p>
+                        </span>
+                      </li>
+                    }
+                    @if (plan?.SchemeTenure !== null) {
+                      <li>
+                        <span>
+                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
+                              fill="#9D76FF" />
+                          </svg>
+                          @if (plan?.TCSSchemeCode == 'SSLEMP') {
+                            <p>
+                              Valid for <b>{{ plan.SchemeTenure }}</b>
+                            </p>
+                          }
+                          @if (plan?.TCSSchemeCode != 'SSLEMP') {
+                            <p>
+                              {{ plan.SchemeTenure }}
+                            </p>
+                          }
+                        </span>
+                      </li>
+                    }
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="modal-body">
-          <div class="desktop_css">
-            <button type="button" (click)="closeModal()" data-bs-dismiss="modal" aria-label="Close"
-              style="background:none;border:none;padding:0;cursor:pointer;">
-              <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clip-path="url(#clip0_0_10804)">
-                  <path d="M5 12.5H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                  <path d="M5 12.5L11 18.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                  <path d="M5 12.5L11 6.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                </g>
-                <defs>
-                  <clipPath id="clip0_0_10804">
-                    <rect width="24" height="24" fill="white" transform="translate(0 0.5)" />
-                  </clipPath>
-                </defs>
-              </svg>
-            </button>
-          </div>
-          <div>
-            <h3 class="plan-heading">{{ plan.schemeType }} Plan Details</h3>
-          </div>
-          <div class="plan_details">
-            <ul>
-              <li *ngIf="plan?.DELIVERY !== null">
-                <span>
-                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                      d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
-                      fill="#9D76FF" />
-                  </svg>
-                  <p>
-                    <b>{{ plan.DELIVERY }}</b> on Delivery Trade
-                  </p>
-                </span>
-              </li>
-              <li *ngIf="plan?.EMARGIN !== null">
-                <span>
-                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                      d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
-                      fill="#9D76FF" />
-                  </svg>
-                  <p>
-                    <b>{{ plan.EMARGIN }}</b> on E-Margin
-                  </p>
-                </span>
-              </li>
-              <li *ngIf="plan?.INTRADAY !== null">
-                <span>
-                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                      d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
-                      fill="#9D76FF" />
-                  </svg>
-                  <p>
-                    <b>{{ plan.INTRADAY }}</b> on Intraday
-                  </p>
-                </span>
-              </li>
-              <li *ngIf="plan?.FUTURES !== null">
-                <span>
-                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                      d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
-                      fill="#9D76FF" />
-                  </svg>
-                  <p>
-                    <b>{{ plan.FUTURES }}</b> on Futures
-                  </p>
-                </span>
-              </li>
-              <li *ngIf="plan?.OPTIONS !== null">
-                <span>
-                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                      d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
-                      fill="#9D76FF" />
-                  </svg>
-                  <p>
-                    <b>{{ plan.OPTIONS }}</b> on Options
-                  </p>
-                </span>
-              </li>
-              <li *ngIf="plan?.CURRENCYDERIVATIVES !== null">
-                <span>
-                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                      d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
-                      fill="#9D76FF" />
-                  </svg>
-                  <p>
-                    <b>{{ plan.CURRENCYDERIVATIVES }}</b> on Currency
-                  </p>
-                </span>
-              </li>
-              <li *ngIf="plan?.ETF !== null">
-                <span>
-                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                      d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
-                      fill="#9D76FF" />
-                  </svg>
-                  <p>
-                    <b>{{ plan.ETF }}</b> on ETF
-                  </p>
-                </span>
-              </li>
-              <li *ngIf="plan?.SchemeTenure !== null">
-                <span>
-                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                      d="M5.00122 0C2.24451 0 0 2.24451 0 5.00122C0 7.75793 2.24451 10 5.00122 10C7.75793 10 10 7.75793 10 5.00122C10 2.24451 7.75793 0 5.00122 0ZM5.00122 0.833402C7.30753 0.833402 9.1666 2.69491 9.1666 5.00122C9.1666 7.30753 7.30753 9.1666 5.00122 9.1666C2.69491 9.1666 0.833402 7.30753 0.833402 5.00122C0.833402 2.69491 2.69491 0.833402 5.00122 0.833402ZM7.07496 2.99259C7.02 2.9966 6.96638 3.01146 6.91721 3.03633C6.86803 3.0612 6.82428 3.09557 6.78848 3.13746L4.3428 5.97623L3.19606 4.79205C3.15771 4.75275 3.11198 4.72141 3.06148 4.69985C3.01098 4.67828 2.95671 4.6669 2.90181 4.66638C2.8469 4.66585 2.79243 4.67618 2.74152 4.69678C2.69062 4.71737 2.64429 4.74782 2.60519 4.78638C2.5267 4.8636 2.48196 4.96875 2.48075 5.07886C2.47954 5.18896 2.52196 5.29507 2.59874 5.374L4.06044 6.88372C4.10072 6.92534 4.14923 6.95811 4.20288 6.97993C4.25653 7.00176 4.31414 7.01216 4.37204 7.01047C4.42993 7.00879 4.48684 6.99505 4.53913 6.97015C4.59142 6.94524 4.63794 6.90971 4.67573 6.86581L7.41928 3.67871C7.49146 3.59506 7.52747 3.48616 7.51938 3.37597C7.51129 3.26578 7.45977 3.16331 7.37614 3.0911C7.29265 3.0199 7.18438 2.98449 7.07496 2.99259Z"
-                      fill="#9D76FF" />
-                  </svg>
-                  <p *ngIf="plan?.TCSSchemeCode == 'SSLEMP'">
-                    Valid for <b>{{ plan.SchemeTenure }}</b>
-                  </p>
-                  <p *ngIf="plan?.TCSSchemeCode != 'SSLEMP'">
-                    {{ plan.SchemeTenure }}
-                  </p>
-                </span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      }
     </div>
-  </div>
-</div>
+  }

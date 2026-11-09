@@ -10,7 +10,7 @@
               </div>
               <div>
                 <div class="help_btn" (click)="faqHelpBtn('Pan')" (keydown.enter)="faqHelpBtn('Pan')"
-                  (keydown.space)="faqHelpBtn('Pan')" role="button" tabindex="0">Need Help?</div>
+                (keydown.space)="faqHelpBtn('Pan')" role="button" tabindex="0">Need Help?</div>
               </div>
             </div>
             <p class="sub_title">
@@ -29,7 +29,7 @@
                   </div>
                   <div>
                     <div class="help_btn" (click)="faqHelpBtn('Pan')" (keydown.enter)="faqHelpBtn('Pan')"
-                      (keydown.space)="faqHelpBtn('Pan')" role="button" tabindex="0">Need Help?</div>
+                    (keydown.space)="faqHelpBtn('Pan')" role="button" tabindex="0">Need Help?</div>
                   </div>
                 </div>
                 <p class="sub_title">
@@ -50,9 +50,15 @@
                     [(ngModel)]="panDetailsManual.pannumber" onpaste="return false;" onselectstart="return false;"
                     onkeypress="return /[A-Za-z0-9]/i.test(event.key)" (change)="validateForm()" appEmojiBlocker
                     aria-required="true" />
-                  <span *ngIf="panValidation" class="red_warning">*Please enter a valid PAN</span>
-                  <span *ngIf="fourthCharValidation" class="red_warning">We accept Personal PanCard Numbers Only</span>
-                  <span *ngIf="specialCharValidation" class="red_warning">Special Characters are not allow</span>
+                  @if (panValidation) {
+                    <span class="red_warning">*Please enter a valid PAN</span>
+                  }
+                  @if (fourthCharValidation) {
+                    <span class="red_warning">We accept Personal PanCard Numbers Only</span>
+                  }
+                  @if (specialCharValidation) {
+                    <span class="red_warning">Special Characters are not allow</span>
+                  }
                 </div>
               </div>
             </div>
@@ -61,13 +67,15 @@
               <img src="assets/images/diy/Shield_img.png" alt="" aria-hidden="true" />
               <span>Your PAN details are safe and secure with us</span>
             </div>
-            <div *ngIf="panDetailsManual.fullname_as_pancard" class="pan_confirmation">
-              <p>
-                I Confirm that the PAN Number provided belongs to
-                <span class="upper">{{ panDetailsManual.fullname_as_pancard }}.</span>
-                Once confirmed, PAN details cannot be changed later
-              </p>
-            </div>
+            @if (panDetailsManual.fullname_as_pancard) {
+              <div class="pan_confirmation">
+                <p>
+                  I Confirm that the PAN Number provided belongs to
+                  <span class="upper">{{ panDetailsManual.fullname_as_pancard }}.</span>
+                  Once confirmed, PAN details cannot be changed later
+                </p>
+              </div>
+            }
           </div>
           <div class="stickybtn_desk desktop_css">
             <button [attr.aria-disabled]="isVerifyPanBtn" [disabled]="isVerifyPanBtn" class="btn btn_cls"
@@ -95,7 +103,7 @@
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
         <h2 class="modal-title fs-5" id="completePanLabel"></h2>
         <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
-          (click)="removeModal()"></button>
+        (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
         <div class="file_loading_css">
@@ -115,7 +123,7 @@
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close"
         (click)="clearMobileOTPFields(); clearTimer()">
         <button #mobilecloseModal type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
-          (click)="clearMobileOTPFields(); clearTimer()"></button>
+        (click)="clearMobileOTPFields(); clearTimer()"></button>
       </div>
       <div class="modal-body">
         <p class="title_cls" id="otpLabel">OTP Verification</p>
@@ -127,27 +135,33 @@
           <ng-otp-input aria-label="Enter 6-digit OTP sent to your mobile number" #otpMobileInput
             (onInputChange)="onOtpChangeMobile($event)" (ngModelChange)="checkIfAllOTPMobileFilled()"
             [(ngModel)]="otpFieldMobile" [ngClass]="{ 'is-success': isRightOTP, 'is-error': isWrongOTP }"
-            [config]="config" [autofocus]="true" (keydown.enter)="getMobileOtpVerify(false)"></ng-otp-input>
+          [config]="config" [autofocus]="true" (keydown.enter)="getMobileOtpVerify(false)"></ng-otp-input>
         </div>
-        <div *ngIf="isWrongOTP" class="mb-2 d-block">
-          <div class="otp_cls">
-            <img src="assets/images/diy/invalid_otp.png" alt="" aria-hidden="true" />
-            <span class="alert_msg">Please enter the valid 6 digit OTP sent to your registered mobile
+        @if (isWrongOTP) {
+          <div class="mb-2 d-block">
+            <div class="otp_cls">
+              <img src="assets/images/diy/invalid_otp.png" alt="" aria-hidden="true" />
+              <span class="alert_msg">Please enter the valid 6 digit OTP sent to your registered mobile
               number.</span>
+            </div>
           </div>
-        </div>
+        }
         <div class="otp_align">
           <div>
             <span style="font-size: 14px">Didn't receive the OTP?</span>
           </div>
           <div>
-            <span style="font-weight: 400; font-size: 14px" *ngIf="timeroff">
-              Resend OTP : {{ displayMobile + " sec" }}
-            </span>
-            <span class="otp_confirmation" *ngIf="!timeroff" (click)="getMobileOtp(true)"
-              (keydown.enter)="getMobileOtp(true)" (keydown.space)="getMobileOtp(true)" role="button" tabindex="0">
-              Resend OTP
-            </span>
+            @if (timeroff) {
+              <span style="font-weight: 400; font-size: 14px">
+                Resend OTP : {{ displayMobile + " sec" }}
+              </span>
+            }
+            @if (!timeroff) {
+              <span class="otp_confirmation" (click)="getMobileOtp(true)"
+                (keydown.enter)="getMobileOtp(true)" (keydown.space)="getMobileOtp(true)" role="button" tabindex="0">
+                Resend OTP
+              </span>
+            }
           </div>
         </div>
       </div>
@@ -191,8 +205,8 @@
     <div class="modal-content">
       <div class="modal-header d-block">
         <!-- (click)="removeModal()"
-      data-bs-dismiss="modal"
-      aria-label="Close" -->
+        data-bs-dismiss="modal"
+        aria-label="Close" -->
         <h2 class="modal-title fs-5" id="completePanVerifyDoneLabel"></h2>
         <button type="button" class="btn-horizontal-line" id="successClose"></button>
         <!-- data-bs-dismiss="modal"
@@ -208,33 +222,33 @@
         </div>
         <div class="verification_points">
           <!-- <p class="my-2">
-            All you need to do next is 4 simple steps to provide e-KYC details:
-          </p> -->
-          <ul>
-            <li>All you need to do next is 4 simple steps to provide e-KYC details.</li>
-            <li>Enter your Aadhaar or VID.</li>
-            <li>Enter OTP received in your Aadhaar linked mobile number.</li>
-            <li>Enter 6 digit M-Pin or click on forget M-PIN to reset or create it.</li>
-            <li>Give consent for Aadhaar Card & PAN verification record.</li>
-            <!-- <li>
-              <b
-                >Please tick ✅ to give your consent to fetch your Aadhaar and PAN
-                details digitally</b
-              >
-            </li> -->
-          </ul>
-          <p class="my-2">You need not to have a DigiLocker account to proceed with this step.</p>
-        </div>
+          All you need to do next is 4 simple steps to provide e-KYC details:
+        </p> -->
+        <ul>
+          <li>All you need to do next is 4 simple steps to provide e-KYC details.</li>
+          <li>Enter your Aadhaar or VID.</li>
+          <li>Enter OTP received in your Aadhaar linked mobile number.</li>
+          <li>Enter 6 digit M-Pin or click on forget M-PIN to reset or create it.</li>
+          <li>Give consent for Aadhaar Card & PAN verification record.</li>
+          <!-- <li>
+          <b
+            >Please tick ✅ to give your consent to fetch your Aadhaar and PAN
+            details digitally</b
+            >
+          </li> -->
+        </ul>
+        <p class="my-2">You need not to have a DigiLocker account to proceed with this step.</p>
       </div>
-      <div class="modal-footer p-0">
-        <div class="btn_align">
-          <button (click)="redirectDigiLocker()" class="btn btn_cls">
-            Proceed to DigiLocker for KYC
-          </button>
-        </div>
+    </div>
+    <div class="modal-footer p-0">
+      <div class="btn_align">
+        <button (click)="redirectDigiLocker()" class="btn btn_cls">
+          Proceed to DigiLocker for KYC
+        </button>
       </div>
     </div>
   </div>
+</div>
 </div>
 
 <!-- Upload Pan Manual Invalid Modal -->
@@ -246,7 +260,7 @@
         aria-label="Close">
         <h2 class="modal-title fs-5" id="completePanVerifyErrorLabel"></h2>
         <button type="button" class="btn-horizontal-line" id="failureClose" data-bs-dismiss="modal" aria-label="Close"
-          (click)="removeModal()"></button>
+        (click)="removeModal()"></button>
       </div>
       <div class="modal-body">
         <div class="pan_modal_heading">

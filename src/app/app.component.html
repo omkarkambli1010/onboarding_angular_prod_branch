@@ -1,4 +1,6 @@
-<app-header *ngIf="isheadervisible"></app-header>
+@if (isheadervisible) {
+  <app-header></app-header>
+}
 <!-- bdColor="transparent" -->
 <ngx-spinner
   size="medium"
@@ -6,5 +8,5 @@
   type="ball-pulse-sync"
   [fullScreen]="true"
   ><p style="color: #280071">Please Wait</p></ngx-spinner
->
-<router-outlet></router-outlet>
+  >
+  <router-outlet></router-outlet>

@@ -6,167 +6,173 @@
           <div class="back_cls">
             <!-- *ngIf="this.RejectStatus != 'R'" (click)="redirectAadhaar()" -->
             <!-- <div>
-              <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
-            </div> -->
+            <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
+          </div> -->
 
-            <!-- <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div> -->
+          <!-- <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div> -->
 
-            <div class="d-flex flex-column align-items-start gap-2">
-              <h1>OTP Verification</h1>
-              <!-- <h5 class="">OTP Verification</h5> -->
-              <p class="sub_title">
-                You will receive OTP on your mobile number
-              </p>
-            </div>
+          <div class="d-flex flex-column align-items-start gap-2">
+            <h1>OTP Verification</h1>
+            <!-- <h5 class="">OTP Verification</h5> -->
+            <p class="sub_title">
+              You will receive OTP on your mobile number
+            </p>
           </div>
         </div>
+      </div>
 
-        <form aria-label="Mobile OTP Verification" method="post" class="">
-          <div class="div">
-            <div class="col-lg-12 col-md-12 col-12 desktop_css">
-              <div class="header_padding">
-                <div class="help_faq_css">
-                  <div class="d-flex flex-column gap-2">
-                    <h2>OTP Verification</h2>
-                    <!-- <h5>OTP Verification</h5> -->
-                    <p class="sub_title">
-                      You will receive OTP on your mobile number
-                    </p>
-                  </div>
+      <form aria-label="Mobile OTP Verification" method="post" class="">
+        <div class="div">
+          <div class="col-lg-12 col-md-12 col-12 desktop_css">
+            <div class="header_padding">
+              <div class="help_faq_css">
+                <div class="d-flex flex-column gap-2">
+                  <h2>OTP Verification</h2>
+                  <!-- <h5>OTP Verification</h5> -->
+                  <p class="sub_title">
+                    You will receive OTP on your mobile number
+                  </p>
                 </div>
               </div>
             </div>
-            <div class="desktop_css">
-              <div class="line_css"></div>
-            </div>
-            <div class="col-lg-12 col-md-12 col-12">
-              <div class="mobile_section">
-                <div class="desktop_align">
-                  <div class="mobile_otp_screen">
-                    <div class="otp_section">
-                      <div class="mobile_input">
-                        <h3>{{ this.sendMobileOtp.mobile }}</h3>
-                        <p class="edit_btn" (click)="editMobileNumber()"
-                            role="button"
-                            tabindex="0"
-                            (keydown.enter)="editMobileNumber()"
-                            (keydown.space)="editMobileNumber()"
-                            aria-label="Edit mobile number">
-                          <span aria-hidden="true">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-                              fill="none" aria-hidden="true" focusable="false">
-                              <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M12.6087 3.49506C12.9705 3.3452 13.3583 3.26807 13.7499 3.26807C14.1415 3.26807 14.5293 3.3452 14.8911 3.49506C15.2529 3.64492 15.5816 3.86457 15.8585 4.14148C16.1354 4.41839 16.3551 4.74712 16.5049 5.10892C16.6548 5.47072 16.7319 5.85849 16.7319 6.25009C16.7319 6.64169 16.6548 7.02946 16.5049 7.39126C16.3551 7.75306 16.1354 8.08179 15.8585 8.3587L7.10853 17.1087C6.99132 17.2259 6.83235 17.2918 6.66659 17.2918H3.33325C2.98807 17.2918 2.70825 17.0119 2.70825 16.6668V13.3334C2.70825 13.1677 2.7741 13.0087 2.89131 12.8915L11.6413 4.14148C11.9182 3.86457 12.247 3.64492 12.6087 3.49506ZM13.7499 4.51807C13.5225 4.51807 13.2972 4.56287 13.0871 4.64991C12.877 4.73695 12.686 4.86453 12.5252 5.02536L3.95825 13.5923V16.0418H6.4077L14.9746 7.47481C15.1355 7.31398 15.2631 7.12304 15.3501 6.9129C15.4371 6.70277 15.4819 6.47754 15.4819 6.25009C15.4819 6.02263 15.4371 5.79741 15.3501 5.58727C15.2631 5.37713 15.1355 5.1862 14.9746 5.02536C14.8138 4.86453 14.6229 4.73695 14.4127 4.64991C14.2026 4.56287 13.9774 4.51807 13.7499 4.51807Z"
-                                fill="#280071" />
-                              <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M10.8081 4.97481C11.0521 4.73073 11.4479 4.73073 11.6919 4.97481L15.0253 8.30814C15.2694 8.55222 15.2694 8.94795 15.0253 9.19202C14.7812 9.4361 14.3855 9.4361 14.1414 9.19202L10.8081 5.85869C10.564 5.61461 10.564 5.21888 10.8081 4.97481Z"
-                                fill="#280071" />
-                            </svg>
-                          </span>
-                          <span class="edit">Edit</span>
-                        </p>
-                      </div>
-                      <div class="otp_input_box">
-                        <span class="">Enter OTP</span>
-                        <div class="otp_field">
-                          <ng-otp-input aria-label="Enter 6-digit OTP sent to your mobile number" #otpMobileInput
-                            (onInputChange)="onOtpChangeMobile($event)" [autofocus]="true"
+          </div>
+          <div class="desktop_css">
+            <div class="line_css"></div>
+          </div>
+          <div class="col-lg-12 col-md-12 col-12">
+            <div class="mobile_section">
+              <div class="desktop_align">
+                <div class="mobile_otp_screen">
+                  <div class="otp_section">
+                    <div class="mobile_input">
+                      <h3>{{ this.sendMobileOtp.mobile }}</h3>
+                      <p class="edit_btn" (click)="editMobileNumber()"
+                        role="button"
+                        tabindex="0"
+                        (keydown.enter)="editMobileNumber()"
+                        (keydown.space)="editMobileNumber()"
+                        aria-label="Edit mobile number">
+                        <span aria-hidden="true">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                            fill="none" aria-hidden="true" focusable="false">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M12.6087 3.49506C12.9705 3.3452 13.3583 3.26807 13.7499 3.26807C14.1415 3.26807 14.5293 3.3452 14.8911 3.49506C15.2529 3.64492 15.5816 3.86457 15.8585 4.14148C16.1354 4.41839 16.3551 4.74712 16.5049 5.10892C16.6548 5.47072 16.7319 5.85849 16.7319 6.25009C16.7319 6.64169 16.6548 7.02946 16.5049 7.39126C16.3551 7.75306 16.1354 8.08179 15.8585 8.3587L7.10853 17.1087C6.99132 17.2259 6.83235 17.2918 6.66659 17.2918H3.33325C2.98807 17.2918 2.70825 17.0119 2.70825 16.6668V13.3334C2.70825 13.1677 2.7741 13.0087 2.89131 12.8915L11.6413 4.14148C11.9182 3.86457 12.247 3.64492 12.6087 3.49506ZM13.7499 4.51807C13.5225 4.51807 13.2972 4.56287 13.0871 4.64991C12.877 4.73695 12.686 4.86453 12.5252 5.02536L3.95825 13.5923V16.0418H6.4077L14.9746 7.47481C15.1355 7.31398 15.2631 7.12304 15.3501 6.9129C15.4371 6.70277 15.4819 6.47754 15.4819 6.25009C15.4819 6.02263 15.4371 5.79741 15.3501 5.58727C15.2631 5.37713 15.1355 5.1862 14.9746 5.02536C14.8138 4.86453 14.6229 4.73695 14.4127 4.64991C14.2026 4.56287 13.9774 4.51807 13.7499 4.51807Z"
+                              fill="#280071" />
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M10.8081 4.97481C11.0521 4.73073 11.4479 4.73073 11.6919 4.97481L15.0253 8.30814C15.2694 8.55222 15.2694 8.94795 15.0253 9.19202C14.7812 9.4361 14.3855 9.4361 14.1414 9.19202L10.8081 5.85869C10.564 5.61461 10.564 5.21888 10.8081 4.97481Z"
+                              fill="#280071" />
+                          </svg>
+                        </span>
+                        <span class="edit">Edit</span>
+                      </p>
+                    </div>
+                    <div class="otp_input_box">
+                      <span class="">Enter OTP</span>
+                      <div class="otp_field">
+                        <ng-otp-input aria-label="Enter 6-digit OTP sent to your mobile number" #otpMobileInput
+                          (onInputChange)="onOtpChangeMobile($event)" [autofocus]="true"
                             (keydown.enter)="getMobileOtpVerify(false)" [config]="config" [ngClass]="{
                               'is-success': isRightOTP,
                               'is-error': isWrongOTP
                             }">
-                          </ng-otp-input>
-                        </div>
+                        </ng-otp-input>
                       </div>
-                      <div *ngIf="isWrongOTP" class="mb-2 d-block">
+                    </div>
+                    @if (isWrongOTP) {
+                      <div class="mb-2 d-block">
                         <div class="otp_cls">
                           <img src="assets/images/diy/invalid_otp.png" alt="" aria-hidden="true" />
                           <span class="alert_msg" role="alert">Please enter the valid 6 digit OTP sent to your
-                            mobile number.</span>
+                          mobile number.</span>
                         </div>
                       </div>
-                      <span class="visually-hidden" role="status" aria-live="polite">{{ resendStatusMsg }}</span>
-                      <div class="otp_align">
-                        <div>
-                          <span class="">Didn't receive the OTP?</span>
-                        </div>
-                        <div>
-                          <span *ngIf="timeroff">
+                    }
+                    <span class="visually-hidden" role="status" aria-live="polite">{{ resendStatusMsg }}</span>
+                    <div class="otp_align">
+                      <div>
+                        <span class="">Didn't receive the OTP?</span>
+                      </div>
+                      <div>
+                        @if (timeroff) {
+                          <span>
                             Resend OTP : {{ displayMobile + " sec" }}
                           </span>
-                          <span *ngIf="!timeroff" (click)="getMobileOtp(true)" class="otp_confirmation" (keydown.enter)="getMobileOtp(true)" (keydown.space)="getMobileOtp(true)"
+                        }
+                        @if (!timeroff) {
+                          <span (click)="getMobileOtp(true)" class="otp_confirmation" (keydown.enter)="getMobileOtp(true)" (keydown.space)="getMobileOtp(true)"
                             role="button" tabindex="0">
                             Resend OTP
                           </span>
-                        </div>
+                        }
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="stickybtn_desk desktop_css">
-                  <span id="mobileVerifyHintDesk" class="visually-hidden">Enter the 6 digit OTP to enable verification.</span>
-                  <button class="btn btn_cls" (click)="getMobileOtpVerify(false)"
-                    [attr.aria-disabled]="isMobileVerifyBtn" [disabled]="isMobileVerifyBtn" aria-describedby="mobileVerifyHintDesk">
-                    Verify
-                  </button>
-                </div>
+              </div>
+              <div class="stickybtn_desk desktop_css">
+                <span id="mobileVerifyHintDesk" class="visually-hidden">Enter the 6 digit OTP to enable verification.</span>
+                <button class="btn btn_cls" (click)="getMobileOtpVerify(false)"
+                  [attr.aria-disabled]="isMobileVerifyBtn" [disabled]="isMobileVerifyBtn" aria-describedby="mobileVerifyHintDesk">
+                  Verify
+                </button>
               </div>
             </div>
           </div>
-        </form>
-        <div class="stickybtn mobile_css">
-          <span id="mobileVerifyHintMob" class="visually-hidden">Enter the 6 digit OTP to enable verification.</span>
-          <button class="btn btn_cls" (click)="getMobileOtpVerify(false)" [attr.aria-disabled]="isMobileVerifyBtn"
-            [disabled]="isMobileVerifyBtn" aria-describedby="mobileVerifyHintMob">
-            Verify
-          </button>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Resume /Timeline application status -->
-<!-- <div class="modal fade uploadPan" id="tracktimeline2" tabindex="-1" aria-labelledby="tracktimelineLabel"
-  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal(); ">
-        <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
-          (click)="removeModal();"></button>
-      </div>
-      <div class="modal-body">
-        <div class="timeline">
-          <div class="timeline-item2">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <p class="green-text">Initiated</p>
-              <p>Your Application is initiated</p>
-            </div>
-          </div>
-          <div class="timeline-item2">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <p class="green-text">Form Received</p>
-              <p>Your application form has been received Successfully</p>
-            </div>
-          </div>
-          <div class="timeline-item2">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <p class="purple-text">Account Status</p>
-              <p>
-                Your application get confirmed, once the verification is done
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn_cls" (click)="goHome()">
-          LOGIN
+      </form>
+      <div class="stickybtn mobile_css">
+        <span id="mobileVerifyHintMob" class="visually-hidden">Enter the 6 digit OTP to enable verification.</span>
+        <button class="btn btn_cls" (click)="getMobileOtpVerify(false)" [attr.aria-disabled]="isMobileVerifyBtn"
+          [disabled]="isMobileVerifyBtn" aria-describedby="mobileVerifyHintMob">
+          Verify
         </button>
       </div>
     </div>
   </div>
+</div>
+</section>
+
+<!-- Resume /Timeline application status -->
+<!-- <div class="modal fade uploadPan" id="tracktimeline2" tabindex="-1" aria-labelledby="tracktimelineLabel"
+aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal(); ">
+      <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+      (click)="removeModal();"></button>
+    </div>
+    <div class="modal-body">
+      <div class="timeline">
+        <div class="timeline-item2">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <p class="green-text">Initiated</p>
+            <p>Your Application is initiated</p>
+          </div>
+        </div>
+        <div class="timeline-item2">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <p class="green-text">Form Received</p>
+            <p>Your application form has been received Successfully</p>
+          </div>
+        </div>
+        <div class="timeline-item2">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <p class="purple-text">Account Status</p>
+            <p>
+              Your application get confirmed, once the verification is done
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn_cls" (click)="goHome()">
+        LOGIN
+      </button>
+    </div>
+  </div>
+</div>
 </div> -->

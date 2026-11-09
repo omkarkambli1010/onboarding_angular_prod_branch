@@ -7,59 +7,137 @@
             <div class="">
               <div class="col-lg-12 col-md-12 col-12 desktop_css">
                 <div class="d-flex align-items-start gap-2">
-                  <div role="button" tabindex="0" (keydown.enter)="BackToPlanPreference()" (keydown.space)="BackToPlanPreference()" *ngIf="this.RejectStatus != 'R'" (click)="BackToPlanPreference()" aria-label="Go back" class="back-btn">
-                    <span> 
-                      <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <g clip-path="url(#clip0_0_10804)">
-                          <path d="M5 12.5H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                          <path d="M5 12.5L11 18.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                          <path d="M5 12.5L11 6.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                        </g>
-                        <defs>
-                          <clipPath id="clip0_0_10804">
-                            <rect width="24" height="24" fill="white" transform="translate(0 0.5)" />
-                          </clipPath>
-                        </defs>
-                      </svg></span>
-                  </div>
-                  <div class="d-flex flex-column align-items-start gap-2">
-                    <h5 role="heading" aria-level="1" id="seg-pref-heading-desk">Segment Preference</h5>
-                    <p class="sub_title">
-                      At the time of account opening by default we are providing
-                      Equity and Mutual Fund segment, if you wish to active F&O
-                      segment few additional documents will be required.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <hr class="desktop_css" />
-              <div class="plan_selection_section">
-                <div class="plan_segment">
-                  <div class="title">Plan Selected</div>
-                  <div class="plan_selected">
-                    <div class="plan">
-                      <img
-                        [src]="'https://diy.sbisecurities.in/' + fetchedPlanImg"
-                        alt="{{ fetchedPlanImg }}"
-                      />
-                      <!-- <img [src]="'https://udn.sbisecurities.in/' + fetchedPlanImg" alt="{{ fetchedPlanImg }}" /> -->
-                      <h6>{{ this.fetchedPlanName }}</h6>
+                  @if (this.RejectStatus != 'R') {
+                    <div role="button" tabindex="0" (keydown.enter)="BackToPlanPreference()" (keydown.space)="BackToPlanPreference()" (click)="BackToPlanPreference()" aria-label="Go back" class="back-btn">
+                      <span>
+                        <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <g clip-path="url(#clip0_0_10804)">
+                            <path d="M5 12.5H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                              stroke-linejoin="round" />
+                            <path d="M5 12.5L11 18.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                              stroke-linejoin="round" />
+                            <path d="M5 12.5L11 6.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                              stroke-linejoin="round" />
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_0_10804">
+                              <rect width="24" height="24" fill="white" transform="translate(0 0.5)" />
+                            </clipPath>
+                          </defs>
+                        </svg></span>
+                      </div>
+                    }
+                    <div class="d-flex flex-column align-items-start gap-2">
+                      <h5 role="heading" aria-level="1" id="seg-pref-heading-desk">Segment Preference</h5>
+                      <p class="sub_title">
+                        At the time of account opening by default we are providing
+                        Equity and Mutual Fund segment, if you wish to active F&O
+                        segment few additional documents will be required.
+                      </p>
                     </div>
-                    <button class="change_text" (click)="BackToPlanPreference()">
-                      Change
-                    </button>
                   </div>
                 </div>
+                <hr class="desktop_css" />
+                <div class="plan_selection_section">
+                  <div class="plan_segment">
+                    <div class="title">Plan Selected</div>
+                    <div class="plan_selected">
+                      <div class="plan">
+                        <img
+                          [src]="'https://diy.sbisecurities.in/' + fetchedPlanImg"
+                          alt="{{ fetchedPlanImg }}"
+                          />
+                        <!-- <img [src]="'https://udn.sbisecurities.in/' + fetchedPlanImg" alt="{{ fetchedPlanImg }}" /> -->
+                        <h6>{{ this.fetchedPlanName }}</h6>
+                      </div>
+                      <button class="change_text" (click)="BackToPlanPreference()">
+                        Change
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                @for (plans of segmentPreferenceResponse; track plans; let i = $index) {
+                  <div class="col-lg-12">
+                    <label for="uploadPanMan{{ i }}" class="square-box p-3">
+                      <div class="pan_details_align">
+                        <input id="uploadPanMan{{ i }}" name="uploadPanMan{{ i }}" class="form-check-input" type="checkbox"
+                          [(ngModel)]="segmentPreferenceResponse[i].selected"
+                          [attr.aria-label]="plans.trdSegment"
+                          [disabled]="plans.trdSegment === 'Equity & Mutual Fund'" [attr.aria-disabled]="plans.trdSegment === 'Equity & Mutual Fund'" />
+                        <div class="upload_css">
+                          <span class="fw-semibold">{{ plans.trdSegment }}</span>
+                        </div>
+                      </div>
+                    </label>
+                  </div>
+                }
+                <div class="col-12">
+                  <p style="font-size: 14px">
+                    I hereby agree to active my respective segment subject to
+                    proper documentation provided by me.
+                  </p>
+                </div>
               </div>
-              <div *ngFor="let plans of segmentPreferenceResponse; let i = index" class="col-lg-12">
+              <div class="proceed_btn">
+                <button (click)="planPreferenceForm()" class="btn btn_cls">
+                  Proceed
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="mobile_css">
+    <section class="pan_details_form" aria-labelledby="seg-pref-heading-mob">
+      <div class="container">
+        <div class="row">
+          <div class="back_cls">
+            @if (this.RejectStatus != 'R') {
+              <div role="button" tabindex="0" (keydown.enter)="BackToPlanPreference()" (keydown.space)="BackToPlanPreference()" (click)="BackToPlanPreference()" aria-label="Go back">
+                <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
+              </div>
+            }
+
+            @if (this.RejectStatus === 'R') {
+              <div class="back_cls2"></div>
+            }
+
+            <div class="d-flex flex-column align-items-start gap-2">
+              <h5 role="heading" aria-level="1" id="seg-pref-heading-mob">Segment Preference</h5>
+              <p class="sub_title">
+                At the time of account opening by default we are providing Equity
+                and Mutual Fund segment, if you wish to active F&O segment few
+                additional documents will be required.
+              </p>
+            </div>
+          </div>
+
+          <form role="presentation" method="post">
+            <div class="plan_selection_section">
+              <div class="plan_segment">
+                <div class="title">Plan Selected</div>
+                <div class="plan_selected">
+                  <div class="plan">
+                    <img [src]="'https://diy.sbisecurities.in/' + fetchedPlanImg" alt="{{ fetchedPlanImg }}" />
+                    <!-- <img [src]="'https://udn.sbisecurities.in/' + fetchedPlanImg" alt="{{ fetchedPlanImg }}" /> -->
+                    <h6>{{ this.fetchedPlanName }}</h6>
+                  </div>
+                  <button type="button" class="change_text" (click)="BackToPlanPreference()">
+                    Change
+                  </button>
+                </div>
+              </div>
+            </div>
+            @for (plans of segmentPreferenceResponse; track plans; let i = $index) {
+              <div class="col-lg-12">
                 <label for="uploadPanMan{{ i }}" class="square-box p-3">
                   <div class="pan_details_align">
                     <input id="uploadPanMan{{ i }}" name="uploadPanMan{{ i }}" class="form-check-input" type="checkbox"
-                      [(ngModel)]="segmentPreferenceResponse[i].selected"
+                      data-bs-toggle="modal" [(ngModel)]="segmentPreferenceResponse[i].selected"
                       [attr.aria-label]="plans.trdSegment"
                       [disabled]="plans.trdSegment === 'Equity & Mutual Fund'" [attr.aria-disabled]="plans.trdSegment === 'Equity & Mutual Fund'" />
                     <div class="upload_css">
@@ -68,179 +146,113 @@
                   </div>
                 </label>
               </div>
-              <div class="col-12">
-                <p style="font-size: 14px">
-                  I hereby agree to active my respective segment subject to
-                  proper documentation provided by me.
-                </p>
-              </div>
-            </div>
-            <div class="proceed_btn">
-              <button (click)="planPreferenceForm()" class="btn btn_cls">
-                Proceed
-              </button>
+            }
+            <div class="col-12">
+              <p style="font-size: 14px">
+                I hereby agree to active my respective segment subject to proper
+                documentation provided by me.
+              </p>
             </div>
           </form>
+          <div class="stickybtn">
+            <button (click)="planPreferenceForm()" class="btn btn_cls">
+              Proceed
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-</div>
+    </section>
+  </div>
 
-<div class="mobile_css">
-  <section class="pan_details_form" aria-labelledby="seg-pref-heading-mob">
-    <div class="container">
-      <div class="row">
-        <div class="back_cls">
-          <div role="button" tabindex="0" (keydown.enter)="BackToPlanPreference()" (keydown.space)="BackToPlanPreference()" *ngIf="this.RejectStatus != 'R'" (click)="BackToPlanPreference()" aria-label="Go back">
-            <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
-          </div>
-
-          <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div>
-
-          <div class="d-flex flex-column align-items-start gap-2">
-            <h5 role="heading" aria-level="1" id="seg-pref-heading-mob">Segment Preference</h5>
-            <p class="sub_title">
-              At the time of account opening by default we are providing Equity
-              and Mutual Fund segment, if you wish to active F&O segment few
-              additional documents will be required.
-            </p>
+  <!-- Risk Disclosure Modal -->
+  <div class="modal fade uploadPan" id="riskdisclosure" tabindex="-1" role="dialog" aria-modal="true"
+    aria-labelledby="riskdisclosureLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close"
+          (click)="dismissModal(); removeModal()">
+          <h2 class="modal-title fs-5 visually-hidden" id="riskdisclosureLabel">Risk disclosure</h2>
+          <button type="button" class="btn-horizontal-line" id="riskDisclosureClose" data-bs-dismiss="modal"
+          aria-label="Close" (click)="removeModal()"></button>
+        </div>
+        <div class="modal-body">
+          <h5 role="heading" aria-level="3">Risk disclosure</h5>
+          <div>
+            <div [innerHTML]="riskDisclosureData"></div>
           </div>
         </div>
-
-        <form role="presentation" method="post">
-          <div class="plan_selection_section">
-            <div class="plan_segment">
-              <div class="title">Plan Selected</div>
-              <div class="plan_selected">
-                <div class="plan">
-                  <img [src]="'https://diy.sbisecurities.in/' + fetchedPlanImg" alt="{{ fetchedPlanImg }}" />
-                  <!-- <img [src]="'https://udn.sbisecurities.in/' + fetchedPlanImg" alt="{{ fetchedPlanImg }}" /> -->
-                  <h6>{{ this.fetchedPlanName }}</h6>
-                </div>
-                <button type="button" class="change_text" (click)="BackToPlanPreference()">
-                  Change
-                </button>
-              </div>
-            </div>
-          </div>
-          <div *ngFor="let plans of segmentPreferenceResponse; let i = index" class="col-lg-12">
-            <label for="uploadPanMan{{ i }}" class="square-box p-3">
-              <div class="pan_details_align">
-                <input id="uploadPanMan{{ i }}" name="uploadPanMan{{ i }}" class="form-check-input" type="checkbox"
-                  data-bs-toggle="modal" [(ngModel)]="segmentPreferenceResponse[i].selected"
-                  [attr.aria-label]="plans.trdSegment"
-                  [disabled]="plans.trdSegment === 'Equity & Mutual Fund'" [attr.aria-disabled]="plans.trdSegment === 'Equity & Mutual Fund'" />
-                <div class="upload_css">
-                  <span class="fw-semibold">{{ plans.trdSegment }}</span>
-                </div>
-              </div>
-            </label>
-          </div>
-          <div class="col-12">
-            <p style="font-size: 14px">
-              I hereby agree to active my respective segment subject to proper
-              documentation provided by me.
-            </p>
-          </div>
-        </form>
-        <div class="stickybtn">
-          <button (click)="planPreferenceForm()" class="btn btn_cls">
-            Proceed
+        <div class="modal-footer">
+          <button type="button" class="btn btn_cls" data-bs-toggle="modal" (click)="riskDisclosure()">
+            I understand and acknowledge
           </button>
         </div>
       </div>
     </div>
-  </section>
-</div>
-
-<!-- Risk Disclosure Modal -->
-<div class="modal fade uploadPan" id="riskdisclosure" tabindex="-1" role="dialog" aria-modal="true"
-  aria-labelledby="riskdisclosureLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close"
-        (click)="dismissModal(); removeModal()">
-        <h2 class="modal-title fs-5 visually-hidden" id="riskdisclosureLabel">Risk disclosure</h2>
-        <button type="button" class="btn-horizontal-line" id="riskDisclosureClose" data-bs-dismiss="modal"
-          aria-label="Close" (click)="removeModal()"></button>
-      </div>
-      <div class="modal-body">
-        <h5 role="heading" aria-level="3">Risk disclosure</h5>
-        <div>
-          <div [innerHTML]="riskDisclosureData"></div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn_cls" data-bs-toggle="modal" (click)="riskDisclosure()">
-          I understand and acknowledge
-        </button>
-      </div>
-    </div>
   </div>
-</div>
 
-<!-- Select the documents required to upload -->
-<div class="modal fade uploadPan" id="documentSelect" tabindex="-1" role="dialog" aria-modal="true"
-  aria-labelledby="documentSelectLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close"
-        (click)="dismissModal(); removeModal()">
-        <h2 class="modal-title fs-5 visually-hidden" id="documentSelectLabel">Document selection</h2>
-        <button type="button" class="btn-horizontal-line" id="documentSelectClose" data-bs-dismiss="modal"
+  <!-- Select the documents required to upload -->
+  <div class="modal fade uploadPan" id="documentSelect" tabindex="-1" role="dialog" aria-modal="true"
+    aria-labelledby="documentSelectLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close"
+          (click)="dismissModal(); removeModal()">
+          <h2 class="modal-title fs-5 visually-hidden" id="documentSelectLabel">Document selection</h2>
+          <button type="button" class="btn-horizontal-line" id="documentSelectClose" data-bs-dismiss="modal"
           aria-label="Close" (click)="removeModal()"></button>
-      </div>
-      <div class="modal-body">
-        <h5 role="heading" aria-level="3">Select the documents required to upload</h5>
-        <p class="mb-3">
-          As per latest guidelines by SEBI & Exchange, you need to upload your
-          income proof to trade in Future & Options.
-        </p>
-        <div>
-          <div class="group_btn">
-            <div *ngFor="let document of documents" class="form-check">
-              <input class="form-check-input" type="radio" name="selectedDocument" [(ngModel)]="selectedDocument"
+        </div>
+        <div class="modal-body">
+          <h5 role="heading" aria-level="3">Select the documents required to upload</h5>
+          <p class="mb-3">
+            As per latest guidelines by SEBI & Exchange, you need to upload your
+            income proof to trade in Future & Options.
+          </p>
+          <div>
+            <div class="group_btn">
+              @for (document of documents; track document) {
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="selectedDocument" [(ngModel)]="selectedDocument"
                 (change)="
                   updateSelectedDocumentLabel(document.label, document.id)" 
-                  [value]="document.id" id="{{ document.id }}" />
-              <label class="form-check-label" for="{{ document.id }}">{{
-                document.label
-                }}</label>
+                    [value]="document.id" id="{{ document.id }}" />
+                  <label class="form-check-label" for="{{ document.id }}">{{
+                    document.label
+                  }}</label>
+                </div>
+              }
             </div>
           </div>
         </div>
-      </div>
-      <div class="modal-footer p-0">
-        <span id="docSelectHint" class="visually-hidden">Tick at least one document to enable this action.</span>
-        <button [disabled]="!planprocessButton" type="button" class="btn btn_cls" data-bs-toggle="modal"
-          (click)="saveSelection()" [attr.aria-disabled]="!planprocessButton ? 'true' : null"
-          [class.btn-disabled]="!planprocessButton"
-          [attr.aria-disabled]="!planprocessButton ? 'true' : null"
-          aria-describedby="docSelectHint">
-          I understand and acknowledge
-        </button>
+        <div class="modal-footer p-0">
+          <span id="docSelectHint" class="visually-hidden">Tick at least one document to enable this action.</span>
+          <button [disabled]="!planprocessButton" type="button" class="btn btn_cls" data-bs-toggle="modal"
+            (click)="saveSelection()" [attr.aria-disabled]="!planprocessButton ? 'true' : null"
+            [class.btn-disabled]="!planprocessButton"
+            [attr.aria-disabled]="!planprocessButton ? 'true' : null"
+            aria-describedby="docSelectHint">
+            I understand and acknowledge
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Upload Bank Statement Modal -->
-<div class="modal fade uploadPan" id="uploadBankStatement" tabindex="-1" aria-labelledby="uploadBankStatementLabel"
-  aria-hidden="true" role="dialog" aria-modal="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close"
-        (click)="dismissModal(); removeModal()">
-        <h2 class="modal-title fs-5 visually-hidden" id="uploadBankStatementLabel">Upload Bank Statement</h2>
-        <button type="button" class="btn-horizontal-line" id="bankUploadClose" data-bs-dismiss="modal"
+  <!-- Upload Bank Statement Modal -->
+  <div class="modal fade uploadPan" id="uploadBankStatement" tabindex="-1" aria-labelledby="uploadBankStatementLabel"
+    aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close"
+          (click)="dismissModal(); removeModal()">
+          <h2 class="modal-title fs-5 visually-hidden" id="uploadBankStatementLabel">Upload Bank Statement</h2>
+          <button type="button" class="btn-horizontal-line" id="bankUploadClose" data-bs-dismiss="modal"
           aria-label="Close" (click)="removeModal()"></button>
-      </div>
-      <div class="modal-body">
-        <h5 role="heading" aria-level="3">{{ "Upload " + selectedDocumentLabel }}</h5>
-        <div class="img_upload">
-          <div class="camera_icon" style="position: relative; display: inline-block">
-            <img src="assets/images/diy/camera_img.png" alt="" style="cursor: pointer" />
+        </div>
+        <div class="modal-body">
+          <h5 role="heading" aria-level="3">{{ "Upload " + selectedDocumentLabel }}</h5>
+          <div class="img_upload">
+            <div class="camera_icon" style="position: relative; display: inline-block">
+              <img src="assets/images/diy/camera_img.png" alt="" style="cursor: pointer" />
             <input style="
                 position: absolute;
                 top: 0;
@@ -250,11 +262,11 @@
                 height: 100%;
                 cursor: pointer;
               " type="file" capture="environment" accept="image/*" (change)="fileChangeEvent($event)"
-              (click)="setCaptureEvent('environment')" (click)="resetExistingImage()"
-              data-bs-target="#uploadBankStateUpload" data-bs-toggle="modal" aria-label="Take a photo of your document" />
-          </div>
-          <div style="position: relative; display: inline-block">
-            <img src="assets/images/diy/upload_img.png" alt="" style="cursor: pointer" />
+                (click)="setCaptureEvent('environment')" (click)="resetExistingImage()"
+                data-bs-target="#uploadBankStateUpload" data-bs-toggle="modal" aria-label="Take a photo of your document" />
+            </div>
+            <div style="position: relative; display: inline-block">
+              <img src="assets/images/diy/upload_img.png" alt="" style="cursor: pointer" />
             <input style="
                 position: absolute;
                 top: 0;
@@ -264,140 +276,160 @@
                 height: 100%;
                 cursor: pointer;
               " type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)"
-              (click)="setCaptureEvent('upload')" (click)="resetExistingImage()" data-bs-target="#uploadBankStateUpload"
-              data-bs-toggle="modal" aria-label="Upload a document file" />
+                (click)="setCaptureEvent('upload')" (click)="resetExistingImage()" data-bs-target="#uploadBankStateUpload"
+                data-bs-toggle="modal" aria-label="Upload a document file" />
+            </div>
+          </div>
+          <div class="file_type_css">
+            <span>Files supported: JPG, PNG & PDF</span>
+            <span>Maximum size less than 4 MB</span>
           </div>
         </div>
-        <div class="file_type_css">
-          <span>Files supported: JPG, PNG & PDF</span>
-          <span>Maximum size less than 4 MB</span>
-        </div>
-      </div>
-      <div class="modal-footer d-none">
-        <button type="button" class="btn btn_cls" data-bs-target="#uploadBankStateUpload" data-bs-toggle="modal">
-          Continue
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Upload Bank Statement Upload Modal preview -->
-<div class="modal fade uploadPan" id="uploadBankStateUpload" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="uploadBankStateUploadLabel"
-  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-        <h2 class="modal-title fs-5 visually-hidden" id="uploadBankStateUploadLabel">Upload bank statement preview</h2>
-        <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
-          (click)="removeModal()"></button>
-      </div>
-      <div class="modal-body">
-        <h5 role="heading" aria-level="3">{{ "Upload " + selectedDocumentLabel }}</h5>
-        <!-- <div *ngIf="!FFF" class="my-3"></div>
-        <div *ngIf="!imageChangedEvent" class="my-3"></div> -->
-        <div *ngIf="FFF" class="file_upload_css">
-          <div class="pdf-container">
-            `
-            <pdf-viewer [src]="FFF" [rotation]="0" [original-size]="false" [show-all]="true" [fit-to-page]="false"
-              [zoom]="1" [zoom-scale]="'page-width'" [stick-to-page]="false" [render-text]="true"
-              [external-link-target]="'blank'" [autoresize]="true" [show-borders]="false"
-              style="width: 100%; height: 250px"></pdf-viewer>
-          </div>
-        </div>
-        <div *ngIf="imageChangedEvent" class="file_upload_css">
-          <image-cropper class="image_css" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
-            [canvasRotation]="canvasRotation" [(transform)]="transform" [aspectRatio]="4 / 3" format="png"
-            (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
-            (loadImageFailed)="loadImageFailed()"></image-cropper>
-        </div>
-        <div *ngIf="imageChangedEvent" class="text-center">
-          <label class="reupload_css" (click)="rotateRight()">Rotate</label>
-        </div>
-        <div class="file_type_css my-2">
-          <span class="red_warning">{{ errorMsg }}</span>
-        </div>
-        <div *ngIf="passwordProtectedMsg.length > 0" class="file_type_css my-2">
-          <span class="red_warning">{{ passwordProtectedMsg }}</span>
-        </div>
-      </div>
-
-      <div class="modal-footer">
-        <div class="btn_align">
-          <label *ngIf="!imageChangedEvent" class="btn btn_cls_outline">
-            Upload Image
-            <input type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)" style="display: none" aria-label="Upload a document file" />
-          </label>
-          <label *ngIf="imageChangedEvent && capture_event !== 'user'" class="btn btn_cls_outline">
-            Re-Upload Image
-            <input type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)" style="display: none" aria-label="Upload a document file" />
-          </label>
-          <label *ngIf="imageChangedEvent && capture_event == 'user'" class="btn btn_cls_outline">
-            Re-Upload Image
-            <input type="file" capture="user" accept="image/*,.pdf" (change)="fileChangeEvent($event)"
-              style="display: none" aria-label="Take a photo" />
-          </label>
-          <button [disabled]="!imageChangedEvent && !FFF" type="button" class="btn btn_cls"
-            data-bs-target="#uploadBankStateBg" data-bs-toggle="modal" (click)="openId()">
+        <div class="modal-footer d-none">
+          <button type="button" class="btn btn_cls" data-bs-target="#uploadBankStateUpload" data-bs-toggle="modal">
             Continue
           </button>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Upload Bank Statement File Modal Final -->
-<div class="modal fade uploadPan" id="uploadBankStateBg" role="dialog" aria-modal="true"  tabindex="-1" aria-labelledby="uploadBankStateBgLabel"
-  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
-        <h2 class="modal-title fs-5 visually-hidden" id="uploadBankStateBgLabel">Confirm bank statement</h2>
-        <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+  <!-- Upload Bank Statement Upload Modal preview -->
+  <div class="modal fade uploadPan" id="uploadBankStateUpload" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="uploadBankStateUploadLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+          <h2 class="modal-title fs-5 visually-hidden" id="uploadBankStateUploadLabel">Upload bank statement preview</h2>
+          <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
           (click)="removeModal()"></button>
-      </div>
-      <div class="modal-body">
-        <h5 role="heading" aria-level="3">{{ "Upload " + selectedDocumentLabel }}</h5>
-        <!-- <div *ngIf="!FFF" class="my-3"></div>
-        <div *ngIf="!croppedImage" class="my-3"></div> -->
-        <div *ngIf="FFF">
-          <div class="file_upload_css">
-            <div id="pdfView" class="pdf-container">
-              <pdf-viewer [src]="FFF" [rotation]="0" [original-size]="false" [show-all]="true" [fit-to-page]="false"
-                [zoom]="1" [zoom-scale]="'page-width'" [stick-to-page]="false" [render-text]="true"
-                [external-link-target]="'blank'" [autoresize]="true" [show-borders]="false"
+        </div>
+        <div class="modal-body">
+          <h5 role="heading" aria-level="3">{{ "Upload " + selectedDocumentLabel }}</h5>
+          <!-- <div *ngIf="!FFF" class="my-3"></div>
+          <div *ngIf="!imageChangedEvent" class="my-3"></div> -->
+          @if (FFF) {
+            <div class="file_upload_css">
+              <div class="pdf-container">
+                `
+                <pdf-viewer [src]="FFF" [rotation]="0" [original-size]="false" [show-all]="true" [fit-to-page]="false"
+                  [zoom]="1" [zoom-scale]="'page-width'" [stick-to-page]="false" [render-text]="true"
+                  [external-link-target]="'blank'" [autoresize]="true" [show-borders]="false"
                 style="width: 100%; height: 250px"></pdf-viewer>
+              </div>
             </div>
+          }
+          @if (imageChangedEvent) {
+            <div class="file_upload_css">
+              <image-cropper class="image_css" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
+                [canvasRotation]="canvasRotation" [(transform)]="transform" [aspectRatio]="4 / 3" format="png"
+                (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+              (loadImageFailed)="loadImageFailed()"></image-cropper>
+            </div>
+          }
+          @if (imageChangedEvent) {
+            <div class="text-center">
+              <label class="reupload_css" (click)="rotateRight()">Rotate</label>
+            </div>
+          }
+          <div class="file_type_css my-2">
+            <span class="red_warning">{{ errorMsg }}</span>
           </div>
-          <div class="file_type_css">
-            <span>Files supported: JPG, PNG & PDF</span>
-            <span>Maximum size less than 4MB</span>
-          </div>
+          @if (passwordProtectedMsg.length > 0) {
+            <div class="file_type_css my-2">
+              <span class="red_warning">{{ passwordProtectedMsg }}</span>
+            </div>
+          }
         </div>
-        <div *ngIf="croppedImage">
-          <div class="img_preview my-3">
-            <img *ngIf="croppedImage" [src]="croppedImage" [style.border]="croppedImage ? '1px solid black' : 'none'"
-              alt="Preview of uploaded bank statement" class="img-fluid" />
+
+        <div class="modal-footer">
+          <div class="btn_align">
+            @if (!imageChangedEvent) {
+              <label class="btn btn_cls_outline">
+                Upload Image
+                <input type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)" style="display: none" aria-label="Upload a document file" />
+              </label>
+            }
+            @if (imageChangedEvent && capture_event !== 'user') {
+              <label class="btn btn_cls_outline">
+                Re-Upload Image
+                <input type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)" style="display: none" aria-label="Upload a document file" />
+              </label>
+            }
+            @if (imageChangedEvent && capture_event == 'user') {
+              <label class="btn btn_cls_outline">
+                Re-Upload Image
+                <input type="file" capture="user" accept="image/*,.pdf" (change)="fileChangeEvent($event)"
+                  style="display: none" aria-label="Take a photo" />
+              </label>
+            }
+            <button [disabled]="!imageChangedEvent && !FFF" type="button" class="btn btn_cls"
+              data-bs-target="#uploadBankStateBg" data-bs-toggle="modal" (click)="openId()">
+              Continue
+            </button>
           </div>
-          <div class="file_type_css">
-            <span>Files supported: JPG, PNG & PDF</span>
-            <span>Maximum size less than 4MB</span>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <div class="btn_align">
-          <button (click)="changeBankSignatureImage()" data-bs-target="#uploadBankStatement" data-bs-toggle="modal"
-            class="btn btn_cls_outline p-0">
-            Change Statement
-          </button>
-          <button (click)="uploadStatementImg()" class="btn btn_cls" id="confirmedPan" data-bs-toggle="modal"
-            data-bs-dismiss="modal">
-            Yes, Confirm
-          </button>
         </div>
       </div>
     </div>
   </div>
-</div>
+
+  <!-- Upload Bank Statement File Modal Final -->
+  <div class="modal fade uploadPan" id="uploadBankStateBg" role="dialog" aria-modal="true"  tabindex="-1" aria-labelledby="uploadBankStateBgLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close" (click)="removeModal()">
+          <h2 class="modal-title fs-5 visually-hidden" id="uploadBankStateBgLabel">Confirm bank statement</h2>
+          <button type="button" class="btn-horizontal-line" data-bs-dismiss="modal" aria-label="Close"
+          (click)="removeModal()"></button>
+        </div>
+        <div class="modal-body">
+          <h5 role="heading" aria-level="3">{{ "Upload " + selectedDocumentLabel }}</h5>
+          <!-- <div *ngIf="!FFF" class="my-3"></div>
+          <div *ngIf="!croppedImage" class="my-3"></div> -->
+          @if (FFF) {
+            <div>
+              <div class="file_upload_css">
+                <div id="pdfView" class="pdf-container">
+                  <pdf-viewer [src]="FFF" [rotation]="0" [original-size]="false" [show-all]="true" [fit-to-page]="false"
+                    [zoom]="1" [zoom-scale]="'page-width'" [stick-to-page]="false" [render-text]="true"
+                    [external-link-target]="'blank'" [autoresize]="true" [show-borders]="false"
+                  style="width: 100%; height: 250px"></pdf-viewer>
+                </div>
+              </div>
+              <div class="file_type_css">
+                <span>Files supported: JPG, PNG & PDF</span>
+                <span>Maximum size less than 4MB</span>
+              </div>
+            </div>
+          }
+          @if (croppedImage) {
+            <div>
+              <div class="img_preview my-3">
+                @if (croppedImage) {
+                  <img [src]="croppedImage" [style.border]="croppedImage ? '1px solid black' : 'none'"
+                    alt="Preview of uploaded bank statement" class="img-fluid" />
+                }
+              </div>
+              <div class="file_type_css">
+                <span>Files supported: JPG, PNG & PDF</span>
+                <span>Maximum size less than 4MB</span>
+              </div>
+            </div>
+          }
+        </div>
+        <div class="modal-footer">
+          <div class="btn_align">
+            <button (click)="changeBankSignatureImage()" data-bs-target="#uploadBankStatement" data-bs-toggle="modal"
+              class="btn btn_cls_outline p-0">
+              Change Statement
+            </button>
+            <button (click)="uploadStatementImg()" class="btn btn_cls" id="confirmedPan" data-bs-toggle="modal"
+              data-bs-dismiss="modal">
+              Yes, Confirm
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

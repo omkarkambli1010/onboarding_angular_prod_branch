@@ -1,71 +1,80 @@
-<section aria-label="Bank Statement — Processing" *ngIf="PersonalFormOne" class="pan_details_form">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-10 col-12 m-auto">
-        <div class="mobile_css">
-          <div class="back_cls">
-            <div>
-              <h5>Bank Statement</h5>
-              <!-- <p class="sub_title">
-                  You can download or track your application status.
-                </p> -->
+@if (PersonalFormOne) {
+  <section aria-label="Bank Statement — Processing" class="pan_details_form">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-12 m-auto">
+          <div class="mobile_css">
+            <div class="back_cls">
+              <div>
+                <h5>Bank Statement</h5>
+                <!-- <p class="sub_title">
+                You can download or track your application status.
+              </p> -->
             </div>
           </div>
         </div>
-
         <form aria-label="Bank Statement" method="post">
           <div class="div">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
-              <div class="d-flex flex-column align-items-start gap-2" *ngIf="!IsFno">
-                <h5>Bank Statement</h5>
-                <!-- <p class="sub_title">
-                    You can download or track your application status.
-                  </p> -->
+              @if (!IsFno) {
+                <div class="d-flex flex-column align-items-start gap-2">
+                  <h5>Bank Statement</h5>
+                  <!-- <p class="sub_title">
+                  You can download or track your application status.
+                </p> -->
               </div>
-              <div class="d-flex flex-column align-items-start gap-2" *ngIf="IsFno">
+            }
+            @if (IsFno) {
+              <div class="d-flex flex-column align-items-start gap-2">
                 <h5>Just one last step!</h5>
                 <p>Activate Derivatives</p>
                 <!-- <p class="sub_title">
-                    You can download or track your application status.
-                  </p> -->
-              </div>
+                You can download or track your application status.
+              </p> -->
             </div>
-            <hr class="desktop_css" />
-            <div class="text-center" *ngIf="!IsFno">
-              <img src="assets/images/diy/Bank.png" alt="Bank verification" />
-              <p class="my-2">
-                Please wait, while we fetch your Bank Statement
-                <!-- Your application is successfully submitted.<br>
-                  We are Verifying your PAN, KYC, and bank details. -->
-              </p>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section aria-label="Bank Statement — Error" *ngIf="PersonalFormTwo" class="pan_details_form">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-10 col-12 m-auto">
-        <h5 class="text-center my-3">Thank you</h5>
-        <form aria-label="Bank Statement Error" method="post">
+          }
+        </div>
+        <hr class="desktop_css" />
+        @if (!IsFno) {
           <div class="text-center">
-            <img src="assets/images/diy/invalid_icon.png" alt="Error" />
+            <img src="assets/images/diy/Bank.png" alt="Bank verification" />
             <p class="my-2">
-              {{ this.errorValue }}
+              Please wait, while we fetch your Bank Statement
+              <!-- Your application is successfully submitted.<br>
+              We are Verifying your PAN, KYC, and bank details. -->
             </p>
           </div>
-        </form>
+        }
       </div>
-      <!-- <div class="btn_align">
-          <a class="btn_cls" (click)="redirectesign()">Back to E-Sign</a>
-        </div> -->
+    </form>
+  </div>
+</div>
+</div>
+</section>
+}
+
+@if (PersonalFormTwo) {
+  <section aria-label="Bank Statement — Error" class="pan_details_form">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-12 m-auto">
+          <h5 class="text-center my-3">Thank you</h5>
+          <form aria-label="Bank Statement Error" method="post">
+            <div class="text-center">
+              <img src="assets/images/diy/invalid_icon.png" alt="Error" />
+              <p class="my-2">
+                {{ this.errorValue }}
+              </p>
+            </div>
+          </form>
+        </div>
+        <!-- <div class="btn_align">
+        <a class="btn_cls" (click)="redirectesign()">Back to E-Sign</a>
+      </div> -->
     </div>
   </div>
 </section>
+}
 
 <!-- Aggregator Modal -->
 <div class="modal fade uploadPan" id="AggregatorCall" tabindex="-1" aria-labelledby="AggregatorCallLabel"
@@ -119,15 +128,17 @@
         </p>
         <div>
           <div class="group_btn">
-            <div *ngFor="let document of documents" class="form-check">
-              <input class="form-check-input" type="radio" name="selectedDocument" [(ngModel)]="selectedDocument"
+            @for (document of documents; track document) {
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="selectedDocument" [(ngModel)]="selectedDocument"
                 (change)="
                   updateSelectedDocumentLabel(document.label, document.id)
                 " [value]="document.id" id="{{ document.id }}" />
-              <label class="form-check-label" for="{{ document.id }}">{{
-                document.label
+                <label class="form-check-label" for="{{ document.id }}">{{
+                  document.label
                 }}</label>
-            </div>
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -149,7 +160,7 @@
       <div class="modal-header d-block" data-bs-dismiss="modal" aria-label="Close">
         <h2 class="modal-title fs-5" id="uploadBankStatementLabel"></h2>
         <button type="button" class="btn-horizontal-line" id="bankUploadClose" data-bs-dismiss="modal"
-          aria-label="Close"></button>
+        aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <h5>{{ "Upload " + selectedDocumentLabel }}</h5>
@@ -210,50 +221,64 @@
       <div class="modal-body">
         <h5>{{ "Upload " + selectedDocumentLabel }}</h5>
         <!-- <div *ngIf="!FFF" class="my-3"></div>
-          <div *ngIf="!imageChangedEvent" class="my-3"></div> -->
-        <div *ngIf="FFF" class="file_upload_css">
-          <div class="pdf-container">
-            `
-            <pdf-viewer [src]="FFF" [rotation]="0" [original-size]="false" [show-all]="true" [fit-to-page]="false"
-              [zoom]="1" [zoom-scale]="'page-width'" [stick-to-page]="false" [render-text]="true"
-              [external-link-target]="'blank'" [autoresize]="true" [show-borders]="false"
+        <div *ngIf="!imageChangedEvent" class="my-3"></div> -->
+        @if (FFF) {
+          <div class="file_upload_css">
+            <div class="pdf-container">
+              `
+              <pdf-viewer [src]="FFF" [rotation]="0" [original-size]="false" [show-all]="true" [fit-to-page]="false"
+                [zoom]="1" [zoom-scale]="'page-width'" [stick-to-page]="false" [render-text]="true"
+                [external-link-target]="'blank'" [autoresize]="true" [show-borders]="false"
               style="width: 100%; height: 250px"></pdf-viewer>
+            </div>
           </div>
-        </div>
-        <div *ngIf="imageChangedEvent" class="file_upload_css">
-          <image-cropper class="image_css" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
-            [canvasRotation]="canvasRotation" [(transform)]="transform" [aspectRatio]="4 / 3" format="png"
-            (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+        }
+        @if (imageChangedEvent) {
+          <div class="file_upload_css">
+            <image-cropper class="image_css" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
+              [canvasRotation]="canvasRotation" [(transform)]="transform" [aspectRatio]="4 / 3" format="png"
+              (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
             (loadImageFailed)="loadImageFailed()"></image-cropper>
-        </div>
-        <div *ngIf="imageChangedEvent" class="text-center">
-          <label class="reupload_css" (click)="rotateRight()">Rotate</label>
-        </div>
+          </div>
+        }
+        @if (imageChangedEvent) {
+          <div class="text-center">
+            <label class="reupload_css" (click)="rotateRight()">Rotate</label>
+          </div>
+        }
         <div class="file_type_css my-2">
           <span class="red_warning">{{ errorMsg }}</span>
         </div>
-        <div *ngIf="passwordProtectedMsg.length > 0" class="file_type_css my-2">
-          <span class="red_warning">{{ passwordProtectedMsg }}</span>
-        </div>
+        @if (passwordProtectedMsg.length > 0) {
+          <div class="file_type_css my-2">
+            <span class="red_warning">{{ passwordProtectedMsg }}</span>
+          </div>
+        }
       </div>
 
       <div class="modal-footer">
         <div class="btn_align">
-          <label *ngIf="!imageChangedEvent" class="btn btn_cls_outline">
-            Upload Image
-            <input type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)" style="display: none"
-              aria-label="Upload a document file" />
-          </label>
-          <label *ngIf="imageChangedEvent && capture_event !== 'user'" class="btn btn_cls_outline">
-            Re-Upload Image
-            <input type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)" style="display: none"
-              aria-label="Upload a document file" />
-          </label>
-          <label *ngIf="imageChangedEvent && capture_event == 'user'" class="btn btn_cls_outline">
-            Re-Upload Image
-            <input type="file" capture="user" accept="image/*,.pdf" (change)="fileChangeEvent($event)"
-              style="display: none" aria-label="Take a photo" />
-          </label>
+          @if (!imageChangedEvent) {
+            <label class="btn btn_cls_outline">
+              Upload Image
+              <input type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)" style="display: none"
+                aria-label="Upload a document file" />
+            </label>
+          }
+          @if (imageChangedEvent && capture_event !== 'user') {
+            <label class="btn btn_cls_outline">
+              Re-Upload Image
+              <input type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)" style="display: none"
+                aria-label="Upload a document file" />
+            </label>
+          }
+          @if (imageChangedEvent && capture_event == 'user') {
+            <label class="btn btn_cls_outline">
+              Re-Upload Image
+              <input type="file" capture="user" accept="image/*,.pdf" (change)="fileChangeEvent($event)"
+                style="display: none" aria-label="Take a photo" />
+            </label>
+          }
           <button [attr.aria-disabled]="!imageChangedEvent && !FFF" [disabled]="!imageChangedEvent && !FFF"
             type="button" class="btn btn_cls" data-bs-target="#uploadBankStateBg" data-bs-toggle="modal"
             (click)="openId()">
@@ -277,50 +302,64 @@
       <div class="modal-body">
         <h5>{{ "Upload " + selectedDocumentLabel }}</h5>
         <!-- <div *ngIf="!FFF" class="my-3"></div>
-          <div *ngIf="!imageChangedEvent" class="my-3"></div> -->
-        <div *ngIf="FFF" class="file_upload_css">
-          <div class="pdf-container">
-            `
-            <pdf-viewer [src]="FFF" [rotation]="0" [original-size]="false" [show-all]="true" [fit-to-page]="false"
-              [zoom]="1" [zoom-scale]="'page-width'" [stick-to-page]="false" [render-text]="true"
-              [external-link-target]="'blank'" [autoresize]="true" [show-borders]="false"
+        <div *ngIf="!imageChangedEvent" class="my-3"></div> -->
+        @if (FFF) {
+          <div class="file_upload_css">
+            <div class="pdf-container">
+              `
+              <pdf-viewer [src]="FFF" [rotation]="0" [original-size]="false" [show-all]="true" [fit-to-page]="false"
+                [zoom]="1" [zoom-scale]="'page-width'" [stick-to-page]="false" [render-text]="true"
+                [external-link-target]="'blank'" [autoresize]="true" [show-borders]="false"
               style="width: 100%; height: 250px"></pdf-viewer>
+            </div>
           </div>
-        </div>
-        <div *ngIf="imageChangedEvent" class="file_upload_css">
-          <image-cropper class="image_css" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
-            [canvasRotation]="canvasRotation" [(transform)]="transform" [aspectRatio]="4 / 3" format="png"
-            (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+        }
+        @if (imageChangedEvent) {
+          <div class="file_upload_css">
+            <image-cropper class="image_css" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
+              [canvasRotation]="canvasRotation" [(transform)]="transform" [aspectRatio]="4 / 3" format="png"
+              (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
             (loadImageFailed)="loadImageFailed()"></image-cropper>
-        </div>
-        <div *ngIf="imageChangedEvent" class="text-center">
-          <label class="reupload_css" (click)="rotateRight()">Rotate</label>
-        </div>
+          </div>
+        }
+        @if (imageChangedEvent) {
+          <div class="text-center">
+            <label class="reupload_css" (click)="rotateRight()">Rotate</label>
+          </div>
+        }
         <div class="file_type_css my-2">
           <span class="red_warning">{{ errorMsg }}</span>
         </div>
-        <div *ngIf="passwordProtectedMsg.length > 0" class="file_type_css my-2">
-          <span class="red_warning">{{ passwordProtectedMsg }}</span>
-        </div>
+        @if (passwordProtectedMsg.length > 0) {
+          <div class="file_type_css my-2">
+            <span class="red_warning">{{ passwordProtectedMsg }}</span>
+          </div>
+        }
       </div>
 
       <div class="modal-footer">
         <div class="btn_align">
-          <label *ngIf="!imageChangedEvent" class="btn btn_cls_outline">
-            Upload Image
-            <input type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)" style="display: none"
-              aria-label="Upload a document file" />
-          </label>
-          <label *ngIf="imageChangedEvent && capture_event !== 'user'" class="btn btn_cls_outline">
-            Re-Upload Image
-            <input type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)" style="display: none"
-              aria-label="Upload a document file" />
-          </label>
-          <label *ngIf="imageChangedEvent && capture_event == 'user'" class="btn btn_cls_outline">
-            Re-Upload Image
-            <input type="file" capture="user" accept="image/*,.pdf" (change)="fileChangeEvent($event)"
-              style="display: none" aria-label="Take a photo" />
-          </label>
+          @if (!imageChangedEvent) {
+            <label class="btn btn_cls_outline">
+              Upload Image
+              <input type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)" style="display: none"
+                aria-label="Upload a document file" />
+            </label>
+          }
+          @if (imageChangedEvent && capture_event !== 'user') {
+            <label class="btn btn_cls_outline">
+              Re-Upload Image
+              <input type="file" accept="image/*,.pdf" (change)="fileChangeEvent($event)" style="display: none"
+                aria-label="Upload a document file" />
+            </label>
+          }
+          @if (imageChangedEvent && capture_event == 'user') {
+            <label class="btn btn_cls_outline">
+              Re-Upload Image
+              <input type="file" capture="user" accept="image/*,.pdf" (change)="fileChangeEvent($event)"
+                style="display: none" aria-label="Take a photo" />
+            </label>
+          }
           <button [attr.aria-disabled]="!imageChangedEvent && !FFF" [disabled]="!imageChangedEvent && !FFF"
             type="button" class="btn btn_cls" data-bs-target="#uploadBankStateBg" data-bs-toggle="modal"
             (click)="openId()">
@@ -344,31 +383,37 @@
       <div class="modal-body">
         <h5>{{ "Upload " + selectedDocumentLabel }}</h5>
         <!-- <div *ngIf="!FFF" class="my-3"></div>
-          <div *ngIf="!croppedImage" class="my-3"></div> -->
-        <div *ngIf="FFF">
-          <div class="file_upload_css">
-            <div id="pdfView" class="pdf-container">
-              <pdf-viewer [src]="FFF" [rotation]="0" [original-size]="false" [show-all]="true" [fit-to-page]="false"
-                [zoom]="1" [zoom-scale]="'page-width'" [stick-to-page]="false" [render-text]="true"
-                [external-link-target]="'blank'" [autoresize]="true" [show-borders]="false"
+        <div *ngIf="!croppedImage" class="my-3"></div> -->
+        @if (FFF) {
+          <div>
+            <div class="file_upload_css">
+              <div id="pdfView" class="pdf-container">
+                <pdf-viewer [src]="FFF" [rotation]="0" [original-size]="false" [show-all]="true" [fit-to-page]="false"
+                  [zoom]="1" [zoom-scale]="'page-width'" [stick-to-page]="false" [render-text]="true"
+                  [external-link-target]="'blank'" [autoresize]="true" [show-borders]="false"
                 style="width: 100%; height: 250px"></pdf-viewer>
+              </div>
+            </div>
+            <div class="file_type_css">
+              <span>Files supported: JPG, PNG & PDF</span>
+              <span>Maximum size less than 4MB</span>
             </div>
           </div>
-          <div class="file_type_css">
-            <span>Files supported: JPG, PNG & PDF</span>
-            <span>Maximum size less than 4MB</span>
+        }
+        @if (croppedImage) {
+          <div>
+            <div class="img_preview my-3">
+              @if (croppedImage) {
+                <img [src]="croppedImage" [style.border]="croppedImage ? '1px solid black' : 'none'"
+                  alt="Cropped Image Preview" class="img-fluid" />
+              }
+            </div>
+            <div class="file_type_css">
+              <span>Files supported: JPG, PNG & PDF</span>
+              <span>Maximum size less than 4MB</span>
+            </div>
           </div>
-        </div>
-        <div *ngIf="croppedImage">
-          <div class="img_preview my-3">
-            <img *ngIf="croppedImage" [src]="croppedImage" [style.border]="croppedImage ? '1px solid black' : 'none'"
-              alt="Cropped Image Preview" class="img-fluid" />
-          </div>
-          <div class="file_type_css">
-            <span>Files supported: JPG, PNG & PDF</span>
-            <span>Maximum size less than 4MB</span>
-          </div>
-        </div>
+        }
       </div>
       <div class="modal-footer">
         <div class="btn_align">

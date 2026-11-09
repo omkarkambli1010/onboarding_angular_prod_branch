@@ -1,88 +1,90 @@
-<section aria-label="Derivatives Activation Submitted — Thank You" *ngIf="PersonalFormOne" class="pan_details_form">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-10 col-12 m-auto">
-        <div class="mobile_css">
-          <div class="back_cls">
-            <div>
-              <h5>Thank You</h5>
-              <p class="sub_title">
-                You can download or track your application status.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <form aria-label="Derivatives Thank You" method="post">
-          <div class="div">
-            <div class="col-lg-12 col-md-12 col-12 desktop_css">
-              <div class="d-flex flex-column align-items-start gap-2">
+@if (PersonalFormOne) {
+  <section aria-label="Derivatives Activation Submitted — Thank You" class="pan_details_form">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-12 m-auto">
+          <div class="mobile_css">
+            <div class="back_cls">
+              <div>
                 <h5>Thank You</h5>
                 <p class="sub_title">
-                  <!-- You can download or track your application status. -->
-                  Your trading journey is almost here!
+                  You can download or track your application status.
                 </p>
               </div>
             </div>
-            <hr class="desktop_css" />
-            <div class="text-center">
-              <img src="assets/images/Featured_tick.svg" alt="Verified successfully" />
-              <p class="main_text">
-                <!-- We are verifying your details.<br>
-                Your request for activating derivatives is submitted successfully.<br> -->
-                Your trading journey is almost here! <br>
-              </p>
-              <div class="paid_text">
-                <p>{{this.paidPlanTextCheck[0].Paidplantextshow}}</p>
+          </div>
+          <form aria-label="Derivatives Thank You" method="post">
+            <div class="div">
+              <div class="col-lg-12 col-md-12 col-12 desktop_css">
+                <div class="d-flex flex-column align-items-start gap-2">
+                  <h5>Thank You</h5>
+                  <p class="sub_title">
+                    <!-- You can download or track your application status. -->
+                    Your trading journey is almost here!
+                  </p>
+                </div>
               </div>
-              <p class="my-2">Application No.- <span style="font-weight: bold;">{{ this.personalFormNumber }}</span></p>
-
-            </div>
-            <div class="button-row">
-              <button (click)="ReviewApplication()" class="review_section" [disabled]="btnReviewApplication"
-                [attr.aria-disabled]="btnReviewApplication">
-                <div class="btn_download">
-                  <img src="assets/images/diy/Download.png" alt="Download" />
+              <hr class="desktop_css" />
+              <div class="text-center">
+                <img src="assets/images/Featured_tick.svg" alt="Verified successfully" />
+                <p class="main_text">
+                  <!-- We are verifying your details.<br>
+                  Your request for activating derivatives is submitted successfully.<br> -->
+                  Your trading journey is almost here! <br>
+                </p>
+                <div class="paid_text">
+                  <p>{{this.paidPlanTextCheck[0].Paidplantextshow}}</p>
                 </div>
-                <span>Download Account Opening Form</span>
-              </button>
-              <button (click)="ReviewFnoApplication()" class="review_section" [disabled]="btnReviewApplication"
-                [attr.aria-disabled]="btnReviewApplication">
-                <div class="btn_download">
-                  <img src="assets/images/diy/Download.png" alt="Download" />
-                </div>
-                <span>Download Derivatives Segment</span>
-              </button>
+                <p class="my-2">Application No.- <span style="font-weight: bold;">{{ this.personalFormNumber }}</span></p>
+              </div>
+              <div class="button-row">
+                <button (click)="ReviewApplication()" class="review_section" [disabled]="btnReviewApplication"
+                  [attr.aria-disabled]="btnReviewApplication">
+                  <div class="btn_download">
+                    <img src="assets/images/diy/Download.png" alt="Download" />
+                  </div>
+                  <span>Download Account Opening Form</span>
+                </button>
+                <button (click)="ReviewFnoApplication()" class="review_section" [disabled]="btnReviewApplication"
+                  [attr.aria-disabled]="btnReviewApplication">
+                  <div class="btn_download">
+                    <img src="assets/images/diy/Download.png" alt="Download" />
+                  </div>
+                  <span>Download Derivatives Segment</span>
+                </button>
+              </div>
             </div>
-          </div>
-          <p class="bottom_text">
-            <!-- Your account will be active within 24-48 hours after successful verification. -->
-            Your application is under verification. We'll activate your account as soon as the verification is
-            completed.
-          </p>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section aria-label="Derivatives Activation Error" *ngIf="PersonalFormTwo" class="pan_details_form">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-10 col-12 m-auto">
-        <h5 class="text-center my-3">Thank you</h5>
-        <form aria-label="Derivatives Error" method="post">
-          <div class="text-center">
-            <img src="assets/images/diy/invalid_icon.png" alt="Error" />
-            <p class="my-2">
-              {{ this.errorValue }}
+            <p class="bottom_text">
+              <!-- Your account will be active within 24-48 hours after successful verification. -->
+              Your application is under verification. We'll activate your account as soon as the verification is
+              completed.
             </p>
-          </div>
-        </form>
-      </div>
-      <div class="btn_align">
-        <a class="btn_cls" (click)="redirectesign()">Back to E-Sign</a>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+}
+
+@if (PersonalFormTwo) {
+  <section aria-label="Derivatives Activation Error" class="pan_details_form">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-12 m-auto">
+          <h5 class="text-center my-3">Thank you</h5>
+          <form aria-label="Derivatives Error" method="post">
+            <div class="text-center">
+              <img src="assets/images/diy/invalid_icon.png" alt="Error" />
+              <p class="my-2">
+                {{ this.errorValue }}
+              </p>
+            </div>
+          </form>
+        </div>
+        <div class="btn_align">
+          <a class="btn_cls" (click)="redirectesign()">Back to E-Sign</a>
+        </div>
+      </div>
+    </div>
+  </section>
+}

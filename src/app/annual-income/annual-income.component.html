@@ -4,11 +4,15 @@
       <div class="col-lg-10 col-12 m-auto">
         <div class="mobile_css">
           <div class="back_cls">
-            <div role="button" tabindex="0" (keydown.enter)="BackToTwo()" (keydown.space)="BackToTwo()" *ngIf="this.RejectStatus != 'R'" (click)="BackToTwo()" aria-label="Go back">
-              <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true"/> Back
-            </div>
+            @if (this.RejectStatus != 'R') {
+              <div role="button" tabindex="0" (keydown.enter)="BackToTwo()" (keydown.space)="BackToTwo()" (click)="BackToTwo()" aria-label="Go back">
+                <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true"/> Back
+              </div>
+            }
 
-            <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div>
+            @if (this.RejectStatus === 'R') {
+              <div class="back_cls2"></div>
+            }
 
             <div class="d-flex flex-column align-items-start gap-2">
               <h5>Annual Income</h5>
@@ -21,51 +25,53 @@
           <div class="div">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="d-flex align-items-start gap-2">
-                <div role="button" tabindex="0" (keydown.enter)="BackToTwo()" (keydown.space)="BackToTwo()" *ngIf="this.RejectStatus != 'R'" (click)="BackToTwo()" aria-label="Go back">
-                  <span>
-                    <svg
-                      width="24"
-                      height="25"
-                      viewBox="0 0 24 25"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g clip-path="url(#clip0_0_10804)">
-                        <path
-                          d="M5 12.5H19"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M5 12.5L11 18.5"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M5 12.5L11 6.5"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_0_10804">
-                          <rect
-                            width="24"
-                            height="24"
-                            fill="white"
-                            transform="translate(0 0.5)"
-                          />
-                        </clipPath>
-                      </defs>
-                    </svg>
-                  </span>
-                </div>
+                @if (this.RejectStatus != 'R') {
+                  <div role="button" tabindex="0" (keydown.enter)="BackToTwo()" (keydown.space)="BackToTwo()" (click)="BackToTwo()" aria-label="Go back">
+                    <span>
+                      <svg
+                        width="24"
+                        height="25"
+                        viewBox="0 0 24 25"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        >
+                        <g clip-path="url(#clip0_0_10804)">
+                          <path
+                            d="M5 12.5H19"
+                            stroke="black"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            />
+                          <path
+                            d="M5 12.5L11 18.5"
+                            stroke="black"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            />
+                          <path
+                            d="M5 12.5L11 6.5"
+                            stroke="black"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_0_10804">
+                            <rect
+                              width="24"
+                              height="24"
+                              fill="white"
+                              transform="translate(0 0.5)"
+                              />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </span>
+                  </div>
+                }
                 <div class="d-flex flex-column align-items-start gap-2">
                   <h5>Annual Income</h5>
                   <p class="sub_title">Select any one from the below</p>
@@ -76,24 +82,25 @@
           </div>
 
           <!--
-            Pills are <button> elements — each its own Tab stop by default.
-            See personalDetailsForm1.txt for the full explanation.
+          Pills are <button> elements — each its own Tab stop by default.
+          See personalDetailsForm1.txt for the full explanation.
           -->
           <div class="group_btn" role="radiogroup" aria-label="Annual Income">
-            <button
-              *ngFor="let PersonalData of incomeResponse"
-              type="button"
-              class="form-check pill-btn"
-              [class.selected]="selectedIncome === PersonalData.incomeRange"
-              role="radio"
-              [attr.aria-checked]="selectedIncome === PersonalData.incomeRange"
+            @for (PersonalData of incomeResponse; track PersonalData) {
+              <button
+                type="button"
+                class="form-check pill-btn"
+                [class.selected]="selectedIncome === PersonalData.incomeRange"
+                role="radio"
+                [attr.aria-checked]="selectedIncome === PersonalData.incomeRange"
               (click)="
                 selectedIncome = PersonalData.incomeRange;
                 PersonalDetailsave('annualincome', PersonalData.incomeRange)
               "
-            >
-              {{ PersonalData.incomeRange }}
-            </button>
+                >
+                {{ PersonalData.incomeRange }}
+              </button>
+            }
           </div>
         </form>
       </div>

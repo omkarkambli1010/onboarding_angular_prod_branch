@@ -9,47 +9,47 @@
                 <div class="header_padding">
                   <div>
                     <span (click)="redirectBack($event)">
-                       <svg
-                      width="24"
-                      height="25"
-                      viewBox="0 0 24 25"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g clip-path="url(#clip0_0_10804)">
-                        <path
-                          d="M5 12.5H19"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M5 12.5L11 18.5"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M5 12.5L11 6.5"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_0_10804">
-                          <rect
-                            width="24"
-                            height="24"
-                            fill="white"
-                            transform="translate(0 0.5)"
-                          />
-                        </clipPath>
-                      </defs>
-                    </svg>
+                      <svg
+                        width="24"
+                        height="25"
+                        viewBox="0 0 24 25"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        >
+                        <g clip-path="url(#clip0_0_10804)">
+                          <path
+                            d="M5 12.5H19"
+                            stroke="black"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            />
+                          <path
+                            d="M5 12.5L11 18.5"
+                            stroke="black"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            />
+                          <path
+                            d="M5 12.5L11 6.5"
+                            stroke="black"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_0_10804">
+                            <rect
+                              width="24"
+                              height="24"
+                              fill="white"
+                              transform="translate(0 0.5)"
+                              />
+                          </clipPath>
+                        </defs>
+                      </svg>
                     </span>
                   </div>
                   <div class="d-flex flex-column align-items-start gap-2">
@@ -67,24 +67,25 @@
                   </div>
                   <div class="accordion_faq">
                     <div class="accordion" id="accordionFaqExample">
-                      <div class="accordion-item" *ngFor="
-                            let item of filteredFaqResponse;
-                            let i = index
-                          ">
-                        <h2 class="accordion-header" [id]="'heading' + i">
-                          <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                            [attr.data-bs-target]="'#collapse' + i" [attr.aria-controls]="'collapse' + i"
-                            [attr.aria-expanded]="i === 0 ? 'true' : 'false'" [class.collapsed]="i !== 0">
-                            {{ item.Questions }}
-                          </button>
-                        </h2>
-                        <div [id]="'collapse' + i" class="accordion-collapse collapse" [class.show]="i === 0"
-                          data-bs-parent="#accordionFaqExample">
-                          <div class="accordion-body">
-                            <div [innerHTML]="item.Answers"></div>
+                      @for (
+                        item of filteredFaqResponse; track
+                        item; let i = $index) {
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" [id]="'heading' + i">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                              [attr.data-bs-target]="'#collapse' + i" [attr.aria-controls]="'collapse' + i"
+                              [attr.aria-expanded]="i === 0 ? 'true' : 'false'" [class.collapsed]="i !== 0">
+                              {{ item.Questions }}
+                            </button>
+                          </h2>
+                          <div [id]="'collapse' + i" class="accordion-collapse collapse" [class.show]="i === 0"
+                            data-bs-parent="#accordionFaqExample">
+                            <div class="accordion-body">
+                              <div [innerHTML]="item.Answers"></div>
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      }
                     </div>
                   </div>
                   <div class="help_mail_tel">
@@ -127,7 +128,7 @@
                         <div class="d-flex gap-1 flex-column align-items-start">
                           <p>Write to Us</p>
                           <span><a class="mail_text"
-                              href="mailto:helpdesk@sbicapsec.com">helpdesk&#64;sbicapsec.com</a></span>
+                          href="mailto:helpdesk@sbicapsec.com">helpdesk&#64;sbicapsec.com</a></span>
                         </div>
                       </div>
                     </div>
@@ -163,21 +164,23 @@
             </div>
             <div class="accordion_faq">
               <div class="accordion" id="accordionFaqExample">
-                <div class="accordion-item" *ngFor="let item of filteredFaqResponse; let i = index">
-                  <h2 class="accordion-header" [id]="'heading' + i">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                      [attr.data-bs-target]="'#collapse' + i" [attr.aria-controls]="'collapse' + i"
-                      [attr.aria-expanded]="i === 0 ? 'true' : 'false'" [class.collapsed]="i !== 0">
-                      {{ item.Questions }}
-                    </button>
-                  </h2>
-                  <div [id]="'collapse' + i" class="accordion-collapse collapse" [class.show]="i === 0"
-                    data-bs-parent="#accordionFaqExample">
-                    <div class="accordion-body">
-                      <div [innerHTML]="item.Answers"></div>
+                @for (item of filteredFaqResponse; track item; let i = $index) {
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" [id]="'heading' + i">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        [attr.data-bs-target]="'#collapse' + i" [attr.aria-controls]="'collapse' + i"
+                        [attr.aria-expanded]="i === 0 ? 'true' : 'false'" [class.collapsed]="i !== 0">
+                        {{ item.Questions }}
+                      </button>
+                    </h2>
+                    <div [id]="'collapse' + i" class="accordion-collapse collapse" [class.show]="i === 0"
+                      data-bs-parent="#accordionFaqExample">
+                      <div class="accordion-body">
+                        <div [innerHTML]="item.Answers"></div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                }
               </div>
             </div>
             <div class="help_mail_tel">
@@ -220,14 +223,14 @@
                       <a class="message_text" href="mailto:helpdesk@sbicapsec.com">Write to Us</a>
                     </p>
                     <span><a class="mail_text" href="mailto:helpdesk@sbicapsec.com">helpdesk&#64;sbicapsec.com</a>
-                    </span>
-                  </div>
+                  </span>
                 </div>
               </div>
             </div>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
-  </section>
+  </div>
+</section>
 </div>

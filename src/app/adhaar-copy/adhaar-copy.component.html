@@ -5,18 +5,26 @@
       <div class="col-lg-8 col-md-12 col-12 p-0 p-sm-0 m-auto">
         <div class="mobile_css">
           <div class="d-flex flex-column align-items-start gap-2">
-            <h2 class="page-heading-sm" *ngIf="!isKraBenefit">Aadhaar Verification Successful!</h2>
-            <div *ngIf="!isKraBenefit">
-              <p class="sub_title">
-                Your KYC details have been successfully verified digitally. Please click on 'Proceed' to confirm.
-              </p>
-            </div>
-            <h2 class="page-heading-sm" *ngIf="isKraBenefit">You are KRA Compliant!</h2>
-            <div *ngIf="isKraBenefit">
-              <p class="sub_title">
-                Below details have been successfully fetched from the KRA. Please review and confirm to proceed ahead.
-              </p>
-            </div>
+            @if (!isKraBenefit) {
+              <h2 class="page-heading-sm">Aadhaar Verification Successful!</h2>
+            }
+            @if (!isKraBenefit) {
+              <div>
+                <p class="sub_title">
+                  Your KYC details have been successfully verified digitally. Please click on 'Proceed' to confirm.
+                </p>
+              </div>
+            }
+            @if (isKraBenefit) {
+              <h2 class="page-heading-sm">You are KRA Compliant!</h2>
+            }
+            @if (isKraBenefit) {
+              <div>
+                <p class="sub_title">
+                  Below details have been successfully fetched from the KRA. Please review and confirm to proceed ahead.
+                </p>
+              </div>
+            }
           </div>
         </div>
 
@@ -24,36 +32,48 @@
           <div>
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="d-flex flex-column align-items-start gap-2">
-                <h2 class="page-heading-sm" *ngIf="!isKraBenefit">Aadhaar Verification Successful!</h2>
-                <div *ngIf="!isKraBenefit">
-                  <p class="sub_title">
-                    Your KYC details have been successfully verified digitally. Please click on 'Proceed' to confirm.
-                  </p>
-                </div>
-                <h2 class="page-heading-sm" *ngIf="isKraBenefit">You are KRA Compliant!</h2>
-                <div *ngIf="isKraBenefit">
-                  <p class="sub_title">
-                    Below details have been successfully fetched from the KRA. Please review and confirm to proceed
-                    ahead.
-                  </p>
-                </div>
+                @if (!isKraBenefit) {
+                  <h2 class="page-heading-sm">Aadhaar Verification Successful!</h2>
+                }
+                @if (!isKraBenefit) {
+                  <div>
+                    <p class="sub_title">
+                      Your KYC details have been successfully verified digitally. Please click on 'Proceed' to confirm.
+                    </p>
+                  </div>
+                }
+                @if (isKraBenefit) {
+                  <h2 class="page-heading-sm">You are KRA Compliant!</h2>
+                }
+                @if (isKraBenefit) {
+                  <div>
+                    <p class="sub_title">
+                      Below details have been successfully fetched from the KRA. Please review and confirm to proceed
+                      ahead.
+                    </p>
+                  </div>
+                }
               </div>
             </div>
             <hr class="desktop_css" />
-            <div *ngIf="!isKraBenefit" class="card_cls">
-              <img class="w-100" src="assets/images/diy/aadharheaderimg.png" alt="Aadhaar verification successful" />
-              <div class="main_content">
-                <div class="profile_pic">
-                  <img *ngIf="aadharResponse?.photo" [src]="aadharPhotoSrc" alt="Aadhaar Photo" />
-                </div>
-                <div class="details">
-                  <p class="heading">{{ aadharResponse?.name }}</p>
-                  <p class="sub_heading">
-                    {{ aadharResponse?.uid || aadharResponse?.aadhaarNumber }}
-                  </p>
+            @if (!isKraBenefit) {
+              <div class="card_cls">
+                <img class="w-100" src="assets/images/diy/aadharheaderimg.png" alt="Aadhaar verification successful" />
+                <div class="main_content">
+                  <div class="profile_pic">
+                    @if (aadharResponse?.photo) {
+                      <img [src]="aadharPhotoSrc" alt="Aadhaar Photo" />
+                    }
+                  </div>
+                  <div class="details">
+                    <p class="heading">{{ aadharResponse?.name }}</p>
+                    <p class="sub_heading">
+                      {{ aadharResponse?.uid || aadharResponse?.aadhaarNumber }}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            }
             <div class="pan_confirmation">
               <p class="my-3">
                 Date of Birth: <span>{{ aadharResponse?.dob }}</span>

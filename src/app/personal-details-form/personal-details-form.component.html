@@ -4,11 +4,15 @@
       <div class="col-lg-10 col-12 m-auto">
         <div class="mobile_css">
           <div class="back_cls">
-            <div role="button" tabindex="0" (keydown.enter)="redirectAadhaar()" (keydown.space)="redirectAadhaar()" *ngIf="this.RejectStatus != 'R'" (click)="redirectAadhaar()">
-              <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
-            </div>
+            @if (this.RejectStatus != 'R') {
+              <div role="button" tabindex="0" (keydown.enter)="redirectAadhaar()" (keydown.space)="redirectAadhaar()" (click)="redirectAadhaar()">
+                <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
+              </div>
+            }
 
-            <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div>
+            @if (this.RejectStatus === 'R') {
+              <div class="back_cls2"></div>
+            }
 
             <div class="d-flex flex-column align-items-start gap-2">
               <h5 class="">Marital Status</h5>
@@ -21,57 +25,58 @@
           <div class="div">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="d-flex align-items-start gap-2">
-                <div role="button" tabindex="0"
-                  (keydown.enter)="redirectAadhaar()" (keydown.space)="redirectAadhaar()"
-                  aria-label="Go back"
-                  *ngIf="this.RejectStatus != 'R'"
-                  (click)="redirectAadhaar()"
-                >
-                  <span aria-hidden="true">
-                    <svg
-                      width="24"
-                      height="25"
-                      viewBox="0 0 24 25"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      aria-hidden="true" focusable="false"
+                @if (this.RejectStatus != 'R') {
+                  <div role="button" tabindex="0"
+                    (keydown.enter)="redirectAadhaar()" (keydown.space)="redirectAadhaar()"
+                    aria-label="Go back"
+                    (click)="redirectAadhaar()"
                     >
-                      <g clip-path="url(#clip0_0_10804)">
-                        <path
-                          d="M5 12.5H19"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M5 12.5L11 18.5"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                        <path
-                          d="M5 12.5L11 6.5"
-                          stroke="black"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_0_10804">
-                          <rect
-                            width="24"
-                            height="24"
-                            fill="white"
-                            transform="translate(0 0.5)"
-                          />
-                        </clipPath>
-                      </defs>
-                    </svg>
-                  </span>
-                </div>
+                    <span aria-hidden="true">
+                      <svg
+                        width="24"
+                        height="25"
+                        viewBox="0 0 24 25"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true" focusable="false"
+                        >
+                        <g clip-path="url(#clip0_0_10804)">
+                          <path
+                            d="M5 12.5H19"
+                            stroke="black"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            />
+                          <path
+                            d="M5 12.5L11 18.5"
+                            stroke="black"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            />
+                          <path
+                            d="M5 12.5L11 6.5"
+                            stroke="black"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_0_10804">
+                            <rect
+                              width="24"
+                              height="24"
+                              fill="white"
+                              transform="translate(0 0.5)"
+                              />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </span>
+                  </div>
+                }
                 <div class="d-flex flex-column align-items-start gap-2">
                   <h5>Marital Status</h5>
                   <p class="sub_title">Select any one from the below</p>
@@ -82,20 +87,21 @@
           </div>
 
           <div class="group_btn" role="radiogroup" aria-label="Marital Status">
-            <button
-              *ngFor="let PersonalData of maritalResponse"
-              type="button"
-              class="form-check pill-btn"
-              [class.selected]="selectedMarital === PersonalData?.maritalStatus"
-              role="radio"
-              [attr.aria-checked]="selectedMarital === PersonalData?.maritalStatus"
+            @for (PersonalData of maritalResponse; track PersonalData) {
+              <button
+                type="button"
+                class="form-check pill-btn"
+                [class.selected]="selectedMarital === PersonalData?.maritalStatus"
+                role="radio"
+                [attr.aria-checked]="selectedMarital === PersonalData?.maritalStatus"
               (click)="
                 selectedMarital = PersonalData?.maritalStatus;
                 PersonalDetailsave('maritial', PersonalData?.maritalStatus)
               "
-            >
-              {{ PersonalData?.maritalStatus || "Unknown" }}
-            </button>
+                >
+                {{ PersonalData?.maritalStatus || "Unknown" }}
+              </button>
+            }
           </div>
         </form>
       </div>

@@ -4,11 +4,15 @@
       <div class="col-lg-10 col-12 m-auto">
         <div class="mobile_css">
           <div class="back_cls">
-            <div *ngIf="this.RejectStatus != 'R'" (click)="BackToFive()">
-              <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
-            </div>
+            @if (this.RejectStatus != 'R') {
+              <div (click)="BackToFive()">
+                <img src="assets/images/diy/ChevronLeft.png" alt="" /> Back
+              </div>
+            }
 
-            <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div>
+            @if (this.RejectStatus === 'R') {
+              <div class="back_cls2"></div>
+            }
 
             <div class="mobile_header_padding">
               <div class="help_faq_css">
@@ -23,15 +27,19 @@
                   </div>
                 </div>
               </div>
-              <p *ngIf="this.utm_source != 'PROPRIETOR'" class="sub_title">
-                Add Savings Account to transfer funds securely for trading and
-                investing purpose.
-              </p>
+              @if (this.utm_source != 'PROPRIETOR') {
+                <p class="sub_title">
+                  Add Savings Account to transfer funds securely for trading and
+                  investing purpose.
+                </p>
+              }
 
-              <p *ngIf="this.utm_source == 'PROPRIETOR'" class="sub_title">
-                Add Current Account to transfer funds securely for trading and
-                investing purpose.
-              </p>
+              @if (this.utm_source == 'PROPRIETOR') {
+                <p class="sub_title">
+                  Add Current Account to transfer funds securely for trading and
+                  investing purpose.
+                </p>
+              }
             </div>
           </div>
         </div>
@@ -42,65 +50,70 @@
               <div class="mobile_header_padding">
                 <div class="help_faq_css">
                   <div class="d-flex gap-2">
-                    <div
-                      *ngIf="this.RejectStatus != 'R'"
-                      (click)="BackToFive()"
-                    >
-                      <span>
-                        <svg
-                          width="24"
-                          height="25"
-                          viewBox="0 0 24 25"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
+                    @if (this.RejectStatus != 'R') {
+                      <div
+                        (click)="BackToFive()"
                         >
-                          <g clip-path="url(#clip0_0_10804)">
-                            <path
-                              d="M5 12.5H19"
-                              stroke="black"
-                              stroke-width="1.5"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              d="M5 12.5L11 18.5"
-                              stroke="black"
-                              stroke-width="1.5"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                            <path
-                              d="M5 12.5L11 6.5"
-                              stroke="black"
-                              stroke-width="1.5"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_0_10804">
-                              <rect
-                                width="24"
-                                height="24"
-                                fill="white"
-                                transform="translate(0 0.5)"
-                              />
-                            </clipPath>
-                          </defs>
-                        </svg>
-                      </span>
-                    </div>
+                        <span>
+                          <svg
+                            width="24"
+                            height="25"
+                            viewBox="0 0 24 25"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            >
+                            <g clip-path="url(#clip0_0_10804)">
+                              <path
+                                d="M5 12.5H19"
+                                stroke="black"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                />
+                              <path
+                                d="M5 12.5L11 18.5"
+                                stroke="black"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                />
+                              <path
+                                d="M5 12.5L11 6.5"
+                                stroke="black"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_0_10804">
+                                <rect
+                                  width="24"
+                                  height="24"
+                                  fill="white"
+                                  transform="translate(0 0.5)"
+                                  />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </span>
+                      </div>
+                    }
                     <div class="heading">
                       <h5>Link your bank account</h5>
-                      <p *ngIf="this.utm_source != 'PROPRIETOR'" class="sub_title">
-                        Add Savings Account to transfer funds securely for
-                        trading and investing purpose.
-                      </p>
+                      @if (this.utm_source != 'PROPRIETOR') {
+                        <p class="sub_title">
+                          Add Savings Account to transfer funds securely for
+                          trading and investing purpose.
+                        </p>
+                      }
 
-                      <p *ngIf="this.utm_source == 'PROPRIETOR'"  class="sub_title">
-                        Add Current Account to transfer funds securely for
-                        trading and investing purpose.
-                      </p>
+                      @if (this.utm_source == 'PROPRIETOR') {
+                        <p  class="sub_title">
+                          Add Current Account to transfer funds securely for
+                          trading and investing purpose.
+                        </p>
+                      }
                     </div>
                   </div>
                   <div>
@@ -113,70 +126,71 @@
             </div>
             <hr class="desktop_css" />
             <div class="div">
-              <div
-                *ngIf="this.utm_source != 'PROPRIETOR'"
-                class="col-lg-12 col-md-12 col-12"
-              >
-                <!-- d-none"> -->
-                <div class="square-box">
-                  <span class="status">Recommended</span>
-                  <div
-                    class="pan_details_align"
-                    (click)="enterPaymentGateway()"
+              @if (this.utm_source != 'PROPRIETOR') {
+                <div
+                  class="col-lg-12 col-md-12 col-12"
                   >
-                    <!-- [checked]="true" -->
-                    <input
-                      id="uploadPanRadio"
-                      type="radio"
-                      name="radio-button_one"
-                      class="radio-button"
-                    />
-                    <div class="upload_css">
-                      <h5>Verify with UPI</h5>
-                      <span
-                        >We’ll debit from your account to verify bank details.
-                        It will be refunded within 3 working days.</span
+                  <!-- d-none"> -->
+                  <div class="square-box">
+                    <span class="status">Recommended</span>
+                    <div
+                      class="pan_details_align"
+                      (click)="enterPaymentGateway()"
                       >
+                      <!-- [checked]="true" -->
+                      <input
+                        id="uploadPanRadio"
+                        type="radio"
+                        name="radio-button_one"
+                        class="radio-button"
+                        />
+                      <div class="upload_css">
+                        <h5>Verify with UPI</h5>
+                        <span
+                          >We’ll debit from your account to verify bank details.
+                          It will be refunded within 3 working days.</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                }
+                <div class="col-lg-12 col-md-12 col-12 my-3">
+                  <div class="square-box">
+                    <div class="pan_details_align" (click)="enterManually()">
+                      <input
+                        id="uploadPanMan"
+                        type="radio"
+                        name="radio-button"
+                        class="radio-button"
+                        />
+                      <div class="upload_css">
+                        <h5>Add details manually</h5>
+                        <span>Add your Account number, IFSC code</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-lg-12 col-md-12 col-12 my-3">
-                <div class="square-box">
-                  <div class="pan_details_align" (click)="enterManually()">
-                    <input
-                      id="uploadPanMan"
-                      type="radio"
-                      name="radio-button"
-                      class="radio-button"
-                    />
-                    <div class="upload_css">
-                      <h5>Add details manually</h5>
-                      <span>Add your Account number, IFSC code</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-12 col-md-12 col-12 my-3">
-                <div class="pan_confirmation">
-                  <span>
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12 9H12.01M11 12H12V16H13M3 12C3 13.1819 3.23279 14.3522 3.68508 15.4442C4.13738 16.5361 4.80031 17.5282 5.63604 18.364C6.47177 19.1997 7.46392 19.8626 8.55585 20.3149C9.64778 20.7672 10.8181 21 12 21C13.1819 21 14.3522 20.7672 15.4442 20.3149C16.5361 19.8626 17.5282 19.1997 18.364 18.364C19.1997 17.5282 19.8626 16.5361 20.3149 15.4442C20.7672 14.3522 21 13.1819 21 12C21 9.61305 20.0518 7.32387 18.364 5.63604C16.6761 3.94821 14.3869 3 12 3C9.61305 3 7.32387 3.94821 5.63604 5.63604C3.94821 7.32387 3 9.61305 3 12Z"
-                        stroke="#222222"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                  </span>
-                  <!-- <p>
+                <div class="col-lg-12 col-md-12 col-12 my-3">
+                  <div class="pan_confirmation">
+                    <span>
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        >
+                        <path
+                          d="M12 9H12.01M11 12H12V16H13M3 12C3 13.1819 3.23279 14.3522 3.68508 15.4442C4.13738 16.5361 4.80031 17.5282 5.63604 18.364C6.47177 19.1997 7.46392 19.8626 8.55585 20.3149C9.64778 20.7672 10.8181 21 12 21C13.1819 21 14.3522 20.7672 15.4442 20.3149C16.5361 19.8626 17.5282 19.1997 18.364 18.364C19.1997 17.5282 19.8626 16.5361 20.3149 15.4442C20.7672 14.3522 21 13.1819 21 12C21 9.61305 20.0518 7.32387 18.364 5.63604C16.6761 3.94821 14.3869 3 12 3C9.61305 3 7.32387 3.94821 5.63604 5.63604C3.94821 7.32387 3 9.61305 3 12Z"
+                          stroke="#222222"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          />
+                      </svg>
+                    </span>
+                    <!-- <p>
                     You can link your
                     <strong>“State Bank of India”</strong> account for simpler fund
                     transfer.
@@ -186,12 +200,14 @@
               </div>
             </div>
           </div>
-          <div *ngIf="this.utm_source !== 'PROPRIETOR'" class="confirm_check_box text-center">
-            <label class="form-check-label">
-              Use your bank account details, which matches the name on your PAN
-              CARD
-            </label>
-          </div>
+          @if (this.utm_source !== 'PROPRIETOR') {
+            <div class="confirm_check_box text-center">
+              <label class="form-check-label">
+                Use your bank account details, which matches the name on your PAN
+                CARD
+              </label>
+            </div>
+          }
         </form>
       </div>
     </div>

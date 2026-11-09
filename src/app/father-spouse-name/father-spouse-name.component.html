@@ -4,12 +4,16 @@
       <div class="col-lg-10 col-12 m-auto">
         <div class="mobile_css">
           <div class="back_cls">
-            <div role="button" tabindex="0" (keydown.enter)="BackToFour()" (keydown.space)="BackToFour()"
-              *ngIf="this.RejectStatus != 'R'" (click)="BackToFour()" aria-label="Go back">
-              <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
-            </div>
+            @if (this.RejectStatus != 'R') {
+              <div role="button" tabindex="0" (keydown.enter)="BackToFour()" (keydown.space)="BackToFour()"
+                (click)="BackToFour()" aria-label="Go back">
+                <img src="assets/images/diy/ChevronLeft.png" alt="" aria-hidden="true" /> Back
+              </div>
+            }
 
-            <div *ngIf="this.RejectStatus === 'R'" class="back_cls2"></div>
+            @if (this.RejectStatus === 'R') {
+              <div class="back_cls2"></div>
+            }
 
             <div class="d-flex flex-column align-items-start gap-2">
               <h2 class="page-heading-sm" role="heading" aria-level="1">Details required to finish KYC</h2>
@@ -22,26 +26,28 @@
           <div class="div">
             <div class="col-lg-12 col-md-12 col-12 desktop_css">
               <div class="d-flex align-items-start gap-2">
-                <div role="button" tabindex="0" (keydown.enter)="BackToFour()" (keydown.space)="BackToFour()"
-                  *ngIf="this.RejectStatus != 'R'" (click)="BackToFour()" aria-label="Go back">
-                  <span aria-hidden="true">
-                    <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-                      <g clip-path="url(#clip0_0_10804)">
-                        <path d="M5 12.5H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                          stroke-linejoin="round" />
-                        <path d="M5 12.5L11 18.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                          stroke-linejoin="round" />
-                        <path d="M5 12.5L11 6.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                          stroke-linejoin="round" />
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_0_10804">
-                          <rect width="24" height="24" fill="white" transform="translate(0 0.5)" />
-                        </clipPath>
-                      </defs>
-                    </svg>
-                  </span>
-                </div>
+                @if (this.RejectStatus != 'R') {
+                  <div role="button" tabindex="0" (keydown.enter)="BackToFour()" (keydown.space)="BackToFour()"
+                    (click)="BackToFour()" aria-label="Go back">
+                    <span aria-hidden="true">
+                      <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                        <g clip-path="url(#clip0_0_10804)">
+                          <path d="M5 12.5H19" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                          <path d="M5 12.5L11 18.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                          <path d="M5 12.5L11 6.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_0_10804">
+                            <rect width="24" height="24" fill="white" transform="translate(0 0.5)" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </span>
+                  </div>
+                }
                 <div class="d-flex flex-column align-items-start gap-2">
                   <h2 class="page-heading-sm" role="heading" aria-level="1">Details required to finish KYC</h2>
                   <p class="sub_title">It's a mandatory requirement</p>
@@ -65,18 +71,26 @@
                       " onpaste="return false;" onselectstart="return false;" maxlength="100"
                       (keypress)="onKeyPress($event)"
                       onkeypress="return !/^\s$/.test(event.key) || event.target.value.length > 0 " appEmojiBlocker />
-                    <span *ngIf="showEmptyWarning" class="red_warning">
-                      *Please enter Father/Spouse Name
-                    </span>
-                    <span *ngIf="fatherNameSpecial" class="red_warning">
-                      *Special character not allowed
-                    </span>
-                    <span *ngIf="fatherNameDigit" class="red_warning">
-                      *Digit not allowed
-                    </span>
-                    <span *ngIf="fatherNameSpace" class="red_warning">
-                      *Blank space not allowed
-                    </span>
+                    @if (showEmptyWarning) {
+                      <span class="red_warning">
+                        *Please enter Father/Spouse Name
+                      </span>
+                    }
+                    @if (fatherNameSpecial) {
+                      <span class="red_warning">
+                        *Special character not allowed
+                      </span>
+                    }
+                    @if (fatherNameDigit) {
+                      <span class="red_warning">
+                        *Digit not allowed
+                      </span>
+                    }
+                    @if (fatherNameSpace) {
+                      <span class="red_warning">
+                        *Blank space not allowed
+                      </span>
+                    }
                   </div>
                 </div>
               </div>
