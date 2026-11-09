@@ -1039,6 +1039,10 @@ export class PennyDropComponent implements OnInit {
   }
 
   accountIfsc(event: any) {
+    // PrimeNG 22 p-autocomplete has no maxlength input; enforce the 20-char limit here.
+    if (event.target.value.length > 20) {
+      event.target.value = event.target.value.slice(0, 20);
+    }
     this.enteredIFSCNumber = event.target.value.toUpperCase();
     this.setBankDetailsFromIfsc();
     this.ifscBankValidationSpecial = false;

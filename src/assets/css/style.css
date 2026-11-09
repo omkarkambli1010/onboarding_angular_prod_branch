@@ -80,7 +80,7 @@ h3 {
 input[type="text"].form-control,
 input[type="date"].form-control,
 input[type="password"].form-control,
-.p-inputwrapper .p-calendar input[type="text"] {
+.p-inputwrapper .p-datepicker input[type="text"] {
   border-radius: 8px;
   border: 1px solid #3e3f5080;
   max-width: 300px;
@@ -475,7 +475,7 @@ body::-webkit-scrollbar-thumb {
   input[type="text"].form-control,
   input[type="date"].form-control,
   input[type="password"].form-control,
-  .p-inputwrapper .p-calendar input[type="text"] {
+  .p-inputwrapper .p-datepicker input[type="text"] {
     border-radius: 8px;
     border: 1px solid #3e3f5080;
     max-width: 100%;
@@ -669,7 +669,7 @@ ngx-spinner p {
   .plan-wrapper,
   .card_cls,
   .p-carousel-item,
-  .p-carousel-items-container {
+  .p-carousel-item-list {
     max-width: 100% !important;
     min-width: 0 !important;
   }

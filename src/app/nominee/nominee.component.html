@@ -548,11 +548,11 @@
                                 <div class="col-lg-6 col-md-6 col-12">
                                   <div class="date_alignment">
                                     <label for="nomineedob" class="form-label">Date of Birth</label>
-                                    <p-calendar [readonlyInput]="true" [touchUI]="true"
+                                    <p-datepicker [readonlyInput]="true" [touchUI]="true"
                                       [(ngModel)]="nomineeDetails.nomineeOnedob" [minDate]="minDate" [maxDate]="maxDate"
                                       dateFormat="dd/mm/yy" [id]="dateOfBirthId" [name]="dateOfBirthName"
                                       (ngModelChange)="checkNomineeAge()" class="calendar_cls">
-                                    </p-calendar>
+                                    </p-datepicker>
                                     <!-- <span *ngIf="Nominee1DOB" class="red_warning"
                                     >Please select DOB</span
                                     > -->
@@ -873,7 +873,7 @@
                                   <label for="dob" class="form-label"
                                     >Date of Birth</label
                                     >
-                                    <p-calendar
+                                    <p-datepicker
                                       [readonlyInput]="true"
                                       [touchUI]="true"
                                   [(ngModel)]="
@@ -889,7 +889,7 @@
                                   "
                                       [name]="dateOfBirthName"
                                       >
-                                    </p-calendar>
+                                    </p-datepicker>
                                     <span
                                       *ngIf="Nominee1GuardianDOB"
                                       class="red_warning"
@@ -1273,11 +1273,11 @@
                                   <div class="col-lg-6 col-md-6 col-12">
                                     <div class="date_alignment">
                                       <label for="nomineeTwodob" class="form-label">Date of Birth</label>
-                                      <p-calendar [readonlyInput]="true" [touchUI]="true"
+                                      <p-datepicker [readonlyInput]="true" [touchUI]="true"
                                         [(ngModel)]="nomineeDetails2.nomineeOnedob" [minDate]="minDate" [maxDate]="maxDate"
                                         dateFormat="dd/mm/yy" [id]="dateOfBirthIdTwo" [name]="dateOfBirthNameTwo"
                                         (ngModelChange)="checkNomineeAgeTwo()" class="calendar_cls">
-                                      </p-calendar>
+                                      </p-datepicker>
                                       <!-- <span *ngIf="ageBelow18warning2" class="red_warning"
                                       >Age Is Below 18 years old</span
                                       > -->
@@ -1586,7 +1586,7 @@
                                     <label for="dob" class="form-label"
                                       >Date of Birth</label
                                       >
-                                      <p-calendar
+                                      <p-datepicker
                                         [readonlyInput]="true"
                                         [touchUI]="true"
                                   [(ngModel)]="
@@ -1601,7 +1601,7 @@
                                   "
                                         [name]="dateOfBirthNameTwo"
                                         >
-                                      </p-calendar>
+                                      </p-datepicker>
                                       <span
                                         *ngIf="Nominee2GuardianDOB"
                                         class="red_warning"
@@ -1976,11 +1976,11 @@
                                     <div class="col-lg-6 col-md-6 col-12">
                                       <div class="date_alignment">
                                         <label for="nomineeThreedob" class="form-label">Date of Birth</label>
-                                        <p-calendar [readonlyInput]="true" [touchUI]="true"
+                                        <p-datepicker [readonlyInput]="true" [touchUI]="true"
                                           [(ngModel)]="nomineeDetails3.nomineeOnedob" [minDate]="minDate" [maxDate]="maxDate"
                                           dateFormat="dd/mm/yy" [id]="dateOfBirthIdThree" [name]="dateOfBirthNameThree"
                                           (ngModelChange)="checkNomineeAgeThree()" class="calendar_cls">
-                                        </p-calendar>
+                                        </p-datepicker>
                                         <!-- <span *ngIf="Nominee3DOB" class="red_warning"
                                         >Please select DOB</span
                                         > -->
@@ -2287,7 +2287,7 @@
                                       <label for="dob" class="form-label"
                                         >Date of Birth</label
                                         >
-                                        <p-calendar
+                                        <p-datepicker
                                           [readonlyInput]="true"
                                           [touchUI]="true"
                                   [(ngModel)]="
@@ -2302,7 +2302,7 @@
                                           [id]="dateOfBirthIdThree"
                                           [name]="dateOfBirthNameThree"
                                           >
-                                        </p-calendar>
+                                        </p-datepicker>
                                         <span
                                           *ngIf="Nominee3GuardianDOB"
                                           class="red_warning"

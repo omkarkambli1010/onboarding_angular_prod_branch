@@ -116,7 +116,7 @@ body.modal-open {
   flex: 2;
 }
 
-.pan_details_form .desktop_align>div:nth-child(2) ::ng-deep .p-calendar {
+.pan_details_form .desktop_align>div:nth-child(2) ::ng-deep .p-datepicker {
   display: flex;
   max-width: 300px;
 }
@@ -361,15 +361,15 @@ body.modal-open {
   text-transform: uppercase;
 }
 
-::ng-deep .p-inputwrapper .p-calendar .p-datepicker-header {
+::ng-deep .p-inputwrapper .p-datepicker .p-datepicker-header {
   padding: 0rem 0.5rem;
 }
 
-::ng-deep .p-inputwrapper .p-calendar {
+::ng-deep .p-inputwrapper .p-datepicker {
   width: 100%;
 }
 
-::ng-deep .p-inputwrapper .p-calendar .p-inputtext {
+::ng-deep .p-inputwrapper .p-datepicker .p-inputtext {
   width: 100%;
   font-weight: 600;
   color: #2b2b2b;
@@ -379,13 +379,13 @@ body.modal-open {
 }
 
 .pan_details_form .form-control[type="text"]::placeholder,
-.pan_details_form .desktop_align>div:nth-child(2) ::ng-deep .p-calendar .p-inputtext::placeholder {
+.pan_details_form .desktop_align>div:nth-child(2) ::ng-deep .p-datepicker .p-inputtext::placeholder {
   color: #737373;
   font-weight: 500;
   font-size: 14px;
 }
 
-::ng-deep .p-inputwrapper .p-calendar.p-focus {
+::ng-deep .p-inputwrapper .p-datepicker.p-focus {
   width: 100%;
 }
 
@@ -397,7 +397,7 @@ body.modal-open {
   text-align: center;
 }
 
-::ng-deep .p-calendar:not(.p-calendar-disabled).p-focus>.p-inputtext {
+::ng-deep .p-datepicker:not(.p-disabled).p-focus>.p-inputtext {
   box-shadow: unset;
   border: 1px solid #666666;
 }
@@ -449,7 +449,7 @@ body.modal-open {
 }
 
 @media screen and (max-width: 991px) {
-  .pan_details_form .desktop_align>div:nth-child(2) ::ng-deep .p-calendar {
+  .pan_details_form .desktop_align>div:nth-child(2) ::ng-deep .p-datepicker {
     /* max-width: 100%; */
     width: 100%;
   }
@@ -488,7 +488,7 @@ body.modal-open {
 }
 
 @media screen and (max-width: 767px) {
-  .pan_details_form .desktop_align>div:nth-child(2) ::ng-deep .p-calendar {
+  .pan_details_form .desktop_align>div:nth-child(2) ::ng-deep .p-datepicker {
     max-width: 100%;
     width: 100%;
   }
@@ -558,7 +558,7 @@ body.modal-open {
     width: 100%;
   }
 
-  /* .pan_details_form .desktop_align > div:nth-child(2) ::ng-deep .p-calendar {
+  /* .pan_details_form .desktop_align > div:nth-child(2) ::ng-deep .p-datepicker {
     display: block;
     max-width: 100%;
   } */

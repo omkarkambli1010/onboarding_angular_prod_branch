@@ -23,7 +23,9 @@ import { AdhaarCopyComponent } from './adhaar-copy/adhaar-copy.component';
 import { EsignComponent } from './esign/esign.component';
 import { ThankyouComponent } from './thankyou/thankyou.component';
 import { DatePipe } from '@angular/common';
-import { CalendarModule } from 'primeng/calendar';
+import { DatePickerModule } from 'primeng/datepicker';
+import { providePrimeNG } from 'primeng/config';
+import Lara from '@primeuix/themes/lara';
 import { InputOtpModule } from 'primeng/inputotp';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { TradingExpComponent } from './trading-exp/trading-exp.component';
@@ -41,13 +43,11 @@ import { APIService } from './api.service';
 import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 import { EmojiBlockerDirective } from './emoji-blocker.directive';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { QRCodeModule } from 'angularx-qrcode';
+import { QRCodeComponent } from 'angularx-qrcode';
 import { RpdComponent } from './rpd/rpd.component';
 import { HomeComponent } from './home/home.component';
 import { NameChangeComponent } from './name-change/name-change.component';
 import { UploadPanComponent } from './upload-pan/upload-pan.component';
-import { HammerModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-import { CustomHammerConfig } from 'hammer-config';
 import { YonoEmailComponent } from './yono-email/yono-email.component';
 import { YonoMobileComponent } from './yono-mobile/yono-mobile.component';
 import { YonoSsoComponent } from './yono-sso/yono-sso.component';
@@ -140,14 +140,13 @@ import { YonotabSsoComponent } from './yonotab-sso/yonotab-sso.component';
         BrowserAnimationsModule,
         NgxSpinnerModule,
         WebcamModule,
-        CalendarModule,
+        DatePickerModule,
         PdfViewerModule,
         ToastrModule.forRoot(),
-        QRCodeModule,
-        HammerModule,
+        QRCodeComponent,
         AutoCompleteModule,
         CarouselModule,
         BackButtonDisableModule.forRoot({
             preserveScroll: true
-        })], providers: [DatePipe, NavigationService, APIService, { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }, MoengagesdkService, AuthService, ExtensionService, provideHttpClient(withXhr(), withInterceptorsFromDi())] })
+        })], providers: [DatePipe, NavigationService, APIService, MoengagesdkService, AuthService, ExtensionService, provideHttpClient(withXhr(), withInterceptorsFromDi()), providePrimeNG({ theme: { preset: Lara, options: { darkModeSelector: false } } })] })
 export class AppModule { }

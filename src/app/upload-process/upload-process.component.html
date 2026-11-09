@@ -102,11 +102,11 @@
                 <label for="EnterDOB" class="form-label">Date of Birth</label>
               </div>
               <div class="calendar_field">
-                <p-calendar [touchUI]="true" [(ngModel)]="panDetailsManual.dob" (onInput)="handleDateInput($event)"
+                <p-datepicker [touchUI]="true" [(ngModel)]="panDetailsManual.dob" (onInput)="handleDateInput($event)"
                   (keydown)="handleKeyDown($event)" [showIcon]="true" [iconDisplay]="'input'" inputId="icondisplay"
                   [showOnFocus]="false" dateFormat="dd/mm/yy" placeholder="DD/MM/YYYY"
                   (ngModelChange)="checkPANDOBAge()" (onSelect)="validateForm()" [id]="dateOfBirthId"
-                [name]="dateOfBirthId" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
+                [name]="dateOfBirthId" [minDate]="minDate" [maxDate]="maxDate"></p-datepicker>
                 @if (dateValidation) {
                   <span class="red_warning">Please enter Date</span>
                 }

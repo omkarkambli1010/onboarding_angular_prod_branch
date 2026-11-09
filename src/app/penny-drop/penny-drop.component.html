@@ -211,9 +211,9 @@
                     @if (!isIfsc) {
                       <div>
                         <div class="position-relative">
-                          <p-autoComplete class="autocomplete_field" id="ifsccode"
+                          <p-autocomplete class="autocomplete_field" id="ifsccode"
                             name="ifsccode" placeholder="Search by IFSC or Locality" onpaste="return false;"
-                          [(ngModel)]="enteredIFSCNumber" maxlength="20" [suggestions]="filteredIfsc" (input)="
+                          [(ngModel)]="enteredIFSCNumber" [suggestions]="filteredIfsc" (input)="
                             accountIfsc($event);
                             validateAccountForm();
                             searchIfsc($event)
@@ -221,7 +221,7 @@
                             onselectstart="return false;" onkeypress="return /[0-9a-zA-Z ]/i.test(event.key)"
                             p-autocomplete-loader="false" [attr.aria-disabled]="isIfscDisabled"
                             [disabled]="isIfscDisabled">
-                          </p-autoComplete>
+                          </p-autocomplete>
                         </div>
                         <!-- <span *ngIf="ifscBankValidation" class="red_warning"
                         >Please enter correct IFSC code or contact our customer

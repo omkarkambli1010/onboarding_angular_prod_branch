@@ -314,15 +314,15 @@
   padding: 15px;
 }
 
-/* ::ng-deep .p-inputwrapper .p-calendar .p-datepicker-header {
+/* ::ng-deep .p-inputwrapper .p-datepicker .p-datepicker-header {
   padding: 0rem 0.5rem;
 } */
 
-::ng-deep .p-inputwrapper .p-calendar {
+::ng-deep .p-inputwrapper .p-datepicker {
   width: 100%;
 }
 
-::ng-deep .p-inputwrapper .p-calendar .p-inputtext {
+::ng-deep .p-inputwrapper .p-datepicker .p-inputtext {
   max-width: 100% !important;
   padding: 0.375rem 0.75rem;
   font-weight: 600;
@@ -331,7 +331,7 @@
   line-height: normal;
 }
 
-::ng-deep .p-inputwrapper .p-calendar.p-focus {
+::ng-deep .p-inputwrapper .p-datepicker.p-focus {
   width: 100%;
 }
 
@@ -339,23 +339,23 @@
   font-family: 600;
 }
 
-::ng-deep .p-inputwrapper .p-calendar.p-focus .p-datepicker,
-::ng-deep .p-inputwrapper .p-calendar.p-focus .p-datepicker .p-datepicker-header {
+::ng-deep .p-inputwrapper .p-datepicker.p-focus .p-datepicker,
+::ng-deep .p-inputwrapper .p-datepicker.p-focus .p-datepicker .p-datepicker-header {
   padding: 0;
 }
 
-::ng-deep .p-inputwrapper .p-calendar.p-focus .p-datepicker thead tr th,
-::ng-deep .p-inputwrapper .p-calendar.p-focus .p-datepicker tbody tr td {
+::ng-deep .p-inputwrapper .p-datepicker.p-focus .p-datepicker thead tr th,
+::ng-deep .p-inputwrapper .p-datepicker.p-focus .p-datepicker tbody tr td {
   text-align: center;
   padding: 0;
   text-align: center;
 }
 
-::ng-deep .p-inputwrapper .p-calendar.p-focus .p-datepicker .p-yearpicker .p-yearpicker-year {
+::ng-deep .p-inputwrapper .p-datepicker.p-focus .p-datepicker .p-datepicker-year-view .p-datepicker-year {
   width: 33.33%;
 }
 
-::ng-deep .p-calendar:not(.p-calendar-disabled).p-focus>.p-inputtext {
+::ng-deep .p-datepicker:not(.p-disabled).p-focus>.p-inputtext {
   box-shadow: unset;
   border: 1px solid #666666;
 }

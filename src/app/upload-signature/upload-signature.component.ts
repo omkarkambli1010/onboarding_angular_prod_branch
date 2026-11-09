@@ -14,7 +14,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import SignaturePad from 'signature_pad';
 import { Subject, Observable, Observer } from 'rxjs';
 import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
-import { GeolocationService } from '@ng-web-apis/geolocation';
+import { WaGeolocationService } from '@ng-web-apis/geolocation';
 import { ToastrService } from 'ngx-toastr';
 import { APIService } from '../api.service';
 import { ExtensionService } from '../extension.service';
@@ -142,7 +142,7 @@ export class UploadSignatureComponent implements AfterViewChecked, OnDestroy {
     private route: ActivatedRoute,
     private title: Title,
     private meta: Meta,
-    private geolocation: GeolocationService,
+    private geolocation: WaGeolocationService,
     private sanitizer: DomSanitizer,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,

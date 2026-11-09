@@ -1470,13 +1470,13 @@
   font-weight: 600;
 }
 
-/* .pan_details_form ::ng-deep.p-carousel-prev,
-.pan_details_form ::ng-deep.p-carousel-next {
+/* .pan_details_form ::ng-deep.p-carousel-prev-button,
+.pan_details_form ::ng-deep.p-carousel-next-button {
   display: none;
 } */
 
 .pan_details_form
-  ::ng-deep.p-carousel-indicators
+  ::ng-deep.p-carousel-indicator-list
   ::ng-deep.p-carousel-indicator
   button {
   width: 10px;
@@ -1484,7 +1484,7 @@
   border-radius: 50%;
 }
 
-.pan_details_form ::ng-deep.p-carousel-indicators::ng-deep.p-highlight button {
+.pan_details_form ::ng-deep.p-carousel-indicator-list::ng-deep.p-highlight button {
   width: 20px;
   border-radius: 5px;
   background: #141414 !important;
@@ -1595,13 +1595,13 @@
     /* max-width: 265px; */
   }
 
-  .pan_details_form ::ng-deep.p-carousel-prev,
-  .pan_details_form ::ng-deep.p-carousel-next {
+  .pan_details_form ::ng-deep.p-carousel-prev-button,
+  .pan_details_form ::ng-deep.p-carousel-next-button {
     display: none;
   }
 
   .pan_details_form
-    ::ng-deep.p-carousel-indicators
+    ::ng-deep.p-carousel-indicator-list
     ::ng-deep.p-carousel-indicator
     button {
     width: 10px;
@@ -1610,7 +1610,7 @@
   }
 
   .pan_details_form
-    ::ng-deep.p-carousel-indicators::ng-deep.p-highlight
+    ::ng-deep.p-carousel-indicator-list::ng-deep.p-highlight
     button {
     width: 20px;
     border-radius: 5px;
@@ -1634,11 +1634,11 @@
     padding-top: 16px;
   }
 
-  ::ng-deep .custom-carousel .p-carousel-container {
+  ::ng-deep .custom-carousel .p-carousel-content-container {
     padding: 0 15%;
   }
 
-  ::ng-deep .custom-carousel .p-carousel-items-content {
+  ::ng-deep .custom-carousel .p-carousel-viewport {
     overflow: visible;
   }
 
@@ -1656,7 +1656,7 @@
 
   ::ng-deep.custom-carousel
     ::ng-deep.p-carousel-content
-    ::ng-deep.p-carousel-indicators {
+    ::ng-deep.p-carousel-indicator-list {
     display: none;
   }
 
